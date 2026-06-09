@@ -1,0 +1,28 @@
+# AI Agent Assembly — MkDocs Material palette + font block (python-sdk).
+# Paste under `theme:` in mkdocs.yml. Brand hexes come from mkdocs-extra.css
+# (primary/accent: custom). Tokens: design/doc-tokens.md
+palette:
+  - media: "(prefers-color-scheme)"
+    toggle:
+      icon: material/brightness-auto
+      name: Follow system
+  - media: "(prefers-color-scheme: light)"
+    scheme: default
+    primary: custom
+    accent: custom
+    toggle:
+      icon: material/brightness-7
+      name: Switch to dark mode
+  - media: "(prefers-color-scheme: dark)"
+    scheme: slate
+    primary: custom
+    accent: custom
+    toggle:
+      icon: material/brightness-4
+      name: Switch to light mode
+font:
+  text: Inter
+  code: JetBrains Mono
+# Also add at top level of mkdocs.yml:
+#   extra_css:
+#     - stylesheets/aaasm-brand.css
