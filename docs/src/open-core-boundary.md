@@ -40,7 +40,7 @@ Operating a multi-tenant SaaS with the security and reliability commitments in t
 
 ---
 
-## Feature Matrix
+## Feature matrix
 
 | Feature | Apache-2.0 (OSS) | AAA-Commercial (Enterprise) |
 |---|---|---|
@@ -76,7 +76,7 @@ Operating a multi-tenant SaaS with the security and reliability commitments in t
 
 ---
 
-## Crate Licensing
+## Crate licensing
 
 All Cargo crates in the `agent-assembly` workspace are Apache-2.0:
 
@@ -105,7 +105,7 @@ Enterprise features (SSO, SCIM, tamper-evident audit, dedicated regions) are del
 
 ---
 
-## Contributing to the OSS Core
+## Contributing to the OSS core
 
 The Apache-2.0 crates welcome community contributions. See `CONTRIBUTING.md` in the `agent-assembly` repository for:
 
@@ -118,12 +118,12 @@ Enterprise feature requests (SSO, SCIM, audit extensions) are tracked as AAASM J
 
 ---
 
-## Related Documentation
+## Related documentation
 
-- [Security Model](security-model.md) — cryptographic primitives and audit log details
-- [Cloud Deployment](cloud-deployment.md) — SSO, SCIM, SLA tier comparison
-- [Why AI Agent Assembly?](comparison.md) — open-source posture vs competitors
+- [Security model](security-model.md) — cryptographic primitives and audit log details
+- [Cloud deployment](cloud-deployment.md) — SSO, SCIM, SLA tier comparison
+- [Why AI Agent Assembly?](comparison.md) — open-source posture vs. competitors
 
 ---
 
-*Last reviewed: 2026-05-10 · Legal approver: @legal-team*
+*Last reviewed: 2026-06-11 · Legal approver: @legal-team*
