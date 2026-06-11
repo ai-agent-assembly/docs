@@ -53,9 +53,9 @@ Legend: ✓ = full support · partial = limited or gated behind a paid tier · �
 
 ---
 
-## Where We Currently Lag
+## Where we currently lag
 
-These are capabilities competitors offer that AI Agent Assembly does not yet fully deliver. Linked roadmap tickets where one exists.
+These are capabilities competitors offer that AI Agent Assembly does not yet fully deliver.
 
 1. **Vault-backed secrets management** — Pillar Security provides first-class secrets vault integration with automatic secret rotation and injection. AAASM currently supports secret-pattern detection via regex policies but does not integrate with HashiCorp Vault or AWS Secrets Manager.
 2. **Automated human-in-the-loop approval workflows** — Pillar Security provides structured approval routing with escalation chains. AAASM can deny and alert but does not yet route decisions to a named approver queue.
@@ -65,9 +65,9 @@ These are capabilities competitors offer that AI Agent Assembly does not yet ful
 
 ---
 
-## Where We Lead
+## Where we lead
 
-These are capabilities where AI Agent Assembly provides uniquely strong or differentiated support.
+These are capabilities where AI Agent Assembly is uniquely strong or differentiated.
 
 1. **Pre-execution runtime enforcement** — AAASM is the only product in this comparison that makes binding allow/deny decisions *before* an agent action executes. All others are observability tools that record what happened after the fact.
 2. **Kernel-level bypass detection via eBPF** — `aa-ebpf` intercepts TLS calls at the SSL library level using Linux uprobes, catching bypass attempts that SDK-only solutions cannot see. No competitor in this matrix offers kernel-level enforcement.
@@ -77,9 +77,9 @@ These are capabilities where AI Agent Assembly provides uniquely strong or diffe
 
 ---
 
-## Competitor Documentation References
+## Competitor documentation references
 
-Last validated: 2026-05-05 against vendor documentation as of that date.
+Last validated 2026-05-05 against each vendor's documentation as of that date.
 
 | Competitor | Documentation URL |
 |---|---|
@@ -90,12 +90,12 @@ Last validated: 2026-05-05 against vendor documentation as of that date.
 
 ---
 
-## Related Documentation
+## Related documentation
 
-- [Security Model](security-model.md) — STRIDE threat model, IronClaw defense
-- [Open Core Boundary](open-core-boundary.md) — what is OSS vs enterprise
-- [Quick Start (SaaS)](quickstart-saas.md) — get started in minutes
+- [Security model](security-model.md) — STRIDE threat model, IronClaw defense
+- [Open core boundary](open-core-boundary.md) — what is OSS vs. enterprise
+- [Quick start (SaaS)](quickstart-saas.md) — get started in minutes
 
 ---
 
-*Last reviewed: 2026-05-10 — AI Agent Assembly Team*
+*Last reviewed: 2026-06-11 — AI Agent Assembly Team*
