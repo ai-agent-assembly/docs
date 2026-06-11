@@ -2,6 +2,7 @@
 
 [Introduction](README.md)
 [Documentation](documentation.md)
+[Compatibility Matrix](compatibility.md)
 
 ---
 
