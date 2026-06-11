@@ -3,6 +3,7 @@ name: Build and Deploy Docs
 on:
   push:
     branches: [main]
+    tags: ["v*"]
     paths:
       - "docs/**"
       - ".github/workflows/deploy.yml"
@@ -31,10 +32,34 @@ jobs:
       - name: Build
         run: cd docs && mdbook build
 
-      # Resolve the version subpath this run publishes into (main push -> latest).
+      # Resolve the version subpath this run publishes into.
+      # main push  -> "latest"
+      # tag push   -> the tag name without the leading "v" (e.g. v0.1.0 -> 0.1.0)
       - name: Resolve version slug
         id: slug
-        run: echo "slug=latest" >> "$GITHUB_OUTPUT"
+        run: |
+          if [[ "$GITHUB_REF" == refs/tags/* ]]; then
+            slug="${GITHUB_REF_NAME#v}"
+          else
+            slug="latest"
+          fi
+          echo "slug=${slug}" >> "$GITHUB_OUTPUT"
+
+      # Tag-only: preserve previously published version subpaths on a release
+      # tag build. The Pages artifact deploy replaces the whole site, so prior
+      # frozen versions must be re-staged from the live site before we add the
+      # new one. This step is the per-version aggregation step at release time.
+      - name: Preserve existing published versions (release tag only)
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          set -euo pipefail
+          mkdir -p site
+          pages_url="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
+          echo "Fetching currently published site from ${pages_url} to preserve existing versions"
+          # Mirror the live site; ignore failure on first-ever release (nothing published yet).
+          wget --quiet --recursive --no-parent --no-host-directories \
+               --directory-prefix=site "${pages_url}/" || \
+            echo "No existing published site found (first release) — continuing"
 
       # Assemble the deployable site root:
       #   <root>/index.html        -> redirect to latest/
