@@ -9,12 +9,13 @@ requirements table, and splices each into the Markdown page between its dedicate
 badge strip are preserved.
 
 The matrix table is intentionally compact: every cell holds only a version, a range,
-the sentinel ``—`` or a short footnote marker. The ``Ref`` markers are emitted as
-real Markdown footnote references (``[^cnN]``) and the "Notes" section as the matching
-footnote definitions (``[^cnN]: text``), so mdBook renders each marker as a clickable
-superscript link that jumps to its note. The long provenance and caveat prose lives in
-those footnote definitions below the table, so the table columns stay uniform and no
-single row balloons.
+or the sentinel ``—``. The footnote marker is appended to the END of each row's
+``Core release`` cell as a real Markdown footnote reference (``[^cnN]``); the "Notes"
+section renders the matching footnote definitions (``[^cnN]: text``), so mdBook renders
+each marker as a clickable superscript link (hanging off the core-release identifier)
+that jumps to its note. The long provenance and caveat prose lives in those footnote
+definitions below the table, so the table columns stay uniform and no single row
+balloons. There is no dedicated ``Ref`` column — the superscript rides the core cell.
 
 Run it with no arguments to regenerate the page in place. Run it with ``--check`` to
 verify the committed page already matches the manifest (used by CI to fail on drift).
@@ -44,8 +45,9 @@ NOTES_END: Final[str] = "<!-- END GENERATED:notes -->"
 REQUIREMENTS_BEGIN: Final[str] = "<!-- BEGIN GENERATED:requirements -->"
 REQUIREMENTS_END: Final[str] = "<!-- END GENERATED:requirements -->"
 
-# Prefix for the Markdown footnote keys shared by the matrix ``Ref`` markers and the
-# "Notes" footnote definitions, e.g. footnote 1 is keyed ``cn1`` (compat-note 1).
+# Prefix for the Markdown footnote keys shared by the matrix core-release superscript
+# markers and the "Notes" footnote definitions, e.g. footnote 1 is keyed ``cn1``
+# (compat-note 1).
 FOOTNOTE_KEY_PREFIX: Final[str] = "cn"
 
 # Order in which per-SDK columns/rows are rendered, with their display headers.
@@ -125,17 +127,19 @@ def render_matrix(manifest: dict[str, object], footnotes: dict[str, int]) -> str
 
     Each row pairs one core release with the SDK release (or range) that speaks its
     wire protocol, plus the protocol contract and lifecycle status. Every cell stays
-    short: a version, a range, the sentinel ``—`` or a footnote marker. The trailing
-    ``Ref`` column holds a Markdown footnote reference (e.g. ``[^cn1]``) that mdBook
-    renders as a clickable superscript link to its definition in the "Notes" list
-    below; rows that share a note (same ``ref``) emit the same key.
+    short: a version, a range, or the sentinel ``—``. The row's footnote marker is
+    appended to the END of the ``Core release`` cell as a Markdown footnote reference
+    (e.g. ``v0.0.1-alpha.5[^cn2]``) that mdBook renders as a clickable superscript link
+    hanging off the core identifier, jumping to its definition in the "Notes" list
+    below; rows that share a note (same ``ref``) emit the same key. There is no
+    separate ``Ref`` column.
     """
     header = (
         "| Core release | Status | Protocol | "
         + " | ".join(SDK_HEADERS[key] for key in SDK_KEYS)
-        + " | Ref |"
+        + " |"
     )
-    separator = "|---|---|---|" + "---|" * len(SDK_KEYS) + "---|"
+    separator = "|---|---|---|" + "---|" * len(SDK_KEYS)
 
     lines: list[str] = [header, separator]
     for entry in _releases(manifest):
@@ -144,13 +148,13 @@ def render_matrix(manifest: dict[str, object], footnotes: dict[str, int]) -> str
             raise TypeError("each [release.sdks] entry must be a table")
         ref = str(entry.get("ref", ""))
         marker = f"[^{FOOTNOTE_KEY_PREFIX}{footnotes[ref]}]" if ref in footnotes else ""
+        core_cell = _escape_cell(str(entry.get("core", "—"))) + marker
         cells = [
-            _escape_cell(str(entry.get("core", "—"))),
+            core_cell,
             _escape_cell(str(entry.get("status", "—"))),
             _escape_cell(str(entry.get("proto", "—"))),
         ]
         cells.extend(_escape_cell(str(sdks.get(key, "—"))) for key in SDK_KEYS)
-        cells.append(marker)
         lines.append("| " + " | ".join(cells) + " |")
 
     return "\n".join(lines)

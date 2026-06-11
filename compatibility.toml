@@ -61,9 +61,10 @@
 #   status  : one of current | supported | previous | deprecated | eol
 #   proto   : the wire-protocol contract this core speaks (aa-proto package dir).
 #             A change here between rows marks a BREAKING boundary (see header).
-#   ref     : footnote key into the [[note]] list below. The generated table shows
-#             a compact marker (e.g. "[1]") in a trailing "Ref" column; the full
-#             provenance/caveat text lives in the rendered "Notes" footnote list.
+#   ref     : footnote key into the [[note]] list below. The generated table appends
+#             a compact superscript marker to the END of the row's "Core release" cell
+#             (e.g. "v0.0.1-alpha.5"²); the full provenance/caveat text lives in the
+#             rendered "Notes" footnote list at the bottom of the page.
 #   sdks    : the SDK release (or RANGE) that speaks this core's protocol, per
 #             language. Use the published SDK tag/range where a pairing is
 #             authoritative; use "—" where it is not (and explain it in the note).

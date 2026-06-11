@@ -16,8 +16,10 @@ not guaranteed across **breaking changes**: those are tracked through the
 `protocol/v2`) marks a breaking boundary, and the affected rows carry a numbered
 footnote explaining the break and which SDK range is required. Long provenance and
 caveat text lives in the **Notes** footnote list below the table, so the table
-itself stays compact — each cell is just a version, a range, `—`, or a footnote
-marker that links to its note.
+itself stays compact — each cell is just a version, a range, or `—`. Each
+**Core release** cell carries a small superscript footnote (e.g.
+`v0.0.1-alpha.5`²) hanging off the release identifier; clicking it jumps to that
+row's provenance note at the bottom of the page.
 
 ## Latest published versions
 
@@ -34,20 +36,21 @@ maintenance.
 
 <!-- BEGIN GENERATED:matrix -->
 
-| Core release | Status | Protocol | Python SDK | Node SDK | Go SDK | Ref |
-|---|---|---|---|---|---|---|
-| tested @ 9cf8a033 (post-v0.0.1-alpha.5, unreleased) | current | protocol/v1 | PyPI 0.0.1a5 / git v0.0.2 | npm @alpha 0.0.1-alpha.5 | v0.0.1-alpha.4 | [^cn1] |
-| v0.0.1-alpha.5 | supported | protocol/v1 | — | — | — | [^cn2] |
-| v0.0.1-alpha.4 | supported | protocol/v1 | — | — | — | [^cn3] |
-| v0.0.1-alpha.3 | supported | protocol/v1 | — | — | — | [^cn4] |
-| v0.0.1-alpha.2 | previous | protocol/v1 | — | — | — | [^cn4] |
-| v0.0.1-alpha.1 | previous | protocol/v1 | — | — | — | [^cn4] |
+| Core release | Status | Protocol | Python SDK | Node SDK | Go SDK |
+|---|---|---|---|---|---|
+| tested @ 9cf8a033 (post-v0.0.1-alpha.5, unreleased)[^cn1] | current | protocol/v1 | PyPI 0.0.1a5 / git v0.0.2 | npm @alpha 0.0.1-alpha.5 | v0.0.1-alpha.4 |
+| v0.0.1-alpha.5[^cn2] | supported | protocol/v1 | — | — | — |
+| v0.0.1-alpha.4[^cn3] | supported | protocol/v1 | — | — | — |
+| v0.0.1-alpha.3[^cn4] | supported | protocol/v1 | — | — | — |
+| v0.0.1-alpha.2[^cn4] | previous | protocol/v1 | — | — | — |
+| v0.0.1-alpha.1[^cn4] | previous | protocol/v1 | — | — | — |
 
 <!-- END GENERATED:matrix -->
 
 A cell of `—` means an exact, authoritative core↔SDK pairing could **not** be
-determined from a published tag or a committed pin, so none is asserted. The `Ref`
-marker links each row to its provenance footnote in the **Notes** list below.
+determined from a published tag or a committed pin, so none is asserted. The
+superscript on each **Core release** cell links that row to its provenance
+footnote in the **Notes** list below.
 
 ### Notes
 
