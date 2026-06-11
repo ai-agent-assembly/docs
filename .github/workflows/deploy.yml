@@ -31,16 +31,70 @@ jobs:
       - name: Build
         run: cd docs && mdbook build
 
+      # Resolve the version subpath this run publishes into (main push -> latest).
+      - name: Resolve version slug
+        id: slug
+        run: echo "slug=latest" >> "$GITHUB_OUTPUT"
+
+      # Assemble the deployable site root:
+      #   <root>/index.html        -> redirect to latest/
+      #   <root>/versions.json     -> version manifest read by the theme dropdown
+      #   <root>/<slug>/           -> the freshly built book
+      - name: Stage site
+        if: github.event_name == 'push'
+        env:
+          SLUG: ${{ steps.slug.outputs.slug }}
+        run: |
+          set -euo pipefail
+          mkdir -p site
+
+          # Drop in the freshly built book at its version subpath.
+          rm -rf "site/${SLUG}"
+          mkdir -p "site/${SLUG}"
+          cp -r docs/book/. "site/${SLUG}/"
+
+          # Root redirect -> latest/
+          cp docs/site-root/index.html site/index.html
+
+          # Rebuild versions.json: always include latest, plus every version subpath
+          # currently staged (existing tags + this build's slug).
+          python3 - "$SLUG" <<'PY'
+          import json, os, sys
+          slug = sys.argv[1]
+          site = "site"
+          # Discover version subpaths already staged (dirs holding an index.html, excluding root).
+          found = set()
+          for name in os.listdir(site):
+              p = os.path.join(site, name)
+              if os.path.isdir(p) and os.path.isfile(os.path.join(p, "index.html")):
+                  found.add(name)
+          found.add(slug)
+          found.add("latest")
+
+          def entry(vid):
+              return {"id": vid, "label": vid, "path": f"{vid}/"}
+
+          # latest first, then frozen versions newest-ish (reverse sort) for stable ordering.
+          versions = [entry("latest")]
+          for vid in sorted((v for v in found if v != "latest"), reverse=True):
+              versions.append(entry(vid))
+
+          with open(os.path.join(site, "versions.json"), "w") as f:
+              json.dump({"versions": versions}, f, indent=2)
+              f.write("\n")
+          print("versions.json:", versions)
+          PY
+
       - name: Upload artifact
-        if: github.ref == 'refs/heads/main'
+        if: github.event_name == 'push'
         uses: actions/upload-pages-artifact@v5
         with:
-          path: docs/book
+          path: site
 
   deploy:
     name: Deploy to GitHub Pages
     needs: build
-    if: github.ref == 'refs/heads/main'
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     permissions:
       pages: write
