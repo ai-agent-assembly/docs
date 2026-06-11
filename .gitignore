@@ -1,1 +1,3 @@
 docs/book/
+__pycache__/
+*.pyc

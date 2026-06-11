@@ -101,7 +101,6 @@ jobs:
         if: github.event_name != 'pull_request'
         env:
           SLUG: ${{ steps.slug.outputs.slug }}
-          CHANNEL: ${{ steps.slug.outputs.channel }}
         run: |
           set -euo pipefail
           mkdir -p site
@@ -114,26 +113,26 @@ jobs:
           # Root redirect (resolves channel via versions.json client-side).
           cp docs/site-root/index.html site/index.html
 
-          # Rebuild versions.json with channel metadata. "latest" is always the
-          # main channel. A release cut assigns the freshly built slug to its
-          # channel (stable | pre-release); prior cuts whose channel we can no
-          # longer infer from the live manifest are carried as archived snapshots,
-          # except we always re-derive stable/pre-release from the tag shape so the
-          # newest stable and newest pre-release stay promoted to channels.
-          python3 - "$SLUG" "$CHANNEL" <<'PY'
-          import json, os, re, sys
+          # Rebuild versions.json with channel metadata. Channels are recomputed from
+          # the FULL discovered version set every run by docs/scripts/channels.py:
+          #   * latest      -> always the main build
+          #   * stable      -> newest stable tag (vX.Y.Z)
+          #   * pre-release -> newest pre-release tag, ONLY when strictly greater
+          #                    (semver precedence) than the newest stable; a
+          #                    superseding stable withdraws it (stays archived).
+          # All other tags are carried as archived snapshots (reachable, not promoted).
+          python3 - "$SLUG" <<'PY'
+          import json, os, sys
+          sys.path.insert(0, os.path.join("docs", "scripts"))
+          from channels import compute_channels, semver_cmp
+          from functools import cmp_to_key
 
           slug = sys.argv[1]
-          channel = sys.argv[2]
           site = "site"
-
-          STABLE_RE = re.compile(r"^v\d+\.\d+\.\d+$")
-          PRE_RE = re.compile(r"^v\d+\.\d+\.\d+-")
+          manifest_path = os.path.join(site, "versions.json")
 
           def label_for(vid):
-              if vid == "latest":
-                  return "latest (main)"
-              return vid
+              return "latest (main)" if vid == "latest" else vid
 
           # Discover version subpaths already staged (dirs holding an index.html).
           found = set()
@@ -144,47 +143,12 @@ jobs:
           found.add(slug)
           found.add("latest")
 
-          # Preserve any channel assignments recorded in the existing manifest so a
-          # main-only "latest" rebuild does not lose the promoted stable/pre-release.
-          prior = {}
-          manifest_path = os.path.join(site, "versions.json")
-          if os.path.isfile(manifest_path):
-              try:
-                  with open(manifest_path) as f:
-                      for v in json.load(f).get("versions", []):
-                          if v.get("channel"):
-                              prior[v["id"]] = v["channel"]
-              except Exception:
-                  prior = {}
-          # This run's slug takes its freshly resolved channel.
-          if channel in ("latest", "stable", "pre-release"):
-              prior[slug] = channel
+          # Recompute channel assignments from the full set (semver gate applied).
+          assigned = compute_channels(found)
 
-          # Among all known stable / pre-release tags, only the newest of each is a
-          # live channel; older ones drop to archived.
-          def vsort_key(vid):
-              # Sort tags newest-first by their numeric/identifier components.
-              core = vid.lstrip("v")
-              return [int(x) if x.isdigit() else x for x in re.split(r"[.\-]", core)]
-
-          stable_tags = sorted((v for v in found if STABLE_RE.match(v)), key=vsort_key, reverse=True)
-          pre_tags = sorted((v for v in found if PRE_RE.match(v)), key=vsort_key, reverse=True)
-          newest_stable = stable_tags[0] if stable_tags else None
-          newest_pre = pre_tags[0] if pre_tags else None
-
-          def channel_of(vid):
-              if vid == "latest":
-                  return "latest"
-              if vid == newest_stable:
-                  return "stable"
-              if vid == newest_pre:
-                  return "pre-release"
-              return None  # archived
-
-          channels = []
-          archived = []
+          channels, archived = [], []
           for vid in found:
-              ch = channel_of(vid)
+              ch = assigned.get(vid)
               entry = {"id": vid, "label": label_for(vid), "path": f"{vid}/"}
               if ch:
                   entry["channel"] = ch
@@ -195,7 +159,7 @@ jobs:
           # Channels ordered latest, pre-release, stable; archived newest-first.
           order = {"latest": 0, "pre-release": 1, "stable": 2}
           channels.sort(key=lambda t: order.get(t[0], 99))
-          archived.sort(key=lambda t: vsort_key(t[0]), reverse=True)
+          archived.sort(key=lambda t: cmp_to_key(semver_cmp)(t[0]), reverse=True)
 
           versions = [e for _, _, e in channels] + [e for _, e in archived]
 
