@@ -11,20 +11,6 @@ on:
     paths:
       - "docs/**"
       - ".github/workflows/deploy.yml"
-  # Release-driven frozen cut. The hub has no version of its own — it tracks the
-  # COORDINATED PRODUCT release line. When the product publishes a release, the
-  # agent-assembly repo fans out a repository_dispatch to the doc consumers
-  # (same event python-sdk / node-sdk consume); we cut a frozen snapshot for the
-  # product tag carried in the payload.
-  repository_dispatch:
-    types: [agent-assembly-release-published]
-  # Manual fallback: cut a frozen snapshot for an explicit product tag.
-  workflow_dispatch:
-    inputs:
-      release_tag:
-        description: "Product release tag to freeze (e.g. v0.1.0 or v0.1.0-alpha.5)"
-        required: true
-        type: string
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -45,140 +31,16 @@ jobs:
       - name: Build
         run: cd docs && mdbook build
 
-      # Resolve which version subpath this run publishes into, and on a release
-      # cut, which release CHANNEL the product tag maps to.
-      #   main push                 -> slug "latest"          (channel latest)
-      #   release dispatch/manual   -> slug = product tag     (stable | pre-release)
-      # Channel from tag: ^v\d+\.\d+\.\d+$ -> stable; a -suffix -> pre-release.
-      - name: Resolve version slug and channel
-        id: slug
-        env:
-          RELEASE_TAG: ${{ github.event.client_payload.release_tag || github.event.inputs.release_tag }}
-        run: |
-          set -euo pipefail
-          if [[ "${{ github.event_name }}" == "repository_dispatch" || "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            tag="${RELEASE_TAG:-}"
-            if [[ -z "${tag}" ]]; then
-              echo "::error::release_tag missing from dispatch payload" >&2
-              exit 1
-            fi
-            # Use the product tag verbatim as the version id/label/subpath.
-            slug="${tag}"
-            if [[ "${tag}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-              channel="stable"
-            else
-              channel="pre-release"
-            fi
-          else
-            slug="latest"
-            channel="latest"
-          fi
-          echo "slug=${slug}" >> "$GITHUB_OUTPUT"
-          echo "channel=${channel}" >> "$GITHUB_OUTPUT"
-          echo "Resolved slug=${slug} channel=${channel}"
-
-      # A release cut must preserve previously published version subpaths, since
-      # the Pages artifact deploy replaces the whole site. Re-stage prior frozen
-      # versions from the live site before adding the new one. This is the
-      # per-version aggregation step at product-release time.
-      - name: Preserve existing published versions (release cut only)
-        if: github.event_name == 'repository_dispatch' || github.event_name == 'workflow_dispatch'
-        run: |
-          set -euo pipefail
-          mkdir -p site
-          pages_url="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
-          echo "Fetching currently published site from ${pages_url} to preserve existing versions"
-          # Mirror the live site; ignore failure on first-ever release (nothing published yet).
-          wget --quiet --recursive --no-parent --no-host-directories \
-               --directory-prefix=site "${pages_url}/" || \
-            echo "No existing published site found (first release) — continuing"
-
-      # Assemble the deployable site root:
-      #   <root>/index.html        -> redirect through stable -> pre-release -> latest
-      #   <root>/versions.json     -> channel manifest read by the theme dropdown + banner
-      #   <root>/<slug>/           -> the freshly built book
-      - name: Stage site
-        if: github.event_name != 'pull_request'
-        env:
-          SLUG: ${{ steps.slug.outputs.slug }}
-        run: |
-          set -euo pipefail
-          mkdir -p site
-
-          # Drop in the freshly built book at its version subpath.
-          rm -rf "site/${SLUG}"
-          mkdir -p "site/${SLUG}"
-          cp -r docs/book/. "site/${SLUG}/"
-
-          # Root redirect (resolves channel via versions.json client-side).
-          cp docs/site-root/index.html site/index.html
-
-          # Rebuild versions.json with channel metadata. Channels are recomputed from
-          # the FULL discovered version set every run by docs/scripts/channels.py:
-          #   * latest      -> always the main build
-          #   * stable      -> newest stable tag (vX.Y.Z)
-          #   * pre-release -> newest pre-release tag, ONLY when strictly greater
-          #                    (semver precedence) than the newest stable; a
-          #                    superseding stable withdraws it (stays archived).
-          # All other tags are carried as archived snapshots (reachable, not promoted).
-          python3 - "$SLUG" <<'PY'
-          import json, os, sys
-          sys.path.insert(0, os.path.join("docs", "scripts"))
-          from channels import compute_channels, semver_cmp
-          from functools import cmp_to_key
-
-          slug = sys.argv[1]
-          site = "site"
-          manifest_path = os.path.join(site, "versions.json")
-
-          def label_for(vid):
-              return "latest (main)" if vid == "latest" else vid
-
-          # Discover version subpaths already staged (dirs holding an index.html).
-          found = set()
-          for name in os.listdir(site):
-              p = os.path.join(site, name)
-              if os.path.isdir(p) and os.path.isfile(os.path.join(p, "index.html")):
-                  found.add(name)
-          found.add(slug)
-          found.add("latest")
-
-          # Recompute channel assignments from the full set (semver gate applied).
-          assigned = compute_channels(found)
-
-          channels, archived = [], []
-          for vid in found:
-              ch = assigned.get(vid)
-              entry = {"id": vid, "label": label_for(vid), "path": f"{vid}/"}
-              if ch:
-                  entry["channel"] = ch
-                  channels.append((ch, vid, entry))
-              else:
-                  archived.append((vid, entry))
-
-          # Channels ordered latest, pre-release, stable; archived newest-first.
-          order = {"latest": 0, "pre-release": 1, "stable": 2}
-          channels.sort(key=lambda t: order.get(t[0], 99))
-          archived.sort(key=lambda t: cmp_to_key(semver_cmp)(t[0]), reverse=True)
-
-          versions = [e for _, _, e in channels] + [e for _, e in archived]
-
-          with open(manifest_path, "w") as f:
-              json.dump({"versions": versions}, f, indent=2)
-              f.write("\n")
-          print("versions.json:", json.dumps(versions))
-          PY
-
       - name: Upload artifact
-        if: github.event_name != 'pull_request'
+        if: github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v5
         with:
-          path: site
+          path: docs/book
 
   deploy:
     name: Deploy to GitHub Pages
     needs: build
-    if: github.event_name != 'pull_request'
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
       pages: write
