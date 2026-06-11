@@ -7,20 +7,21 @@ Run: ``python3 docs/scripts/channels_test.py`` (no third-party deps).
 from __future__ import annotations
 
 import sys
+from collections.abc import Callable, Iterable
 
 from channels import compute_channels, semver_cmp
 
 
-def _channels(ids):
+def _channels(ids: Iterable[str]) -> dict[str, str]:
     """Return {channel: id} for the promoted channels (ignores archived)."""
-    out = {}
+    out: dict[str, str] = {}
     for vid, ch in compute_channels(ids).items():
         if ch:
             out[ch] = vid
     return out
 
 
-def test_semver_comparator():
+def test_semver_comparator() -> None:
     # X.Y.Z-pre < X.Y.Z
     assert semver_cmp("v0.1.0-rc.1", "v0.1.0") < 0
     assert semver_cmp("v0.1.0", "v0.1.0-rc.1") > 0
@@ -37,7 +38,7 @@ def test_semver_comparator():
     assert semver_cmp("latest", "v0.0.1") < 0
 
 
-def test_scenario_1_prerelease_ahead_of_stable():
+def test_scenario_1_prerelease_ahead_of_stable() -> None:
     """Pre-release line ahead of the only stable -> pre-release promoted."""
     ids = {
         "latest",
@@ -56,7 +57,7 @@ def test_scenario_1_prerelease_ahead_of_stable():
     }, ch
 
 
-def test_scenario_2_stable_supersedes_prerelease():
+def test_scenario_2_stable_supersedes_prerelease() -> None:
     """Adding v0.1.0 supersedes the v0.1.0-* line -> no pre-release channel."""
     ids = {
         "latest",
@@ -76,7 +77,7 @@ def test_scenario_2_stable_supersedes_prerelease():
     assert full["v0.1.0-rc.1"] is None
 
 
-def test_scenario_3_new_prerelease_pulls_ahead():
+def test_scenario_3_new_prerelease_pulls_ahead() -> None:
     """A v0.2.0-alpha.1 pre-release pulls ahead of stable v0.1.0 -> promoted."""
     ids = {
         "latest",
@@ -97,14 +98,14 @@ def test_scenario_3_new_prerelease_pulls_ahead():
     }, ch
 
 
-def test_no_stable_shows_any_prerelease():
+def test_no_stable_shows_any_prerelease() -> None:
     """With no stable tag, the newest pre-release is always shown."""
     ids = {"latest", "v0.1.0-alpha.5", "v0.1.0-rc.1"}
     ch = _channels(ids)
     assert ch == {"latest": "latest", "pre-release": "v0.1.0-rc.1"}, ch
 
 
-def test_prerelease_behind_stable_hidden():
+def test_prerelease_behind_stable_hidden() -> None:
     """The old (now-wrong) demo case: pre-release behind stable -> hidden."""
     ids = {"latest", "v0.1.0", "v0.0.1-alpha.5"}
     full = compute_channels(ids)
@@ -113,8 +114,10 @@ def test_prerelease_behind_stable_hidden():
     assert full["v0.0.1-alpha.5"] is None
 
 
-def main():
-    tests = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
+def main() -> int:
+    tests: list[Callable[[], None]] = [
+        v for k, v in sorted(globals().items()) if k.startswith("test_")
+    ]
     failed = 0
     for t in tests:
         try:
