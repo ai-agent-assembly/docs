@@ -1,14 +1,16 @@
-# Quick Start (SaaS)
+# Quick start (SaaS)
 
-AI Agent Assembly is a SaaS-only product. Choose the tier that matches your team size and compliance requirements, then follow the path below to connect your first AI agent.
+This page takes you from zero to a governed AI agent. The fastest path is the LangChain walkthrough below, which works on any tier. If you want to pick a tier first, jump to [Pro](#pro-tier), [Business](#business-tier), or [Enterprise](#enterprise-tier).
 
-> **Self-hosted deployment is not available.** There is no self-hosted, on-premises, or bring-your-own-infrastructure option. All governance, policy evaluation, and audit logging run in the AI Agent Assembly cloud. See [Open Core Boundary](open-core-boundary.md) for the licensing model.
+AI Agent Assembly is a SaaS-only product. Choose the tier that matches your team size and compliance needs, then connect your first agent.
+
+> **Self-hosted deployment is not available.** There is no self-hosted, on-premises, or bring-your-own-infrastructure option. All governance, policy evaluation, and audit logging run in the AI Agent Assembly cloud. See [Open core boundary](open-core-boundary.md) for the licensing model.
 
 ---
 
-## LangChain: Zero-to-Governance in Under 5 Minutes
+## Govern a LangChain agent in under 5 minutes
 
-This end-to-end example takes a LangChain agent from zero to fully governed in under 5 minutes using any SaaS tier.
+This end-to-end example takes a LangChain agent from zero to fully governed in under 5 minutes, on any tier.
 
 **Prerequisites:** Python 3.12+, an OpenAI API key, and a Pro (or higher) workspace.
 
