@@ -1,14 +1,18 @@
-# Quick Start (SaaS)
+# Quick start (SaaS)
 
-AI Agent Assembly is a SaaS-only product. Choose the tier that matches your team size and compliance requirements, then follow the path below to connect your first AI agent.
+> 🚧 **Coming soon.** The AI Agent Assembly SaaS / commercial platform described here is planned and not yet generally available. The content below reflects the intended design.
 
-> **Self-hosted deployment is not available.** There is no self-hosted, on-premises, or bring-your-own-infrastructure option. All governance, policy evaluation, and audit logging run in the AI Agent Assembly cloud. See [Open Core Boundary](open-core-boundary.md) for the licensing model.
+This page takes you from zero to a governed AI agent. The fastest path is the LangChain walkthrough below, which works on any tier. If you want to pick a tier first, jump to [Pro](#pro-tier), [Business](#business-tier), or [Enterprise](#enterprise-tier).
+
+AI Agent Assembly is a SaaS-only product. Choose the tier that matches your team size and compliance needs, then connect your first agent.
+
+> **Self-hosted deployment is not available.** There is no self-hosted, on-premises, or bring-your-own-infrastructure option. All governance, policy evaluation, and audit logging run in the AI Agent Assembly cloud. See [Open core boundary](open-core-boundary.md) for the licensing model.
 
 ---
 
-## LangChain: Zero-to-Governance in Under 5 Minutes
+## Govern a LangChain agent in under 5 minutes
 
-This end-to-end example takes a LangChain agent from zero to fully governed in under 5 minutes using any SaaS tier.
+This end-to-end example takes a LangChain agent from zero to fully governed in under 5 minutes, on any tier.
 
 **Prerequisites:** Python 3.12+, an OpenAI API key, and a Pro (or higher) workspace.
 
@@ -64,11 +68,15 @@ if __name__ == "__main__":
     print(answer)
 ```
 
-The `@aaa.agent` decorator registers `langchain-research-agent` with the gateway, wraps every invocation with pre-execution policy evaluation, and emits an audit event for every LangChain call — without modifying LangChain internals.
+The `@aaa.agent` decorator does three things, without touching LangChain internals:
+
+- Registers `langchain-research-agent` with the gateway.
+- Runs a policy check before each invocation, blocking the call if policy denies it.
+- Emits an audit event for every call.
 
 ### Step 4 — Activate a starter policy
 
-In the console, open **Policies → New Policy** and apply the starter template (allow all, audit all). This takes under 30 seconds. Every subsequent call from `langchain-research-agent` is now governed, audited, and visible in the **Audit Log** panel.
+In the console, open **Policies → New Policy** and apply the starter template (allow all, audit all). This takes under 30 seconds. From now on, every call from `langchain-research-agent` is governed, audited, and visible in the **Audit Log** panel.
 
 ### What governance looks like at runtime
 
@@ -184,12 +192,12 @@ def run_agent(prompt: str) -> str:
 
 ---
 
-## Next Steps
+## Next steps
 
-- [Cloud Deployment](cloud-deployment.md) — SSO/SCIM deep-dive, region selection, billing, SLA tiers
-- [Policy Reference](policy-reference.md) — full policy rule schema
-- [Open Core Boundary](open-core-boundary.md) — what's in the OSS core vs enterprise tier
+- [Cloud deployment](cloud-deployment.md) — SSO/SCIM deep-dive, region selection, billing, SLA tiers
+- [Policy reference](policy-reference.md) — full policy rule schema
+- [Open core boundary](open-core-boundary.md) — what's in the OSS core vs. the enterprise tier
 
 ---
 
-*Last reviewed: 2026-05-10 · AI Agent Assembly Team*
+*Last reviewed: 2026-06-11 · AI Agent Assembly Team*

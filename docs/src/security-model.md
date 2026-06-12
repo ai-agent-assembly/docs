@@ -1,12 +1,12 @@
-# Security Model
+# Security model
 
-This page documents the security posture of AI Agent Assembly for enterprise security and compliance teams.
+This page documents the security posture of AI Agent Assembly for enterprise security and compliance teams. It covers the layered defense model, a STRIDE threat analysis, the cryptography in use, and the audit and compliance posture.
 
 ---
 
-## IronClaw Five-Layer Defense
+## IronClaw five-layer defense
 
-AI Agent Assembly organizes its security controls into five named layers. Each layer is independently deployable and adds defense-in-depth:
+AI Agent Assembly groups its security controls into five named layers. Each layer is independently deployable and adds defense-in-depth — if one layer is bypassed, the next still applies.
 
 | Layer | Name | What it does |
 |---|---|---|
@@ -18,9 +18,9 @@ AI Agent Assembly organizes its security controls into five named layers. Each l
 
 ---
 
-## STRIDE Threat Model
+## STRIDE threat model
 
-The table below maps each STRIDE category to the five primary components of AI Agent Assembly and the mitigating controls in place.
+The table below maps each STRIDE category to the five primary components of AI Agent Assembly and the control that mitigates it.
 
 | Component | **S**poofing | **T**ampering | **R**epudiation | **I**nfo Disclosure | **D**enial of Service | **E**levation of Privilege |
 |---|---|---|---|---|---|---|
@@ -34,7 +34,7 @@ The table below maps each STRIDE category to the five primary components of AI A
 
 ---
 
-## Cryptographic Primitives
+## Cryptographic primitives
 
 | Primitive | Algorithm | Key length | Usage | Rotation cadence (NIST SP 800-57) |
 |---|---|---|---|---|
@@ -47,9 +47,9 @@ All keys are generated using a CSPRNG. No MD5, SHA-1, or DES primitives are used
 
 ---
 
-## Authentication Flow
+## Authentication flow
 
-### SDK → Gateway (gRPC)
+### SDK to gateway (gRPC)
 
 ```mermaid
 sequenceDiagram
@@ -66,7 +66,7 @@ sequenceDiagram
   GW-->>SDK: PolicyDecision
 ```
 
-### Operator → Dashboard / CLI (SAML/OIDC)
+### Operator to dashboard / CLI (SAML/OIDC)
 
 ```mermaid
 sequenceDiagram
@@ -88,7 +88,7 @@ sequenceDiagram
 
 ---
 
-## Secrets Management
+## Secrets management
 
 - Secrets (LLM API keys, webhook tokens) are stored encrypted with AES-256-GCM.
 - The encryption key is derived from a master secret held in the SaaS control plane's hardware security module (HSM).
@@ -98,7 +98,7 @@ sequenceDiagram
 
 ---
 
-## Audit Log
+## Audit log
 
 - Every agent action (policy check, event record, budget debit) produces an immutable log entry.
 - Log entries are signed with HMAC-SHA256 using a log-signing key.
@@ -108,7 +108,7 @@ sequenceDiagram
 
 ---
 
-## Compliance Posture
+## Compliance posture
 
 | Standard | Status |
 |---|---|
@@ -119,12 +119,12 @@ sequenceDiagram
 
 ---
 
-## Related Documentation
+## Related documentation
 
 - [Why AI Agent Assembly?](comparison.md) — competitive positioning and governance differentiation
-- [Cloud Deployment](cloud-deployment.md) — SSO configuration, SCIM provisioning
-- [Open Core Boundary](open-core-boundary.md) — which security features are OSS vs enterprise
+- [Cloud deployment](cloud-deployment.md) — SSO configuration, SCIM provisioning
+- [Open core boundary](open-core-boundary.md) — which security features are OSS vs. enterprise
 
 ---
 
-*Last reviewed: 2026-05-10 — AI Agent Assembly Team*
+*Last reviewed: 2026-06-11 — AI Agent Assembly Team*

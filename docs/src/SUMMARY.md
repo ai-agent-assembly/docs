@@ -6,7 +6,7 @@
 
 ---
 
-# Enterprise
+# Platform & Security
 
 - [Security Model](security-model.md)
 - [Why AI Agent Assembly?](comparison.md)
@@ -14,8 +14,8 @@
 
 # Getting Started
 
-- [Quick Start (SaaS)](quickstart-saas.md)
-- [Cloud Deployment](cloud-deployment.md)
+- [Quick Start (SaaS) (Coming soon)](quickstart-saas.md)
+- [Cloud Deployment (Coming soon)](cloud-deployment.md)
 
 # Reference
 

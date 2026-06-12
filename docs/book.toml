@@ -1,6 +1,6 @@
 [book]
-title = "AI Agent Assembly — Enterprise Documentation"
-description = "Enterprise evaluator documentation for AI Agent Assembly: governance-native runtime for AI agents."
+title = "AI Agent Assembly Documentation"
+description = "Documentation for AI Agent Assembly: governance-native runtime for AI agents."
 authors = ["AI Agent Assembly Team"]
 language = "en"
 src = "src"
@@ -11,9 +11,12 @@ preferred-dark-theme = "navy"
 git-repository-url = "https://github.com/ai-agent-assembly/agent-assembly-docs"
 edit-url-template = "https://github.com/ai-agent-assembly/agent-assembly-docs/edit/main/docs/{path}"
 additional-css = ["theme/aaasm-brand.css"]
-additional-js = ["mermaid.min.js", "mermaid-init.js"]
+additional-js = ["mermaid.min.js", "mermaid-init.js", "theme/light-dark-toggle.js"]
 
 [preprocessor]
 
 [preprocessor.mermaid]
 command = "mdbook-mermaid"
+
+[preprocessor.last-changed]
+command = "python3 theme/last-changed.py"

@@ -1,10 +1,12 @@
 # Policy Reference
 
-Policies are YAML documents that control what AI agents are allowed, denied, or rate-limited to do. The gateway evaluates every policy before each agent action.
+Policies are YAML documents that control what an AI agent may do — which domains it can reach, which tools it can call, how much it can spend, and more. The gateway evaluates the applicable policies before each agent action and allows, denies, or rate-limits it.
+
+This page is a field-by-field reference. Each section lists a policy block with its fields, types, defaults, and validation rules, followed by [worked examples](#examples) at the end.
 
 ---
 
-## Document Formats
+## Document formats
 
 The gateway accepts two formats.
 
@@ -42,7 +44,7 @@ network:
 
 ---
 
-## Top-Level Fields
+## Top-level fields
 
 | Field | Type | Required | Default | Description |
 |---|---|---|---|---|
@@ -244,7 +246,7 @@ The top-level `approval_timeout_secs` sets the default for the whole policy docu
 
 ---
 
-## Validation Rules
+## Validation rules
 
 The gateway validates every policy on upload. All errors are collected and returned together; the upload is rejected if any error is present.
 
@@ -417,12 +419,12 @@ spec:
 
 ---
 
-## Related Documentation
+## Related documentation
 
-- [Security Model](security-model.md) — IronClaw layers and policy engine position in the stack
-- [Cloud Deployment](cloud-deployment.md) — uploading and activating policies in the console
-- [Quick Start (SaaS)](quickstart-saas.md) — create and activate your first policy
+- [Security model](security-model.md) — IronClaw layers and policy engine position in the stack
+- [Cloud deployment](cloud-deployment.md) — uploading and activating policies in the console
+- [Quick start (SaaS)](quickstart-saas.md) — create and activate your first policy
 
 ---
 
-*Last reviewed: 2026-05-10 · AI Agent Assembly Team*
+*Last reviewed: 2026-06-11 · AI Agent Assembly Team*

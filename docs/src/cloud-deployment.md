@@ -1,12 +1,14 @@
 # Cloud Deployment
 
-This page covers enterprise deployment configuration for the AI Agent Assembly SaaS platform: identity federation, user provisioning, regional data residency, and SLA commitments.
+> 🚧 **Coming soon.** The AI Agent Assembly SaaS / commercial platform described here is planned and not yet generally available. The content below reflects the intended design.
+
+This page covers how to configure an enterprise workspace on the AI Agent Assembly SaaS platform: identity federation (SSO), user provisioning (SCIM), regional data residency, budgets, SLAs, and billing.
 
 > **Self-hosted deployment is not available.** AI Agent Assembly is a SaaS-only product. There is no self-hosted, on-premises, or bring-your-own-infrastructure option. All compute, storage, and governance logic runs in the AI Agent Assembly cloud.
 
 ---
 
-## SaaS Regions
+## SaaS regions
 
 AI Agent Assembly is available in the following regions. Data at rest and in transit stays within the selected region.
 
@@ -20,7 +22,7 @@ Select your primary region when creating a workspace (see [Quick Start (SaaS)](q
 
 ---
 
-## Tenant Provisioning
+## Tenant provisioning
 
 A workspace is the top-level isolation boundary. All agents, policies, budgets, and users belong to a single workspace (tenant).
 
@@ -135,7 +137,7 @@ SCIM 2.0 enables automatic user and group provisioning from your IdP. When SCIM 
 
 ---
 
-## Role-Based Access Control
+## Role-based access control
 
 Workspace members are assigned one of the following roles:
 
@@ -148,7 +150,7 @@ Workspace members are assigned one of the following roles:
 
 Roles are assigned in the console under **Settings → Users**, or automatically via SCIM group-to-role mapping.
 
-### SCIM Group → Role Mapping
+### SCIM group-to-role mapping
 
 Configure group-to-role mappings in **Settings → Authentication → SCIM → Role Mapping**:
 
@@ -189,7 +191,7 @@ Budgets cap per-team LLM spending. The gateway enforces the budget before allowi
 
 ---
 
-## SLA Tiers
+## SLA tiers
 
 | Tier | Availability SLA | Support response time | Notes |
 |---|---|---|---|
@@ -201,7 +203,7 @@ SLA credits apply for downtime exceeding the SLA threshold. See the Terms of Ser
 
 ---
 
-## Billing Setup
+## Billing setup
 
 ### Card-based billing (Pro and Business)
 
@@ -225,12 +227,12 @@ Enterprise customers are billed via net-30 invoice.
 
 ---
 
-## Related Documentation
+## Related documentation
 
-- [Security Model](security-model.md) — authentication flow diagrams, cryptographic primitives
-- [Quick Start (SaaS)](quickstart-saas.md) — initial workspace setup
-- [Open Core Boundary](open-core-boundary.md) — which features are on which tier
+- [Security model](security-model.md) — authentication flow diagrams, cryptographic primitives
+- [Quick start (SaaS)](quickstart-saas.md) — initial workspace setup
+- [Open core boundary](open-core-boundary.md) — which features are on which tier
 
 ---
 
-*Last reviewed: 2026-05-10 · AI Agent Assembly Team*
+*Last reviewed: 2026-06-11 · AI Agent Assembly Team*

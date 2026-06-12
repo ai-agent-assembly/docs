@@ -1,29 +1,43 @@
-# AI Agent Assembly — Enterprise Documentation
+# AI Agent Assembly Documentation
 
-Welcome to the AI Agent Assembly enterprise documentation site.
+[![core](https://img.shields.io/badge/core-v0.0.1--alpha.5-3b82f6?logo=github)](https://github.com/ai-agent-assembly/agent-assembly)
+[![python-sdk](https://img.shields.io/pypi/v/agent-assembly?label=python-sdk&logo=pypi)](https://github.com/ai-agent-assembly/python-sdk)
+[![node-sdk](https://img.shields.io/npm/v/@agent-assembly/sdk/alpha?label=node-sdk&logo=npm)](https://github.com/ai-agent-assembly/node-sdk)
+[![go-sdk](https://img.shields.io/badge/go--sdk-v0.0.1--alpha.4-3b82f6?logo=go)](https://github.com/ai-agent-assembly/go-sdk)
+[![license](https://img.shields.io/badge/license-Apache--2.0-green)](https://github.com/ai-agent-assembly/agent-assembly-docs/blob/main/LICENSE)
 
-AI Agent Assembly is a governance-native runtime for AI agents. It enforces policy, tracks costs, and intercepts unsafe actions across your entire AI agent fleet — without changing your existing agent code.
+Quick links to each component, its current version, and its license. Core and Go versions are static badges pinned to the latest published tag (bumped at release); Python and Node read the live registry version. The project is in alpha (`v0.0.1-alpha`).
+
+AI Agent Assembly is a governance layer for AI agents. It sits between your agents and the outside world and does three things:
+
+- **Enforces policy** — decides, before each action runs, whether an agent is allowed to call a tool, reach a domain, or spend more budget.
+- **Tracks cost** — meters token and dollar spend per team and blocks agents that exceed their budget.
+- **Intercepts unsafe actions** — catches risky calls (and bypass attempts) at the SDK, network, and kernel levels.
+
+It works across your whole fleet of agents and does not require you to rewrite your existing agent code.
 
 ## Who this documentation is for
 
-This site is for **enterprise evaluators, security teams, and operators** assessing AI Agent Assembly for production adoption.
+This site is for **teams, security engineers, and operators** evaluating or running AI Agent Assembly for production adoption.
 
-If you are a developer looking to contribute or integrate at the code level, see the [open-source documentation](https://ai-agent-assembly.github.io/agent-assembly/).
+If you are a developer who wants to contribute or integrate at the code level, see the [open-source documentation](https://ai-agent-assembly.github.io/agent-assembly/) instead.
 
-## What you will find here
+## Find what you need
 
-| Section | Purpose |
+Pick the page that matches what you are trying to do.
+
+| I want to… | Go to |
 |---|---|
-| [Security Model](security-model.md) | STRIDE threat analysis, IronClaw five-layer defense, cryptographic primitives |
-| [Why AI Agent Assembly?](comparison.md) | Feature comparison against Langfuse, Helicone, Opik, and Pillar Security |
-| [Open Core Boundary](open-core-boundary.md) | What is Apache-2.0 licensed vs. proprietary; the open-core business model |
-| [Quick Start (SaaS)](quickstart-saas.md) | Zero to governed agent in under 5 minutes using the SaaS platform |
-| [Cloud Deployment](cloud-deployment.md) | Tenant provisioning, SSO, billing, and region selection |
-| [Policy Reference](policy-reference.md) | Every YAML policy field documented with type, default, and examples |
+| Govern my first agent in a few minutes | [Quick start (SaaS)](quickstart-saas.md) |
+| Understand the security posture and threat model | [Security model](security-model.md) |
+| Compare AI Agent Assembly to other tools | [Why AI Agent Assembly?](comparison.md) |
+| Know what is open source vs. paid | [Open core boundary](open-core-boundary.md) |
+| Set up SSO, SCIM, regions, and billing | [Cloud deployment](cloud-deployment.md) |
+| Look up a policy field or write a policy | [Policy reference](policy-reference.md) |
 
 ## SDKs & components
 
-This hub is the central entry point for AI Agent Assembly documentation. Each component ships its own documentation site — use the table below to route to the one you need. Every link points at the component's site root, which always redirects to its newest **stable** release (falling back gracefully before the first 1.0), so these references never need maintenance.
+This hub is the central entry point for AI Agent Assembly documentation. To instrument your agents, you install the SDK for your language — each one ships its own documentation site. Use the table below to go to the SDK that matches your codebase: Python, Node/TypeScript, or Go. Every link points at the component's site root, which always redirects to its newest **stable** release (falling back gracefully before the first 1.0), so these references never need maintenance.
 
 | Component | Documentation |
 |---|---|
@@ -34,14 +48,14 @@ This hub is the central entry point for AI Agent Assembly documentation. Each co
 
 ## The three-layer interception model
 
-AI Agent Assembly enforces governance through three independently deployable layers:
+AI Agent Assembly enforces governance through three layers. You can deploy them independently, and each one catches what the layer above it might miss:
 
-1. **SDK layer (in-process)** — language SDKs wrap your agent calls and enforce pre-execution allow/deny before any network egress occurs.
-2. **Sidecar proxy (`aa-proxy`)** — intercepts outbound HTTPS via MitM with a per-host CA, catching anything the SDK misses without code changes.
-3. **eBPF sensor (`aa-ebpf`)** — kernel-level hooks watching SSL libraries and process syscalls; catches bypass attempts at the OS level (Linux only).
+1. **SDK layer (in-process)** — the language SDK wraps your agent calls and applies allow/deny decisions before any network request leaves the process. Fastest path, but requires you to adopt the SDK.
+2. **Sidecar proxy (`aa-proxy`)** — intercepts outbound HTTPS using a per-host CA, so it can govern agents that do not use the SDK. No code changes required.
+3. **eBPF sensor (`aa-ebpf`)** — kernel-level hooks that watch SSL libraries and process syscalls to catch bypass attempts at the OS level. Linux only.
 
-All three layers report to the gateway, which evaluates policy and tracks per-team budgets.
+All three layers report to the **gateway**, which evaluates policy and tracks per-team budgets.
 
 ---
 
-*Last reviewed: 2026-06-09 — AI Agent Assembly Team*
+*Last reviewed: 2026-06-11 — AI Agent Assembly Team*

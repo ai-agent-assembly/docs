@@ -23,14 +23,19 @@ row's provenance note at the bottom of the page.
 
 ## Latest published versions
 
-[![core](https://img.shields.io/github/v/tag/ai-agent-assembly/agent-assembly?label=core&logo=github)](https://github.com/ai-agent-assembly/agent-assembly/tags)
+[![core](https://img.shields.io/badge/core-v0.0.1--alpha.5-3b82f6?logo=github)](https://github.com/ai-agent-assembly/agent-assembly/tags)
 [![PyPI](https://img.shields.io/pypi/v/agent-assembly?label=python-sdk&logo=pypi)](https://pypi.org/project/agent-assembly/)
 [![npm](https://img.shields.io/npm/v/@agent-assembly/sdk/alpha?label=node-sdk&logo=npm)](https://www.npmjs.com/package/@agent-assembly/sdk)
-[![Go](https://img.shields.io/github/v/tag/ai-agent-assembly/go-sdk?label=go-sdk&logo=go)](https://github.com/ai-agent-assembly/go-sdk/tags)
+[![Go](https://img.shields.io/badge/go--sdk-v0.0.1--alpha.4-3b82f6?logo=go)](https://github.com/ai-agent-assembly/go-sdk/tags)
 
-These badges read the **live** latest published version from each registry (PyPI,
-npm — `alpha` dist-tag, GitHub tags), so they are always current without any
-maintenance.
+The **Python** and **Node** badges read the **live** latest published version
+from each registry (PyPI, and npm's `alpha` dist-tag), so they are always
+current without maintenance. The **core** and **Go** badges are **static**
+version badges pinned to the current published tags — shields.io's GitHub-tag
+endpoint shares a token pool that is intermittently rate-limited, which makes
+the live `github/v/tag` form render as an error; the static badges always
+render. They are bumped at each release. Each badge links to the relevant
+registry or tag list for the authoritative current version.
 
 ## Core ↔ SDK matrix
 
