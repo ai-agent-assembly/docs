@@ -1,12 +1,16 @@
 # Why AI Agent Assembly?
 
-This page helps enterprise evaluators see where AI Agent Assembly fits next to other tools in the AI governance and observability space. All competitor data is taken from each vendor's public documentation as of 2026-05-05.
+**AI Agent Assembly is a security and governance control for AI agents** — a runtime that sits in the agent's action path and *enforces* policy, blocking unsafe tool calls, network egress, and budget overruns *before* they execute. Think of it as a security checkpoint in front of every agent action, not a dashboard that reports on actions after they happen. That category distinction is what this comparison is about.
+
+This page helps readers see where AI Agent Assembly fits next to other tools in the AI governance and observability space. All competitor data is taken from each vendor's public documentation as of 2026-05-05.
 
 In short: most tools in this space **observe** what an agent did after the fact. AI Agent Assembly is built to **enforce** policy before an action runs. The sections below show where that difference matters, and where competitors are ahead.
 
 ---
 
 ## Feature matrix
+
+Because AI Agent Assembly is an **enforcement** control rather than a pure observability or monitoring tool, the rows below span both categories: the observability rows show that it still gives you the visibility those tools provide, while the policy-enforcement, access-control, and budget-enforcement rows show the security-checkpoint capabilities that monitoring-only tools do not have. Read the matrix with that framing — equal coverage on observability, decisive coverage on enforcement.
 
 Each row is a capability. The columns are AI Agent Assembly (AAASM), Langfuse, Helicone, Opik, and Pillar Security.
 
