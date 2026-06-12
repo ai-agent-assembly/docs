@@ -37,6 +37,21 @@ html { font-size: 16px; }
   --icons-hover: #6366f1;
 }
 
+/* ---- Visible light/dark toggle (light-dark-toggle.js) ---- */
+#aaasm-light-dark-toggle {
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  /* Inherit mdBook .icon-button sizing/spacing; just colour the glyph. */
+  color: var(--icons);
+}
+#aaasm-light-dark-toggle:hover {
+  color: var(--icons-hover);
+}
+#aaasm-light-dark-toggle span {
+  display: inline-block;
+}
+
 /* ---- Dark themes (navy, coal) ---- */
 .navy, .coal {
   --bg: #0e0e0e;
