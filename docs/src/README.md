@@ -12,7 +12,7 @@ It works across your whole fleet of agents and does not require you to rewrite y
 
 This site is for **enterprise evaluators, security teams, and operators** assessing AI Agent Assembly for production adoption.
 
-If you are a developer who wants to contribute or integrate at the code level, see the [open-source documentation](https://github.com/ai-agent-assembly/agent-assembly/tree/master/docs) instead.
+If you are a developer who wants to contribute or integrate at the code level, see the [open-source documentation](https://ai-agent-assembly.github.io/agent-assembly/) instead.
 
 ## Find what you need
 
@@ -29,11 +29,11 @@ Pick the page that matches what you are trying to do.
 
 ## SDKs & components
 
-This hub is the central entry point for AI Agent Assembly documentation. To instrument your agents, you install the SDK for your language — each one ships its own documentation site. Use the table below to go to the SDK that matches your codebase: Python, Node/TypeScript, or Go.
+This hub is the central entry point for AI Agent Assembly documentation. To instrument your agents, you install the SDK for your language — each one ships its own documentation site. Use the table below to go to the SDK that matches your codebase: Python, Node/TypeScript, or Go. Every link points at the component's site root, which always redirects to its newest **stable** release (falling back gracefully before the first 1.0), so these references never need maintenance.
 
 | Component | Documentation |
 |---|---|
-| Core (this hub / monorepo) | [agent-assembly-docs](https://ai-agent-assembly.github.io/agent-assembly-docs/) · [monorepo docs](https://github.com/ai-agent-assembly/agent-assembly/tree/master/docs) |
+| Core (monorepo) | <https://ai-agent-assembly.github.io/agent-assembly/> |
 | Python SDK | <https://ai-agent-assembly.github.io/python-sdk/> |
 | Node SDK | <https://ai-agent-assembly.github.io/node-sdk/> |
 | Go SDK | <https://ai-agent-assembly.github.io/go-sdk/> |
