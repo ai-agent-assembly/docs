@@ -8,7 +8,7 @@ AI Agent Assembly is a governance-native runtime for AI agents. It enforces poli
 
 This site is for **enterprise evaluators, security teams, and operators** assessing AI Agent Assembly for production adoption.
 
-If you are a developer looking to contribute or integrate at the code level, see the [open-source documentation](https://github.com/ai-agent-assembly/agent-assembly/tree/master/docs).
+If you are a developer looking to contribute or integrate at the code level, see the [open-source documentation](https://ai-agent-assembly.github.io/agent-assembly/).
 
 ## What you will find here
 
@@ -23,7 +23,7 @@ If you are a developer looking to contribute or integrate at the code level, see
 
 ## SDKs & components
 
-This hub is the central entry point for AI Agent Assembly documentation. Each language SDK ships its own documentation site — use the table below to route to the one you need.
+This hub is the central entry point for AI Agent Assembly documentation. Each component ships its own documentation site — use the table below to route to the one you need. Every link points at the component's site root, which always redirects to its newest **stable** release (falling back gracefully before the first 1.0), so these references never need maintenance.
 
 | Component | Documentation |
 |---|---|

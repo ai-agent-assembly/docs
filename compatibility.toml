@@ -1,0 +1,233 @@
+# compatibility.toml — source of truth for the core <-> SDK compatibility matrix
+# ==============================================================================
+#
+# This manifest drives docs/src/compatibility.md. A human edits THIS file at each
+# coordinated release; the generated tables in compatibility.md are produced from
+# it by docs/scripts/generate_compatibility.py (run in CI with --check to fail on
+# drift). Never hand-edit the content between the BEGIN/END GENERATED markers in
+# the Markdown page — edit this manifest and regenerate.
+#
+# ACCURACY CONTRACT
+# -----------------
+# Every cell below traces to a verifiable source (a published tag, a registry
+# release, or a committed git pin). Where an exact core<->SDK pairing cannot be
+# authoritatively determined, the cell is the sentinel "—" (U+2014) and the
+# reason is recorded in a footnote (see the [[note]] section). We prefer fewer
+# accurate rows over a fuller fabricated matrix.
+#
+# AXIS / SHAPE
+# ------------
+# The matrix renders one row per core release (newest first). Each per-SDK column
+# is a free-form string, so a cell may hold EITHER a single version OR a RANGE.
+#
+# RANGE SYNTAX (per-SDK cells)
+# ----------------------------
+# An SDK cell is a free-form string. Use whichever of these the pairing warrants:
+#   * a single version    — e.g. "v0.0.1-alpha.4"        (an exact, pinned pairing)
+#   * a comparator range   — e.g. ">=0.1.0,<0.2.0"        (compatible across a span)
+#   * an x-range / wildcard — e.g. "0.1.x"  or  "0.1.*"   (any patch within a minor)
+#   * the sentinel "—"     — when no authoritative pairing can be asserted
+# Ranges use standard semver comparator grammar (>=, >, <, <=, ==, comma = AND).
+# The generator renders whatever string each cell holds; ranges need NO schema
+# change. Use a range whenever a core release is compatible with a band of SDK
+# versions rather than one exact tag.
+#
+# BREAKING CHANGES (tracked via the `proto` column)
+# -------------------------------------------------
+# Wire-protocol compatibility is the contract. A change to a row's `proto` value
+# (e.g. "protocol/v1" -> "protocol/v2") marks a BREAKING boundary: SDKs built for
+# the old protocol cannot talk to the new core and vice-versa. When the protocol
+# bumps, give the affected rows a footnote `ref` whose note states the break and
+# the SDK RANGE required for the new protocol. The per-SDK cells on a post-break
+# row should carry the new compatible range (e.g. ">=0.2.0,<0.3.0"), and the note
+# should spell out that older SDKs (e.g. "<0.2.0") are incompatible.
+#
+# DATA AS VERIFIED 2026-06-11 (sources in the [[note]] texts and the report):
+#   * Core published tags: v0.0.1-alpha.1 .. v0.0.1-alpha.5 (GitHub tags/releases).
+#       https://github.com/ai-agent-assembly/agent-assembly/tags
+#   * No final v0.0.1 core release exists yet (the core repo's own matrix lists a
+#     v0.0.1 row aspirationally; we only record PUBLISHED tags here).
+#   * All three SDKs currently pin aa-core/aa-proto/aa-sdk-client at the SAME git
+#     SHA 9cf8a033d39c870ba46a0929b62261d125a00a09 (merge of PR #958, 2026-06-05),
+#     which is 587 commits AHEAD of v0.0.1-alpha.5 and behind NO published tag.
+#     => The SDKs build against an UNRELEASED post-alpha.5 core revision; we cannot
+#        honestly map them to a published core tag, so the "tested @ <sha>" row
+#        below records the real pin and the alpha rows mark the SDK cell per what
+#        is actually known.
+
+# ------------------------------------------------------------------------------
+# [[release]] — one row per core release (newest first is the rendering order).
+#   core    : core release tag (the `aa-runtime` / monorepo tag).
+#   status  : one of current | supported | previous | deprecated | eol
+#   proto   : the wire-protocol contract this core speaks (aa-proto package dir).
+#             A change here between rows marks a BREAKING boundary (see header).
+#   ref     : footnote key into the [[note]] list below. The generated table appends
+#             a compact superscript marker to the END of the row's "Core release" cell
+#             (e.g. "v0.0.1-alpha.5"²); the full provenance/caveat text lives in the
+#             rendered "Notes" footnote list at the bottom of the page.
+#   sdks    : the SDK release (or RANGE) that speaks this core's protocol, per
+#             language. Use the published SDK tag/range where a pairing is
+#             authoritative; use "—" where it is not (and explain it in the note).
+# ------------------------------------------------------------------------------
+
+[[release]]
+core = "tested @ 9cf8a033 (post-v0.0.1-alpha.5, unreleased)"
+status = "current"
+proto = "protocol/v1"
+ref = "pinned-sha"
+[release.sdks]
+python = "PyPI 0.0.1a5 / git v0.0.2"
+node = "npm @alpha 0.0.1-alpha.5"
+go = "v0.0.1-alpha.4"
+
+[[release]]
+core = "v0.0.1-alpha.5"
+status = "supported"
+proto = "protocol/v1"
+ref = "alpha5"
+[release.sdks]
+python = "—"
+node = "—"
+go = "—"
+
+[[release]]
+core = "v0.0.1-alpha.4"
+status = "supported"
+proto = "protocol/v1"
+ref = "alpha4"
+[release.sdks]
+python = "—"
+node = "—"
+go = "—"
+
+[[release]]
+core = "v0.0.1-alpha.3"
+status = "supported"
+proto = "protocol/v1"
+ref = "same-version-string"
+[release.sdks]
+python = "—"
+node = "—"
+go = "—"
+
+[[release]]
+core = "v0.0.1-alpha.2"
+status = "previous"
+proto = "protocol/v1"
+ref = "same-version-string"
+[release.sdks]
+python = "—"
+node = "—"
+go = "—"
+
+[[release]]
+core = "v0.0.1-alpha.1"
+status = "previous"
+proto = "protocol/v1"
+ref = "same-version-string"
+[release.sdks]
+python = "—"
+node = "—"
+go = "—"
+
+# ------------------------------------------------------------------------------
+# [[note]] — footnote bodies. Each row's `ref` keys into one of these by `key`.
+#   key  : the identifier referenced by one or more [[release]].ref fields. Many
+#          rows may share one note (it is rendered once and cited by each row).
+#   text : the full provenance / caveat / breaking-change explanation. This is the
+#          long prose that USED to live in an inline "Notes" column; it now renders
+#          as a numbered footnote BELOW the table so the table stays compact.
+# The generator assigns footnote NUMBERS in first-cited order and renders a
+# numbered list; the manifest only supplies stable keys + text.
+# ------------------------------------------------------------------------------
+
+[[note]]
+key = "pinned-sha"
+text = "All three SDKs pin aa-core/aa-proto/aa-sdk-client at git SHA 9cf8a033 (PR #958, 2026-06-05; 587 commits ahead of v0.0.1-alpha.5). This is the ONLY authoritatively-verified core<->SDK pairing: it is the exact revision every current SDK is built against. It is not a published core tag."
+
+[[note]]
+key = "alpha5"
+text = "Latest published core tag. No SDK tag pins exactly this commit; current SDKs pin a later SHA (see the pinned-commit row). SDK cells left as — to avoid asserting an unverified tag<->tag pairing."
+
+[[note]]
+key = "alpha4"
+text = "Published core tag. No SDK tag authoritatively pins this exact commit."
+
+[[note]]
+key = "same-version-string"
+text = "Published core tag. SDK tags carrying the same version string (python/node/go of the matching alpha) exist, but at their tag time the SDK FFI crates did not yet pin a resolvable aa-core rev, so an exact commit<->commit pairing is NOT verifiable. Left as — per the accuracy contract."
+
+# ------------------------------------------------------------------------------
+# BREAKING-CHANGE EXAMPLE (commented out — guidance only, does NOT render).
+# ------------------------------------------------------------------------------
+# When a future core release bumps the wire protocol, copy this shape. Here core
+# v0.2.0 bumps protocol/v1 -> protocol/v2 (a BREAKING boundary): the SDKs are
+# pinned to the new compatible band, and the footnote spells out that SDKs older
+# than 0.2.0 cannot speak protocol/v2. Note the per-SDK cells use RANGES, and the
+# new `proto` value differs from the rows above it.
+#
+# [[release]]
+# core = "v0.2.0"
+# status = "current"
+# proto = "protocol/v2"          # <- changed from protocol/v1 == breaking boundary
+# ref = "v2-break"
+# [release.sdks]
+# python = ">=0.2.0,<0.3.0"
+# node = ">=0.2.0,<0.3.0"
+# go = ">=0.2.0,<0.3.0"
+#
+# [[note]]
+# key = "v2-break"
+# text = "BREAKING: core v0.2.0 bumps the wire protocol to protocol/v2. SDKs older than 0.2.0 (which speak protocol/v1) are INCOMPATIBLE and must be upgraded to the >=0.2.0,<0.3.0 band; mixing a protocol/v1 SDK with a protocol/v2 core (or vice-versa) is unsupported."
+
+# ------------------------------------------------------------------------------
+# [requirements] — per-SDK runtime requirement + install one-liner.
+#   runtime : the language-runtime version constraint, copied verbatim from the
+#             SDK's own manifest (the authoritative source named in `source`).
+#   install : a copy-pasteable install command for the published package.
+#   source  : where `runtime` was read from (for the maintainer's audit trail).
+# ------------------------------------------------------------------------------
+
+[requirements.python]
+label = "Python SDK"
+runtime = "Python >=3.12,<4.0"
+install = "pip install agent-assembly --pre"
+source = "python-sdk pyproject.toml [project].requires-python"
+
+[requirements.node]
+label = "Node SDK"
+runtime = "Node.js >=18.18.0 (pnpm >=10 to build from source)"
+install = "npm install @agent-assembly/sdk@alpha"
+source = "node-sdk package.json [engines]"
+
+[requirements.go]
+label = "Go SDK"
+runtime = "Go >=1.26.0"
+install = "go get github.com/ai-agent-assembly/go-sdk@latest"
+source = "go-sdk go.mod (go directive)"
+
+# ------------------------------------------------------------------------------
+# [badges] — slugs for the live "latest published version" badge strip.
+# Registered third-party slugs keep their original registry casing.
+#   * PyPI distribution name and npm package name are case/scope sensitive.
+#   * GitHub org/repo resolve case-insensitively; canonical casing is lowercase
+#     `ai-agent-assembly` (org policy).
+# The GitHub badges use shields.io's `github/v/tag` endpoint (NOT `github/v/release`
+# and NOT with `sort=semver`/`include_prereleases`): the plain tag endpoint is the
+# only variant that renders reliably for these repos — `github/v/release` has no
+# Releases object for go-sdk, and `sort=semver`+`include_prereleases` trips a
+# shields.io "Unable to select next GitHub token from pool" error. The plain tag
+# endpoint already returns the latest tag (core alpha.5, go alpha.4).
+# ------------------------------------------------------------------------------
+
+[badges]
+# Core: GitHub TAG badge (latest published tag = alpha.5).
+core_github_repo = "ai-agent-assembly/agent-assembly"
+# Python: PyPI distribution name (latest published = 0.0.1a5).
+pypi_package = "agent-assembly"
+# Node: npm scoped package; the prerelease line lives under the `alpha` dist-tag.
+npm_package = "@agent-assembly/sdk"
+npm_dist_tag = "alpha"
+# Go: no semantic registry; use the GitHub TAG badge (latest tag = alpha.4).
+go_github_repo = "ai-agent-assembly/go-sdk"
+go_module = "github.com/ai-agent-assembly/go-sdk"
