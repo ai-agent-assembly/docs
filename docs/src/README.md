@@ -27,7 +27,7 @@ This hub is the central entry point for AI Agent Assembly documentation. Each co
 
 | Component | Documentation |
 |---|---|
-| Core (monorepo) | <https://ai-agent-assembly.github.io/agent-assembly/> |
+| Core (this hub / monorepo) | [agent-assembly-docs](https://ai-agent-assembly.github.io/agent-assembly-docs/) · [core docs](https://ai-agent-assembly.github.io/agent-assembly/) |
 | Python SDK | <https://ai-agent-assembly.github.io/python-sdk/> |
 | Node SDK | <https://ai-agent-assembly.github.io/node-sdk/> |
 | Go SDK | <https://ai-agent-assembly.github.io/go-sdk/> |
