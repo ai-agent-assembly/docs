@@ -16,13 +16,13 @@
 (function () {
     'use strict';
 
-    var DARK_THEMES = ['navy', 'coal', 'ayu'];
-    var MOON = '☾'; // ☾  shown in light mode (click -> go dark)
-    var SUN = '☀';  // ☀  shown in dark mode (click -> go light)
+    const DARK_THEMES = ['navy', 'coal', 'ayu'];
+    const MOON = '☾'; // ☾  shown in light mode (click -> go dark)
+    const SUN = '☀';  // ☀  shown in dark mode (click -> go light)
 
     function isDark() {
-        var classes = document.documentElement.classList;
-        for (var i = 0; i < DARK_THEMES.length; i++) {
+        const classes = document.documentElement.classList;
+        for (let i = 0; i < DARK_THEMES.length; i++) {
             if (classes.contains(DARK_THEMES[i])) {
                 return true;
             }
@@ -33,8 +33,8 @@
     // Look up an mdBook element by trying each candidate ID in order. Returns
     // the first match, or null if none of the IDs exist.
     function findFirst(ids) {
-        for (var i = 0; i < ids.length; i++) {
-            var el = document.getElementById(ids[i]);
+        for (let i = 0; i < ids.length; i++) {
+            const el = document.getElementById(ids[i]);
             if (el) {
                 return el;
             }
@@ -51,28 +51,28 @@
     }
 
     ready(function () {
-        var leftButtons = document.querySelector('.left-buttons');
-        var lightItem = findFirst(['mdbook-theme-light', 'theme-light']);
-        var darkItem = findFirst(['mdbook-theme-navy', 'theme-navy']);
+        const leftButtons = document.querySelector('.left-buttons');
+        const lightItem = findFirst(['mdbook-theme-light', 'theme-light']);
+        const darkItem = findFirst(['mdbook-theme-navy', 'theme-navy']);
 
         // Defensive: if mdBook's menu bar or theme items are missing, do nothing.
         if (!leftButtons || !lightItem || !darkItem) {
             return;
         }
 
-        var button = document.createElement('button');
+        const button = document.createElement('button');
         button.id = 'aaasm-light-dark-toggle';
         button.type = 'button';
         button.className = 'icon-button';
         button.setAttribute('aria-label', 'Toggle light/dark mode');
         button.setAttribute('title', 'Toggle light/dark mode');
 
-        var glyph = document.createElement('span');
+        const glyph = document.createElement('span');
         glyph.setAttribute('aria-hidden', 'true');
         button.appendChild(glyph);
 
         function refreshGlyph() {
-            var dark = isDark();
+            const dark = isDark();
             glyph.textContent = dark ? SUN : MOON;
             button.setAttribute(
                 'title',
@@ -93,7 +93,7 @@
         });
 
         // Insert next to the paintbrush theme toggle when present.
-        var paintbrush = findFirst(['mdbook-theme-toggle', 'theme-toggle']);
+        const paintbrush = findFirst(['mdbook-theme-toggle', 'theme-toggle']);
         if (paintbrush && paintbrush.parentNode === leftButtons) {
             leftButtons.insertBefore(button, paintbrush.nextSibling);
         } else {
@@ -102,7 +102,7 @@
 
         // Keep the glyph in sync if the theme is changed elsewhere (paintbrush
         // menu, system preference change, another tab).
-        var observer = new MutationObserver(refreshGlyph);
+        const observer = new MutationObserver(refreshGlyph);
         observer.observe(document.documentElement, {
             attributes: true,
             attributeFilter: ['class'],
