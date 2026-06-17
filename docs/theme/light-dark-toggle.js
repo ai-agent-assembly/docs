@@ -22,8 +22,8 @@
 
     function isDark() {
         const classes = document.documentElement.classList;
-        for (let i = 0; i < DARK_THEMES.length; i++) {
-            if (classes.contains(DARK_THEMES[i])) {
+        for (const theme of DARK_THEMES) {
+            if (classes.contains(theme)) {
                 return true;
             }
         }
