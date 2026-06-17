@@ -33,8 +33,8 @@
     // Look up an mdBook element by trying each candidate ID in order. Returns
     // the first match, or null if none of the IDs exist.
     function findFirst(ids) {
-        for (let i = 0; i < ids.length; i++) {
-            const el = document.getElementById(ids[i]);
+        for (const id of ids) {
+            const el = document.getElementById(id);
             if (el) {
                 return el;
             }
