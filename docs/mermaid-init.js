@@ -24,7 +24,7 @@
     for (const darkTheme of darkThemes) {
         document.getElementById(darkTheme).addEventListener('click', () => {
             if (lastThemeWasLight) {
-                window.location.reload();
+                globalThis.location.reload();
             }
         });
     }
@@ -32,7 +32,7 @@
     for (const lightTheme of lightThemes) {
         document.getElementById(lightTheme).addEventListener('click', () => {
             if (!lastThemeWasLight) {
-                window.location.reload();
+                globalThis.location.reload();
             }
         });
     }

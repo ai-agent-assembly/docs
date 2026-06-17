@@ -22,8 +22,8 @@
 
     function isDark() {
         const classes = document.documentElement.classList;
-        for (let i = 0; i < DARK_THEMES.length; i++) {
-            if (classes.contains(DARK_THEMES[i])) {
+        for (const theme of DARK_THEMES) {
+            if (classes.contains(theme)) {
                 return true;
             }
         }
@@ -33,8 +33,8 @@
     // Look up an mdBook element by trying each candidate ID in order. Returns
     // the first match, or null if none of the IDs exist.
     function findFirst(ids) {
-        for (let i = 0; i < ids.length; i++) {
-            const el = document.getElementById(ids[i]);
+        for (const id of ids) {
+            const el = document.getElementById(id);
             if (el) {
                 return el;
             }
@@ -94,7 +94,7 @@
 
         // Insert next to the paintbrush theme toggle when present.
         const paintbrush = findFirst(['mdbook-theme-toggle', 'theme-toggle']);
-        if (paintbrush && paintbrush.parentNode === leftButtons) {
+        if (paintbrush?.parentNode === leftButtons) {
             leftButtons.insertBefore(button, paintbrush.nextSibling);
         } else {
             leftButtons.appendChild(button);
