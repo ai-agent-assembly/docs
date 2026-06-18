@@ -226,7 +226,7 @@ source = "python-sdk pyproject.toml [project].requires-python"
 [requirements.node]
 label = "Node SDK"
 runtime = "Node.js >=18.18.0 (pnpm >=10 to build from source)"
-install = "npm install @agent-assembly/sdk@alpha"
+install = "npm install @agent-assembly/sdk@beta"
 source = "node-sdk package.json [engines]"
 
 [requirements.go]
