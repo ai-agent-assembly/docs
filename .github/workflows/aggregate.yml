@@ -1,0 +1,94 @@
+name: Aggregate and Deploy Docs Hub
+
+# Central docs hub aggregation (AAASM-3659). Builds the hub mdBook at the site
+# root plus each module's docs under a stable subpath (pull/aggregate model —
+# every module keeps its own generator), runs Pagefind over the final public/
+# for unified search, verifies every module produced non-empty output, and
+# deploys the combined site to GitHub Pages (→ docs.agent-assembly.com once the
+# owner attaches the custom domain).
+#
+# Module registry: modules.json. Build/copy contract: docs/scripts/aggregate.sh.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  build:
+    name: Aggregate all module docs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout hub
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      # --- toolchains, one per generator ---
+      - name: Install mdBook + mdbook-mermaid (hub + core)
+        # mdBook 0.5.2 / mdbook-mermaid 0.17.0 match the core repo's docs
+        # toolchain — core's theme uses the `{{ resource }}` helper (mdBook
+        # 0.4.41+), so the older 0.4.x in deploy.yml cannot render it.
+        run: |
+          curl -sSL https://github.com/rust-lang/mdBook/releases/download/v0.5.2/mdbook-v0.5.2-x86_64-unknown-linux-gnu.tar.gz | tar -xz
+          curl -sSL https://github.com/badboy/mdbook-mermaid/releases/download/v0.17.0/mdbook-mermaid-v0.17.0-x86_64-unknown-linux-gnu.tar.gz | tar -xz
+          sudo mv mdbook mdbook-mermaid /usr/local/bin/
+
+      - name: Install uv (python-sdk / mkdocs)
+        uses: astral-sh/setup-uv@d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86 # v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up Node + pnpm (node-sdk / Docusaurus + Pagefind via npx)
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+        with:
+          version: 10
+
+      - name: Set up Go + Hugo extended (go-sdk / Hugo + Hextra)
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.24"
+      - uses: peaceiris/actions-hugo@2752ce1d29631191ea3f27c23495fa06139a5b78 # v3
+        with:
+          hugo-version: "0.163.0"
+          extended: true
+
+      # --- the one aggregation step (clones modules, builds each under its
+      #     subpath base URL, builds the hub at root, runs Pagefind, and
+      #     FAILS if any module's output dir is missing/empty) ---
+      - name: Aggregate
+        run: bash docs/scripts/aggregate.sh
+
+      - name: Upload artifact
+        if: github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: public
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

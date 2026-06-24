@@ -37,14 +37,16 @@ Pick the page that matches what you are trying to do.
 
 ## SDKs & components
 
-This hub is the central entry point for AI Agent Assembly documentation. To instrument your agents, you install the SDK for your language — each one ships its own documentation site. Use the table below to go to the SDK that matches your codebase: Python, Node/TypeScript, or Go. Every link points at the component's site root, which always redirects to its newest **stable** release (falling back gracefully before the first 1.0), so these references never need maintenance.
+This hub is the central entry point for AI Agent Assembly documentation. To instrument your agents, you install the SDK for your language — each one ships its own documentation site. Use the table below to go to the SDK that matches your codebase: Python, Node/TypeScript, or Go.
 
-| Component | Documentation |
-|---|---|
-| Core (this hub / monorepo) | [agent-assembly-docs](https://ai-agent-assembly.github.io/agent-assembly-docs/) · [core docs](https://ai-agent-assembly.github.io/agent-assembly/) |
-| Python SDK | <https://ai-agent-assembly.github.io/python-sdk/> |
-| Node SDK | <https://ai-agent-assembly.github.io/node-sdk/> |
-| Go SDK | <https://ai-agent-assembly.github.io/go-sdk/> |
+Every module's docs are **aggregated into this hub** under a stable subpath (`/core/`, `/python-sdk/`, `/node-sdk/`, `/go-sdk/`), so you can read and search all of them from one place. The standalone, per-version sites remain available for release-specific (mike / Docusaurus / Hugo channel) browsing.
+
+| Component | On this hub | Standalone site |
+|---|---|---|
+| Core (monorepo) | [/core/](/core/) | [core docs](https://ai-agent-assembly.github.io/agent-assembly/) |
+| Python SDK | [/python-sdk/](/python-sdk/) | <https://ai-agent-assembly.github.io/python-sdk/> |
+| Node SDK | [/node-sdk/](/node-sdk/) | <https://ai-agent-assembly.github.io/node-sdk/> |
+| Go SDK | [/go-sdk/](/go-sdk/) | <https://ai-agent-assembly.github.io/go-sdk/> |
 
 ## Runnable examples
 

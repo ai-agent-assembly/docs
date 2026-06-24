@@ -165,3 +165,75 @@
     }
   })();
 </script>
+
+<!-- Unified search across the hub + all module docs (AAASM-3664).
+     Pagefind indexes the FINAL aggregated public/ at build time (see
+     docs/scripts/aggregate.sh), so this one box searches the hub, core,
+     python-sdk, node-sdk and go-sdk together. Assets live at /pagefind/
+     (root-relative; the hub is served at the site root). When the hub is
+     built standalone (no aggregation), /pagefind/ is absent and the widget
+     silently no-ops — the mdBook native search still works. -->
+<link href="/pagefind/pagefind-ui.css" rel="stylesheet" onerror="this.dataset.failed=1">
+<script src="/pagefind/pagefind-ui.js" onerror="window.__aaPagefindMissing=1"></script>
+<style>
+  .aa-search { margin: 0 0 1rem; }
+  .aa-search__open { cursor: pointer; width: 100%; text-align: left; border: 1px solid rgba(127,127,127,.4);
+    background: transparent; color: inherit; border-radius: 8px; padding: .5rem .85rem; font-size: 14px; }
+  .aa-search__open:hover { border-color: #8ab4f8; }
+  .aa-search__modal { position: fixed; inset: 0; z-index: 2147483646; display: none;
+    background: rgba(0,0,0,.45); }
+  .aa-search__modal.is-open { display: block; }
+  .aa-search__panel { max-width: 44rem; margin: 6vh auto 0; background: var(--bg, #fff); color: inherit;
+    border-radius: 10px; padding: 1rem; box-shadow: 0 10px 40px rgba(0,0,0,.4); }
+  html[data-theme="navy"] .aa-search__panel,
+  html[data-theme="coal"] .aa-search__panel,
+  html[data-theme="ayu"] .aa-search__panel { background: #1f2430; }
+  .aa-search__hint { font-size: 12px; opacity: .7; margin: .5rem 0 0; }
+</style>
+<script>
+  (function () {
+    function init() {
+      if (window.__aaPagefindMissing || typeof PagefindUI === 'undefined') { return; }
+      // Inject a search trigger at the top of the mdBook content area.
+      var content = document.querySelector('#content main') || document.querySelector('main');
+      if (!content || document.querySelector('.aa-search')) { return; }
+      var wrap = document.createElement('div');
+      wrap.className = 'aa-search';
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'aa-search__open';
+      btn.textContent = '🔎  Search all docs (hub · core · python · node · go) …';
+      var modal = document.createElement('div');
+      modal.className = 'aa-search__modal';
+      var panel = document.createElement('div');
+      panel.className = 'aa-search__panel';
+      var box = document.createElement('div');
+      box.id = 'aa-pagefind-search';
+      var hint = document.createElement('p');
+      hint.className = 'aa-search__hint';
+      hint.textContent = 'Searches the hub and every module. Press Esc to close.';
+      panel.appendChild(box); panel.appendChild(hint); modal.appendChild(panel);
+      wrap.appendChild(btn);
+      content.insertBefore(wrap, content.firstChild);
+      document.body.appendChild(modal);
+
+      var built = false;
+      function open() {
+        if (!built) {
+          new PagefindUI({ element: '#aa-pagefind-search', showSubResults: true, showImages: false });
+          built = true;
+        }
+        modal.classList.add('is-open');
+        var input = panel.querySelector('input');
+        if (input) { input.focus(); }
+      }
+      function close() { modal.classList.remove('is-open'); }
+      btn.addEventListener('click', open);
+      modal.addEventListener('click', function (e) { if (e.target === modal) { close(); } });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { close(); } });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else { init(); }
+  })();
+</script>
