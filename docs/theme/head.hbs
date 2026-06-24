@@ -222,7 +222,13 @@
       var built = false;
       function open() {
         if (!built) {
-          new PagefindUI({ element: '#aa-pagefind-search', bundlePath: '{{ path_to_root }}pagefind/', showSubResults: true, showImages: false });
+          // Derive an ABSOLUTE bundlePath from the loaded UI script URL: PagefindUI
+          // import()s `${bundlePath}pagefind.js`, and a relative/bare path fails to
+          // resolve as a module specifier. The resolved script .src is absolute and
+          // correct under both the github.io project subpath and the root domain.
+          var __pfs = document.querySelector('script[src$="pagefind/pagefind-ui.js"]');
+          var __pfBase = __pfs ? __pfs.src.replace(/pagefind-ui\.js(\?.*)?$/, '') : new URL('{{ path_to_root }}pagefind/', location.href).href;
+          new PagefindUI({ element: '#aa-pagefind-search', bundlePath: __pfBase, showSubResults: true, showImages: false });
           built = true;
         }
         modal.classList.add('is-open');
