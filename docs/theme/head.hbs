@@ -169,12 +169,14 @@
 <!-- Unified search across the hub + all module docs (AAASM-3664).
      Pagefind indexes the FINAL aggregated public/ at build time (see
      docs/scripts/aggregate.sh), so this one box searches the hub, core,
-     python-sdk, node-sdk and go-sdk together. Assets live at /pagefind/
-     (root-relative; the hub is served at the site root). When the hub is
+     python-sdk, node-sdk and go-sdk together. Assets live at {{ path_to_root }}pagefind/ (base-path-aware via mdBook
+     path_to_root, so it works under a project subpath like
+     github.io/agent-assembly-docs/ AND at the root docs.agent-assembly.com).
+     When the hub is
      built standalone (no aggregation), /pagefind/ is absent and the widget
      silently no-ops — the mdBook native search still works. -->
-<link href="/pagefind/pagefind-ui.css" rel="stylesheet" onerror="this.dataset.failed=1">
-<script src="/pagefind/pagefind-ui.js" onerror="window.__aaPagefindMissing=1"></script>
+<link href="{{ path_to_root }}pagefind/pagefind-ui.css" rel="stylesheet" onerror="this.dataset.failed=1">
+<script src="{{ path_to_root }}pagefind/pagefind-ui.js" onerror="window.__aaPagefindMissing=1"></script>
 <style>
   .aa-search { margin: 0 0 1rem; }
   .aa-search__open { cursor: pointer; width: 100%; text-align: left; border: 1px solid rgba(127,127,127,.4);
@@ -220,7 +222,7 @@
       var built = false;
       function open() {
         if (!built) {
-          new PagefindUI({ element: '#aa-pagefind-search', showSubResults: true, showImages: false });
+          new PagefindUI({ element: '#aa-pagefind-search', bundlePath: '{{ path_to_root }}pagefind/', showSubResults: true, showImages: false });
           built = true;
         }
         modal.classList.add('is-open');
