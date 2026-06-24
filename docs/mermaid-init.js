@@ -3,14 +3,14 @@
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 (() => {
-    const darkThemes = ['ayu', 'navy', 'coal'];
+    const darkThemes = new Set(['ayu', 'navy', 'coal']);
     const lightThemes = ['light', 'rust'];
 
     const classList = document.getElementsByTagName('html')[0].classList;
 
     let lastThemeWasLight = true;
     for (const cssClass of classList) {
-        if (darkThemes.includes(cssClass)) {
+        if (darkThemes.has(cssClass)) {
             lastThemeWasLight = false;
             break;
         }
