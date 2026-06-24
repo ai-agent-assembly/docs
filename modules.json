@@ -1,0 +1,57 @@
+{
+  "$comment": "Module registry for the central docs hub aggregation (AAASM-3659). Each entry is a module whose docs are built from its default channel (master/main HEAD) and mounted under /<subpath>/ in the aggregated site. 'ref' pins the checkout; use a tag/SHA to pin a release line. The hub mdBook itself is built from THIS repo at root and is not listed here.",
+  "site": {
+    "domain": "docs.agent-assembly.com",
+    "public_dir": "public"
+  },
+  "modules": [
+    {
+      "name": "core",
+      "repo": "ai-agent-assembly/agent-assembly",
+      "ref": "master",
+      "generator": "mdbook",
+      "subpath": "core",
+      "doc_dir": "docs",
+      "channel": "default (master HEAD)",
+      "base_url_strategy": "mdBook emits root-relative asset paths, so it is subpath-safe with no flag.",
+      "build": "cd docs && mdbook build -d <out>",
+      "out_glob": ["index.html"]
+    },
+    {
+      "name": "python-sdk",
+      "repo": "ai-agent-assembly/python-sdk",
+      "ref": "master",
+      "generator": "mkdocs-material",
+      "subpath": "python-sdk",
+      "doc_dir": ".",
+      "channel": "default (master HEAD; mike channels not aggregated, see AGGREGATION.md)",
+      "base_url_strategy": "uv sync --group docs; mkdocs build --site-dir <out>. mkdocs-material emits relative asset paths; site_url already points at /python-sdk/.",
+      "build": "uv sync --group docs && uv run mkdocs build --site-dir <out>",
+      "out_glob": ["index.html"]
+    },
+    {
+      "name": "node-sdk",
+      "repo": "ai-agent-assembly/node-sdk",
+      "ref": "master",
+      "generator": "docusaurus",
+      "subpath": "node-sdk",
+      "doc_dir": "website",
+      "channel": "default (lastVersion served at root; baseUrl already /node-sdk/)",
+      "base_url_strategy": "docusaurus.config.ts already sets baseUrl=/node-sdk/, so absolute asset paths are emitted under /node-sdk/. pnpm install --ignore-workspace && pnpm build.",
+      "build": "cd website && pnpm install --ignore-workspace && pnpm build",
+      "out_glob": ["index.html"]
+    },
+    {
+      "name": "go-sdk",
+      "repo": "ai-agent-assembly/go-sdk",
+      "ref": "master",
+      "generator": "hugo-hextra",
+      "subpath": "go-sdk",
+      "doc_dir": "website",
+      "channel": "default (master HEAD)",
+      "base_url_strategy": "Hugo: pass -b /go-sdk/ so root-relative assets resolve under /go-sdk/. hugo mod get pulls the Hextra theme.",
+      "build": "cd website && hugo mod get github.com/imfing/hextra && hugo --gc --minify -b /go-sdk/ -d <out>",
+      "out_glob": ["index.html"]
+    }
+  ]
+}
