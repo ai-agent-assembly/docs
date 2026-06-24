@@ -1,1 +1,5 @@
 docs/book/
+
+# Docs hub aggregation (AAASM-3659) — generated locally / in CI
+/public/
+/.modules/
