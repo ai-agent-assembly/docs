@@ -12,10 +12,10 @@
       "generator": "mdbook",
       "subpath": "core",
       "doc_dir": "docs",
-      "channel": "default (master HEAD) published under /core/latest/ with the channel manifest at /core/versions.json (AAASM-3752)",
-      "base_url_strategy": "mdBook emits root-relative asset paths, so it is subpath-safe with no flag. The in-theme #aaasm-version-selector derives the site root from path_to_root at runtime and fetches /core/versions.json, so the book lives under /core/latest/ (not flat at /core/) with the manifest + a site-root redirect at /core/.",
-      "build": "cd docs && mdbook build -d <out>/latest; cp docs/versions.json <out>/versions.json; cp docs/site-root-index.html <out>/index.html",
-      "out_glob": ["index.html", "latest/index.html", "versions.json"]
+      "channel": "FULL version set: master HEAD under /core/latest/ PLUS every release git tag rebuilt into /core/<tag>/, with the channels+archived manifest at /core/versions.json (AAASM-3753)",
+      "base_url_strategy": "mdBook emits root-relative asset paths, so it is subpath-safe with no flag. The in-theme #aaasm-version-selector derives the site root from path_to_root at runtime and fetches /core/versions.json, so each book lives under /core/latest/ and /core/<tag>/ with the manifest + a site-root redirect at /core/.",
+      "build": "cd docs && mdbook build -d <out>/latest; then for each 'v*.*.*' git tag: git worktree add + mdbook build -d <out>/<tag> (logging extra-archived.txt); then python3 docs/ci/build_versions.py latest latest <out>/versions.json (archived[] seeded from the rebuilt tags = git source of truth; moving pre-release/stable channels seeded from the live deployed manifest); cp docs/site-root-index.html <out>/index.html",
+      "out_glob": ["index.html", "latest/index.html", "<tag>/index.html", "versions.json"]
     },
     {
       "name": "python-sdk",
@@ -48,10 +48,10 @@
       "generator": "hugo-hextra",
       "subpath": "go-sdk",
       "doc_dir": "website",
-      "channel": "every channel in website/data/versions.toml (default: /go-sdk/latest/) built via the repo's own build_all_versions.sh, plus a site-root redirect (AAASM-3752)",
-      "base_url_strategy": "Run website/scripts/build_all_versions.sh with PAGES_BASE=/go-sdk so each channel is emitted under /go-sdk/<channel>/ with absolute assets — matching params.versionsBasePath=/go-sdk, so the version selector links resolve in the hub exactly as on the standalone site. A site-root redirect (website/redirect/index.html) lands /go-sdk/ on the best channel.",
-      "build": "cd <src> && PAGES_BASE=/go-sdk PUBLIC_DIR=<out> REPO_ROOT=<src> MASTER_REF=HEAD bash website/scripts/build_all_versions.sh; render website/redirect/index.html -> <out>/index.html",
-      "out_glob": ["index.html", "latest/index.html"]
+      "channel": "FULL version set: every git tag recomputed into website/data/versions.toml (replicating docs-site.yml) then built via the repo's own build_all_versions.sh — /go-sdk/latest/ + moving channels + /go-sdk/<tag>/ for every archived tag, plus a site-root redirect (AAASM-3753)",
+      "base_url_strategy": "First recompute website/data/versions.toml from git tags using the repo's website/scripts/versions_channels.py (the version dropdown is baked into each page at Hugo build time, so the full set must be in versions.toml BEFORE building). Then run website/scripts/build_all_versions.sh with PAGES_BASE=/go-sdk so each entry is emitted under /go-sdk/<channel-or-tag>/ with absolute assets — matching params.versionsBasePath=/go-sdk, so the selector links resolve in the hub exactly as on the standalone site. A site-root redirect (website/redirect/index.html) lands /go-sdk/ on the best channel.",
+      "build": "cd <src> && python3 (recompute website/data/versions.toml from `git tag -l 'v*'` via versions_channels.py) && PAGES_BASE=/go-sdk PUBLIC_DIR=<out> REPO_ROOT=<src> MASTER_REF=HEAD bash website/scripts/build_all_versions.sh; render website/redirect/index.html -> <out>/index.html",
+      "out_glob": ["index.html", "latest/index.html", "<tag>/index.html"]
     }
   ]
 }
