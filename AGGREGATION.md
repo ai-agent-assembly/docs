@@ -56,7 +56,7 @@ is not listed in the registry.
 
 | Module | Repo | Generator | Doc dir | Build (→ subpath base URL) |
 |---|---|---|---|---|
-| core | `ai-agent-assembly/agent-assembly` | mdBook | `docs/` | `mdbook build -d <out>/latest`, then rebuild **every** `v*.*.*` git tag into `<out>/<tag>/`, then `docs/ci/build_versions.py latest latest <out>/versions.json` + `docs/site-root-index.html` → `<out>/index.html` — `latest` + every archived tag under `/core/<tag>/`, manifest at `/core/versions.json`, root redirect; emits **root-relative** assets so it is subpath-safe |
+| core | `ai-agent-assembly/agent-assembly` | mdBook | `docs/` | `mdbook build -d <out>/latest`, then rebuild **every** `v*.*.*` git tag into `<out>/<tag>/`, then `docs/ci/build_versions.py latest latest <out>/versions.json` + `docs/site-root-index.html` → `<out>/index.html` — `latest` + every archived tag under `/core/<tag>/`, manifest at `/core/versions.json`, root redirect; emits **root-relative** assets so it is subpath-safe. The moving pre-release/stable channel pointers are derived **hermetically** from the rebuilt git tags (via the repo's own `docs/ci/channels.py`), not fetched over the network (AAASM-3757) |
 | python-sdk | `ai-agent-assembly/python-sdk` | mkdocs-material + mike | `.` (gh-pages) | clone the **`gh-pages`** branch and `cp -RL` it into `<out>` — reuses the full mike version tree (`versions.json` + per-version dirs + aliases); no `mkdocs build` is run, the published layout already matches `/python-sdk/` |
 | node-sdk | `ai-agent-assembly/node-sdk` | Docusaurus | `website/` | `pnpm install --ignore-workspace && pnpm build` — `baseUrl` already `/node-sdk/` → absolute assets land under `/node-sdk/`; the version dropdown ships baked-in from committed `versioned_docs/` |
 | go-sdk | `ai-agent-assembly/go-sdk` | Hugo+Hextra | `website/` | recompute `data/versions.toml` from git tags (via the repo's `versions_channels.py`), then `PAGES_BASE=/go-sdk … bash website/scripts/build_all_versions.sh` + render `website/redirect/index.html` → `<out>/index.html` — `latest` + moving channels + **every archived tag** under `/go-sdk/<tag>/`, root redirect; assets absolute under `/go-sdk/<channel-or-tag>/` matching `versionsBasePath` |
@@ -84,10 +84,14 @@ just installs the toolchains and runs it. Steps:
    `public/core/versions.json`, `public/core/latest/index.html`, and
    `public/go-sdk/latest/index.html` — so a regression that drops a module's
    version tree fails the build instead of shipping a 404ing dropdown. It further
-   asserts the **archived version sets** (AAASM-3753): at least one `/<tag>/`
-   snapshot dir under both `public/core/` and `public/go-sdk/`, so a regression
-   that drops the per-tag rebuild loop fails the build instead of silently
-   shipping a one-entry dropdown.
+   asserts the **archived version sets** (AAASM-3753, hardened in AAASM-3757):
+   each module's build records the tags that **must** produce a snapshot in an
+   `expected-archived.txt` count-floor (core: every release tag that ships docs;
+   go-sdk: every valid semver tag, identical to `archived[]` in `versions.toml`),
+   and the gate **fails the build if any expected tag's `/<tag>/index.html` is
+   missing**. This catches a *partial* set (a multi-tag rebuild where some tags
+   built and others were silently dropped), not merely an empty one — so a
+   truncated dropdown can never ship.
 5. Run **Pagefind** over the final `public/`, **scoped to each module's default
    channel** (the archived version dirs are moved aside during indexing and
    restored after — see Search), and assert it produced `public/pagefind/pagefind.js`.
@@ -114,7 +118,12 @@ Base paths are handled **entirely at build time in the aggregation** — we do
   selector's `versionsBasePath=/go-sdk` links (`/go-sdk/latest/`, `/go-sdk/<tag>/`,
   …) resolve in the hub exactly as on the standalone site. Because the dropdown is
   baked at build time from `data/versions.toml`, that file is recomputed from git
-  tags (via the repo's `versions_channels.py`) **before** the build.
+  tags (via the repo's `versions_channels.py`) **before** the build. The channel
+  *logic* is reused from `versions_channels.py` and cannot drift; the TOML
+  *serializer* is a hand-kept mirror of go-sdk's `docs-site.yml` (go-sdk exposes
+  no reusable serializer script), so `aggregate.sh` parse-checks the recomputed
+  `versions.toml` with `tomllib` and fails loudly if the mirror drifts into
+  malformed output (AAASM-3757).
 
 If a generator ever needs a post-build path rewrite, do it in `aggregate.sh` /
 the workflow — never in the module repo.
@@ -168,9 +177,13 @@ that in the hub by doing exactly what each module's deploy job does — rebuildi
 every release **git tag** (the core deploy abandoned mirroring the live Pages site
 in AAASM-2827 because it was lossy; the hub follows suit). The per-tag rebuild is
 self-healing: a tag that exists in git is recovered even if its standalone deploy
-never published. core's moving `pre-release`/`stable` channel pointers (which do
-*not* live in git) are seeded from the live deployed `versions.json`; a failed
-fetch only drops those moving channels, never the archived set. No change to any
+never published. core's moving `pre-release`/`stable` channel pointers are derived
+**hermetically from the rebuilt git tags** — newest stable and newest pre-release,
+selected with core's own semver logic (`docs/ci/channels.py`) and gated by
+`build_versions.py` — so the hub has **no build-time network dependency** and a
+channel can only ever point at a tag the hub actually rebuilt (AAASM-3757). This
+replaces the earlier non-hermetic `curl` of the deployed `versions.json`, which
+was silently non-fatal and could ship stale or empty pointers. No change to any
 module repo's deploy workflow was required — the hub reuses each repo's own build
 scripts.
 
