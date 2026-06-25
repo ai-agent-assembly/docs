@@ -69,19 +69,31 @@ build_core() {       # mdbook -> /core/{latest,<tag>...}/ + full versions.json +
   ( cd "$src/docs" && mdbook build -d "$out/latest" )
 
   # Rebuild every release tag's book into /core/<tag>/ (one worktree per tag,
-  # torn down after). extra-archived.txt feeds build_versions.py's archived[].
+  # torn down after). extra-archived.txt feeds build_versions.py's archived[]
+  # (only tags that actually built). expected-archived.txt records the tags that
+  # SHOULD have a snapshot — i.e. every release tag that ships docs (book.toml) —
+  # and is the count-floor the verify gate asserts against (AAASM-3757): a tag
+  # that ships docs but whose rebuild fails or is skipped must FAIL the build,
+  # not silently drop a dropdown entry. A tag with no docs/book.toml (predates
+  # the docs site) is legitimately absent and never counted as expected.
   : > "$src/extra-archived.txt"
+  : > "$src/expected-archived.txt"
   local tag workdir
   while IFS= read -r tag; do
     [[ -z "$tag" ]] && continue
     workdir="$(mktemp -d)"
     if git -C "$src" worktree add --detach "$workdir" "$tag" >/dev/null 2>&1 \
-       && [[ -f "$workdir/docs/book.toml" ]] \
-       && ( cd "$workdir/docs" && mdbook build -d "$out/$tag" ) >/dev/null 2>&1; then
-      echo "$tag" >> "$src/extra-archived.txt"
-      printf '  built core archived %s\n' "$tag"
+       && [[ -f "$workdir/docs/book.toml" ]]; then
+      # This tag ships docs, so its /core/<tag>/ snapshot is REQUIRED.
+      echo "$tag" >> "$src/expected-archived.txt"
+      if ( cd "$workdir/docs" && mdbook build -d "$out/$tag" ) >/dev/null 2>&1; then
+        echo "$tag" >> "$src/extra-archived.txt"
+        printf '  built core archived %s\n' "$tag"
+      else
+        printf '  WARN core tag %s ships docs but mdbook build FAILED (verify gate will catch)\n' "$tag"
+      fi
     else
-      printf '  WARN skipping core tag %s (no docs/book.toml or build failed)\n' "$tag"
+      printf '  WARN skipping core tag %s (no docs/book.toml)\n' "$tag"
     fi
     git -C "$src" worktree remove --force "$workdir" >/dev/null 2>&1 || true
     rm -rf "$workdir"
@@ -192,6 +204,13 @@ out_records.extend(archived)
 out = head.rstrip("\n") + "\n" + "\n" + "\n\n".join(emit(r) for r in out_records) + "\n"
 with open(path, "w", encoding="utf-8") as fh:
     fh.write(out)
+# expected-archived.txt is the count-floor the verify gate asserts against
+# (AAASM-3757): every valid release tag must materialise a /go-sdk/<tag>/
+# snapshot, so a partial build_all_versions.sh run fails the build instead of
+# shipping a truncated dropdown. Same tag set that seeds archived[] above.
+with open("expected-archived.txt", "w", encoding="utf-8") as fh:
+    for tag in sorted(tag_set, key=lambda t: parse_tag(t).raw if parse_tag(t) else t):
+        fh.write(tag + "\n")
 print(f"Recomputed {len(tag_set)} archived go-sdk tag(s); channels={channels}")
 PY
   )
@@ -289,20 +308,38 @@ verify_manifest "$PUBLIC_DIR/core/versions.json"
 verify_nonempty "$PUBLIC_DIR/core/latest"     "index.html"
 verify_nonempty "$PUBLIC_DIR/go-sdk/latest"   "index.html"
 
-# ---- archived version SETS must be materialised (AAASM-3753) ----
+# ---- archived version SETS must be COMPLETE, not just non-empty (AAASM-3757) ----
 # core & go-sdk now mirror python's FULL version breadth: every release git tag
 # is rebuilt into its own /<module>/<tag>/ subpath so the hub switcher lists the
-# same set as the standalone site (not just `latest`). Assert at least one
-# archived tag dir exists per module so a regression that silently drops the
-# rebuild loop fails the build instead of shipping a one-entry dropdown.
-verify_archived() {
-  local module="$1"
-  local n; n="$(find "$PUBLIC_DIR/$module" -mindepth 1 -maxdepth 1 -type d -name 'v[0-9]*' | wc -l | tr -d ' ')"
-  [[ "$n" -ge 1 ]] || fail "No archived version dirs under $module/ (expected /<tag>/ snapshots)"
-  printf '  ok  %-26s (%s archived version dirs)\n' "$module" "$n"
+# same set as the standalone site (not just `latest`). The earlier gate only
+# asserted >=1 archived dir, so a partial multi-tag rebuild (some tags built,
+# others silently dropped) still shipped a TRUNCATED dropdown. Assert the FULL
+# expected set instead: each module's build records every tag that must produce a
+# snapshot in expected-archived.txt (core: every release tag that ships docs;
+# go-sdk: every valid semver tag, == archived[] in versions.toml), and we fail
+# the build if any expected tag's /<tag>/index.html is missing. (latest +
+# moving pre-release/stable channels are asserted separately above, unchanged.)
+verify_archived_set() {
+  local module="$1" expected="$2"
+  [[ -s "$expected" ]] || fail "Missing/empty expected-tag manifest for $module (${expected})"
+  local tag total=0 present=0 missing=()
+  while IFS= read -r tag; do
+    [[ -z "$tag" ]] && continue
+    total=$((total + 1))
+    if [[ -s "$PUBLIC_DIR/$module/$tag/index.html" ]]; then
+      present=$((present + 1))
+    else
+      missing+=("$tag")
+    fi
+  done < "$expected"
+  [[ "$total" -ge 1 ]] || fail "Expected-tag manifest for $module lists no release tags"
+  if (( ${#missing[@]} > 0 )); then
+    fail "Partial archived set for $module/: ${present}/${total} expected tag snapshots present; missing: ${missing[*]}"
+  fi
+  printf '  ok  %-26s (%s/%s expected archived version dirs)\n' "$module" "$present" "$total"
 }
-verify_archived core
-verify_archived go-sdk
+verify_archived_set core   "$MODULES_DIR/core/expected-archived.txt"
+verify_archived_set go-sdk "$MODULES_DIR/go-sdk/expected-archived.txt"
 
 # ---- unified search via Pagefind over the FINAL public/ ----
 # Pagefind has a single inclusion --glob (no path negation/union), so to keep the
