@@ -7,13 +7,15 @@ stable subpaths, and deploys it to **`docs.agent-assembly.com`**:
 ```text
 /                hub mdBook (index, concepts, guides, architecture, reference)
 /core/           agent-assembly core docs        (mdBook; redirect -> /core/latest/)
-/core/versions.json   channel manifest for the core version selector
+/core/versions.json   channels + archived[] manifest for the core version selector
 /core/latest/         core docs, latest (master) channel
+/core/<tag>/          frozen core docs, one per release git tag (full archived set)
 /python-sdk/     python-sdk docs                 (mkdocs-material + mike, full version tree)
 /python-sdk/versions.json   mike manifest; per-version dirs + latest/stable/pre-release
 /node-sdk/       node-sdk docs                   (Docusaurus, in node-sdk/website/)
 /go-sdk/         go-sdk docs                      (Hugo + Hextra; redirect -> /go-sdk/latest/)
 /go-sdk/latest/       go docs, latest (master) channel
+/go-sdk/<tag>/        frozen go docs, one per release git tag (full archived set)
 /pagefind/       unified search index            (Pagefind over the final public/)
 ```
 
@@ -54,10 +56,10 @@ is not listed in the registry.
 
 | Module | Repo | Generator | Doc dir | Build (→ subpath base URL) |
 |---|---|---|---|---|
-| core | `ai-agent-assembly/agent-assembly` | mdBook | `docs/` | `mdbook build -d <out>/latest` + copy `docs/versions.json` → `<out>/versions.json` + `docs/site-root-index.html` → `<out>/index.html` — book under `/core/latest/`, manifest at `/core/versions.json`, root redirect; emits **root-relative** assets so it is subpath-safe |
+| core | `ai-agent-assembly/agent-assembly` | mdBook | `docs/` | `mdbook build -d <out>/latest`, then rebuild **every** `v*.*.*` git tag into `<out>/<tag>/`, then `docs/ci/build_versions.py latest latest <out>/versions.json` + `docs/site-root-index.html` → `<out>/index.html` — `latest` + every archived tag under `/core/<tag>/`, manifest at `/core/versions.json`, root redirect; emits **root-relative** assets so it is subpath-safe |
 | python-sdk | `ai-agent-assembly/python-sdk` | mkdocs-material + mike | `.` (gh-pages) | clone the **`gh-pages`** branch and `cp -RL` it into `<out>` — reuses the full mike version tree (`versions.json` + per-version dirs + aliases); no `mkdocs build` is run, the published layout already matches `/python-sdk/` |
 | node-sdk | `ai-agent-assembly/node-sdk` | Docusaurus | `website/` | `pnpm install --ignore-workspace && pnpm build` — `baseUrl` already `/node-sdk/` → absolute assets land under `/node-sdk/`; the version dropdown ships baked-in from committed `versioned_docs/` |
-| go-sdk | `ai-agent-assembly/go-sdk` | Hugo+Hextra | `website/` | `PAGES_BASE=/go-sdk … bash website/scripts/build_all_versions.sh` + render `website/redirect/index.html` → `<out>/index.html` — every channel in `data/versions.toml` under `/go-sdk/<channel>/`, root redirect; assets absolute under `/go-sdk/<channel>/` matching `versionsBasePath` |
+| go-sdk | `ai-agent-assembly/go-sdk` | Hugo+Hextra | `website/` | recompute `data/versions.toml` from git tags (via the repo's `versions_channels.py`), then `PAGES_BASE=/go-sdk … bash website/scripts/build_all_versions.sh` + render `website/redirect/index.html` → `<out>/index.html` — `latest` + moving channels + **every archived tag** under `/go-sdk/<tag>/`, root redirect; assets absolute under `/go-sdk/<channel-or-tag>/` matching `versionsBasePath` |
 
 ## Build / copy contract
 
@@ -81,9 +83,14 @@ just installs the toolchains and runs it. Steps:
    version-switcher machinery is present (AAASM-3752): `public/python-sdk/versions.json`,
    `public/core/versions.json`, `public/core/latest/index.html`, and
    `public/go-sdk/latest/index.html` — so a regression that drops a module's
-   version tree fails the build instead of shipping a 404ing dropdown.
-5. Run **Pagefind** over the final `public/` and assert it produced
-   `public/pagefind/pagefind.js`.
+   version tree fails the build instead of shipping a 404ing dropdown. It further
+   asserts the **archived version sets** (AAASM-3753): at least one `/<tag>/`
+   snapshot dir under both `public/core/` and `public/go-sdk/`, so a regression
+   that drops the per-tag rebuild loop fails the build instead of silently
+   shipping a one-entry dropdown.
+5. Run **Pagefind** over the final `public/`, **scoped to each module's default
+   channel** (the archived version dirs are moved aside during indexing and
+   restored after — see Search), and assert it produced `public/pagefind/pagefind.js`.
 
 ## Base-URL strategy
 
@@ -92,7 +99,8 @@ Base paths are handled **entirely at build time in the aggregation** — we do
 
 - **mdBook** (hub, core): emits root-relative paths → works under any prefix, no
   flag needed. The core version selector derives the site root from `path_to_root`
-  at runtime, so it resolves `/core/versions.json` correctly from `/core/latest/`.
+  at runtime, so it resolves `/core/versions.json` correctly from `/core/latest/`
+  and from every frozen `/core/<tag>/` snapshot.
 - **mkdocs-material + mike** (python-sdk): the `gh-pages` tree is reused verbatim;
   its layout (gh-pages root == `/python-sdk/`) is byte-for-byte the layout the
   standalone site serves, so the relative asset paths and the mike version
@@ -101,10 +109,12 @@ Base paths are handled **entirely at build time in the aggregation** — we do
 - **Docusaurus** (node-sdk): `baseUrl` is already `/node-sdk/`, so its absolute
   asset URLs (`/node-sdk/assets/...`) resolve correctly when copied to
   `public/node-sdk/`.
-- **Hugo+Hextra** (go-sdk): `build_all_versions.sh` builds each channel with
-  `--baseURL /go-sdk/<channel>/`, so assets are absolute under that subpath; the
-  selector's `versionsBasePath=/go-sdk` links (`/go-sdk/latest/`, …) resolve in
-  the hub exactly as on the standalone site.
+- **Hugo+Hextra** (go-sdk): `build_all_versions.sh` builds each channel/tag with
+  `--baseURL /go-sdk/<subpath>/`, so assets are absolute under that subpath; the
+  selector's `versionsBasePath=/go-sdk` links (`/go-sdk/latest/`, `/go-sdk/<tag>/`,
+  …) resolve in the hub exactly as on the standalone site. Because the dropdown is
+  baked at build time from `data/versions.toml`, that file is recomputed from git
+  tags (via the repo's `versions_channels.py`) **before** the build.
 
 If a generator ever needs a post-build path rewrite, do it in `aggregate.sh` /
 the workflow — never in the module repo.
@@ -120,40 +130,49 @@ assets live at `/pagefind/` (root-relative; the hub is at the site root). When t
 hub is built standalone (the legacy `deploy.yml`, no aggregation), `/pagefind/` is
 absent and the widget silently no-ops while the mdBook native search still works.
 
-## Versioning (AAASM-3752 — per-module version switcher in the hub)
+**Default-channel scoping (AAASM-3753):** now that core, go-sdk, and python-sdk
+each publish their **full** archived version set, indexing every version dir would
+return N near-duplicate hits per page (one per archived version). Pagefind exposes
+only a single inclusion `--glob` (no path negation/union), so `aggregate.sh`
+temporarily **moves the non-default version dirs aside** (core: `archived[]` from
+its manifest; go-sdk: every `v*` tag dir + `stable`/`pre-release`; python-sdk:
+every version + alias dir from its mike manifest — all keeping `latest`), runs
+Pagefind, then **restores** them (via an `EXIT` trap so they return even if
+indexing fails). Search therefore covers each module's current docs only; the
+archived snapshots remain fully served and reachable through the switcher.
+
+## Versioning (AAASM-3752 / AAASM-3753 — per-module version switcher in the hub)
 
 Each module ships its **own** per-version switcher (mike dropdown, Docusaurus
 dropdown, or a channel selector). The first aggregation cut built only a flat
 default-channel page per module and dropped the version machinery, so the
 switchers 404'd on `docs.agent-assembly.com` while still working on the
-standalone `*.github.io` sites. AAASM-3752 restores the machinery by publishing,
-under each `/<module>/`, the manifest **and** the version/channel subpaths the
-switcher references — reusing each module's already-published versioned output
-where one exists:
+standalone `*.github.io` sites. AAASM-3752 restored the machinery; AAASM-3753
+extended core and go-sdk to the **full** archived version set so every module's
+hub switcher now matches its standalone site:
 
 | Module | Mechanism | What the switcher lists in the hub |
 |---|---|---|
 | python-sdk | **Reuse** the `gh-pages` mike tree verbatim | the **full** version set (latest, stable, every alpha/beta, pre-release) — identical to the standalone site |
-| core | **Build** `master` HEAD into `/core/latest/` + copy committed `docs/versions.json` + root redirect | the channels in the committed manifest (default channel = `latest`) |
-| go-sdk | **Run** the repo's `build_all_versions.sh` over committed `data/versions.toml` + root redirect | every channel in the committed manifest (default channel = `latest`) |
+| core | **Build** `master` HEAD into `/core/latest/` **and rebuild every release git tag** into `/core/<tag>/`, then compute `versions.json` via the repo's `docs/ci/build_versions.py` + root redirect | the **full** version set (latest, pre-release/stable channels, every archived tag) |
+| go-sdk | **Recompute** `data/versions.toml` from git tags (via the repo's `versions_channels.py`), then **run** `build_all_versions.sh` to materialise `/go-sdk/<tag>/` for every entry + root redirect | the **full** version set (latest, pre-release/stable channels, every archived tag) |
 | node-sdk | unchanged — dropdown baked in from committed `versioned_docs/` | the committed versions |
 
-**Why python is "full" but core/go are "default channel":** python-sdk keeps a
-persistent `gh-pages` branch holding its entire mike tree, so the full set is
-reused for free. core and agent-assembly publish via a deploy-time GitHub Pages
-artifact (no persistent versioned branch); their committed `versions.json` /
-`versions.toml` describe only the `latest` channel — the moving channels and
-archived tag list are computed by the **release job** from git tags and live only
-on the deployed artifact. Reproducing those in the hub would mean rebuilding every
-historical tag, which is out of scope here. The switcher therefore lists exactly
-the channels each module's committed manifest declares, and every listed target
-resolves (no 404) — that is the AAASM-3752 acceptance bar.
-
-**Follow-up (not in this pass):** mirror core/go archived tag snapshots into the
-hub (rebuild each tag, or read the live deployed manifest) so their hub switchers
-match python's full breadth. Also: Pagefind now indexes every python version dir,
-so search may surface near-duplicate hits across versions — restrict the index to
-the default channel if that becomes noisy.
+**git is the source of truth.** python-sdk keeps a persistent `gh-pages` branch
+holding its entire mike tree, so the full set is reused for free. core and go-sdk
+publish via a deploy-time GitHub Pages artifact (no persistent versioned branch):
+their committed `versions.json` / `versions.toml` describe only the `latest`
+channel, and the moving channels + archived tag list are computed by the **release
+job from git tags** and live only on the deployed artifact. AAASM-3753 reproduces
+that in the hub by doing exactly what each module's deploy job does — rebuilding
+every release **git tag** (the core deploy abandoned mirroring the live Pages site
+in AAASM-2827 because it was lossy; the hub follows suit). The per-tag rebuild is
+self-healing: a tag that exists in git is recovered even if its standalone deploy
+never published. core's moving `pre-release`/`stable` channel pointers (which do
+*not* live in git) are seeded from the live deployed `versions.json`; a failed
+fetch only drops those moving channels, never the archived set. No change to any
+module repo's deploy workflow was required — the hub reuses each repo's own build
+scripts.
 
 ## Deploy / custom domain
 
