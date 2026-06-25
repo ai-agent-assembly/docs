@@ -50,14 +50,37 @@ clone_module() {
   git -C "$dest" checkout "$ref"
 }
 
-build_core() {       # mdbook -> public/core
+build_core() {       # mdbook -> public/core/latest + versions.json + root redirect (AAASM-3752)
+  # The core docs ship a channel-based version selector (docs/theme/index.hbs
+  # #aaasm-version-selector) that reads /core/versions.json and navigates to
+  # /core/<channel>/. A flat build at /core/ has no manifest and no channel
+  # subpath, so the selector 404s. Mirror the core docs.yml layout for the
+  # default channel: book at /core/latest/, manifest at /core/versions.json,
+  # and a site-root redirect (stable -> pre-release -> latest, client-side).
   local src="$1" out="$2"
-  ( cd "$src/docs" && mdbook build -d "$out" )
+  mkdir -p "$out/latest"
+  ( cd "$src/docs" && mdbook build -d "$out/latest" )
+  cp "$src/docs/versions.json"        "$out/versions.json"
+  cp "$src/docs/site-root-index.html" "$out/index.html"
 }
 
-build_python() {     # mkdocs-material -> public/python-sdk
-  local src="$1" out="$2"
-  ( cd "$src" && uv sync --group docs && uv run mkdocs build --site-dir "$out" )
+build_python() {     # mike-published version tree (gh-pages) -> public/python-sdk (AAASM-3752)
+  # The python-sdk publishes its FULL mkdocs+mike version tree (versions.json,
+  # per-version dirs, and channel aliases latest/stable/pre-release) to its
+  # gh-pages branch. A plain `mkdocs build` drops versions.json and every
+  # version dir, so the mike version dropdown 404s. Reuse the already-published
+  # gh-pages tree verbatim — its layout (gh-pages root == /python-sdk/) is the
+  # exact layout the standalone site serves, so the switcher works unchanged.
+  local out="$1" repo="$2"
+  local ghp="$MODULES_DIR/python-sdk-ghpages"
+  rm -rf "$ghp"
+  log "Cloning $repo @ gh-pages (mike version tree)"
+  git clone --depth 1 -b gh-pages "https://github.com/$repo.git" "$ghp"
+  rm -rf "$out"; mkdir -p "$out"
+  # cp -RL dereferences mike's alias symlinks (latest/stable/pre-release) into
+  # real directories — GitHub Pages does not follow symlinks.
+  cp -RL "$ghp/." "$out/"
+  rm -rf "$out/.git"
 }
 
 build_node() {       # docusaurus (website/, baseUrl already /node-sdk/) -> public/node-sdk
@@ -67,9 +90,36 @@ build_node() {       # docusaurus (website/, baseUrl already /node-sdk/) -> publ
   cp -R "$src/website/build" "$out"
 }
 
-build_go() {         # hugo + hextra (website/) -> public/go-sdk
+build_go() {         # hugo + hextra channel tree (build_all_versions.sh) -> public/go-sdk (AAASM-3752)
+  # The go-sdk docs ship a channel-based version selector (versionsBasePath
+  # /go-sdk + data/versions.toml) that links to /go-sdk/<channel>/. A flat build
+  # at /go-sdk/ leaves /go-sdk/latest/ (the selector's default target) a 404.
+  # Run the repo's own version-deploy flow so every channel in versions.toml is
+  # materialised under its subpath, then add the site-root redirect just like
+  # the standalone docs-site.yml does.
   local src="$1" out="$2"
-  ( cd "$src/website" && hugo mod get github.com/imfing/hextra && hugo --gc --minify -b "/go-sdk/" -d "$out" )
+  ( cd "$src" \
+    && PAGES_BASE="/go-sdk" PUBLIC_DIR="$out" REPO_ROOT="$src" MASTER_REF="HEAD" \
+       bash website/scripts/build_all_versions.sh )
+  # Site-root redirect (stable -> pre-release -> latest) so /go-sdk/ resolves.
+  local default_path
+  default_path="$(python3 - "$src/website/data/versions.toml" <<'PY'
+import sys, re
+text = open(sys.argv[1], encoding="utf-8").read()
+paths = {}
+for body in re.split(r'(?m)^\[\[versions\]\]\s*$', text)[1:]:
+    ch = re.search(r'channel\s*=\s*"([^"]+)"', body)
+    pa = re.search(r'path\s*=\s*"([^"]+)"', body)
+    if ch and pa:
+        paths[ch.group(1)] = pa.group(1)
+for channel in ("stable", "pre-release", "latest"):
+    if channel in paths:
+        print("." + paths[channel]); break
+else:
+    print("./latest/")
+PY
+)"
+  sed "s#@@DEFAULT_PATH@@#${default_path}#g" "$src/website/redirect/index.html" > "$out/index.html"
 }
 
 # ---- hub mdBook at root FIRST ----
@@ -90,11 +140,15 @@ for i in $(seq 0 $((COUNT - 1))); do
   dest="$MODULES_DIR/$name"
   out="$PUBLIC_DIR/$subpath"
 
-  clone_module "$repo" "$ref" "$dest"
+  # python-sdk reuses its published gh-pages tree (no source build needed), so
+  # skip the master checkout for it; every other module builds from source.
+  if [[ "$gen" != "mkdocs-material" ]]; then
+    clone_module "$repo" "$ref" "$dest"
+  fi
   log "Building $name ($gen) -> public/$subpath/"
   case "$gen" in
     mdbook)          build_core   "$dest" "$out" ;;
-    mkdocs-material) build_python "$dest" "$out" ;;
+    mkdocs-material) build_python "$out" "$repo" ;;
     docusaurus)      build_node   "$dest" "$out" ;;
     hugo-hextra)     build_go     "$dest" "$out" ;;
     *) fail "Unknown generator '$gen' for module '$name'" ;;
@@ -119,6 +173,20 @@ verify_nonempty "$PUBLIC_DIR"            "index.html"
 for sub in core python-sdk node-sdk go-sdk; do
   verify_nonempty "$PUBLIC_DIR/$sub"     "index.html"
 done
+
+# ---- version-switcher machinery must be present (AAASM-3752) ----
+# Each module's per-version switcher needs its manifest + the subpath(s) it
+# references. Assert them so a regression that drops the version tree fails the
+# build instead of silently shipping 404ing dropdowns.
+verify_manifest() {
+  local f="$1"
+  [[ -s "$f" ]] || fail "Missing/empty version manifest: ${f#"$PUBLIC_DIR"/}"
+  printf '  ok  %-26s (version manifest)\n' "${f#"$PUBLIC_DIR"/}"
+}
+verify_manifest "$PUBLIC_DIR/python-sdk/versions.json"
+verify_manifest "$PUBLIC_DIR/core/versions.json"
+verify_nonempty "$PUBLIC_DIR/core/latest"     "index.html"
+verify_nonempty "$PUBLIC_DIR/go-sdk/latest"   "index.html"
 
 # ---- unified search via Pagefind over the FINAL public/ ----
 if [[ -z "${SKIP_PAGEFIND:-}" ]]; then
