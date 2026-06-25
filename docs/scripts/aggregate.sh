@@ -127,14 +127,78 @@ build_node() {       # docusaurus (website/, baseUrl already /node-sdk/) -> publ
   cp -R "$src/website/build" "$out"
 }
 
-build_go() {         # hugo + hextra channel tree (build_all_versions.sh) -> public/go-sdk (AAASM-3752)
-  # The go-sdk docs ship a channel-based version selector (versionsBasePath
-  # /go-sdk + data/versions.toml) that links to /go-sdk/<channel>/. A flat build
-  # at /go-sdk/ leaves /go-sdk/latest/ (the selector's default target) a 404.
-  # Run the repo's own version-deploy flow so every channel in versions.toml is
-  # materialised under its subpath, then add the site-root redirect just like
-  # the standalone docs-site.yml does.
+build_go() {         # hugo + hextra FULL version tree (every git tag) -> public/go-sdk (AAASM-3753)
+  # The go-sdk version selector is BAKED INTO each page at Hugo build time from
+  # website/data/versions.toml (params.versionsBasePath /go-sdk). The committed
+  # versions.toml lists only `latest`; the archived tag entries + moving
+  # pre-release/stable channels are recomputed from git tags by the release job
+  # (docs-site.yml). To list the FULL archived set in the hub we replicate that
+  # recompute step BEFORE running the repo's build_all_versions.sh, which then
+  # materialises /go-sdk/<tag>/ for every archived entry (plus the channels).
+  # git tags are the source of truth; we never mirror the (lossy) live Pages site.
   local src="$1" out="$2"
+
+  # 1. Recompute versions.toml from git tags (verbatim replica of docs-site.yml's
+  #    "Recompute versions.toml from git tags" step — reuses the repo's own
+  #    website/scripts/versions_channels.py so the channel logic cannot drift).
+  local tags
+  tags="$(git -C "$src" tag -l 'v*' | tr '\n' ' ')"
+  # shellcheck disable=SC2086 # tags are simple vX.Y.Z[-pre] refs; word-split intended
+  ( cd "$src" && python3 - website/data/versions.toml $tags <<'PY'
+import os, re, sys
+sys.path.insert(0, os.path.join("website", "scripts"))
+from versions_channels import compute_channels, parse_tag  # noqa: E402
+
+path = sys.argv[1]
+raw_tags = sys.argv[2:]
+with open(path, encoding="utf-8") as fh:
+    text = fh.read()
+blocks = re.split(r'(?m)^\[\[versions\]\]\s*$', text)
+head = blocks[0]
+existing = []
+for body in blocks[1:]:
+    fields = dict(re.findall(r'(\w+)\s*=\s*"([^"]+)"', body))
+    flags = dict(re.findall(r'(\w+)\s*=\s*(true|false)\b', body))
+    fields.update({k: v for k, v in flags.items()})
+    existing.append(fields)
+latest = [r for r in existing if r.get("channel") == "latest"]
+if not latest:
+    latest = [{"channel": "latest", "version": "latest",
+               "label": "latest (master)", "path": "/latest/", "default": "true"}]
+tag_set = {t for t in raw_tags if t and parse_tag(t) is not None}
+channels = compute_channels(sorted(tag_set))
+archived = []
+for tag in sorted(tag_set, key=lambda t: parse_tag(t).raw if parse_tag(t) else t):
+    archived.append({"channel": "archived", "version": tag, "label": tag, "path": f"/{tag}/"})
+
+def emit(r):
+    order = ["channel", "version", "label", "path", "tag", "default"]
+    keys = order + [k for k in r if k not in order]
+    lines = ["[[versions]]"]
+    for k in keys:
+        if k not in r:
+            continue
+        v = r[k]
+        lines.append(f"  {k} = {v}" if v in ("true", "false") else f'  {k} = "{v}"')
+    return "\n".join(lines)
+
+out_records = list(latest)
+for channel in ("stable", "pre-release"):
+    tag = channels.get(channel)
+    if tag:
+        out_records.append({"channel": channel, "version": channel,
+                            "label": f"{channel} ({tag})", "path": f"/{channel}/", "tag": tag})
+out_records.extend(archived)
+out = head.rstrip("\n") + "\n" + "\n" + "\n\n".join(emit(r) for r in out_records) + "\n"
+with open(path, "w", encoding="utf-8") as fh:
+    fh.write(out)
+print(f"Recomputed {len(tag_set)} archived go-sdk tag(s); channels={channels}")
+PY
+  )
+
+  # 2. Build every subpath now listed in versions.toml (latest + channels + every
+  #    archived tag). build_all_versions.sh overlays the recomputed versions.toml
+  #    into each historical worktree so every snapshot's selector lists the full set.
   ( cd "$src" \
     && PAGES_BASE="/go-sdk" PUBLIC_DIR="$out" REPO_ROOT="$src" MASTER_REF="HEAD" \
        bash website/scripts/build_all_versions.sh )
