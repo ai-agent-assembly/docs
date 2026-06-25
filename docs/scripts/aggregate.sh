@@ -101,13 +101,44 @@ build_core() {       # mdbook -> /core/{latest,<tag>...}/ + full versions.json +
 
   # Manifest: reuse the repo's own channel computation (docs/ci/build_versions.py).
   # archived[] is seeded from the rebuilt tags (extra-archived.txt) so it is
-  # self-healing from git; the moving pre-release/stable channel pointers are
-  # seeded from the live deployed manifest (the only place those persist — and a
-  # missing fetch only drops the moving channels, never archived[]). This is what
-  # docs.yml does on a master-push cut.
+  # self-healing from git. The moving pre-release/stable channel pointers are
+  # derived HERMETICALLY from the rebuilt tags too (AAASM-3757) — newest stable
+  # and newest pre-release, picked with core's OWN semver logic (docs/ci/channels.py:
+  # parse_version/compare_versions) and written into the synthetic prior manifest
+  # build_versions.py reads. This replaces the previous non-hermetic `curl` of the
+  # live deployed versions.json, which was silently non-fatal and could ship stale
+  # or empty channel pointers. No build-time network dependency; a channel can
+  # only ever point at a tag we actually rebuilt above (never a dead link), and
+  # build_versions.py still applies the pre-release semver gate to the result.
   ( cd "$src"
-    curl -fsSL "https://ai-agent-assembly.github.io/agent-assembly/versions.json" \
-      -o prior-versions.json 2>/dev/null || rm -f prior-versions.json
+    python3 - "$src/extra-archived.txt" <<'PY'
+import json
+import sys
+from functools import cmp_to_key
+sys.path.insert(0, "docs/ci")
+from channels import channel_title, compare_versions, parse_version  # noqa: E402
+
+with open(sys.argv[1], encoding="utf-8") as fh:
+    tags = [t.strip() for t in fh if t.strip() and not t.startswith("#")]
+tags = [t for t in tags if parse_version(t) is not None]
+stable = [t for t in tags if parse_version(t)[3] is None]
+pre = [t for t in tags if parse_version(t)[3] is not None]
+
+
+def newest(vs):
+    return max(vs, key=cmp_to_key(compare_versions)) if vs else None
+
+
+channels = []
+ns, npre = newest(stable), newest(pre)
+if ns:
+    channels.append({"id": "stable", "title": channel_title("stable", ns), "target": ns})
+if npre:
+    channels.append({"id": "pre-release", "title": channel_title("pre-release", npre), "target": npre})
+with open("prior-versions.json", "w", encoding="utf-8") as fh:
+    json.dump({"channels": channels, "archived": []}, fh)
+print(f"Hermetic core channel seed (from git tags): {channels}")
+PY
     python3 docs/ci/build_versions.py latest latest "$out/versions.json" )
 
   cp "$src/docs/site-root-index.html" "$out/index.html"
