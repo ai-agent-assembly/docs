@@ -12,10 +12,10 @@
       "generator": "mdbook",
       "subpath": "core",
       "doc_dir": "docs",
-      "channel": "default (master HEAD)",
-      "base_url_strategy": "mdBook emits root-relative asset paths, so it is subpath-safe with no flag.",
-      "build": "cd docs && mdbook build -d <out>",
-      "out_glob": ["index.html"]
+      "channel": "default (master HEAD) published under /core/latest/ with the channel manifest at /core/versions.json (AAASM-3752)",
+      "base_url_strategy": "mdBook emits root-relative asset paths, so it is subpath-safe with no flag. The in-theme #aaasm-version-selector derives the site root from path_to_root at runtime and fetches /core/versions.json, so the book lives under /core/latest/ (not flat at /core/) with the manifest + a site-root redirect at /core/.",
+      "build": "cd docs && mdbook build -d <out>/latest; cp docs/versions.json <out>/versions.json; cp docs/site-root-index.html <out>/index.html",
+      "out_glob": ["index.html", "latest/index.html", "versions.json"]
     },
     {
       "name": "python-sdk",
@@ -24,10 +24,10 @@
       "generator": "mkdocs-material",
       "subpath": "python-sdk",
       "doc_dir": ".",
-      "channel": "default (master HEAD; mike channels not aggregated, see AGGREGATION.md)",
-      "base_url_strategy": "uv sync --group docs; mkdocs build --site-dir <out>. mkdocs-material emits relative asset paths; site_url already points at /python-sdk/.",
-      "build": "uv sync --group docs && uv run mkdocs build --site-dir <out>",
-      "out_glob": ["index.html"]
+      "channel": "FULL mike version tree reused from the python-sdk gh-pages branch — versions.json + every per-version dir + channel aliases latest/stable/pre-release (AAASM-3752)",
+      "base_url_strategy": "Reuse the already-published gh-pages branch verbatim: its layout (gh-pages root == /python-sdk/) is identical to the standalone site, so the mike/material version dropdown works unchanged. Alias symlinks are dereferenced (cp -RL) because GitHub Pages does not follow symlinks. No mkdocs build is run here.",
+      "build": "git clone --depth 1 -b gh-pages <repo> tmp; cp -RL tmp/. <out>/",
+      "out_glob": ["index.html", "versions.json", "latest/index.html"]
     },
     {
       "name": "node-sdk",
@@ -48,10 +48,10 @@
       "generator": "hugo-hextra",
       "subpath": "go-sdk",
       "doc_dir": "website",
-      "channel": "default (master HEAD)",
-      "base_url_strategy": "Hugo: pass -b /go-sdk/ so root-relative assets resolve under /go-sdk/. hugo mod get pulls the Hextra theme.",
-      "build": "cd website && hugo mod get github.com/imfing/hextra && hugo --gc --minify -b /go-sdk/ -d <out>",
-      "out_glob": ["index.html"]
+      "channel": "every channel in website/data/versions.toml (default: /go-sdk/latest/) built via the repo's own build_all_versions.sh, plus a site-root redirect (AAASM-3752)",
+      "base_url_strategy": "Run website/scripts/build_all_versions.sh with PAGES_BASE=/go-sdk so each channel is emitted under /go-sdk/<channel>/ with absolute assets — matching params.versionsBasePath=/go-sdk, so the version selector links resolve in the hub exactly as on the standalone site. A site-root redirect (website/redirect/index.html) lands /go-sdk/ on the best channel.",
+      "build": "cd <src> && PAGES_BASE=/go-sdk PUBLIC_DIR=<out> REPO_ROOT=<src> MASTER_REF=HEAD bash website/scripts/build_all_versions.sh; render website/redirect/index.html -> <out>/index.html",
+      "out_glob": ["index.html", "latest/index.html"]
     }
   ]
 }
