@@ -66,24 +66,27 @@ sequenceDiagram
   GW-->>SDK: PolicyDecision
 ```
 
-### Operator to dashboard / CLI (SAML/OIDC)
+### Operator to console (SAML/OIDC)
+
+Operators sign in through the SaaS console (control plane) — SSO is a hosted
+control-plane flow, not an `aasm` CLI command.
 
 ```mermaid
 sequenceDiagram
   autonumber
   participant Ops as Operator
-  participant CLI as aasm CLI / Dashboard
+  participant Console as SaaS console (control plane)
   participant API as aa-api
   participant IdP as Enterprise IdP (SAML/OIDC)
 
-  Ops->>CLI: aasm login --sso
-  CLI->>IdP: Redirect to IdP with SAML AuthnRequest
+  Ops->>Console: Sign in with SSO
+  Console->>IdP: Redirect to IdP with SAML AuthnRequest
   IdP-->>Ops: Login prompt (MFA enforced by IdP)
   Ops->>IdP: Credentials + MFA
-  IdP-->>CLI: SAML Assertion / OIDC id_token
-  CLI->>API: Exchange assertion for session token
-  API-->>CLI: Signed session token (TTL=8h)
-  CLI-->>Ops: Login successful
+  IdP-->>Console: SAML Assertion / OIDC id_token
+  Console->>API: Exchange assertion for session token
+  API-->>Console: Signed session token (TTL=8h)
+  Console-->>Ops: Login successful
 ```
 
 ---
@@ -94,7 +97,7 @@ sequenceDiagram
 - The encryption key is derived from a master secret held in the SaaS control plane's hardware security module (HSM).
 - Secrets are never written to disk in plaintext.
 - Secrets are never logged, even at `DEBUG` level.
-- Secret rotation is supported via the `aasm secret rotate` command, which re-encrypts in place without service restart.
+- Secret rotation is performed from the SaaS console (control plane), which re-encrypts in place without a service restart.
 
 ---
 
