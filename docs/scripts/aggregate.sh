@@ -27,6 +27,7 @@ cd "$REPO_ROOT"
 MODULES_DIR="${MODULES_DIR:-$REPO_ROOT/.modules}"
 PUBLIC_DIR="${PUBLIC_DIR:-$REPO_ROOT/public}"
 REGISTRY="$REPO_ROOT/modules.json"
+readonly INDEX_FILE="index.html"
 
 log()  { printf '\n\033[1;34m==> %s\033[0m\n' "$*"; }
 fail() { printf '\n\033[1;31mERROR: %s\033[0m\n' "$*" >&2; exit 1; }
@@ -360,9 +361,9 @@ verify_nonempty() {
   [[ "$n" -ge 1 ]] || fail "No HTML files under $dir"
   printf '  ok  %-26s (%s html files)\n' "${dir#"$PUBLIC_DIR"/}" "$n"
 }
-verify_nonempty "$PUBLIC_DIR"            "index.html"
+verify_nonempty "$PUBLIC_DIR"            "$INDEX_FILE"
 for sub in core python-sdk node-sdk go-sdk; do
-  verify_nonempty "$PUBLIC_DIR/$sub"     "index.html"
+  verify_nonempty "$PUBLIC_DIR/$sub"     "$INDEX_FILE"
 done
 
 # ---- version-switcher machinery must be present (AAASM-3752) ----
@@ -377,8 +378,8 @@ verify_manifest() {
 verify_manifest "$PUBLIC_DIR/modules.json"
 verify_manifest "$PUBLIC_DIR/python-sdk/versions.json"
 verify_manifest "$PUBLIC_DIR/core/versions.json"
-verify_nonempty "$PUBLIC_DIR/core/latest"     "index.html"
-verify_nonempty "$PUBLIC_DIR/go-sdk/latest"   "index.html"
+verify_nonempty "$PUBLIC_DIR/core/latest"     "$INDEX_FILE"
+verify_nonempty "$PUBLIC_DIR/go-sdk/latest"   "$INDEX_FILE"
 
 # ---- archived version SETS must be COMPLETE, not just non-empty (AAASM-3757) ----
 # core & go-sdk now mirror python's FULL version breadth: every release git tag
