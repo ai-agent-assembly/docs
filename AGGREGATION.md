@@ -6,6 +6,7 @@ stable subpaths, and deploys it to **`docs.agent-assembly.com`**:
 
 ```text
 /                hub mdBook (index, concepts, guides, architecture, reference)
+/modules.json    module registry copied verbatim — drives the hub module/version switcher
 /core/           agent-assembly core docs        (mdBook; redirect -> /core/latest/)
 /core/versions.json   channels + archived[] manifest for the core version selector
 /core/latest/         core docs, latest (master) channel
@@ -23,6 +24,15 @@ Each module's **per-version switcher** works in the hub because the hub now
 publishes the version machinery each switcher needs under `/<module>/` — the
 manifest **and** the version/channel subpaths it references (AAASM-3752). See
 "Versioning" below.
+
+The hub itself also ships a **hub-level module + version switcher** (AAASM-3758),
+a persistent header on every hub page (`docs/theme/head.hbs`). It is driven
+entirely by the aggregated manifests — `/modules.json` for the module list and
+each `/<module>/versions.json` for that module's versions/channels — and
+navigates to `/<subpath>/<channel-or-tag>/`. There are no hard-coded version
+strings. A module with no `versions.json` (e.g. `node-sdk`, `go-sdk`) is still
+listed and falls back to its module root; a hub built standalone (no
+aggregation, so no `/modules.json`) silently no-ops the widget.
 
 ## Why pull/aggregate (not one generator)
 
