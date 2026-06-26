@@ -19,7 +19,7 @@ This end-to-end example takes a LangChain agent from zero to fully governed in u
 ### Step 1 — Install packages
 
 ```bash
-pip install agent-assembly langchain langchain-openai langchain-core
+pip install agent-assembly --pre langchain langchain-openai langchain-core
 ```
 
 ### Step 2 — Set credentials
@@ -107,7 +107,7 @@ In the console, open **Policies → New Policy** and apply the starter template 
 5. Install the SDK:
 
 ```bash
-pip install agent-assembly          # Python
+pip install agent-assembly --pre    # Python (pre-release line)
 pnpm add @agent-assembly/sdk        # TypeScript
 go get github.com/agent-assembly/go-sdk  # Go
 ```
