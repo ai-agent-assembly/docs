@@ -35,7 +35,7 @@ export OPENAI_API_KEY="<your-openai-key>"
 ```python
 import os
 from agent_assembly import init_assembly
-from agent_assembly.adapters.langchain import AssemblyCallbackHandler
+from agent_assembly.adapters.langchain import get_active_callback_handler
 from langchain_openai import ChatOpenAI
 from langchain.agents import AgentExecutor, create_openai_tools_agent
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
@@ -49,17 +49,17 @@ def summarise_text(text: str) -> str:
 
 
 def run_agent(question: str) -> str:
-    # init_assembly registers the agent with the gateway and opens a governed
-    # session. It auto-detects LangChain and wires an AssemblyCallbackHandler,
-    # so every tool/LLM call is policy-checked and audited — no LangChain
-    # internals to touch.
+    # init_assembly registers the agent with the gateway and installs the
+    # governance interceptor. get_active_callback_handler() returns the
+    # AssemblyCallbackHandler it wired to that interceptor; passing it to
+    # LangChain via callbacks=[...] policy-checks and audits every tool/LLM call.
     with init_assembly(
         gateway_url=os.environ.get("AAA_GATEWAY_URL", "https://api.agent-assembly.io"),
         api_key=os.environ["AAA_API_KEY"],
         agent_id="langchain-research-agent",
         mode="sdk-only",
-    ) as ctx:
-        handler = AssemblyCallbackHandler(interceptor=ctx.client)
+    ):
+        handler = get_active_callback_handler()
 
         llm = ChatOpenAI(model="gpt-4o", temperature=0)
         tools = [summarise_text]
@@ -85,7 +85,7 @@ if __name__ == "__main__":
     print(answer)
 ```
 
-The `init_assembly` session plus the `AssemblyCallbackHandler` do three things, without touching LangChain internals:
+The `init_assembly` session plus the wired callback handler do three things, without touching LangChain internals:
 
 - Register `langchain-research-agent` with the gateway.
 - Run a policy check before each tool/LLM call, blocking it if policy denies.
