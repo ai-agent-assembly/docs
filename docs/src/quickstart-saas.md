@@ -34,45 +34,62 @@ export OPENAI_API_KEY="<your-openai-key>"
 
 ```python
 import os
-from agent_assembly import AgentAssembly
+from agent_assembly import init_assembly
+from agent_assembly.adapters.langchain import AssemblyCallbackHandler
 from langchain_openai import ChatOpenAI
 from langchain.agents import AgentExecutor, create_openai_tools_agent
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.tools import tool
 
-aaa = AgentAssembly()
 
 @tool
 def summarise_text(text: str) -> str:
     """Return a one-sentence summary of the provided text."""
     return text[:200] + "..." if len(text) > 200 else text
 
-@aaa.agent(name="langchain-research-agent")
+
 def run_agent(question: str) -> str:
-    llm = ChatOpenAI(model="gpt-4o", temperature=0)
-    tools = [summarise_text]
+    # init_assembly registers the agent with the gateway and opens a governed
+    # session. It auto-detects LangChain and wires an AssemblyCallbackHandler,
+    # so every tool/LLM call is policy-checked and audited — no LangChain
+    # internals to touch.
+    with init_assembly(
+        gateway_url=os.environ.get("AAA_GATEWAY_URL", "https://api.agent-assembly.io"),
+        api_key=os.environ["AAA_API_KEY"],
+        agent_id="langchain-research-agent",
+        mode="sdk-only",
+    ) as ctx:
+        handler = AssemblyCallbackHandler(interceptor=ctx.client)
 
-    prompt = ChatPromptTemplate.from_messages([
-        ("system", "You are a helpful research assistant."),
-        ("human", "{input}"),
-        MessagesPlaceholder(variable_name="agent_scratchpad"),
-    ])
+        llm = ChatOpenAI(model="gpt-4o", temperature=0)
+        tools = [summarise_text]
 
-    agent = create_openai_tools_agent(llm, tools, prompt)
-    executor = AgentExecutor(agent=agent, tools=tools, verbose=False)
-    result = executor.invoke({"input": question})
-    return result["output"]
+        prompt = ChatPromptTemplate.from_messages([
+            ("system", "You are a helpful research assistant."),
+            ("human", "{input}"),
+            MessagesPlaceholder(variable_name="agent_scratchpad"),
+        ])
+
+        agent = create_openai_tools_agent(llm, tools, prompt)
+        executor = AgentExecutor(
+            agent=agent, tools=tools, callbacks=[handler], verbose=False
+        )
+        result = executor.invoke({"input": question})
+        return result["output"]
+
 
 if __name__ == "__main__":
-    answer = run_agent("What is AI Agent Assembly and why does it matter for enterprise governance?")
+    answer = run_agent(
+        "What is AI Agent Assembly and why does it matter for enterprise governance?"
+    )
     print(answer)
 ```
 
-The `@aaa.agent` decorator does three things, without touching LangChain internals:
+The `init_assembly` session plus the `AssemblyCallbackHandler` do three things, without touching LangChain internals:
 
-- Registers `langchain-research-agent` with the gateway.
-- Runs a policy check before each invocation, blocking the call if policy denies it.
-- Emits an audit event for every call.
+- Register `langchain-research-agent` with the gateway.
+- Run a policy check before each tool/LLM call, blocking it if policy denies.
+- Emit an audit event for every call.
 
 ### Step 4 — Activate a starter policy
 
@@ -122,19 +139,26 @@ export AAA_API_KEY="<your-api-key>"
 7. Instrument your agent entry point:
 
 ```python
-from agent_assembly import AgentAssembly
+import os
+import openai
+from agent_assembly import init_assembly
 
-aaa = AgentAssembly()
 
-@aaa.agent(name="my-first-agent")
 def run_agent(prompt: str) -> str:
-    import openai
-    client = openai.OpenAI()
-    response = client.chat.completions.create(
-        model="gpt-4o",
-        messages=[{"role": "user", "content": prompt}],
-    )
-    return response.choices[0].message.content
+    # Open a governed session for this agent; every call inside the context is
+    # registered, policy-checked, and audited by the gateway.
+    with init_assembly(
+        gateway_url=os.environ.get("AAA_GATEWAY_URL", "https://api.agent-assembly.io"),
+        api_key=os.environ["AAA_API_KEY"],
+        agent_id="my-first-agent",
+        mode="sdk-only",
+    ):
+        client = openai.OpenAI()
+        response = client.chat.completions.create(
+            model="gpt-4o",
+            messages=[{"role": "user", "content": prompt}],
+        )
+        return response.choices[0].message.content
 ```
 
 8. Open **Policies → New Policy** in the console and activate a starter policy. Your agent is now governed.
