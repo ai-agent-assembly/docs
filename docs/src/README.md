@@ -6,7 +6,7 @@
 [![go-sdk](https://img.shields.io/github/v/tag/ai-agent-assembly/go-sdk?sort=semver&label=go-sdk&logo=go&color=3b82f6)](https://github.com/ai-agent-assembly/go-sdk/tags)
 [![license](https://img.shields.io/badge/license-Apache--2.0-green)](https://github.com/ai-agent-assembly/agent-assembly-docs/blob/main/LICENSE)
 
-Quick links to each component, its current version, and its license. Every version badge reads the latest published version live — core and Go from GitHub, Python from PyPI, Node from npm's `beta` dist-tag — so they stay current with no manual updates. The project is in beta (`v0.0.1-beta`).
+Quick links to each component, its current version, and its license. Every version badge reads the latest published version live — core and Go from GitHub, Python from PyPI, Node from npm's `beta` dist-tag — so they stay current with no manual updates. The project is in release candidate (`v0.0.1-rc`).
 
 AI Agent Assembly is a governance layer for AI agents. It sits between your agents and the outside world and does three things:
 
@@ -69,4 +69,4 @@ All three layers report to the **gateway**, which evaluates policy and tracks pe
 
 ---
 
-*Last reviewed: 2026-06-13 — AI Agent Assembly Team*
+*Last reviewed: 2026-06-27 — AI Agent Assembly Team*
