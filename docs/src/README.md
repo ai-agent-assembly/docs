@@ -2,11 +2,11 @@
 
 [![core](https://img.shields.io/github/v/release/ai-agent-assembly/agent-assembly?include_prereleases&sort=semver&label=core&logo=github&color=3b82f6)](https://github.com/ai-agent-assembly/agent-assembly/releases)
 [![python-sdk](https://img.shields.io/pypi/v/agent-assembly?label=python-sdk&logo=pypi)](https://github.com/ai-agent-assembly/python-sdk)
-[![node-sdk](https://img.shields.io/npm/v/@agent-assembly/sdk/beta?label=node-sdk&logo=npm)](https://github.com/ai-agent-assembly/node-sdk)
+[![node-sdk](https://img.shields.io/npm/v/@agent-assembly/sdk/rc?label=node-sdk&logo=npm)](https://github.com/ai-agent-assembly/node-sdk)
 [![go-sdk](https://img.shields.io/github/v/tag/ai-agent-assembly/go-sdk?sort=semver&label=go-sdk&logo=go&color=3b82f6)](https://github.com/ai-agent-assembly/go-sdk/tags)
 [![license](https://img.shields.io/badge/license-Apache--2.0-green)](https://github.com/ai-agent-assembly/agent-assembly-docs/blob/main/LICENSE)
 
-Quick links to each component, its current version, and its license. Every version badge reads the latest published version live — core and Go from GitHub, Python from PyPI, Node from npm's `beta` dist-tag — so they stay current with no manual updates. The project is in release candidate (`v0.0.1-rc`).
+Quick links to each component, its current version, and its license. Every version badge reads the latest published version live — core and Go from GitHub, Python from PyPI, Node from npm's `rc` dist-tag — so they stay current with no manual updates. The project is in release candidate (`v0.0.1-rc`).
 
 AI Agent Assembly is a governance layer for AI agents. It sits between your agents and the outside world and does three things:
 

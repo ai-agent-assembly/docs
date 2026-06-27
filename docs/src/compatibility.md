@@ -25,11 +25,11 @@ row's provenance note at the bottom of the page.
 
 [![core](https://img.shields.io/github/v/release/ai-agent-assembly/agent-assembly?include_prereleases&sort=semver&label=core&logo=github&color=3b82f6)](https://github.com/ai-agent-assembly/agent-assembly/releases)
 [![PyPI](https://img.shields.io/pypi/v/agent-assembly?label=python-sdk&logo=pypi)](https://pypi.org/project/agent-assembly/)
-[![npm](https://img.shields.io/npm/v/@agent-assembly/sdk/beta?label=node-sdk&logo=npm)](https://www.npmjs.com/package/@agent-assembly/sdk)
+[![npm](https://img.shields.io/npm/v/@agent-assembly/sdk/rc?label=node-sdk&logo=npm)](https://www.npmjs.com/package/@agent-assembly/sdk)
 [![Go](https://img.shields.io/github/v/tag/ai-agent-assembly/go-sdk?sort=semver&label=go-sdk&logo=go&color=3b82f6)](https://github.com/ai-agent-assembly/go-sdk/tags)
 
 All four badges read the **live** latest published version, so they stay current
-without maintenance. **Python** reads PyPI and **Node** reads npm's `beta`
+without maintenance. **Python** reads PyPI and **Node** reads npm's `rc`
 dist-tag. **Core** uses shields.io's `github/v/release` endpoint
 (`include_prereleases&sort=semver`): the monorepo carries a non-release `spec/*`
 tag that pollutes plain `github/v/tag` semver sorting, and core cuts GitHub
@@ -97,7 +97,7 @@ footnote in the **Notes** list below.
 | SDK | Runtime requirement | Install | Source |
 |---|---|---|---|
 | Python SDK | Python >=3.12,<4.0 | `pip install agent-assembly --pre` | python-sdk pyproject.toml [project].requires-python |
-| Node SDK | Node.js >=18.18.0 (pnpm >=10 to build from source) | `npm install @agent-assembly/sdk@beta` | node-sdk package.json [engines] |
+| Node SDK | Node.js >=18.18.0 (pnpm >=10 to build from source) | `npm install @agent-assembly/sdk@rc` | node-sdk package.json [engines] |
 | Go SDK | Go >=1.26.0 | `go get github.com/ai-agent-assembly/go-sdk@latest` | go-sdk go.mod (go directive) |
 
 <!-- END GENERATED:requirements -->

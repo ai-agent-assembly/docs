@@ -125,7 +125,7 @@ In the console, open **Policies → New Policy** and apply the starter template 
 
 ```bash
 pip install agent-assembly --pre    # Python (pre-release line)
-pnpm add @agent-assembly/sdk@beta   # TypeScript (pre-release line)
+pnpm add @agent-assembly/sdk@rc   # TypeScript (pre-release line)
 go get github.com/ai-agent-assembly/go-sdk@latest  # Go
 ```
 

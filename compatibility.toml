@@ -284,7 +284,7 @@ source = "python-sdk pyproject.toml [project].requires-python"
 [requirements.node]
 label = "Node SDK"
 runtime = "Node.js >=18.18.0 (pnpm >=10 to build from source)"
-install = "npm install @agent-assembly/sdk@beta"
+install = "npm install @agent-assembly/sdk@rc"
 source = "node-sdk package.json [engines]"
 
 [requirements.go]
@@ -300,7 +300,7 @@ source = "go-sdk go.mod (go directive)"
 #   * GitHub org/repo resolve case-insensitively; canonical casing is lowercase
 #     `ai-agent-assembly` (org policy).
 # The version badges are LIVE — no hardcoded version. Python reads PyPI, Node reads
-# npm's `beta` dist-tag, Core uses shields.io `github/v/release`
+# npm's `rc` dist-tag, Core uses shields.io `github/v/release`
 # (`include_prereleases&sort=semver`), and Go uses `github/v/tag` (`sort=semver`).
 # Core uses the RELEASE endpoint (not tag): the monorepo carries a non-release
 # `spec/*` tag that pollutes `github/v/tag` semver sorting, and core cuts GitHub
@@ -312,9 +312,9 @@ source = "go-sdk go.mod (go directive)"
 core_github_repo = "ai-agent-assembly/agent-assembly"
 # Python: PyPI distribution name (live latest from PyPI).
 pypi_package = "agent-assembly"
-# Node: npm scoped package; the prerelease line now lives under the `beta` dist-tag.
+# Node: npm scoped package; the prerelease line now lives under the `rc` dist-tag.
 npm_package = "@agent-assembly/sdk"
-npm_dist_tag = "beta"
+npm_dist_tag = "rc"
 # Go: no semantic registry and no GitHub Releases; use the GitHub TAG badge, sort=semver (live latest tag).
 go_github_repo = "ai-agent-assembly/go-sdk"
 go_module = "github.com/ai-agent-assembly/go-sdk"
