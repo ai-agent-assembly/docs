@@ -20,10 +20,15 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
+# Permissions are declared per job (least privilege, no workflow-level default):
+# the build job only clones public repos and builds, so it needs read access to
+# this repo's contents; the deploy job below opts up to the Pages scopes only.
 jobs:
   build:
     name: Aggregate all module docs
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Checkout hub
         uses: actions/checkout@v7
@@ -36,8 +41,20 @@ jobs:
         # toolchain — core's theme uses the `{{ resource }}` helper (mdBook
         # 0.4.41+), so the older 0.4.x in deploy.yml cannot render it.
         run: |
-          curl -sSL https://github.com/rust-lang/mdBook/releases/download/v0.5.2/mdbook-v0.5.2-x86_64-unknown-linux-gnu.tar.gz | tar -xz
-          curl -sSL https://github.com/badboy/mdbook-mermaid/releases/download/v0.17.0/mdbook-mermaid-v0.17.0-x86_64-unknown-linux-gnu.tar.gz | tar -xz
+          set -euo pipefail
+          # SHA-256 of the pinned release tarballs. Upstream publishes no
+          # .sha256 sidecar assets, so these were computed from the v0.5.2 /
+          # v0.17.0 x86_64-unknown-linux-gnu tarballs and pinned here; the
+          # download is verified against them before anything is executed, so a
+          # tampered/MITM'd asset fails the step closed instead of running.
+          MDBOOK_SHA256=084e4342ba564db270108763e404a7d1f309d932651a22484e93c0dc1a071f6d
+          MERMAID_SHA256=8aced70d781830fb0e81988f081c4abdd49e056a001ae2f1e4d484e1f6385c57
+          curl -sSL -o mdbook.tar.gz https://github.com/rust-lang/mdBook/releases/download/v0.5.2/mdbook-v0.5.2-x86_64-unknown-linux-gnu.tar.gz
+          curl -sSL -o mdbook-mermaid.tar.gz https://github.com/badboy/mdbook-mermaid/releases/download/v0.17.0/mdbook-mermaid-v0.17.0-x86_64-unknown-linux-gnu.tar.gz
+          echo "${MDBOOK_SHA256}  mdbook.tar.gz" | sha256sum -c -
+          echo "${MERMAID_SHA256}  mdbook-mermaid.tar.gz" | sha256sum -c -
+          tar -xzf mdbook.tar.gz
+          tar -xzf mdbook-mermaid.tar.gz
           sudo mv mdbook mdbook-mermaid /usr/local/bin/
 
       - name: Install uv (python-sdk / mkdocs)
