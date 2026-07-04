@@ -166,6 +166,12 @@ build_python() {     # mike-published version tree (gh-pages) -> public/python-s
 
 build_node() {       # docusaurus (website/, baseUrl already /node-sdk/) -> public/node-sdk
   local src="$1" out="$2"
+  # Install node-sdk's ROOT devDeps (@types/node, @langchain/core) FIRST: the
+  # website runs docusaurus-plugin-typedoc, which typechecks node-sdk's ../src/*.ts
+  # against those types. The website-only `--ignore-workspace` install below never
+  # pulls them, so typedoc fails to resolve node builtins / @langchain imports.
+  # --ignore-scripts skips node-sdk's native napi postinstall the docs build never needs.
+  ( cd "$src" && pnpm install --frozen-lockfile --ignore-scripts )
   ( cd "$src/website" && pnpm install --ignore-workspace && pnpm build )
   rm -rf "$out"; mkdir -p "$(dirname "$out")"
   cp -R "$src/website/build" "$out"
