@@ -54,7 +54,7 @@ def run_agent(question: str) -> str:
     # AssemblyCallbackHandler it wired to that interceptor; passing it to
     # LangChain via callbacks=[...] policy-checks and audits every tool/LLM call.
     with init_assembly(
-        gateway_url=os.environ.get("AAA_GATEWAY_URL", "https://api.agent-assembly.io"),
+        gateway_url=os.environ.get("AAA_GATEWAY_URL", "https://api.agent-assembly.com"),
         api_key=os.environ["AAA_API_KEY"],
         agent_id="langchain-research-agent",
         mode="sdk-only",
@@ -107,17 +107,17 @@ In the console, open **Policies → New Policy** and apply the starter template 
 
 ## Pro Tier
 
-**Signup**: self-serve at `https://app.agent-assembly.io/signup`
+**Signup**: self-serve at `https://app.agent-assembly.com/signup`
 
 **Included features**: up to 10 agents, basic policy engine (allow/deny/audit), 30-day audit log retention, community forum support.
 
 **Expected onboarding time**: ~10 minutes from signup to first governed agent call.
 
-**Primary contact channel**: self-serve; community forum at `https://community.agent-assembly.io`.
+**Primary contact channel**: self-serve; community forum at `https://community.agent-assembly.com`.
 
 ### Pro signup steps
 
-1. Navigate to `https://app.agent-assembly.io/signup` and create an account with your work email.
+1. Navigate to `https://app.agent-assembly.com/signup` and create an account with your work email.
 2. Verify your email address.
 3. On the **Workspace Setup** page, enter a workspace name (e.g., `acme-ai-ops`) and select your primary region.
 4. Copy your **Workspace ID** and generate an **API Key** under **Settings → API Keys**.
@@ -148,7 +148,7 @@ def run_agent(prompt: str) -> str:
     # Open a governed session for this agent; every call inside the context is
     # registered, policy-checked, and audited by the gateway.
     with init_assembly(
-        gateway_url=os.environ.get("AAA_GATEWAY_URL", "https://api.agent-assembly.io"),
+        gateway_url=os.environ.get("AAA_GATEWAY_URL", "https://api.agent-assembly.com"),
         api_key=os.environ["AAA_API_KEY"],
         agent_id="my-first-agent",
         mode="sdk-only",
@@ -167,17 +167,17 @@ def run_agent(prompt: str) -> str:
 
 ## Business Tier
 
-**Signup**: self-serve at `https://app.agent-assembly.io/signup` — select **Business** during workspace setup.
+**Signup**: self-serve at `https://app.agent-assembly.com/signup` — select **Business** during workspace setup.
 
 **Included features**: up to 50 agents, full policy engine, SSO (SAML 2.0 / OIDC), 90-day audit log retention, SIEM export, business-hours support (24h response).
 
 **Expected onboarding time**: ~30 minutes, including SSO connect.
 
-**Primary contact channel**: support ticket via `https://app.agent-assembly.io/support`.
+**Primary contact channel**: support ticket via `https://app.agent-assembly.com/support`.
 
 ### Business signup steps
 
-1. Sign up at `https://app.agent-assembly.io/signup`, select the **Business** tier.
+1. Sign up at `https://app.agent-assembly.com/signup`, select the **Business** tier.
 2. On the **Billing** page, enter your credit card details (processed via Stripe).
 3. Complete workspace setup (name, region) as in the Pro flow above.
 4. Connect SSO: navigate to **Settings → Authentication → SSO** and follow the [SAML 2.0 or OIDC setup steps](cloud-deployment.md#sso-configuration). SSO is optional at the Business tier but recommended for teams.
@@ -188,7 +188,7 @@ def run_agent(prompt: str) -> str:
 
 ## Enterprise Tier
 
-**Signup**: form-driven via `https://app.agent-assembly.io/contact-sales`.
+**Signup**: form-driven via `https://app.agent-assembly.com/contact-sales`.
 
 **Included features**: unlimited agents, dedicated region (data residency), SCIM provisioning, tamper-evident audit log, audit log retention up to 1 year, 99.9% SLA, 24/7 support (4h response), dedicated SRE contact.
 
@@ -206,7 +206,7 @@ def run_agent(prompt: str) -> str:
 
 ### Enterprise-specific steps
 
-1. Submit the contact form at `https://app.agent-assembly.io/contact-sales`. Include estimated agent count, primary region preference, and compliance requirements (SOC 2, HIPAA, GDPR).
+1. Submit the contact form at `https://app.agent-assembly.com/contact-sales`. Include estimated agent count, primary region preference, and compliance requirements (SOC 2, HIPAA, GDPR).
 2. During the SE call, confirm your IdP (Okta, Azure AD, PingFederate, etc.) and data residency requirement.
 3. After contract signature, the SE provisions your workspace in the selected dedicated region and sends your Workspace ID and initial API key.
 4. Configure **SSO** (SAML or OIDC) per [Cloud Deployment → SSO Configuration](cloud-deployment.md#sso-configuration).

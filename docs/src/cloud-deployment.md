@@ -30,7 +30,7 @@ A workspace is the top-level isolation boundary. All agents, policies, budgets, 
 
 | Path | Who | How |
 |---|---|---|
-| Self-serve | Pro and Business | Sign up at `https://app.agent-assembly.io/signup`; workspace created immediately after email verification |
+| Self-serve | Pro and Business | Sign up at `https://app.agent-assembly.com/signup`; workspace created immediately after email verification |
 | SE-provisioned | Enterprise | Sales Engineer creates the workspace in the contracted dedicated region after contract signature |
 
 ### Tenant ID format
@@ -61,7 +61,7 @@ sequenceDiagram
   participant AAA as AI Agent Assembly
   participant IdP as Identity Provider
 
-  User->>AAA: Navigate to app.agent-assembly.io
+  User->>AAA: Navigate to app.agent-assembly.com
   AAA-->>User: Redirect to IdP SSO URL
   User->>IdP: Authenticate (password / MFA)
   IdP-->>User: SAML assertion or OIDC id_token
