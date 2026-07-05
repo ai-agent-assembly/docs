@@ -14,7 +14,7 @@ Org-wide baseline: https://github.com/ai-agent-assembly/.github/blob/main/CLAUDE
 The **canonical public documentation hub** for AI Agent Assembly — the product that
 enforces governance on AI agents. It is an [mdBook](https://rust-lang.github.io/mdBook/)
 site, built and deployed to GitHub Pages on every push to `main`, and published at
-**<https://ai-agent-assembly.github.io/agent-assembly-docs/>**.
+**<https://docs.agent-assembly.com/>**.
 
 This is a **hub / router**, not a content silo. Each of the product's four
 independently-versioned components (core + the three SDKs) ships its **own** docs

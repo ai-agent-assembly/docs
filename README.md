@@ -3,7 +3,7 @@
 > The centralized, evergreen documentation hub for AI Agent Assembly — the governance-native runtime for AI agents.
 
 [![docs](https://img.shields.io/github/actions/workflow/status/ai-agent-assembly/agent-assembly-docs/deploy.yml?branch=main&logo=githubactions&logoColor=white&label=docs)](https://github.com/ai-agent-assembly/agent-assembly-docs/actions/workflows/deploy.yml)
-[![live docs](https://img.shields.io/badge/docs-live-3b82f6?logo=readthedocs&logoColor=white)](https://ai-agent-assembly.github.io/agent-assembly-docs/)
+[![live docs](https://img.shields.io/badge/docs-live-3b82f6?logo=readthedocs&logoColor=white)](https://docs.agent-assembly.com/)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue?logo=apache)](LICENSE)
 
 This repository is the **documentation hub** for AI Agent Assembly. It is an
@@ -15,7 +15,7 @@ site root rather than duplicating their content.
 
 ## Read the docs
 
-**→ [ai-agent-assembly.github.io/agent-assembly-docs](https://ai-agent-assembly.github.io/agent-assembly-docs/)**
+**→ [docs.agent-assembly.com](https://docs.agent-assembly.com/)**
 
 This is the canonical entry point. Start here for the documentation index, the
 core↔SDK compatibility matrix, the security model, and the open-core boundary.
@@ -50,10 +50,10 @@ status map for every area below.
 
 | Area | Source repository | Docs |
 |---|---|---|
-| Core (`agent-assembly`) | [agent-assembly](https://github.com/ai-agent-assembly/agent-assembly) | <https://ai-agent-assembly.github.io/agent-assembly/> |
-| Python SDK | [python-sdk](https://github.com/ai-agent-assembly/python-sdk) | <https://ai-agent-assembly.github.io/python-sdk/> |
-| Node SDK | [node-sdk](https://github.com/ai-agent-assembly/node-sdk) | <https://ai-agent-assembly.github.io/node-sdk/> |
-| Go SDK | [go-sdk](https://github.com/ai-agent-assembly/go-sdk) | <https://ai-agent-assembly.github.io/go-sdk/> |
+| Core (`agent-assembly`) | [agent-assembly](https://github.com/ai-agent-assembly/agent-assembly) | <https://docs.agent-assembly.com/core/> |
+| Python SDK | [python-sdk](https://github.com/ai-agent-assembly/python-sdk) | <https://docs.agent-assembly.com/python-sdk/> |
+| Node SDK | [node-sdk](https://github.com/ai-agent-assembly/node-sdk) | <https://docs.agent-assembly.com/node-sdk/> |
+| Go SDK | [go-sdk](https://github.com/ai-agent-assembly/go-sdk) | <https://docs.agent-assembly.com/go-sdk/> |
 | Runnable examples | [agent-assembly-examples](https://github.com/ai-agent-assembly/agent-assembly-examples) | repo `README` |
 | Homebrew / install | [homebrew-tap](https://github.com/ai-agent-assembly/homebrew-tap) | repo `README` |
 | Specs (protocol & policy) | in the `agent-assembly` monorepo | [Policy reference](docs/src/policy-reference.md) |

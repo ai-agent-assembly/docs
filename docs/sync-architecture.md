@@ -38,7 +38,7 @@ Step by step:
 3. The `build` job uploads `docs/book/` as a Pages artifact. On `main`, the `deploy`
    job publishes it to GitHub Pages.
 4. The site goes live at
-   <https://ai-agent-assembly.github.io/agent-assembly-docs/>.
+   <https://docs.agent-assembly.com/>.
 
 The hub stays evergreen for the **component** docs (core + the three SDKs) by
 **linking** to each component's own published docs site root rather than copying

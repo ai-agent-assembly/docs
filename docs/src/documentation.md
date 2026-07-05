@@ -8,10 +8,10 @@ Every link below points at the component's site root, which always redirects to 
 
 ## Core
 
-- **[agent-assembly](https://ai-agent-assembly.github.io/agent-assembly/)** — the core monorepo: gateway, policy engine, eBPF sensor, sidecar proxy, FFI, WASM, CLI, and API.
+- **[agent-assembly](https://docs.agent-assembly.com/core/)** — the core monorepo: gateway, policy engine, eBPF sensor, sidecar proxy, FFI, WASM, CLI, and API.
 
 ## SDKs
 
-- **[Python SDK](https://ai-agent-assembly.github.io/python-sdk/)** — install and govern agents from Python.
-- **[Node SDK](https://ai-agent-assembly.github.io/node-sdk/)** — install and govern agents from TypeScript or JavaScript.
-- **[Go SDK](https://ai-agent-assembly.github.io/go-sdk/)** — install and govern agents from Go.
+- **[Python SDK](https://docs.agent-assembly.com/python-sdk/)** — install and govern agents from Python.
+- **[Node SDK](https://docs.agent-assembly.com/node-sdk/)** — install and govern agents from TypeScript or JavaScript.
+- **[Go SDK](https://docs.agent-assembly.com/go-sdk/)** — install and govern agents from Go.

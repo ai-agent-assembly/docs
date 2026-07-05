@@ -20,7 +20,7 @@ It works across your whole fleet of agents and does not require you to rewrite y
 
 This site is for **teams, security engineers, and operators** evaluating or running AI Agent Assembly for production adoption.
 
-If you are a developer who wants to contribute or integrate at the code level, see the [open-source documentation](https://ai-agent-assembly.github.io/agent-assembly/) instead.
+If you are a developer who wants to contribute or integrate at the code level, see the [open-source documentation](https://docs.agent-assembly.com/core/) instead.
 
 ## Find what you need
 
@@ -43,10 +43,10 @@ Every module's docs are **aggregated into this hub** under a stable subpath (`/c
 
 | Component | On this hub | Standalone site |
 |---|---|---|
-| Core (monorepo) | [/core/](/core/) | [core docs](https://ai-agent-assembly.github.io/agent-assembly/) |
-| Python SDK | [/python-sdk/](/python-sdk/) | <https://ai-agent-assembly.github.io/python-sdk/> |
-| Node SDK | [/node-sdk/](/node-sdk/) | <https://ai-agent-assembly.github.io/node-sdk/> |
-| Go SDK | [/go-sdk/](/go-sdk/) | <https://ai-agent-assembly.github.io/go-sdk/> |
+| Core (monorepo) | [/core/](/core/) | [core docs](https://docs.agent-assembly.com/core/) |
+| Python SDK | [/python-sdk/](/python-sdk/) | <https://docs.agent-assembly.com/python-sdk/> |
+| Node SDK | [/node-sdk/](/node-sdk/) | <https://docs.agent-assembly.com/node-sdk/> |
+| Go SDK | [/go-sdk/](/go-sdk/) | <https://docs.agent-assembly.com/go-sdk/> |
 
 ## Runnable examples
 

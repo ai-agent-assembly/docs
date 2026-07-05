@@ -31,10 +31,10 @@ Every area below is tagged with one visibility label and one maturity label.
 
 | Area | Owning repository | Visibility | Maturity | Where to read |
 |---|---|---|---|---|
-| **Core** (gateway, policy engine, eBPF, proxy, FFI, WASM, CLI, API) | [`agent-assembly`](https://github.com/ai-agent-assembly/agent-assembly) | 🟢 Public | 🧪 Release candidate | [core docs](https://ai-agent-assembly.github.io/agent-assembly/) |
-| **Python SDK** | [`python-sdk`](https://github.com/ai-agent-assembly/python-sdk) | 🟢 Public | 🧪 Release candidate | [python-sdk docs](https://ai-agent-assembly.github.io/python-sdk/) |
-| **Node / TypeScript SDK** | [`node-sdk`](https://github.com/ai-agent-assembly/node-sdk) | 🟢 Public | 🧪 Release candidate | [node-sdk docs](https://ai-agent-assembly.github.io/node-sdk/) |
-| **Go SDK** | [`go-sdk`](https://github.com/ai-agent-assembly/go-sdk) | 🟢 Public | 🧪 Release candidate | [go-sdk docs](https://ai-agent-assembly.github.io/go-sdk/) |
+| **Core** (gateway, policy engine, eBPF, proxy, FFI, WASM, CLI, API) | [`agent-assembly`](https://github.com/ai-agent-assembly/agent-assembly) | 🟢 Public | 🧪 Release candidate | [core docs](https://docs.agent-assembly.com/core/) |
+| **Python SDK** | [`python-sdk`](https://github.com/ai-agent-assembly/python-sdk) | 🟢 Public | 🧪 Release candidate | [python-sdk docs](https://docs.agent-assembly.com/python-sdk/) |
+| **Node / TypeScript SDK** | [`node-sdk`](https://github.com/ai-agent-assembly/node-sdk) | 🟢 Public | 🧪 Release candidate | [node-sdk docs](https://docs.agent-assembly.com/node-sdk/) |
+| **Go SDK** | [`go-sdk`](https://github.com/ai-agent-assembly/go-sdk) | 🟢 Public | 🧪 Release candidate | [go-sdk docs](https://docs.agent-assembly.com/go-sdk/) |
 | **Runnable examples** | [`agent-assembly-examples`](https://github.com/ai-agent-assembly/agent-assembly-examples) | 🟢 Public | 🧪 Release candidate | repo `README` |
 | **Homebrew / install channel** | [`homebrew-tap`](https://github.com/ai-agent-assembly/homebrew-tap) | 🟢 Public | 🧪 Release candidate | repo `README` |
 | **Specs** (protocol & policy spec) | [`agent-assembly`](https://github.com/ai-agent-assembly/agent-assembly) monorepo | 🟢 Public | 🧪 Release candidate | [Policy reference](policy-reference.md) · core docs |
