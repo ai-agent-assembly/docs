@@ -129,7 +129,7 @@ SCIM 2.0 enables automatic user and group provisioning from your IdP. When SCIM 
 1. In the console, navigate to **Settings → Authentication → SCIM**.
 2. Click **Generate SCIM Token**. Copy the token — it is shown only once.
 3. In your IdP, configure the SCIM provisioning connector:
-   - **SCIM Endpoint URL**: shown in the console (e.g., `https://api.agentassembly.io/scim/v2`)
+   - **SCIM Endpoint URL**: shown in the console (e.g., `https://api.agent-assembly.com/scim/v2`)
    - **Authentication Method**: Bearer Token
    - **Bearer Token**: the token generated in step 2
 4. Enable provisioning in your IdP and run a test synchronization.
