@@ -9,9 +9,10 @@
 This repository is the **documentation hub** for AI Agent Assembly. It is an
 [mdBook](https://rust-lang.github.io/mdBook/) site, built and deployed to GitHub
 Pages by the [`aggregate.yml`](.github/workflows/aggregate.yml) workflow on every push
-to `main`. The hub is the central router across the product's independently
-versioned components — it stays evergreen by linking to each component's own docs
-site root rather than duplicating their content.
+to `main`. The hub aggregates the docs of every independently versioned
+component — building each with its own native toolchain and mounting it under a
+stable subpath (`/core/`, `/python-sdk/`, `/node-sdk/`, `/go-sdk/`) — into one
+unified, searchable site.
 
 ## Read the docs
 
