@@ -3,7 +3,7 @@
 Guidance for Claude Code (and humans) working in this repository. This file holds
 **repo-specific** context only; universal engineering policy lives in the global
 config. When a fact here duplicates `README.md`, `docs/book.toml`, or the
-`deploy.yml` workflow, treat those as the source of truth and update them, not just
+`aggregate.yml` workflow, treat those as the source of truth and update them, not just
 this file.
 
 Org-wide baseline: https://github.com/ai-agent-assembly/.github/blob/main/CLAUDE.md
@@ -88,9 +88,10 @@ and no lefthook in this repo; the only local gate is `mdbook build` + the matrix
   (the org, accessed via the `ai-agent-assembly` → `AI-agent-assembly` case alias).
   Confirm with `git remote -v`; scope changes against `origin/main`, which is often
   ahead of a stale checkout.
-- **CI is path-scoped.** `deploy.yml` only triggers on `docs/**`, `compatibility.toml`,
-  and `.github/workflows/deploy.yml`. A `.claude/`-only (or other root-file-only)
-  change runs **no CI** — it is review-gated, not CI-gated. Validate locally instead.
+- **CI runs on every push and PR to `main`.** `aggregate.yml` triggers on `push` and
+  `pull_request` to `main` (plus manual `workflow_dispatch`) with **no path filter**, so
+  every change — including a `.claude/`-only or other root-file-only edit — runs the full
+  aggregate-and-deploy workflow. Validate locally before pushing.
 - **`docs/src/compatibility.md` is generated** — edit `compatibility.toml` and run the
   generator; never hand-edit between the `BEGIN GENERATED` / `END GENERATED` markers.
 - **Org GitHub Actions can be billing-blocked** — jobs may abort in seconds with a
