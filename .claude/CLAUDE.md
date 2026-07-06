@@ -47,7 +47,7 @@ placement comes from `SUMMARY.md`. The per-page "Last updated" footer is appende
 automatically from each chapter's last commit date — there is nothing to edit by hand.
 
 > **Versioning channel model:** this `book.toml`/`SUMMARY.md` config governs only
-> the **hub mdBook** at the site root. The published hub *does* serve per-module
+> the **hub mdBook** served at `/`. The published hub *does* serve per-module
 > version/channel machinery — each module's docs mount under `/<module>/` with a
 > `versions.json` manifest (latest/stable/pre-release channels) and archived
 > per-tag subpaths (`/<module>/<tag>/`), driven by `modules.json` — but that layer
@@ -121,8 +121,10 @@ boundaries, and trade-offs — not restate version numbers or API surface that l
 - **Per page (`# H1` + intro):** state *who the page is for* and *why it exists*
   before the detail (e.g. the security model opens "for enterprise security and
   compliance teams"). One H1 per file; register it in `SUMMARY.md`.
-- **Hub-router pages:** link to a component's **site root**, never a deep version-pinned
-  URL — the root redirect keeps the link evergreen. Prefer linking out to duplicating.
+- **Aggregated component docs:** each module's docs are pulled in and mounted under
+  its `/<module>/` subpath by the aggregation pipeline (see `AGGREGATION.md`) — the
+  first-party hub prose orients readers toward them; it does not re-author or restate
+  their API surface, install steps, or per-version content, which would only drift.
 - **Generated content:** the compatibility matrix is the source of truth for versions;
   reference it, don't restate version numbers in prose where they'll drift.
 - **Skip:** copying API reference, install steps, or changelogs that live in a
