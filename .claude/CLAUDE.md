@@ -16,13 +16,17 @@ enforces governance on AI agents. It is an [mdBook](https://rust-lang.github.io/
 site, built and deployed to GitHub Pages on every push to `main`, and published at
 **<https://docs.agent-assembly.com/>**.
 
-This is a **hub / router**, not a content silo. Each of the product's four
-independently-versioned components (core + the three SDKs) ships its **own** docs
-site; the hub stays evergreen by linking to each component's site **root** (which
-redirects to that component's newest stable release) rather than copying their
-content. The only first-party content here is the cross-cutting material: the
-documentation index, the core↔SDK compatibility matrix, the security model, the
-comparison page, the open-core boundary, and the policy reference.
+This hub **aggregates** the docs of every module into one unified, searchable
+site. Each of the product's four independently-versioned components (core + the
+three SDKs) ships its **own** docs, built with its native toolchain (mdBook,
+mkdocs-material, Docusaurus, Hugo+Hextra); the aggregation pipeline pulls each
+one, builds it, and mounts its output under a stable subpath — `/core/`,
+`/python-sdk/`, `/node-sdk/`, `/go-sdk/` — with a unified Pagefind search index
+over the whole site. See [`AGGREGATION.md`](../AGGREGATION.md) for the full
+contract. Alongside the aggregated component docs, this repo also authors the
+first-party cross-cutting material: the documentation index, the core↔SDK
+compatibility matrix, the security model, the comparison page, the open-core
+boundary, and the policy reference.
 
 ## Site layout
 
