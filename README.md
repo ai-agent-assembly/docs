@@ -69,8 +69,8 @@ two labels so readers know how much weight to give a page:
 
 - **Visibility** — 🟢 *Public* (source repo is public) or 🔒 *Private / internal*
   (source repo is private; docs describe intent, not a browsable codebase).
-- **Maturity** — 🧪 *Alpha* (ships today, may change; the product is currently
-  `v0.0.1-alpha`) or 🗺️ *Planned* (designed and documented, not yet generally
+- **Maturity** — 🧪 *Release candidate* (ships today, may change; the product is
+  currently `v0.0.1-rc`) or 🗺️ *Planned* (designed and documented, not yet generally
   available).
 
 When adding or editing a page that describes a new area, update the status map so
