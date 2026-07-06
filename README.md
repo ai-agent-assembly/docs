@@ -2,13 +2,13 @@
 
 > The centralized, evergreen documentation hub for AI Agent Assembly — the governance-native runtime for AI agents.
 
-[![docs](https://img.shields.io/github/actions/workflow/status/ai-agent-assembly/agent-assembly-docs/deploy.yml?branch=main&logo=githubactions&logoColor=white&label=docs)](https://github.com/ai-agent-assembly/agent-assembly-docs/actions/workflows/deploy.yml)
+[![docs](https://img.shields.io/github/actions/workflow/status/ai-agent-assembly/agent-assembly-docs/aggregate.yml?branch=main&logo=githubactions&logoColor=white&label=docs)](https://github.com/ai-agent-assembly/agent-assembly-docs/actions/workflows/aggregate.yml)
 [![live docs](https://img.shields.io/badge/docs-live-3b82f6?logo=readthedocs&logoColor=white)](https://docs.agent-assembly.com/)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue?logo=apache)](LICENSE)
 
 This repository is the **documentation hub** for AI Agent Assembly. It is an
 [mdBook](https://rust-lang.github.io/mdBook/) site, built and deployed to GitHub
-Pages by the [`deploy.yml`](.github/workflows/deploy.yml) workflow on every push
+Pages by the [`aggregate.yml`](.github/workflows/aggregate.yml) workflow on every push
 to `main`. The hub is the central router across the product's independently
 versioned components — it stays evergreen by linking to each component's own docs
 site root rather than duplicating their content.
@@ -69,8 +69,8 @@ two labels so readers know how much weight to give a page:
 
 - **Visibility** — 🟢 *Public* (source repo is public) or 🔒 *Private / internal*
   (source repo is private; docs describe intent, not a browsable codebase).
-- **Maturity** — 🧪 *Alpha* (ships today, may change; the product is currently
-  `v0.0.1-alpha`) or 🗺️ *Planned* (designed and documented, not yet generally
+- **Maturity** — 🧪 *Release candidate* (ships today, may change; the product is
+  currently `v0.0.1-rc`) or 🗺️ *Planned* (designed and documented, not yet generally
   available).
 
 When adding or editing a page that describes a new area, update the status map so
@@ -78,18 +78,22 @@ the public/private and alpha/planned state stays accurate.
 
 ## How content reaches the site
 
-Today the hub is **manually authored**: every page under [`docs/src/`](docs/src/)
-is hand-written Markdown, registered in [`SUMMARY.md`](docs/src/SUMMARY.md), built
-by `mdbook build`, and deployed to GitHub Pages by [`deploy.yml`](.github/workflows/deploy.yml)
-on every push to `main`. The hub does **not** copy content from the component repos —
-it links to each component's own docs site root (see the table above).
+The hub's own first-party pages under [`docs/src/`](docs/src/) are hand-written
+Markdown, registered in [`SUMMARY.md`](docs/src/SUMMARY.md) and built with
+`mdbook build`. On every push to `main`, the
+[`aggregate.yml`](.github/workflows/aggregate.yml) workflow builds this hub mdBook
+**and pulls each component's own docs site**, builds every one with its native
+toolchain (mdBook, mkdocs-material, Docusaurus, Hugo + Hextra), and assembles them
+into a single static site — each module mounted under a stable subpath (`/core/`,
+`/python-sdk/`, `/node-sdk/`, `/go-sdk/`) with one unified Pagefind search index —
+then deploys the combined site to GitHub Pages.
 
-An **automated cross-repo sync pipeline** — where SDK repos fire a
-`repository_dispatch` event on each release to pull their docs into this hub — is
-**designed but not yet built** (tracked as **AAASM-302**). The end-to-end flow, the
-planned `docs-manifest.json` format, and how to onboard a new repo are documented in
-[`docs/sync-architecture.md`](docs/sync-architecture.md). Until that pipeline lands,
-treat the manual mdBook → Pages flow as the only path content reaches the site.
+The machine-readable module registry, the build/copy contract, and the
+per-generator base-URL strategy are the executable aggregation contract in
+[`AGGREGATION.md`](AGGREGATION.md), implemented by
+[`docs/scripts/aggregate.sh`](docs/scripts/aggregate.sh) and run by `aggregate.yml`.
+For the reader-facing overview, see
+[How this hub is assembled](docs/src/docs-hub-aggregation.md).
 
 ## Local development
 
@@ -127,7 +131,7 @@ chapter's last commit date — there is nothing to update by hand.
 Before opening a PR, run the same checks CI runs and review the navigation:
 
 1. **Build** — `cd docs && mdbook build` must complete with no warnings. CI runs
-   the identical command in [`deploy.yml`](.github/workflows/deploy.yml) and blocks
+   the identical command in [`aggregate.yml`](.github/workflows/aggregate.yml) and blocks
    the merge on any failure.
 2. **Compatibility matrix in sync** — `python3 docs/scripts/generate_compatibility.py --check`
    must pass (CI runs this too); it fails on any drift between
