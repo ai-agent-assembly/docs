@@ -2,13 +2,13 @@
 
 > The centralized, evergreen documentation hub for AI Agent Assembly — the governance-native runtime for AI agents.
 
-[![docs](https://img.shields.io/github/actions/workflow/status/ai-agent-assembly/agent-assembly-docs/deploy.yml?branch=main&logo=githubactions&logoColor=white&label=docs)](https://github.com/ai-agent-assembly/agent-assembly-docs/actions/workflows/deploy.yml)
+[![docs](https://img.shields.io/github/actions/workflow/status/ai-agent-assembly/agent-assembly-docs/aggregate.yml?branch=main&logo=githubactions&logoColor=white&label=docs)](https://github.com/ai-agent-assembly/agent-assembly-docs/actions/workflows/aggregate.yml)
 [![live docs](https://img.shields.io/badge/docs-live-3b82f6?logo=readthedocs&logoColor=white)](https://docs.agent-assembly.com/)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue?logo=apache)](LICENSE)
 
 This repository is the **documentation hub** for AI Agent Assembly. It is an
 [mdBook](https://rust-lang.github.io/mdBook/) site, built and deployed to GitHub
-Pages by the [`deploy.yml`](.github/workflows/deploy.yml) workflow on every push
+Pages by the [`aggregate.yml`](.github/workflows/aggregate.yml) workflow on every push
 to `main`. The hub is the central router across the product's independently
 versioned components — it stays evergreen by linking to each component's own docs
 site root rather than duplicating their content.
@@ -80,7 +80,7 @@ the public/private and alpha/planned state stays accurate.
 
 Today the hub is **manually authored**: every page under [`docs/src/`](docs/src/)
 is hand-written Markdown, registered in [`SUMMARY.md`](docs/src/SUMMARY.md), built
-by `mdbook build`, and deployed to GitHub Pages by [`deploy.yml`](.github/workflows/deploy.yml)
+by `mdbook build`, and deployed to GitHub Pages by [`aggregate.yml`](.github/workflows/aggregate.yml)
 on every push to `main`. The hub does **not** copy content from the component repos —
 it links to each component's own docs site root (see the table above).
 
@@ -127,7 +127,7 @@ chapter's last commit date — there is nothing to update by hand.
 Before opening a PR, run the same checks CI runs and review the navigation:
 
 1. **Build** — `cd docs && mdbook build` must complete with no warnings. CI runs
-   the identical command in [`deploy.yml`](.github/workflows/deploy.yml) and blocks
+   the identical command in [`aggregate.yml`](.github/workflows/aggregate.yml) and blocks
    the merge on any failure.
 2. **Compatibility matrix in sync** — `python3 docs/scripts/generate_compatibility.py --check`
    must pass (CI runs this too); it fails on any drift between
