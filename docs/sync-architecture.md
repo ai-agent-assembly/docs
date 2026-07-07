@@ -21,7 +21,7 @@ this repo and shipped by a single build-and-deploy workflow.
 flowchart LR
     A["Author edits<br/>docs/src/*.md"] --> B["Register page in<br/>docs/src/SUMMARY.md"]
     B --> C["git push to main"]
-    C --> D[".github/workflows/deploy.yml"]
+    C --> D[".github/workflows/aggregate.yml"]
     D --> E["python3 generate_compatibility.py --check"]
     D --> F["cd docs && mdbook build"]
     F --> G["upload-pages-artifact<br/>(docs/book)"]
@@ -32,7 +32,7 @@ Step by step:
 
 1. A contributor edits or adds a Markdown file under [`docs/src/`](src/) and registers
    it in [`docs/src/SUMMARY.md`](src/SUMMARY.md).
-2. On push to `main` (or on a PR), [`deploy.yml`](../.github/workflows/deploy.yml)
+2. On push to `main` (or on a PR), [`aggregate.yml`](../.github/workflows/aggregate.yml)
    runs. It installs mdBook `v0.4.40`, verifies the compatibility matrix is in sync
    with [`compatibility.toml`](../compatibility.toml), and runs `mdbook build`.
 3. The `build` job uploads `docs/book/` as a Pages artifact. On `main`, the `deploy`
@@ -94,7 +94,7 @@ flowchart LR
     C2 --> C3["update docs-manifest.json<br/>(last synced tag per repo)"]
     C3 --> V["validate:<br/>markdownlint + lychee"]
     V --> P["commit + push to main"]
-    P --> B["deploy.yml<br/>mdbook build + Pages deploy"]
+    P --> B["aggregate.yml<br/>mdbook build + Pages deploy"]
 ```
 
 1. A `docs-release` dispatch arrives. `sync-docs.yml` reads `repo` and `tag` from the
@@ -104,7 +104,7 @@ flowchart LR
 3. The script records the synced tag in `docs-manifest.json` (see format below).
 4. CI validates the synced content (`markdownlint` on the Markdown, `lychee` on the
    built HTML), then commits and pushes to `main`.
-5. The push to `main` triggers the existing [`deploy.yml`](../.github/workflows/deploy.yml),
+5. The push to `main` triggers the existing [`aggregate.yml`](../.github/workflows/aggregate.yml),
    which rebuilds and redeploys the site.
 
 **Idempotency:** re-running the same `repo` + `tag` must produce byte-identical
@@ -165,5 +165,5 @@ into the hub automatically and the manifest will start tracking its tags.
 
 - [`README.md`](../README.md) — what this repo is, prerequisites, the live site URL.
 - [`CONTRIBUTING.md`](../CONTRIBUTING.md) — how to add/edit pages, validate, and open a PR.
-- [`.github/workflows/deploy.yml`](../.github/workflows/deploy.yml) — the current
+- [`.github/workflows/aggregate.yml`](../.github/workflows/aggregate.yml) — the current
   build + Pages deploy workflow.

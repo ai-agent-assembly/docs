@@ -2,7 +2,7 @@
 
 Thanks for helping improve the **AI Agent Assembly documentation hub**. This repo
 is an [mdBook](https://rust-lang.github.io/mdBook/) site, built and deployed to
-GitHub Pages by [`deploy.yml`](.github/workflows/deploy.yml) on every push to
+GitHub Pages by [`aggregate.yml`](.github/workflows/aggregate.yml) on every push to
 `main`. This guide covers how to add or edit pages, validate them locally, and open
 a PR.
 
@@ -35,7 +35,7 @@ agent-assembly-docs/
 ├── compatibility.toml        # source of truth for the compatibility matrix
 ├── .markdownlint.json        # markdownlint config (the rules the linter enforces)
 ├── .github/
-│   ├── workflows/deploy.yml  # build + GitHub Pages deploy
+│   ├── workflows/aggregate.yml  # build + GitHub Pages deploy
 │   └── PULL_REQUEST_TEMPLATE.md
 ├── design/                   # shared brand kit (tokens, artwork, per-generator CSS)
 └── docs/
