@@ -172,7 +172,7 @@ build_node() {       # docusaurus (website/, baseUrl already /node-sdk/) -> publ
   # pulls them, so typedoc fails to resolve node builtins / @langchain imports.
   # --ignore-scripts skips node-sdk's native napi postinstall the docs build never needs.
   ( cd "$src" && pnpm install --frozen-lockfile --ignore-scripts )
-  ( cd "$src/website" && pnpm install --ignore-workspace && pnpm build )
+  ( cd "$src/website" && pnpm install --ignore-workspace --frozen-lockfile && pnpm build )
   rm -rf "$out"; mkdir -p "$(dirname "$out")"
   cp -R "$src/website/build" "$out"
 }
