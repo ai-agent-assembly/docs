@@ -100,7 +100,7 @@ For the reader-facing overview, see
 
 **Prerequisites**
 
-- [mdBook](https://rust-lang.github.io/mdBook/) (CI pins `v0.4.40`)
+- [mdBook](https://rust-lang.github.io/mdBook/) (CI pins `v0.5.2`)
 - [`mdbook-mermaid`](https://github.com/badboy/mdbook-mermaid) — the Mermaid diagram preprocessor
 - `python3` — for the compatibility-matrix generator and the "Last updated" preprocessor (standard library only, no third-party deps)
 
