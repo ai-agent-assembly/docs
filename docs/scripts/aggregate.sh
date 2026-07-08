@@ -356,6 +356,17 @@ cp "$REGISTRY" "$PUBLIC_DIR/modules.json"
 # ---- CNAME for the custom domain (owner attaches DNS) ----
 echo "docs.agent-assembly.com" > "$PUBLIC_DIR/CNAME"
 
+# ---- security response headers for the edge in front of the origin (AAASM-4315) ----
+# _headers is Cloudflare Pages / Netlify format. GitHub Pages itself ignores it
+# (Pages does not support custom response headers); it is consumed by whichever
+# edge sits in front — today Cloudflare in front of GitHub Pages via a Transform
+# Rule / Worker, and natively if the site is ever migrated to Cloudflare Pages.
+# Publishing it next to CNAME keeps the response-header baseline under version
+# control at the site root.
+if [[ -f "$REPO_ROOT/_headers" ]]; then
+  cp "$REPO_ROOT/_headers" "$PUBLIC_DIR/_headers"
+fi
+
 # ---- verification: every expected output dir must exist & be non-empty ----
 log "Verifying aggregated output"
 verify_nonempty() {
