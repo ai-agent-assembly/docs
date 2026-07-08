@@ -1,0 +1,120 @@
+# hub-components.toml — source of truth for the docs hub's component metadata
+# =============================================================================
+#
+# This manifest drives the hand-authored pages under `docs/src/` that reference
+# component names, repo URLs, hub subpaths, standalone documentation URLs, and
+# per-component build generators. A human edits THIS file when a component is
+# added or renamed, when a docs subpath changes, or when a generator swap
+# happens; the generated tables/lists in the docs pages are produced from it by
+# `docs/scripts/generate_hub_components.py` (run in CI with `--check` to fail on
+# drift).
+#
+# Never hand-edit the content between the `BEGIN GENERATED:hub-components:*` /
+# `END GENERATED:hub-components:*` markers in any docs page — edit this manifest
+# and regenerate.
+#
+# See AAASM-4313 (Epic AAASM-4309) for the design rationale: the hub aggregates
+# multiple independently versioned components, so its component URLs, subpaths,
+# generators, and standalone site URLs must live in one place and be validated
+# in CI. `modules.json` remains the aggregator's build-time registry (it drives
+# `docs/scripts/aggregate.sh`); this file is the docs-hub *content* registry.
+#
+# SCHEMA
+# ------
+# [site]
+#   base_url         canonical origin the hub deploys to (used to build standalone URLs)
+#
+# [[component]]  (repeat, one per component surfaced on the hub)
+#   key              stable machine key (matches `modules.json` `name` where the
+#                    component participates in aggregation; free-form otherwise)
+#   display_name     human-readable name for prose ("Agent Assembly Core", "Python SDK")
+#   short_name       compact name for tables ("Core (monorepo)", "Python SDK")
+#   repo             GitHub `owner/repo` reference (bare — no https:// prefix)
+#   repo_label       short label used inside the repo link (typically the repo name)
+#   docs_path        hub-relative subpath the component's docs mount under
+#                    (e.g. "/core/", "/python-sdk/"). Trailing slash required.
+#   docs_label       compact label for docs_path in tables (e.g. "/core/")
+#   standalone_url   canonical standalone documentation URL for the component
+#   generator        docs generator name for the aggregation table
+#                    ("mdBook", "mkdocs-material", "Docusaurus", "Hugo + Hextra")
+#   aggregated       true if the component's docs are mounted under docs_path by
+#                    the hub aggregator; false if the entry is a link-only pointer
+#                    (e.g. runnable examples repo)
+#   channel_label    optional short prose describing the version-channel model
+#                    ("stable release", "master HEAD", etc.) — currently unused
+#                    by the generator but reserved so future landing content can
+#                    reference it without adding a new file
+#
+# ROW ORDER
+# ---------
+# The generator preserves the order components appear here. Keep Core first,
+# then SDKs in Python -> Node -> Go order (matches the existing pages), then
+# non-aggregated pointers.
+
+[site]
+base_url = "https://docs.agent-assembly.com"
+
+[[component]]
+key = "core"
+display_name = "Agent Assembly Core"
+short_name = "Core (monorepo)"
+repo = "ai-agent-assembly/agent-assembly"
+repo_label = "agent-assembly"
+docs_path = "/core/"
+docs_label = "/core/"
+standalone_url = "https://docs.agent-assembly.com/core/"
+generator = "mdBook"
+aggregated = true
+channel_label = "master HEAD + every release tag rebuilt into /core/<tag>/"
+
+[[component]]
+key = "python-sdk"
+display_name = "Agent Assembly Python SDK"
+short_name = "Python SDK"
+repo = "ai-agent-assembly/python-sdk"
+repo_label = "python-sdk"
+docs_path = "/python-sdk/"
+docs_label = "/python-sdk/"
+standalone_url = "https://docs.agent-assembly.com/python-sdk/"
+generator = "mkdocs-material"
+aggregated = true
+channel_label = "mike version tree reused from gh-pages"
+
+[[component]]
+key = "node-sdk"
+display_name = "Agent Assembly Node SDK"
+short_name = "Node SDK"
+repo = "ai-agent-assembly/node-sdk"
+repo_label = "node-sdk"
+docs_path = "/node-sdk/"
+docs_label = "/node-sdk/"
+standalone_url = "https://docs.agent-assembly.com/node-sdk/"
+generator = "Docusaurus"
+aggregated = true
+channel_label = "default (lastVersion at root)"
+
+[[component]]
+key = "go-sdk"
+display_name = "Agent Assembly Go SDK"
+short_name = "Go SDK"
+repo = "ai-agent-assembly/go-sdk"
+repo_label = "go-sdk"
+docs_path = "/go-sdk/"
+docs_label = "/go-sdk/"
+standalone_url = "https://docs.agent-assembly.com/go-sdk/"
+generator = "Hugo + Hextra"
+aggregated = true
+channel_label = "master HEAD + every release tag rebuilt into /go-sdk/<tag>/"
+
+[[component]]
+key = "examples"
+display_name = "Runnable examples"
+short_name = "Runnable examples"
+repo = "ai-agent-assembly/agent-assembly-examples"
+repo_label = "agent-assembly-examples"
+docs_path = ""
+docs_label = ""
+standalone_url = "https://github.com/ai-agent-assembly/agent-assembly-examples"
+generator = ""
+aggregated = false
+channel_label = "repo README"
