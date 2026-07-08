@@ -16,6 +16,7 @@ Target pages (in the order they are updated):
 * ``docs/src/README.md``       -> the "SDKs & components" table on the landing page
 * ``docs/src/documentation.md`` -> the Core + SDKs router lists
 * ``docs/src/docs-hub-aggregation.md`` -> the Path / Module / Generator table
+* ``docs/src/source-of-truth.md`` -> the canonical status map's component rows
 
 Run it with no arguments to regenerate the pages in place. Run it with
 ``--check`` to verify the committed pages already match the manifest (used by
@@ -44,6 +45,7 @@ SRC_DIR: Final[Path] = REPO_ROOT / "docs" / "src"
 README_PATH: Final[Path] = SRC_DIR / "README.md"
 DOCUMENTATION_PATH: Final[Path] = SRC_DIR / "documentation.md"
 AGGREGATION_PAGE_PATH: Final[Path] = SRC_DIR / "docs-hub-aggregation.md"
+SOURCE_OF_TRUTH_PATH: Final[Path] = SRC_DIR / "source-of-truth.md"
 
 
 def _marker(key: str, kind: str) -> str:
@@ -257,6 +259,67 @@ def render_aggregation_table(manifest: dict[str, object]) -> str:
     return "\n".join(lines)
 
 
+def render_source_of_truth_table(manifest: dict[str, object]) -> str:
+    """Render the component rows of ``source-of-truth.md``'s canonical status map.
+
+    The status map is a 5-column Markdown table (Area | Owning repository |
+    Visibility | Maturity | Where to read). The rows for hub components — Core,
+    the three SDKs, runnable examples, and the Homebrew tap — are rendered from
+    the manifest here; the remaining hand-authored rows (Specs, Releases, Cloud,
+    Enterprise, Operations) stay outside the generated block because they either
+    reference the monorepo indirectly or carry Private/Planned status not
+    represented in the component schema.
+
+    Every rendered row uses the same Visibility (🟢 Public) and Maturity
+    (🧪 Release candidate) tags: the manifest only lists public, release-track
+    components. Per-row Area phrasing and the "Where to read" cell vary
+    per-component, so both are looked up by ``key`` from small tables here.
+    The result is byte-identical to the hand-authored rows this block replaces.
+    """
+    components = _components(manifest)
+    # Per-component overrides. Only components with rows in this page appear.
+    area_label: dict[str, str] = {
+        "core": "**Core** (gateway, policy engine, eBPF, proxy, FFI, WASM, CLI, API)",
+        "python-sdk": "**Python SDK**",
+        "node-sdk": "**Node / TypeScript SDK**",
+        "go-sdk": "**Go SDK**",
+        "examples": "**Runnable examples**",
+        "homebrew-tap": "**Homebrew / install channel**",
+    }
+    # "Where to read" cell — SDKs cite their docs site as `<key> docs`, core
+    # cites `core docs`, and the non-aggregated pointers fall back to their
+    # repo README. Preserve the current page's exact phrasing.
+    where_docs_label: dict[str, str] = {
+        "core": "core docs",
+        "python-sdk": "python-sdk docs",
+        "node-sdk": "node-sdk docs",
+        "go-sdk": "go-sdk docs",
+    }
+
+    lines: list[str] = []
+    for entry in components:
+        key = str(entry["key"])
+        if key not in area_label:
+            # Skip any future component that has not been given an explicit
+            # row phrasing here; the source-of-truth page keeps its narrative
+            # rows hand-authored and does not silently gain new rows.
+            continue
+        repo = str(entry["repo"])
+        repo_label = str(entry["repo_label"])
+        standalone = str(entry["standalone_url"])
+        area = area_label[key]
+        repo_cell = f"[`{repo_label}`]({_repo_url(repo)})"
+        if key in where_docs_label:
+            where_cell = f"[{where_docs_label[key]}]({standalone})"
+        else:
+            where_cell = "repo `README`"
+        lines.append(
+            f"| {area} | {repo_cell} | 🟢 Public | 🧪 Release candidate | "
+            f"{where_cell} |"
+        )
+    return "\n".join(lines)
+
+
 # ---------------------------------------------------------------------------
 # Splice + orchestration
 # ---------------------------------------------------------------------------
@@ -309,6 +372,14 @@ def render_all(manifest: dict[str, object]) -> list[tuple[Path, str, str]]:
                 AGGREGATION_PAGE_PATH,
                 "aggregation-table",
                 render_aggregation_table(manifest),
+            ),
+        ),
+        (
+            SOURCE_OF_TRUTH_PATH,
+            *_render_page(
+                SOURCE_OF_TRUTH_PATH,
+                "source-of-truth-table",
+                render_source_of_truth_table(manifest),
             ),
         ),
     ]
