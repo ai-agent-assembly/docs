@@ -33,21 +33,25 @@ agent-assembly-docs/
 ├── README.md                 # this repo, at a glance (you are reading its sibling)
 ├── CONTRIBUTING.md           # this file
 ├── compatibility.toml        # source of truth for the compatibility matrix
+├── hub-components.toml       # source of truth for hub component metadata
 ├── .markdownlint.json        # markdownlint config (the rules the linter enforces)
 ├── .github/
-│   ├── workflows/aggregate.yml  # build + GitHub Pages deploy
+│   ├── workflows/aggregate.yml           # build + GitHub Pages deploy
+│   ├── workflows/hub-metadata-check.yml  # drift gate for hub-components.toml
 │   └── PULL_REQUEST_TEMPLATE.md
 ├── design/                   # shared brand kit (tokens, artwork, per-generator CSS)
 └── docs/
     ├── book.toml             # mdBook config (theme, preprocessors)
     ├── src/                  # ← all published pages live here
     │   ├── SUMMARY.md        # the book's table of contents / nav
-    │   ├── README.md         # rendered as the Introduction page
-    │   ├── documentation.md  # router to each component's own docs site
+    │   ├── README.md         # rendered as the Introduction page (GENERATED block)
+    │   ├── documentation.md  # router to each component's docs site (GENERATED block)
+    │   ├── docs-hub-aggregation.md  # aggregation table (GENERATED block)
     │   ├── compatibility.md  # GENERATED — do not hand-edit the marked block
     │   └── …                 # one Markdown file per page
     ├── scripts/
-    │   └── generate_compatibility.py
+    │   ├── generate_compatibility.py
+    │   └── generate_hub_components.py
     └── theme/                # custom CSS/JS + the "Last updated" preprocessor
 ```
 
@@ -86,10 +90,49 @@ Never edit the content between the `BEGIN GENERATED` / `END GENERATED` markers i
 [`docs/src/compatibility.md`](docs/src/compatibility.md) by hand — the generator
 overwrites it.
 
+## Adding or updating a hub component
+
+Component names, GitHub repo links, hub subpaths (`/core/`, `/python-sdk/`, …),
+standalone documentation URLs, and per-component build generators live in one
+place: [`hub-components.toml`](hub-components.toml) at the repo root. Three
+pages under [`docs/src/`](docs/src/) render their component tables/lists from
+this manifest between `<!-- BEGIN GENERATED:hub-components:* -->` /
+`<!-- END GENERATED:hub-components:* -->` markers:
+
+* [`docs/src/README.md`](docs/src/README.md) — the "SDKs & components" table
+* [`docs/src/documentation.md`](docs/src/documentation.md) — the Core + SDKs router
+* [`docs/src/docs-hub-aggregation.md`](docs/src/docs-hub-aggregation.md) — the Path / Module / Generator table
+
+To add a component, rename one, change its subpath, or swap its generator:
+
+1. Edit [`hub-components.toml`](hub-components.toml). Add a new `[[component]]`
+   table (or update an existing one). The required fields are documented in the
+   file's header comment. Aggregated components must set a non-empty
+   `docs_path`; link-only pointers (e.g. the examples repo) leave it blank.
+2. If the component participates in the aggregated build, also add or update
+   its entry in [`modules.json`](modules.json) — that file drives
+   `docs/scripts/aggregate.sh`. Keep the `key` in `hub-components.toml` in
+   sync with `modules.json`'s `name` for aggregated components.
+3. Regenerate the docs pages in place:
+
+   ```sh
+   python3 docs/scripts/generate_hub_components.py
+   ```
+
+4. Commit the manifest change and the regenerated pages together. The
+   `hub-metadata-check` CI workflow runs
+   `python3 docs/scripts/generate_hub_components.py --check` on every PR and
+   fails if the pages are out of sync with the manifest.
+
+Never hand-edit the content between the `BEGIN GENERATED:hub-components:*`
+markers on those three pages — the generator overwrites it. Prose OUTSIDE the
+markers stays hand-authored as usual.
+
 ## Validate before opening a PR
 
-Run all four checks. CI runs the build + compatibility check and blocks the merge on
-failure; markdownlint and lychee are run here locally to keep style and links clean.
+Run all five checks. CI runs the build, the compatibility check, and the hub
+component metadata check, and blocks the merge on failure; markdownlint and
+lychee are run here locally to keep style and links clean.
 
 ### 1. Build the book
 
@@ -108,7 +151,17 @@ python3 docs/scripts/generate_compatibility.py --check
 Fails on any drift between [`compatibility.toml`](compatibility.toml) and the
 generated tables.
 
-### 3. Lint Markdown style (markdownlint)
+### 3. Hub component metadata in sync
+
+```sh
+python3 docs/scripts/generate_hub_components.py --check
+```
+
+Fails on any drift between [`hub-components.toml`](hub-components.toml) and the
+generated blocks on `docs/src/README.md`, `docs/src/documentation.md`, and
+`docs/src/docs-hub-aggregation.md`. CI runs the same command.
+
+### 4. Lint Markdown style (markdownlint)
 
 The rule set lives in [`.markdownlint.json`](.markdownlint.json). Run the linter
 from the repo root:
@@ -120,7 +173,7 @@ markdownlint-cli2 "**/*.md" "#docs/book"
 (The `#docs/book` glob excludes the built output, which is git-ignored anyway.) Fix
 every reported error — zero errors is the bar.
 
-### 4. Check links (lychee)
+### 5. Check links (lychee)
 
 Verify internal links resolve. Use `--offline` to check only on-disk relative links
 (fast, no network), or drop the flag to also validate external URLs:

@@ -1,10 +1,19 @@
 # AI Agent Assembly Documentation
 
+<!-- BEGIN GENERATED:hub-components:landing-badges -->
+
 [![core](https://img.shields.io/github/v/release/ai-agent-assembly/agent-assembly?include_prereleases&sort=semver&label=core&logo=github&color=3b82f6)](https://github.com/ai-agent-assembly/agent-assembly/releases)
 [![python-sdk](https://img.shields.io/pypi/v/agent-assembly?label=python-sdk&logo=pypi)](https://github.com/ai-agent-assembly/python-sdk)
 [![node-sdk](https://img.shields.io/npm/v/@agent-assembly/sdk/rc?label=node-sdk&logo=npm)](https://github.com/ai-agent-assembly/node-sdk)
 [![go-sdk](https://img.shields.io/github/v/tag/ai-agent-assembly/go-sdk?sort=semver&label=go-sdk&logo=go&color=3b82f6)](https://github.com/ai-agent-assembly/go-sdk/tags)
 [![license](https://img.shields.io/badge/license-Apache--2.0-green)](https://github.com/ai-agent-assembly/agent-assembly-docs/blob/main/LICENSE)
+
+<!-- END GENERATED:hub-components:landing-badges -->
+
+<!-- The version badges above are generated from hub-components.toml by
+     docs/scripts/generate_hub_components.py — do not hand-edit between the
+     BEGIN/END GENERATED markers. The trailing license badge is a literal
+     inside the renderer. See AAASM-4313. -->
 
 Quick links to each component, its current version, and its license. Every version badge reads the latest published version live — core and Go from GitHub, Python from PyPI, Node from npm's `rc` dist-tag — so they stay current with no manual updates. The project is in release candidate (`v0.0.1-rc`).
 
@@ -41,12 +50,20 @@ This hub is the central entry point for AI Agent Assembly documentation. To inst
 
 Every module's docs are **aggregated into this hub** under a stable subpath (`/core/`, `/python-sdk/`, `/node-sdk/`, `/go-sdk/`), so you can read and search all of them from one place. The standalone, per-version sites remain available for release-specific (mike / Docusaurus / Hugo channel) browsing.
 
+<!-- BEGIN GENERATED:hub-components:sdks-and-components -->
+
 | Component | On this hub | Standalone site |
 |---|---|---|
 | Core (monorepo) | [/core/](/core/) | [core docs](https://docs.agent-assembly.com/core/) |
 | Python SDK | [/python-sdk/](/python-sdk/) | <https://docs.agent-assembly.com/python-sdk/> |
 | Node SDK | [/node-sdk/](/node-sdk/) | <https://docs.agent-assembly.com/node-sdk/> |
 | Go SDK | [/go-sdk/](/go-sdk/) | <https://docs.agent-assembly.com/go-sdk/> |
+
+<!-- END GENERATED:hub-components:sdks-and-components -->
+
+<!-- The table above is generated from hub-components.toml by
+     docs/scripts/generate_hub_components.py — do not hand-edit between the
+     BEGIN/END GENERATED markers. See AAASM-4313. -->
 
 ## Runnable examples
 

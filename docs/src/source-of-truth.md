@@ -29,6 +29,8 @@ Every area below is tagged with one visibility label and one maturity label.
 
 ## Area status map
 
+<!-- BEGIN GENERATED:hub-components:source-of-truth-table -->
+
 | Area | Owning repository | Visibility | Maturity | Where to read |
 |---|---|---|---|---|
 | **Core** (gateway, policy engine, eBPF, proxy, FFI, WASM, CLI, API) | [`agent-assembly`](https://github.com/ai-agent-assembly/agent-assembly) | 🟢 Public | 🧪 Release candidate | [core docs](https://docs.agent-assembly.com/core/) |
@@ -42,6 +44,14 @@ Every area below is tagged with one visibility label and one maturity label.
 | **Cloud** (SaaS control plane) | `agent-assembly-cloud` | 🔒 Private / internal | 🗺️ Planned | [Cloud deployment](cloud-deployment.md) |
 | **Enterprise** (SSO, SCIM, advanced audit) | `agent-assembly-enterprise` | 🔒 Private / internal | 🗺️ Planned | [Open core boundary](open-core-boundary.md) |
 | **Operations** (running & onboarding) | this hub | 🟢 Public | 🗺️ Planned | [Quick start (SaaS)](quickstart-saas.md) |
+
+<!-- END GENERATED:hub-components:source-of-truth-table -->
+
+<!-- The table above is generated from hub-components.toml by
+     docs/scripts/generate_hub_components.py — do not hand-edit between the
+     BEGIN/END GENERATED markers. Component rows come from the manifest;
+     the non-component rows (Specs, Releases, Cloud, Enterprise, Operations)
+     are literal in the generator itself. See AAASM-4313. -->
 
 > The **protocol specification stays in the `agent-assembly` monorepo** by project
 > policy. The reserved `agent-assembly-spec` repository is intentionally not used

@@ -5,6 +5,8 @@ Agent Assembly module into one place, under stable subpaths, with one unified
 search. Each module keeps its own documentation toolchain — the hub **pulls** and
 **assembles** them rather than forcing a single generator.
 
+<!-- BEGIN GENERATED:hub-components:aggregation-table -->
+
 | Path | Module | Generator |
 |---|---|---|
 | `/` | This hub | mdBook |
@@ -12,6 +14,12 @@ search. Each module keeps its own documentation toolchain — the hub **pulls** 
 | [`/python-sdk/`](/python-sdk/) | `python-sdk` | mkdocs-material |
 | [`/node-sdk/`](/node-sdk/) | `node-sdk` | Docusaurus |
 | [`/go-sdk/`](/go-sdk/) | `go-sdk` | Hugo + Hextra |
+
+<!-- END GENERATED:hub-components:aggregation-table -->
+
+<!-- The table above is generated from hub-components.toml by
+     docs/scripts/generate_hub_components.py — do not hand-edit between the
+     BEGIN/END GENERATED markers. See AAASM-4313. -->
 
 ## What gets aggregated
 

@@ -1,0 +1,43 @@
+name: Hub metadata drift check
+
+# Docs-hub component metadata gate (AAASM-4313 / Epic AAASM-4309).
+#
+# Fails the build if any hand-authored page under docs/src/ has drifted from
+# hub-components.toml — i.e. if a maintainer edited a component table/list
+# inside the BEGIN/END GENERATED:hub-components:* markers by hand instead of
+# updating the manifest and regenerating. Runs the same command a contributor
+# runs locally: `python3 docs/scripts/generate_hub_components.py --check`.
+#
+# See docs/scripts/generate_hub_components.py for the generator, and
+# hub-components.toml for the manifest schema.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  hub-metadata-check:
+    name: Verify hub component metadata is in sync
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout hub
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          # tomllib is standard-library from 3.11 onward; the aggregate.yml
+          # workflow pins 3.12 for the same reason.
+          python-version: "3.12"
+
+      - name: Verify hub-components.toml drives docs/src/
+        run: python3 docs/scripts/generate_hub_components.py --check
