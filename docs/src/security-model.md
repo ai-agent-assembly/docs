@@ -128,6 +128,13 @@ sequenceDiagram
 - [Cloud deployment](cloud-deployment.md) — SSO configuration, SCIM provisioning
 - [Open core boundary](open-core-boundary.md) — which security features are OSS vs. enterprise
 
+<div class="aa-cta-next">
+  <span class="aa-cta-next__label">Evaluating for production?</span>
+  <a href="https://agent-assembly.com/early-access?utm_source=docs&amp;utm_medium=docs_link&amp;utm_campaign=early_access&amp;utm_content=security_model_page" data-cta-location="body" rel="noopener">Request Cloud Early Access →</a>
+  <p>Talk to the team about the STRIDE model, tamper-evident audit, and your
+     compliance path. Cloud is in early access / design-partner today.</p>
+</div>
+
 ---
 
 *Last reviewed: 2026-06-11 — AI Agent Assembly Team*
