@@ -8,10 +8,10 @@ src = "src"
 [output.html]
 default-theme = "light"
 preferred-dark-theme = "navy"
-git-repository-url = "https://github.com/ai-agent-assembly/agent-assembly-docs"
-edit-url-template = "https://github.com/ai-agent-assembly/agent-assembly-docs/edit/main/docs/{path}"
+git-repository-url = "https://github.com/ai-agent-assembly/docs"
+edit-url-template = "https://github.com/ai-agent-assembly/docs/edit/main/docs/{path}"
 additional-css = ["theme/aaasm-brand.css"]
-additional-js = ["mermaid.min.js", "mermaid-init.js", "theme/light-dark-toggle.js"]
+additional-js = ["mermaid.min.js", "mermaid-init.js", "theme/light-dark-toggle.js", "theme/aa-funnel-events.js"]
 
 [preprocessor]
 

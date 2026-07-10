@@ -1,0 +1,20 @@
+# Cloudflare Pages / Netlify _headers format. Copied verbatim into public/_headers
+# by docs/scripts/aggregate.sh so it sits next to CNAME at the site root.
+#
+# GitHub Pages itself ignores this file (Pages does not support custom response
+# headers). It is consumed by whichever edge sits in front of the origin — today
+# Cloudflare in front of GitHub Pages via a Transform Rule / Worker, and
+# natively by Cloudflare Pages if this site is ever migrated there. Keeping the
+# policy under version control here is the single source of truth for the docs
+# hub's response-header baseline. See AAASM-4315.
+#
+# CSP is Report-Only for now so real violations surface without blocking any
+# request — the aggregator pulls four separately-generated sites (mdBook,
+# mkdocs-material, Docusaurus, Hugo+Hextra) plus mermaid.min.js, Pagefind, and
+# GA4, and we want telemetry from every page before flipping to enforce.
+
+/*
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Content-Security-Policy-Report-Only: default-src 'self' *.agent-assembly.com; script-src 'self' 'unsafe-inline' www.googletagmanager.com cdn.jsdelivr.net unpkg.com; style-src 'self' 'unsafe-inline' fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data: fonts.gstatic.com; connect-src 'self' *.agent-assembly.com www.google-analytics.com api.github.com pypi.org registry.npmjs.org raw.githubusercontent.com; frame-ancestors 'none'; base-uri 'self'

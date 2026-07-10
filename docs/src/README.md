@@ -1,10 +1,19 @@
 # AI Agent Assembly Documentation
 
+<!-- BEGIN GENERATED:hub-components:landing-badges -->
+
 [![core](https://img.shields.io/github/v/release/ai-agent-assembly/agent-assembly?include_prereleases&sort=semver&label=core&logo=github&color=3b82f6)](https://github.com/ai-agent-assembly/agent-assembly/releases)
 [![python-sdk](https://img.shields.io/pypi/v/agent-assembly?label=python-sdk&logo=pypi)](https://github.com/ai-agent-assembly/python-sdk)
 [![node-sdk](https://img.shields.io/npm/v/@agent-assembly/sdk/rc?label=node-sdk&logo=npm)](https://github.com/ai-agent-assembly/node-sdk)
 [![go-sdk](https://img.shields.io/github/v/tag/ai-agent-assembly/go-sdk?sort=semver&label=go-sdk&logo=go&color=3b82f6)](https://github.com/ai-agent-assembly/go-sdk/tags)
-[![license](https://img.shields.io/badge/license-Apache--2.0-green)](https://github.com/ai-agent-assembly/agent-assembly-docs/blob/main/LICENSE)
+[![license](https://img.shields.io/badge/license-Apache--2.0-green)](https://github.com/ai-agent-assembly/docs/blob/main/LICENSE)
+
+<!-- END GENERATED:hub-components:landing-badges -->
+
+<!-- The version badges above are generated from hub-components.toml by
+     docs/scripts/generate_hub_components.py — do not hand-edit between the
+     BEGIN/END GENERATED markers. The trailing license badge is a literal
+     inside the renderer. See AAASM-4313. -->
 
 Quick links to each component, its current version, and its license. Every version badge reads the latest published version live — core and Go from GitHub, Python from PyPI, Node from npm's `rc` dist-tag — so they stay current with no manual updates. The project is in release candidate (`v0.0.1-rc`).
 
@@ -20,7 +29,7 @@ It works across your whole fleet of agents and does not require you to rewrite y
 
 This site is for **teams, security engineers, and operators** evaluating or running AI Agent Assembly for production adoption.
 
-If you are a developer who wants to contribute or integrate at the code level, see the [open-source documentation](https://ai-agent-assembly.github.io/agent-assembly/) instead.
+If you are a developer who wants to contribute or integrate at the code level, see the [open-source documentation](https://docs.agent-assembly.com/core/) instead.
 
 ## Find what you need
 
@@ -41,17 +50,25 @@ This hub is the central entry point for AI Agent Assembly documentation. To inst
 
 Every module's docs are **aggregated into this hub** under a stable subpath (`/core/`, `/python-sdk/`, `/node-sdk/`, `/go-sdk/`), so you can read and search all of them from one place. The standalone, per-version sites remain available for release-specific (mike / Docusaurus / Hugo channel) browsing.
 
+<!-- BEGIN GENERATED:hub-components:sdks-and-components -->
+
 | Component | On this hub | Standalone site |
 |---|---|---|
-| Core (monorepo) | [/core/](/core/) | [core docs](https://ai-agent-assembly.github.io/agent-assembly/) |
-| Python SDK | [/python-sdk/](/python-sdk/) | <https://ai-agent-assembly.github.io/python-sdk/> |
-| Node SDK | [/node-sdk/](/node-sdk/) | <https://ai-agent-assembly.github.io/node-sdk/> |
-| Go SDK | [/go-sdk/](/go-sdk/) | <https://ai-agent-assembly.github.io/go-sdk/> |
+| Core (monorepo) | [/core/](/core/) | [core docs](https://docs.agent-assembly.com/core/) |
+| Python SDK | [/python-sdk/](/python-sdk/) | <https://docs.agent-assembly.com/python-sdk/> |
+| Node SDK | [/node-sdk/](/node-sdk/) | <https://docs.agent-assembly.com/node-sdk/> |
+| Go SDK | [/go-sdk/](/go-sdk/) | <https://docs.agent-assembly.com/go-sdk/> |
+
+<!-- END GENERATED:hub-components:sdks-and-components -->
+
+<!-- The table above is generated from hub-components.toml by
+     docs/scripts/generate_hub_components.py — do not hand-edit between the
+     BEGIN/END GENERATED markers. See AAASM-4313. -->
 
 ## Runnable examples
 
 Prefer learning by running code? The
-[**agent-assembly-examples**](https://github.com/ai-agent-assembly/agent-assembly-examples)
+[**agent-assembly-examples**](https://github.com/ai-agent-assembly/examples)
 repo collects small, framework-specific Agent Assembly examples for Python,
 Node.js/TypeScript, Go, policy enforcement, approvals, audit, trace, and runtime
 workflows. Clone it and run an example end to end to see governance in action
@@ -66,6 +83,12 @@ AI Agent Assembly enforces governance through three layers. You can deploy them 
 3. **eBPF sensor (`aa-ebpf`)** — kernel-level hooks that watch SSL libraries and process syscalls to catch bypass attempts at the OS level. Linux only.
 
 All three layers report to the **gateway**, which evaluates policy and tracks per-team budgets.
+
+<div class="aa-cta-next">
+  <span class="aa-cta-next__label">Next step</span>
+  <a href="quickstart-saas.md" data-track-event="docs_quickstart_click" data-cta-location="body">Continue to the Quick start →</a>
+  <p>Instrument a LangChain agent in under five minutes.</p>
+</div>
 
 ---
 

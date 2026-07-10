@@ -29,20 +29,30 @@ Every area below is tagged with one visibility label and one maturity label.
 
 ## Area status map
 
+<!-- BEGIN GENERATED:hub-components:source-of-truth-table -->
+
 | Area | Owning repository | Visibility | Maturity | Where to read |
 |---|---|---|---|---|
-| **Core** (gateway, policy engine, eBPF, proxy, FFI, WASM, CLI, API) | [`agent-assembly`](https://github.com/ai-agent-assembly/agent-assembly) | 🟢 Public | 🧪 Release candidate | [core docs](https://ai-agent-assembly.github.io/agent-assembly/) |
-| **Python SDK** | [`python-sdk`](https://github.com/ai-agent-assembly/python-sdk) | 🟢 Public | 🧪 Release candidate | [python-sdk docs](https://ai-agent-assembly.github.io/python-sdk/) |
-| **Node / TypeScript SDK** | [`node-sdk`](https://github.com/ai-agent-assembly/node-sdk) | 🟢 Public | 🧪 Release candidate | [node-sdk docs](https://ai-agent-assembly.github.io/node-sdk/) |
-| **Go SDK** | [`go-sdk`](https://github.com/ai-agent-assembly/go-sdk) | 🟢 Public | 🧪 Release candidate | [go-sdk docs](https://ai-agent-assembly.github.io/go-sdk/) |
-| **Runnable examples** | [`agent-assembly-examples`](https://github.com/ai-agent-assembly/agent-assembly-examples) | 🟢 Public | 🧪 Release candidate | repo `README` |
+| **Core** (gateway, policy engine, eBPF, proxy, FFI, WASM, CLI, API) | [`agent-assembly`](https://github.com/ai-agent-assembly/agent-assembly) | 🟢 Public | 🧪 Release candidate | [core docs](https://docs.agent-assembly.com/core/) |
+| **Python SDK** | [`python-sdk`](https://github.com/ai-agent-assembly/python-sdk) | 🟢 Public | 🧪 Release candidate | [python-sdk docs](https://docs.agent-assembly.com/python-sdk/) |
+| **Node / TypeScript SDK** | [`node-sdk`](https://github.com/ai-agent-assembly/node-sdk) | 🟢 Public | 🧪 Release candidate | [node-sdk docs](https://docs.agent-assembly.com/node-sdk/) |
+| **Go SDK** | [`go-sdk`](https://github.com/ai-agent-assembly/go-sdk) | 🟢 Public | 🧪 Release candidate | [go-sdk docs](https://docs.agent-assembly.com/go-sdk/) |
+| **Runnable examples** | [`examples`](https://github.com/ai-agent-assembly/examples) | 🟢 Public | 🧪 Release candidate | repo `README` |
 | **Homebrew / install channel** | [`homebrew-tap`](https://github.com/ai-agent-assembly/homebrew-tap) | 🟢 Public | 🧪 Release candidate | repo `README` |
 | **Arena** (cross-framework governance trials) | [`arena`](https://github.com/ai-agent-assembly/arena) | 🟢 Public | 🗺️ Planned | [Arena overview](arena/overview.md) |
 | **Specs** (protocol & policy spec) | [`agent-assembly`](https://github.com/ai-agent-assembly/agent-assembly) monorepo | 🟢 Public | 🧪 Release candidate | [Policy reference](policy-reference.md) · core docs |
 | **Releases** (versions & compatibility) | this hub + each component's tags | 🟢 Public | 🧪 Release candidate | [Compatibility matrix](compatibility.md) |
-| **Cloud** (SaaS control plane) | `agent-assembly-cloud` | 🔒 Private / internal | 🗺️ Planned | [Cloud deployment](cloud-deployment.md) |
+| **Cloud** (SaaS control plane) | `cloud` | 🔒 Private / internal | 🗺️ Planned | [Cloud deployment](cloud-deployment.md) |
 | **Enterprise** (SSO, SCIM, advanced audit) | `agent-assembly-enterprise` | 🔒 Private / internal | 🗺️ Planned | [Open core boundary](open-core-boundary.md) |
 | **Operations** (running & onboarding) | this hub | 🟢 Public | 🗺️ Planned | [Quick start (SaaS)](quickstart-saas.md) |
+
+<!-- END GENERATED:hub-components:source-of-truth-table -->
+
+<!-- The table above is generated from hub-components.toml by
+     docs/scripts/generate_hub_components.py — do not hand-edit between the
+     BEGIN/END GENERATED markers. Component rows come from the manifest;
+     the non-component rows (Specs, Releases, Cloud, Enterprise, Operations)
+     are literal in the generator itself. See AAASM-4313. -->
 
 > The **protocol specification stays in the `agent-assembly` monorepo** by project
 > policy. The reserved `agent-assembly-spec` repository is intentionally not used

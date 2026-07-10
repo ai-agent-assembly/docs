@@ -108,7 +108,7 @@ footnote in the **Notes** list below.
 ## How this is maintained
 
 This page is **manifest-driven**. The source of truth is
-[`compatibility.toml`](https://github.com/ai-agent-assembly/agent-assembly-docs/blob/main/compatibility.toml)
+[`compatibility.toml`](https://github.com/ai-agent-assembly/docs/blob/main/compatibility.toml)
 at the repository root. The matrix and requirements tables above are rendered from
 it by `docs/scripts/generate_compatibility.py`; the content between the
 `BEGIN GENERATED` / `END GENERATED` markers is generated — **do not hand-edit it**.

@@ -9,8 +9,8 @@
 // The element IDs differ across mdBook versions:
 //   * 0.4.x emits `#theme-toggle`, `#theme-light`, `#theme-navy`, ...
 //   * 0.5.x emits `#mdbook-theme-toggle`, `#mdbook-theme-light`, ...
-// CI deploys 0.4.x today (see `.github/workflows/deploy.yml`), but local
-// development sometimes uses 0.5.x. Look up each element by trying both IDs so
+// CI deploys 0.5.x today (see `.github/workflows/aggregate.yml`), but local
+// development sometimes uses 0.4.x. Look up each element by trying both IDs so
 // the toggle appears in either build.
 
 (function () {

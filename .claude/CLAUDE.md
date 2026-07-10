@@ -3,7 +3,7 @@
 Guidance for Claude Code (and humans) working in this repository. This file holds
 **repo-specific** context only; universal engineering policy lives in the global
 config. When a fact here duplicates `README.md`, `docs/book.toml`, or the
-`deploy.yml` workflow, treat those as the source of truth and update them, not just
+`aggregate.yml` workflow, treat those as the source of truth and update them, not just
 this file.
 
 Org-wide baseline: https://github.com/ai-agent-assembly/.github/blob/main/CLAUDE.md
@@ -14,15 +14,19 @@ Org-wide baseline: https://github.com/ai-agent-assembly/.github/blob/main/CLAUDE
 The **canonical public documentation hub** for AI Agent Assembly — the product that
 enforces governance on AI agents. It is an [mdBook](https://rust-lang.github.io/mdBook/)
 site, built and deployed to GitHub Pages on every push to `main`, and published at
-**<https://ai-agent-assembly.github.io/agent-assembly-docs/>**.
+**<https://docs.agent-assembly.com/>**.
 
-This is a **hub / router**, not a content silo. Each of the product's four
-independently-versioned components (core + the three SDKs) ships its **own** docs
-site; the hub stays evergreen by linking to each component's site **root** (which
-redirects to that component's newest stable release) rather than copying their
-content. The only first-party content here is the cross-cutting material: the
-documentation index, the core↔SDK compatibility matrix, the security model, the
-comparison page, the open-core boundary, and the policy reference.
+This hub **aggregates** the docs of every module into one unified, searchable
+site. Each of the product's four independently-versioned components (core + the
+three SDKs) ships its **own** docs, built with its native toolchain (mdBook,
+mkdocs-material, Docusaurus, Hugo+Hextra); the aggregation pipeline pulls each
+one, builds it, and mounts its output under a stable subpath — `/core/`,
+`/python-sdk/`, `/node-sdk/`, `/go-sdk/` — with a unified Pagefind search index
+over the whole site. See [`AGGREGATION.md`](../AGGREGATION.md) for the full
+contract. Alongside the aggregated component docs, this repo also authors the
+first-party cross-cutting material: the documentation index, the core↔SDK
+compatibility matrix, the security model, the comparison page, the open-core
+boundary, and the policy reference.
 
 ## Site layout
 
@@ -42,10 +46,13 @@ mdBook has **no front-matter**: a page's title comes from its `# H1` and its
 placement comes from `SUMMARY.md`. The per-page "Last updated" footer is appended
 automatically from each chapter's last commit date — there is nothing to edit by hand.
 
-> **Versioning channel model:** the published hub does not yet run the
-> latest/pre-release/stable + archived channel layout some sibling docs sites use; it
-> currently routes to each component's own site root. Don't assume channel scaffolding
-> exists here — verify against `SUMMARY.md` and `book.toml` before referencing it.
+> **Versioning channel model:** this `book.toml`/`SUMMARY.md` config governs only
+> the **hub mdBook** served at `/`. The published hub *does* serve per-module
+> version/channel machinery — each module's docs mount under `/<module>/` with a
+> `versions.json` manifest (latest/stable/pre-release channels) and archived
+> per-tag subpaths (`/<module>/<tag>/`), driven by `modules.json` — but that layer
+> is produced by the aggregation pipeline, not by this repo's mdBook config. Verify
+> the specifics against [`AGGREGATION.md`](../AGGREGATION.md) and `modules.json`.
 
 ## Build, test, serve
 
@@ -77,13 +84,14 @@ and no lefthook in this repo; the only local gate is `mdbook build` + the matrix
 
 - **Default branch is `main`** (not `master` like the core monorepo). Branch off and
   PR against `main`.
-- **`origin` is canonical** — it points to `AI-agent-assembly/agent-assembly-docs`
+- **`origin` is canonical** — it points to `ai-agent-assembly/docs`
   (the org, accessed via the `ai-agent-assembly` → `AI-agent-assembly` case alias).
   Confirm with `git remote -v`; scope changes against `origin/main`, which is often
   ahead of a stale checkout.
-- **CI is path-scoped.** `deploy.yml` only triggers on `docs/**`, `compatibility.toml`,
-  and `.github/workflows/deploy.yml`. A `.claude/`-only (or other root-file-only)
-  change runs **no CI** — it is review-gated, not CI-gated. Validate locally instead.
+- **CI runs on every push and PR to `main`.** `aggregate.yml` triggers on `push` and
+  `pull_request` to `main` (plus manual `workflow_dispatch`) with **no path filter**, so
+  every change — including a `.claude/`-only or other root-file-only edit — runs the full
+  aggregate-and-deploy workflow. Validate locally before pushing.
 - **`docs/src/compatibility.md` is generated** — edit `compatibility.toml` and run the
   generator; never hand-edit between the `BEGIN GENERATED` / `END GENERATED` markers.
 - **Org GitHub Actions can be billing-blocked** — jobs may abort in seconds with a
@@ -95,7 +103,7 @@ and no lefthook in this repo; the only local gate is `mdbook build` + the matrix
 ## Project policy
 
 - **JIRA:** project AAASM; set **Component** (`customfield_10041`) to the repo
-  (`AI-agent-assembly/agent-assembly-docs`); Team (`customfield_10001`) = Pioneer.
+  (`ai-agent-assembly/docs`); Team (`customfield_10001`) = Pioneer.
   Epic → Story → Subtask (one Subtask ≈ one commit) + a `Verify …` subtask per Story.
 - **Self-hosted deployment is out of scope** product-wide — the docs are **SaaS-only**.
   Don't add Helm/Terraform/air-gapped/migration instructions even if the spec mentions
@@ -114,8 +122,10 @@ boundaries, and trade-offs — not restate version numbers or API surface that l
 - **Per page (`# H1` + intro):** state *who the page is for* and *why it exists*
   before the detail (e.g. the security model opens "for enterprise security and
   compliance teams"). One H1 per file; register it in `SUMMARY.md`.
-- **Hub-router pages:** link to a component's **site root**, never a deep version-pinned
-  URL — the root redirect keeps the link evergreen. Prefer linking out to duplicating.
+- **Aggregated component docs:** each module's docs are pulled in and mounted under
+  its `/<module>/` subpath by the aggregation pipeline (see `AGGREGATION.md`) — the
+  first-party hub prose orients readers toward them; it does not re-author or restate
+  their API surface, install steps, or per-version content, which would only drift.
 - **Generated content:** the compatibility matrix is the source of truth for versions;
   reference it, don't restate version numbers in prose where they'll drift.
 - **Skip:** copying API reference, install steps, or changelogs that live in a

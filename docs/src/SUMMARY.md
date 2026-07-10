@@ -33,3 +33,7 @@
 # Reference
 
 - [Policy Reference](policy-reference.md)
+
+# Support
+
+- [Troubleshooting](troubleshooting.md)

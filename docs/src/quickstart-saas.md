@@ -222,6 +222,20 @@ def run_agent(prompt: str) -> str:
 - [Policy reference](policy-reference.md) — full policy rule schema
 - [Open core boundary](open-core-boundary.md) — what's in the OSS core vs. the enterprise tier
 
+<div class="aa-cta-next">
+  <span class="aa-cta-next__label">Next step</span>
+  <a href="https://github.com/ai-agent-assembly/examples?utm_source=docs&amp;utm_medium=docs_link&amp;utm_campaign=oss_install&amp;utm_content=quickstart_next_step" data-cta-location="body" rel="noopener">Run a working example →</a>
+  <p>Open the <code>agent-assembly-examples</code> repo and step through a governed
+     LangChain, LlamaIndex, or bare-OpenAI agent end-to-end.</p>
+</div>
+
+<div class="aa-cta-next">
+  <span class="aa-cta-next__label">Ready for a managed workspace?</span>
+  <a href="https://agent-assembly.com/early-access?utm_source=docs&amp;utm_medium=docs_link&amp;utm_campaign=early_access&amp;utm_content=quickstart_page" data-cta-location="body" rel="noopener">Request Cloud Early Access →</a>
+  <p>Cloud is in early access / design-partner. It is not generally available yet;
+     the OSS quickstart above works today.</p>
+</div>
+
 ---
 
 *Last reviewed: 2026-06-11 · AI Agent Assembly Team*
