@@ -19,6 +19,12 @@
 - [Quick Start (SaaS) (Coming soon)](quickstart-saas.md)
 - [Cloud Deployment (Coming soon)](cloud-deployment.md)
 
+# Arena
+
+- [Overview](arena/overview.md)
+- [Quickstart](arena/quickstart.md)
+- [Submitting an Agent](arena/submit-agent.md)
+
 # Reference
 
 - [Policy Reference](policy-reference.md)
