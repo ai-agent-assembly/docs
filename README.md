@@ -56,6 +56,7 @@ status map for every area below.
 | Go SDK | [go-sdk](https://github.com/ai-agent-assembly/go-sdk) | <https://ai-agent-assembly.github.io/go-sdk/> |
 | Runnable examples | [agent-assembly-examples](https://github.com/ai-agent-assembly/agent-assembly-examples) | repo `README` |
 | Homebrew / install | [homebrew-tap](https://github.com/ai-agent-assembly/homebrew-tap) | repo `README` |
+| Arena (governance trials) | [arena](https://github.com/ai-agent-assembly/arena) | [Arena docs](docs/src/arena/overview.md) |
 | Specs (protocol & policy) | in the `agent-assembly` monorepo | [Policy reference](docs/src/policy-reference.md) |
 | Releases & compatibility | this hub + component tags | [Compatibility matrix](docs/src/compatibility.md) |
 | Cloud (SaaS) | `agent-assembly-cloud` *(private, planned)* | [Cloud deployment](docs/src/cloud-deployment.md) |
