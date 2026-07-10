@@ -23,7 +23,12 @@
 
 - [Overview](arena/overview.md)
 - [Quickstart](arena/quickstart.md)
+- [Behavior Profiles (Coming soon)](arena/behavior-profiles.md)
+- [LLM Modes (Coming soon)](arena/llm-modes.md)
 - [Submitting an Agent](arena/submit-agent.md)
+- [Report Schema (Coming soon)](arena/report-schema.md)
+- [Security Policy](arena/security-policy.md)
+- [Latest Reports (Coming soon)](arena/latest-reports.md)
 
 # Reference
 
