@@ -37,7 +37,7 @@ import os
 from agent_assembly import init_assembly
 from agent_assembly.adapters.langchain import get_active_callback_handler
 from langchain_openai import ChatOpenAI
-from langchain.agents import AgentExecutor, create_openai_tools_agent
+from langchain_classic.agents import AgentExecutor, create_openai_tools_agent
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.tools import tool
 
