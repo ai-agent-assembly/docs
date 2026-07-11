@@ -379,7 +379,7 @@ verify_nonempty() {
   printf '  ok  %-26s (%s html files)\n' "${dir#"$PUBLIC_DIR"/}" "$n"
 }
 verify_nonempty "$PUBLIC_DIR"            "$INDEX_FILE"
-for sub in core python-sdk node-sdk go-sdk; do
+for sub in core python-sdk node-sdk go-sdk arena; do
   verify_nonempty "$PUBLIC_DIR/$sub"     "$INDEX_FILE"
 done
 
@@ -394,6 +394,7 @@ verify_manifest() {
 }
 verify_manifest "$PUBLIC_DIR/modules.json"
 verify_manifest "$PUBLIC_DIR/python-sdk/versions.json"
+verify_manifest "$PUBLIC_DIR/arena/versions.json"
 verify_manifest "$PUBLIC_DIR/core/versions.json"
 verify_nonempty "$PUBLIC_DIR/core/latest"     "$INDEX_FILE"
 verify_nonempty "$PUBLIC_DIR/go-sdk/latest"   "$INDEX_FILE"
