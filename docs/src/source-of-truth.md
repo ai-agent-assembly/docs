@@ -37,6 +37,7 @@ Every area below is tagged with one visibility label and one maturity label.
 | **Python SDK** | [`python-sdk`](https://github.com/ai-agent-assembly/python-sdk) | 🟢 Public | 🧪 Release candidate | [python-sdk docs](https://docs.agent-assembly.com/python-sdk/) |
 | **Node / TypeScript SDK** | [`node-sdk`](https://github.com/ai-agent-assembly/node-sdk) | 🟢 Public | 🧪 Release candidate | [node-sdk docs](https://docs.agent-assembly.com/node-sdk/) |
 | **Go SDK** | [`go-sdk`](https://github.com/ai-agent-assembly/go-sdk) | 🟢 Public | 🧪 Release candidate | [go-sdk docs](https://docs.agent-assembly.com/go-sdk/) |
+| **Arena** (cross-framework governance trials) | [`arena`](https://github.com/ai-agent-assembly/arena) | 🟢 Public | 🧪 Release candidate | [arena docs](https://docs.agent-assembly.com/arena/) |
 | **Runnable examples** | [`examples`](https://github.com/ai-agent-assembly/examples) | 🟢 Public | 🧪 Release candidate | repo `README` |
 | **Homebrew / install channel** | [`homebrew-tap`](https://github.com/ai-agent-assembly/homebrew-tap) | 🟢 Public | 🧪 Release candidate | repo `README` |
 | **Specs** (protocol & policy spec) | [`agent-assembly`](https://github.com/ai-agent-assembly/agent-assembly) monorepo | 🟢 Public | 🧪 Release candidate | [Policy reference](policy-reference.md) · core docs |
@@ -69,4 +70,4 @@ full split.
 
 ---
 
-*Last reviewed: 2026-06-27 — AI Agent Assembly Team*
+*Last reviewed: 2026-07-11 — AI Agent Assembly Team*

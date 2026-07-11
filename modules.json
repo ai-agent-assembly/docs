@@ -52,6 +52,18 @@
       "base_url_strategy": "First recompute website/data/versions.toml from git tags using the repo's website/scripts/versions_channels.py (the version dropdown is baked into each page at Hugo build time, so the full set must be in versions.toml BEFORE building). Then run website/scripts/build_all_versions.sh with PAGES_BASE=/go-sdk so each entry is emitted under /go-sdk/<channel-or-tag>/ with absolute assets — matching params.versionsBasePath=/go-sdk, so the selector links resolve in the hub exactly as on the standalone site. A site-root redirect (website/redirect/index.html) lands /go-sdk/ on the best channel.",
       "build": "cd <src> && python3 (recompute website/data/versions.toml from `git tag -l 'v*'` via versions_channels.py) && PAGES_BASE=/go-sdk PUBLIC_DIR=<out> REPO_ROOT=<src> MASTER_REF=HEAD bash website/scripts/build_all_versions.sh; render website/redirect/index.html -> <out>/index.html",
       "out_glob": ["index.html", "latest/index.html", "<tag>/index.html"]
+    },
+    {
+      "name": "arena",
+      "repo": "ai-agent-assembly/arena",
+      "ref": "main",
+      "generator": "mkdocs-material",
+      "subpath": "arena",
+      "doc_dir": ".",
+      "channel": "FULL mike version tree reused from the arena gh-pages branch — versions.json + every per-version dir + channel aliases latest/stable/pre-release (AAASM-4414)",
+      "base_url_strategy": "Reuse the already-published gh-pages branch verbatim: its layout (gh-pages root == /arena/) is identical to the standalone site, so the mike/material version dropdown works unchanged. Alias symlinks are dereferenced (cp -RL) because GitHub Pages does not follow symlinks. No mkdocs build is run here.",
+      "build": "git clone --depth 1 -b gh-pages <repo> tmp; cp -RL tmp/. <out>/",
+      "out_glob": ["index.html", "versions.json", "latest/index.html"]
     }
   ]
 }

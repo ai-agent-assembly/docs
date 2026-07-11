@@ -46,9 +46,9 @@ Pick the page that matches what you are trying to do.
 
 ## SDKs & components
 
-This hub is the central entry point for AI Agent Assembly documentation. To instrument your agents, you install the SDK for your language — each one ships its own documentation site. Use the table below to go to the SDK that matches your codebase: Python, Node/TypeScript, or Go.
+This hub is the central entry point for AI Agent Assembly documentation. To instrument your agents, you install the SDK for your language — each one ships its own documentation site. Use the table below to go to the SDK that matches your codebase (Python, Node/TypeScript, or Go), or to Arena, the cross-framework governance trial ground.
 
-Every module's docs are **aggregated into this hub** under a stable subpath (`/core/`, `/python-sdk/`, `/node-sdk/`, `/go-sdk/`), so you can read and search all of them from one place. The standalone, per-version sites remain available for release-specific (mike / Docusaurus / Hugo channel) browsing.
+Every module's docs are **aggregated into this hub** under a stable subpath (`/core/`, `/python-sdk/`, `/node-sdk/`, `/go-sdk/`, `/arena/`), so you can read and search all of them from one place. The standalone, per-version sites remain available for release-specific (mike / Docusaurus / Hugo channel) browsing.
 
 <!-- BEGIN GENERATED:hub-components:sdks-and-components -->
 
@@ -58,6 +58,7 @@ Every module's docs are **aggregated into this hub** under a stable subpath (`/c
 | Python SDK | [/python-sdk/](/python-sdk/) | <https://docs.agent-assembly.com/python-sdk/> |
 | Node SDK | [/node-sdk/](/node-sdk/) | <https://docs.agent-assembly.com/node-sdk/> |
 | Go SDK | [/go-sdk/](/go-sdk/) | <https://docs.agent-assembly.com/go-sdk/> |
+| Arena | [/arena/](/arena/) | <https://docs.agent-assembly.com/arena/> |
 
 <!-- END GENERATED:hub-components:sdks-and-components -->
 

@@ -183,16 +183,37 @@ def render_readme_components_table(manifest: dict[str, object]) -> str:
 
 
 def render_documentation_lists(manifest: dict[str, object]) -> str:
-    """Render the Core + SDKs router content on ``docs/src/documentation.md``.
+    """Render the Core + SDKs (+ other components) router content on
+    ``docs/src/documentation.md``.
 
     The existing page splits its content into two H2 sections ("Core" and
-    "SDKs"). Emit both sections inside a single generated block so the whole
-    router stays in sync with the manifest, and the surrounding prose (intro
-    and blockquote) stays hand-authored.
+    "SDKs"). An aggregated component that is neither Core nor a language SDK
+    (e.g. Arena — a governance trial ground, not something you "install and
+    govern agents from") gets a third, generic "Also on this hub" section
+    instead of being folded into "SDKs", where the SDK phrasing template
+    would render nonsensical prose. Emit all sections inside a single
+    generated block so the whole router stays in sync with the manifest, and
+    the surrounding prose (intro and blockquote) stays hand-authored.
     """
     components = _aggregated(_components(manifest))
     core = [c for c in components if str(c["key"]) == "core"]
-    sdks = [c for c in components if str(c["key"]) != "core"]
+    # Language phrasing per SDK — hand-authored today ("install and govern
+    # agents from Python" / "TypeScript or JavaScript" / "Go"). Keep those
+    # exact phrasings under the manifest's control by deriving them from the
+    # component key so a new SDK gets a predictable default and existing rows
+    # render byte-identically to the current page. Only components whose key
+    # is listed here are considered SDKs for this page's grouping.
+    sdk_language: dict[str, str] = {
+        "python-sdk": "Python",
+        "node-sdk": "TypeScript or JavaScript",
+        "go-sdk": "Go",
+    }
+    sdks = [c for c in components if str(c["key"]) in sdk_language]
+    extras = [
+        c
+        for c in components
+        if str(c["key"]) != "core" and str(c["key"]) not in sdk_language
+    ]
 
     lines: list[str] = ["## Core", ""]
     for entry in core:
@@ -206,25 +227,37 @@ def render_documentation_lists(manifest: dict[str, object]) -> str:
         )
 
     lines.extend(["", "## SDKs", ""])
-    # Language phrasing per SDK — hand-authored today ("install and govern
-    # agents from Python" / "TypeScript or JavaScript" / "Go"). Keep those
-    # exact phrasings under the manifest's control by deriving them from the
-    # component key so a new SDK gets a predictable default and existing rows
-    # render byte-identically to the current page.
-    sdk_language: dict[str, str] = {
-        "python-sdk": "Python",
-        "node-sdk": "TypeScript or JavaScript",
-        "go-sdk": "Go",
-    }
     for entry in sdks:
         key = str(entry["key"])
         short = str(entry["short_name"])
         standalone = str(entry["standalone_url"])
-        language = sdk_language.get(key, short)
+        language = sdk_language[key]
         lines.append(
             f"- **[{short}]({standalone})** — install and govern agents from "
             f"{language}."
         )
+
+    if extras:
+        # Per-component blurb for non-SDK aggregated components. A key with
+        # no entry here falls back to a generic phrase rather than raising,
+        # so a future addition never breaks the build — but it should still
+        # get a real entry for good prose.
+        extras_description: dict[str, str] = {
+            "arena": (
+                "watch AI agents from different frameworks attempt real and "
+                "adversarial scenarios while agent-assembly enforces every "
+                "decision, and read the published match reports."
+            ),
+        }
+        lines.extend(["", "## Also on this hub", ""])
+        for entry in extras:
+            key = str(entry["key"])
+            short = str(entry["short_name"])
+            standalone = str(entry["standalone_url"])
+            description = extras_description.get(
+                key, f"see the {short} documentation."
+            )
+            lines.append(f"- **[{short}]({standalone})** — {description}")
 
     return "\n".join(lines)
 
@@ -325,8 +358,8 @@ def render_source_of_truth_table(manifest: dict[str, object]) -> str:
 
     The status map is a 5-column Markdown table (Area | Owning repository |
     Visibility | Maturity | Where to read). Its first block of rows lists the
-    hub components — Core, the three SDKs, runnable examples, and the Homebrew
-    tap — and is driven by ``hub-components.toml``. The remaining rows (Specs,
+    hub components — Core, the three SDKs, Arena, runnable examples, and the
+    Homebrew tap — and is driven by ``hub-components.toml``. The remaining rows (Specs,
     Releases, Cloud, Enterprise, Operations) are non-component narrative areas
     that reference the monorepo indirectly or carry Private/Planned status not
     represented in the component schema; they are emitted verbatim so that the
@@ -347,17 +380,20 @@ def render_source_of_truth_table(manifest: dict[str, object]) -> str:
         "python-sdk": "**Python SDK**",
         "node-sdk": "**Node / TypeScript SDK**",
         "go-sdk": "**Go SDK**",
+        "arena": "**Arena** (cross-framework governance trials)",
         "examples": "**Runnable examples**",
         "homebrew-tap": "**Homebrew / install channel**",
     }
-    # "Where to read" cell — SDKs cite their docs site as `<key> docs`, core
-    # cites `core docs`, and the non-aggregated pointers fall back to their
-    # repo README. Preserve the current page's exact phrasing.
+    # "Where to read" cell — SDKs (and other aggregated components, like
+    # Arena) cite their docs site as `<key> docs`, core cites `core docs`,
+    # and the non-aggregated pointers fall back to their repo README.
+    # Preserve the current page's exact phrasing.
     where_docs_label: dict[str, str] = {
         "core": "core docs",
         "python-sdk": "python-sdk docs",
         "node-sdk": "node-sdk docs",
         "go-sdk": "go-sdk docs",
+        "arena": "arena docs",
     }
 
     lines: list[str] = [

@@ -49,7 +49,7 @@
 # ---------
 # The generator preserves the order components appear here. Keep Core first,
 # then SDKs in Python -> Node -> Go order (matches the existing pages), then
-# non-aggregated pointers.
+# other aggregated components (e.g. Arena), then non-aggregated pointers.
 
 [site]
 base_url = "https://docs.agent-assembly.com"
@@ -105,6 +105,19 @@ standalone_url = "https://docs.agent-assembly.com/go-sdk/"
 generator = "Hugo + Hextra"
 aggregated = true
 channel_label = "master HEAD + every release tag rebuilt into /go-sdk/<tag>/"
+
+[[component]]
+key = "arena"
+display_name = "Agent Assembly Arena"
+short_name = "Arena"
+repo = "ai-agent-assembly/arena"
+repo_label = "arena"
+docs_path = "/arena/"
+docs_label = "/arena/"
+standalone_url = "https://docs.agent-assembly.com/arena/"
+generator = "mkdocs-material"
+aggregated = true
+channel_label = "mike version tree reused from gh-pages"
 
 [[component]]
 key = "examples"

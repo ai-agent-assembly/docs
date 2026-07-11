@@ -14,6 +14,7 @@ search. Each module keeps its own documentation toolchain — the hub **pulls** 
 | [`/python-sdk/`](/python-sdk/) | `python-sdk` | mkdocs-material |
 | [`/node-sdk/`](/node-sdk/) | `node-sdk` | Docusaurus |
 | [`/go-sdk/`](/go-sdk/) | `go-sdk` | Hugo + Hextra |
+| [`/arena/`](/arena/) | `arena` | mkdocs-material |
 
 <!-- END GENERATED:hub-components:aggregation-table -->
 
