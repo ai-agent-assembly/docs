@@ -102,9 +102,9 @@ footnote in the **Notes** list below.
 
 | SDK | Runtime requirement | Install | Source |
 |---|---|---|---|
-| Python SDK | Python >=3.12,<4.0 | `pip install agent-assembly --pre` | python-sdk pyproject.toml [project].requires-python |
-| Node SDK | Node.js >=18.18.0 (pnpm >=10 to build from source) | `npm install @agent-assembly/sdk@rc` | node-sdk package.json [engines] |
-| Go SDK | Go >=1.26.0 | `go get github.com/ai-agent-assembly/go-sdk@latest` | go-sdk go.mod (go directive) |
+| Python SDK | Python >=3.12,<4.0 | [Install guide](https://docs.agent-assembly.com/python-sdk/) | python-sdk pyproject.toml [project].requires-python |
+| Node SDK | Node.js >=18.18.0 (pnpm >=10 to build from source) | [Install guide](https://docs.agent-assembly.com/node-sdk/) | node-sdk package.json [engines] |
+| Go SDK | Go >=1.26.0 | [Install guide](https://docs.agent-assembly.com/go-sdk/) | go-sdk go.mod (go directive) |
 
 <!-- END GENERATED:requirements -->
 

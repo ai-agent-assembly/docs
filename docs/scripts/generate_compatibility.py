@@ -58,6 +58,16 @@ SDK_HEADERS: Final[dict[str, str]] = {
     "go": "Go SDK",
 }
 
+# Each SDK's aggregated docs-hub install/quick-start page (see AGGREGATION.md):
+# the "Install" column links here instead of embedding a literal install command,
+# since the exact command (package manager, `--pre`/dist-tag/version qualifiers)
+# drifts across releases and is already maintained on the SDK's own docs page.
+SDK_INSTALL_URLS: Final[dict[str, str]] = {
+    "python": "https://docs.agent-assembly.com/python-sdk/",
+    "node": "https://docs.agent-assembly.com/node-sdk/",
+    "go": "https://docs.agent-assembly.com/go-sdk/",
+}
+
 
 def _escape_cell(value: str) -> str:
     """Escape a string so it is safe inside a Markdown table cell.
@@ -178,7 +188,15 @@ def render_notes(ordered_notes: list[str]) -> str:
 
 
 def render_requirements(manifest: dict[str, object]) -> str:
-    """Render the per-SDK runtime-requirements table as a Markdown table."""
+    """Render the per-SDK runtime-requirements table as a Markdown table.
+
+    The "Install" column links out to that SDK's aggregated docs-hub install/
+    quick-start page (``SDK_INSTALL_URLS``) rather than embedding the literal
+    install command: the command itself (package manager, `--pre`/dist-tag/
+    version qualifiers) changes across releases and is already kept current on
+    the SDK's own docs page, so embedding it here duplicates a value that can
+    drift out of sync.
+    """
     requirements = manifest.get("requirements", {})
     if not isinstance(requirements, dict):
         raise TypeError("manifest key 'requirements' must be a table")
@@ -192,12 +210,11 @@ def render_requirements(manifest: dict[str, object]) -> str:
             raise TypeError(f"missing or malformed [requirements.{key}] table")
         label = str(entry.get("label", SDK_HEADERS[key]))
         runtime = str(entry.get("runtime", "—"))
-        install = str(entry.get("install", "—"))
         source = str(entry.get("source", "—"))
         cells = [
             _escape_cell(label),
             _escape_cell(runtime),
-            "`" + _escape_cell(install) + "`",
+            f"[Install guide]({SDK_INSTALL_URLS[key]})",
             _escape_cell(source),
         ]
         lines.append("| " + " | ".join(cells) + " |")
