@@ -42,17 +42,17 @@
 # row should carry the new compatible range (e.g. ">=0.2.0,<0.3.0"), and the note
 # should spell out that older SDKs (e.g. "<0.2.0") are incompatible.
 #
-# DATA AS VERIFIED 2026-07-13 (sources in the [[note]] texts and the report):
+# DATA AS VERIFIED 2026-07-14 (sources in the [[note]] texts and the report):
 #   * Core published tags: v0.0.1-alpha.1 .. v0.0.1-alpha.9, then the beta channel
 #     v0.0.1-beta.1 .. v0.0.1-beta.4, then the release-candidate channel
-#     v0.0.1-rc.1 .. v0.0.1-rc.4 (GitHub tags/releases). The current
-#     product line is v0.0.1-rc.4 (the canonical master Cargo version).
+#     v0.0.1-rc.1 .. v0.0.1-rc.5 (GitHub tags/releases). The current
+#     product line is v0.0.1-rc.5 (the canonical master Cargo version).
 #       https://github.com/ai-agent-assembly/agent-assembly/tags
 #   * The beta and rc lines were cut as COORDINATED releases across all four repos
 #     (agent-assembly + python-sdk + node-sdk + go-sdk): each carries matching
-#     beta.1..beta.4 and rc.1..rc.4 tags, so those rows record authoritative
-#     tag<->tag pairings (PyPI 0.0.1b1..0.0.1b4 then 0.0.1rc1..0.0.1rc4; npm
-#     @beta for the beta line and @rc 0.0.1-rc.1 .. 0.0.1-rc.4 for the
+#     beta.1..beta.4 and rc.1..rc.5 tags, so those rows record authoritative
+#     tag<->tag pairings (PyPI 0.0.1b1..0.0.1b4 then 0.0.1rc1..0.0.1rc5; npm
+#     @beta for the beta line and @rc 0.0.1-rc.1 .. 0.0.1-rc.5 for the
 #     candidate line).
 #   * No final v0.0.1 core release exists yet (the core repo's own matrix lists a
 #     v0.0.1 row aspirationally; we only record PUBLISHED tags here).
@@ -75,8 +75,18 @@
 # ------------------------------------------------------------------------------
 
 [[release]]
-core = "v0.0.1-rc.4"
+core = "v0.0.1-rc.5"
 status = "current"
+proto = "protocol/v1"
+ref = "rc5"
+[release.sdks]
+python = "0.0.1-rc.5 (PyPI 0.0.1rc5)"
+node = "npm @rc 0.0.1-rc.5"
+go = "v0.0.1-rc.5"
+
+[[release]]
+core = "v0.0.1-rc.4"
+status = "supported"
 proto = "protocol/v1"
 ref = "rc4"
 [release.sdks]
@@ -226,8 +236,12 @@ go = "—"
 # ------------------------------------------------------------------------------
 
 [[note]]
+key = "rc5"
+text = "Latest published core tag and the current product line. Fifth release-candidate in the v0.0.1 series, cut as a coordinated release across agent-assembly + python-sdk + node-sdk + go-sdk: all four repos carry a v0.0.1-rc.5 tag, PyPI publishes 0.0.1rc5, and npm publishes @agent-assembly/sdk@0.0.1-rc.5 under the rc dist-tag. Each SDK at this tag is built against the matching rc.5 core revision, so the tag<->tag pairing is authoritative."
+
+[[note]]
 key = "rc4"
-text = "Latest published core tag and the current product line. Fourth release-candidate in the v0.0.1 series, cut as a coordinated release across agent-assembly + python-sdk + node-sdk + go-sdk: all four repos carry a v0.0.1-rc.4 tag, PyPI publishes 0.0.1rc4, and npm publishes @agent-assembly/sdk@0.0.1-rc.4 under the rc dist-tag. A release-pipeline completeness cut with no wire-protocol change: it ships the previously-omitted aa-api-server binary and publishes the aa-gateway container image, adds a release-artifact completeness gate, builds every supported Python interpreter (cp312/cp313/cp314), bundles the Node native .node binding, and serves local-mode gRPC agent registration on loopback 127.0.0.1:50051. Each SDK at this tag is built against the matching rc.4 core revision, so the tag<->tag pairing is authoritative."
+text = "Published core tag. Fourth release-candidate in the v0.0.1 series, cut as a coordinated release across agent-assembly + python-sdk + node-sdk + go-sdk: all four repos carry a v0.0.1-rc.4 tag, PyPI publishes 0.0.1rc4, and npm publishes @agent-assembly/sdk@0.0.1-rc.4 under the rc dist-tag. A release-pipeline completeness cut with no wire-protocol change: it ships the previously-omitted aa-api-server binary and publishes the aa-gateway container image, adds a release-artifact completeness gate, builds every supported Python interpreter (cp312/cp313/cp314), bundles the Node native .node binding, and serves local-mode gRPC agent registration on loopback 127.0.0.1:50051. Each SDK at this tag is built against the matching rc.4 core revision, so the tag<->tag pairing is authoritative."
 
 [[note]]
 key = "rc3"
