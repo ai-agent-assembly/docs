@@ -5,6 +5,7 @@
 [How this hub is assembled](docs-hub-aggregation.md)
 [Compatibility Matrix](compatibility.md)
 [Source of Truth & Status](source-of-truth.md)
+[FAQ](faq.md)
 
 ---
 
@@ -22,6 +23,7 @@
 # Reference
 
 - [Policy Reference](policy-reference.md)
+- [Glossary](glossary.md)
 
 # Support
 
