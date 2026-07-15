@@ -99,7 +99,7 @@
   }
 
   function handleAnchorClick(e) {
-    const a = e.target && e.target.closest && e.target.closest('a[href]');
+    const a = e.target?.closest?.('a[href]');
     if (!a) { return; }
     const href = a.getAttribute('href') || '';
     if (!href || href.charAt(0) === '#') { return; }
@@ -149,10 +149,10 @@
 
   function handleCopyClick(e) {
     if (!isInstallPage()) { return; }
-    const btn = e.target && e.target.closest && e.target.closest('.clip-button, button[aria-label="Copy to clipboard"]');
+    const btn = e.target?.closest?.('.clip-button, button[aria-label="Copy to clipboard"]');
     if (!btn) { return; }
     const pre = btn.closest('pre');
-    const code = pre && pre.querySelector('code');
+    const code = pre?.querySelector('code');
     const text = code ? code.textContent : '';
     fire('docs_copy_install_command', {
       cta_location: 'install_block',
