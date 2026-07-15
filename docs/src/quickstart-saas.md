@@ -105,7 +105,7 @@ In the console, open **Policies → New Policy** and apply the starter template 
 
 ## Pro Tier
 
-**Signup**: self-serve at `https://app.agent-assembly.com/signup`
+**Signup**: planned self-serve at `https://app.agent-assembly.com/signup` — **not yet live** while Cloud is in early access. [Request Cloud early access](https://agent-assembly.com/early-access) to be notified when Pro-tier signup opens.
 
 **Included features**: up to 10 agents, basic policy engine (allow/deny/audit), 30-day audit log retention, community forum support.
 
@@ -115,7 +115,7 @@ In the console, open **Policies → New Policy** and apply the starter template 
 
 ### Pro signup steps
 
-1. Navigate to `https://app.agent-assembly.com/signup` and create an account with your work email.
+1. **Coming soon** — once Cloud is generally available, you'll navigate to `https://app.agent-assembly.com/signup` and create an account with your work email. The signup endpoint is not live yet; [request early access](https://agent-assembly.com/early-access) in the meantime.
 2. Verify your email address.
 3. On the **Workspace Setup** page, enter a workspace name (e.g., `acme-ai-ops`) and select your primary region.
 4. Copy your **Workspace ID** and generate an **API Key** under **Settings → API Keys**.
@@ -159,7 +159,7 @@ def run_agent(prompt: str) -> str:
 
 ## Business Tier
 
-**Signup**: self-serve at `https://app.agent-assembly.com/signup` — select **Business** during workspace setup.
+**Signup**: planned self-serve at `https://app.agent-assembly.com/signup` (select **Business** during workspace setup) — **not yet live** while Cloud is in early access. [Request Cloud early access](https://agent-assembly.com/early-access) to be notified when Business-tier signup opens.
 
 **Included features**: up to 50 agents, full policy engine, SSO (SAML 2.0 / OIDC), 90-day audit log retention, SIEM export, business-hours support (24h response).
 
@@ -169,7 +169,7 @@ def run_agent(prompt: str) -> str:
 
 ### Business signup steps
 
-1. Sign up at `https://app.agent-assembly.com/signup`, select the **Business** tier.
+1. **Coming soon** — once Cloud is generally available, you'll sign up at `https://app.agent-assembly.com/signup` and select the **Business** tier. The signup endpoint is not live yet; [request early access](https://agent-assembly.com/early-access) in the meantime.
 2. On the **Billing** page, enter your credit card details (processed via Stripe).
 3. Complete workspace setup (name, region) as in the Pro flow above.
 4. Connect SSO: navigate to **Settings → Authentication → SSO** and follow the [SAML 2.0 or OIDC setup steps](cloud-deployment.md#sso-configuration). SSO is optional at the Business tier but recommended for teams.
@@ -230,4 +230,4 @@ def run_agent(prompt: str) -> str:
 
 ---
 
-*Last reviewed: 2026-06-11 · AI Agent Assembly Team*
+*Last reviewed: 2026-07-15 · AI Agent Assembly Team*
