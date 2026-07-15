@@ -3,3 +3,8 @@ docs/book/
 # Docs hub aggregation (AAASM-3659) — generated locally / in CI
 /public/
 /.modules/
+
+# i18n (AAASM-4697): the PO catalog + template under docs/po/ are tracked, but
+# the `mdbook build -d po` extraction scratch output is not.
+docs/po/html/
+docs/po/xgettext/

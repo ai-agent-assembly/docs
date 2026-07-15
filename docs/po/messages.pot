@@ -1,0 +1,6576 @@
+
+msgid ""
+msgstr ""
+"Project-Id-Version: AI Agent Assembly Documentation\n"
+"POT-Creation-Date: 2026-07-16T00:50:59+08:00\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: src/SUMMARY.md:1
+msgid "Summary"
+msgstr ""
+
+#: src/SUMMARY.md:3
+msgid ""
+"Introduction Documentation How this hub is assembled Compatibility Matrix "
+"Source of Truth & Status FAQ"
+msgstr ""
+
+#: src/SUMMARY.md:12
+msgid "Platform & Security"
+msgstr ""
+
+#: src/SUMMARY.md:14
+msgid "Security Model"
+msgstr ""
+
+#: src/SUMMARY.md:15 src/comparison.md:1
+msgid "Why AI Agent Assembly?"
+msgstr ""
+
+#: src/SUMMARY.md:16
+msgid "Open Core Boundary"
+msgstr ""
+
+#: src/SUMMARY.md:18
+msgid "Getting Started"
+msgstr ""
+
+#: src/SUMMARY.md:20
+msgid "Quick Start (SaaS) (Coming soon)"
+msgstr ""
+
+#: src/SUMMARY.md:21
+msgid "Cloud Deployment (Coming soon)"
+msgstr ""
+
+#: src/SUMMARY.md:23
+msgid "Operations"
+msgstr ""
+
+#: src/SUMMARY.md:25
+msgid "Self-Host Observability"
+msgstr ""
+
+#: src/SUMMARY.md:27
+msgid "Reference"
+msgstr ""
+
+#: src/SUMMARY.md:29 src/policy-reference.md:1
+msgid "Policy Reference"
+msgstr ""
+
+#: src/SUMMARY.md:30 src/glossary.md:1
+msgid "Glossary"
+msgstr ""
+
+#: src/SUMMARY.md:32
+msgid "Support"
+msgstr ""
+
+#: src/SUMMARY.md:34 src/troubleshooting.md:1
+msgid "Troubleshooting"
+msgstr ""
+
+#: src/SUMMARY.md:36
+msgid "About"
+msgstr ""
+
+#: src/SUMMARY.md:38
+msgid "Accessibility"
+msgstr ""
+
+#: src/SUMMARY.md:39 src/localization.md:1
+msgid "Localization"
+msgstr ""
+
+#: src/index.md:1
+msgid "AI Agent Assembly Documentation"
+msgstr ""
+
+#: src/index.md:5
+msgid ""
+"[![core](https://img.shields.io/github/v/release/ai-agent-assembly/agent-assembly?include_prereleases&sort=semver&label=core&logo=github&color=3b82f6)](https://github.com/ai-agent-assembly/agent-assembly/releases) "
+"[![python-sdk](https://img.shields.io/pypi/v/agent-assembly?label=python-sdk&logo=pypi)](https://github.com/ai-agent-assembly/python-sdk) "
+"[![node-sdk](https://img.shields.io/npm/v/@agent-assembly/sdk/rc?label=node-sdk&logo=npm)](https://github.com/ai-agent-assembly/node-sdk) "
+"[![go-sdk](https://img.shields.io/github/v/tag/ai-agent-assembly/go-sdk?sort=semver&label=go-sdk&logo=go&color=3b82f6)](https://github.com/ai-agent-assembly/go-sdk/tags) "
+"[![license](https://img.shields.io/badge/license-Apache--2.0-green)](https://github.com/ai-agent-assembly/docs/blob/main/LICENSE)"
+msgstr ""
+
+#: src/index.md:18
+msgid ""
+"Quick links to each component, its current version, and its license. Every "
+"version badge reads the latest published version live — core and Go from "
+"GitHub, Python from PyPI, Node from npm's `rc` dist-tag — so they stay "
+"current with no manual updates. The project is in release candidate "
+"(`v0.0.1-rc`)."
+msgstr ""
+
+#: src/index.md:20
+msgid ""
+"AI Agent Assembly is a governance layer for AI agents. It sits between your "
+"agents and the outside world and does three things:"
+msgstr ""
+
+#: src/index.md:22
+msgid ""
+"**Enforces policy** — decides, before each action runs, whether an agent is "
+"allowed to call a tool, reach a domain, or spend more budget."
+msgstr ""
+
+#: src/index.md:23
+msgid ""
+"**Tracks cost** — meters token and dollar spend per team and blocks agents "
+"that exceed their budget."
+msgstr ""
+
+#: src/index.md:24
+msgid ""
+"**Intercepts unsafe actions** — catches risky calls (and bypass attempts) at "
+"the SDK, network, and kernel levels."
+msgstr ""
+
+#: src/index.md:26
+msgid ""
+"It works across your whole fleet of agents and does not require you to "
+"rewrite your existing agent code."
+msgstr ""
+
+#: src/index.md:28
+msgid "Who this documentation is for"
+msgstr ""
+
+#: src/index.md:30
+msgid ""
+"This site is for **teams, security engineers, and operators** evaluating or "
+"running AI Agent Assembly for production adoption."
+msgstr ""
+
+#: src/index.md:32
+msgid ""
+"If you are a developer who wants to contribute or integrate at the code "
+"level, see the [open-source "
+"documentation](https://docs.agent-assembly.com/core/) instead."
+msgstr ""
+
+#: src/index.md:34
+msgid "Find what you need"
+msgstr ""
+
+#: src/index.md:36
+msgid "Pick the page that matches what you are trying to do."
+msgstr ""
+
+#: src/index.md:38
+msgid "I want to…"
+msgstr ""
+
+#: src/index.md:38
+msgid "Go to"
+msgstr ""
+
+#: src/index.md:40
+msgid "Govern an agent right now (runnable today)"
+msgstr ""
+
+#: src/index.md:40
+msgid "[Runnable examples](#runnable-examples)"
+msgstr ""
+
+#: src/index.md:41
+msgid "Preview the managed SaaS onboarding (coming soon)"
+msgstr ""
+
+#: src/index.md:41 src/source-of-truth.md:47
+msgid "[Quick start (SaaS)](quickstart-saas.md)"
+msgstr ""
+
+#: src/index.md:42
+msgid "Understand the security posture and threat model"
+msgstr ""
+
+#: src/index.md:42
+msgid "[Security model](security-model.md)"
+msgstr ""
+
+#: src/index.md:43
+msgid "Compare AI Agent Assembly to other tools"
+msgstr ""
+
+#: src/index.md:43
+msgid "[Why AI Agent Assembly?](comparison.md)"
+msgstr ""
+
+#: src/index.md:44
+msgid "Know what is open source vs. paid"
+msgstr ""
+
+#: src/index.md:44 src/source-of-truth.md:46
+msgid "[Open core boundary](open-core-boundary.md)"
+msgstr ""
+
+#: src/index.md:45
+msgid "Set up SSO, SCIM, regions, and billing"
+msgstr ""
+
+#: src/index.md:45 src/source-of-truth.md:45
+msgid "[Cloud deployment](cloud-deployment.md)"
+msgstr ""
+
+#: src/index.md:46
+msgid "Look up a policy field or write a policy"
+msgstr ""
+
+#: src/index.md:46 src/troubleshooting.md:33
+msgid "[Policy reference](policy-reference.md)"
+msgstr ""
+
+#: src/index.md:48
+msgid "SDKs & components"
+msgstr ""
+
+#: src/index.md:50
+msgid ""
+"This hub is the central entry point for AI Agent Assembly documentation. To "
+"instrument your agents, you install the SDK for your language — each one "
+"ships its own documentation site. Use the table below to go to the SDK that "
+"matches your codebase (Python, Node/TypeScript, or Go), or to Arena, the "
+"cross-framework governance trial ground."
+msgstr ""
+
+#: src/index.md:52
+msgid ""
+"Every module's docs are **aggregated into this hub** under a stable subpath "
+"(`/core/`, `/python-sdk/`, `/node-sdk/`, `/go-sdk/`, `/arena/`), so you can "
+"read and search all of them from one place. The standalone, per-version "
+"sites remain available for release-specific (mike / Docusaurus / Hugo "
+"channel) browsing."
+msgstr ""
+
+#: src/index.md:56 src/security-model.md:27 src/self-host-observability.md:13
+msgid "Component"
+msgstr ""
+
+#: src/index.md:56
+msgid "On this hub"
+msgstr ""
+
+#: src/index.md:56
+msgid "Standalone site"
+msgstr ""
+
+#: src/index.md:58
+msgid "Core (monorepo)"
+msgstr ""
+
+#: src/index.md:58
+msgid "[/core/](/core/)"
+msgstr ""
+
+#: src/index.md:58 src/source-of-truth.md:36
+msgid "[core docs](https://docs.agent-assembly.com/core/)"
+msgstr ""
+
+#: src/index.md:59 src/compatibility.md:45 src/compatibility.md:108
+#: src/comparison.md:36
+msgid "Python SDK"
+msgstr ""
+
+#: src/index.md:59
+msgid "[/python-sdk/](/python-sdk/)"
+msgstr ""
+
+#: src/index.md:59
+msgid "<https://docs.agent-assembly.com/python-sdk/>"
+msgstr ""
+
+#: src/index.md:60 src/compatibility.md:45 src/compatibility.md:109
+msgid "Node SDK"
+msgstr ""
+
+#: src/index.md:60
+msgid "[/node-sdk/](/node-sdk/)"
+msgstr ""
+
+#: src/index.md:60
+msgid "<https://docs.agent-assembly.com/node-sdk/>"
+msgstr ""
+
+#: src/index.md:61 src/compatibility.md:45 src/compatibility.md:110
+#: src/comparison.md:38
+msgid "Go SDK"
+msgstr ""
+
+#: src/index.md:61
+msgid "[/go-sdk/](/go-sdk/)"
+msgstr ""
+
+#: src/index.md:61
+msgid "<https://docs.agent-assembly.com/go-sdk/>"
+msgstr ""
+
+#: src/index.md:62
+msgid "Arena"
+msgstr ""
+
+#: src/index.md:62
+msgid "[/arena/](/arena/)"
+msgstr ""
+
+#: src/index.md:62
+msgid "<https://docs.agent-assembly.com/arena/>"
+msgstr ""
+
+#: src/index.md:70
+msgid "Runnable examples"
+msgstr ""
+
+#: src/index.md:72
+msgid ""
+"Prefer learning by running code? The "
+"[**agent-assembly-examples**](https://github.com/ai-agent-assembly/examples) "
+"repo collects small, framework-specific Agent Assembly examples for Python, "
+"Node.js/TypeScript, Go, policy enforcement, approvals, audit, trace, and "
+"runtime workflows. Clone it and run an example end to end to see governance "
+"in action before instrumenting your own agents."
+msgstr ""
+
+#: src/index.md:79
+msgid "The three-layer interception model"
+msgstr ""
+
+#: src/index.md:81
+msgid ""
+"AI Agent Assembly enforces governance through three layers. You can deploy "
+"them independently, and each one catches what the layer above it might miss:"
+msgstr ""
+
+#: src/index.md:83
+msgid ""
+"**SDK layer (in-process)** — the language SDK wraps your agent calls and "
+"applies allow/deny decisions before any network request leaves the process. "
+"Fastest path, but requires you to adopt the SDK."
+msgstr ""
+
+#: src/index.md:84
+msgid ""
+"**Sidecar proxy (`aa-proxy`)** — intercepts outbound HTTPS using a per-host "
+"CA, so it can govern agents that do not use the SDK. No code changes "
+"required."
+msgstr ""
+
+#: src/index.md:85
+msgid ""
+"**eBPF sensor (`aa-ebpf`)** — kernel-level hooks that watch SSL libraries "
+"and process syscalls to catch bypass attempts at the OS level. Linux only."
+msgstr ""
+
+#: src/index.md:87
+msgid ""
+"All three layers report to the **gateway**, which evaluates policy and "
+"tracks per-team budgets."
+msgstr ""
+
+#: src/index.md:89
+msgid ""
+"These three interception points describe _where_ enforcement happens; they "
+"sit inside the **Boundary** layer of the broader [five-layer defense "
+"model](security-model.md), which describes _what_ is protected. Same system, "
+"two views."
+msgstr ""
+
+#: src/index.md:101
+msgid "_Last reviewed: 2026-06-27 — AI Agent Assembly Team_"
+msgstr ""
+
+#: src/index.md:106 src/faq.md:75 src/security-model.md:147
+#: src/comparison.md:110 src/open-core-boundary.md:137
+#: src/quickstart-saas.md:245 src/cloud-deployment.md:243 src/glossary.md:114
+#: src/accessibility.md:45 src/localization.md:87
+msgid "_Last updated: 2026-07-15 by AI Agent Assembly Team_"
+msgstr ""
+
+#: src/documentation.md:1
+msgid "Documentation"
+msgstr ""
+
+#: src/documentation.md:3
+msgid ""
+"AI Agent Assembly ships as five independently versioned programs, each with "
+"its own documentation site. This page is the central router — pick the "
+"program you are working with and follow the link to its docs."
+msgstr ""
+
+#: src/documentation.md:5
+msgid ""
+"Each documentation site has its own version selector — use it to view a "
+"specific release, a pre-release, or an older version."
+msgstr ""
+
+#: src/documentation.md:7
+msgid ""
+"Every link below points at the component's site root, which always redirects "
+"to its newest **stable** release, so these references never need maintenance."
+msgstr ""
+
+#: src/documentation.md:11
+msgid "Core"
+msgstr ""
+
+#: src/documentation.md:13
+msgid ""
+"**[agent-assembly](https://docs.agent-assembly.com/core/)** — the core "
+"monorepo: gateway, policy engine, eBPF sensor, sidecar proxy, FFI, WASM, "
+"CLI, and API."
+msgstr ""
+
+#: src/documentation.md:15
+msgid "SDKs"
+msgstr ""
+
+#: src/documentation.md:17
+msgid ""
+"**[Python SDK](https://docs.agent-assembly.com/python-sdk/)** — install and "
+"govern agents from Python."
+msgstr ""
+
+#: src/documentation.md:18
+msgid ""
+"**[Node SDK](https://docs.agent-assembly.com/node-sdk/)** — install and "
+"govern agents from TypeScript or JavaScript."
+msgstr ""
+
+#: src/documentation.md:19
+msgid ""
+"**[Go SDK](https://docs.agent-assembly.com/go-sdk/)** — install and govern "
+"agents from Go."
+msgstr ""
+
+#: src/documentation.md:21
+msgid "Also on this hub"
+msgstr ""
+
+#: src/documentation.md:23
+msgid ""
+"**[Arena](https://docs.agent-assembly.com/arena/)** — watch AI agents from "
+"different frameworks attempt real and adversarial scenarios while "
+"agent-assembly enforces every decision, and read the published match reports."
+msgstr ""
+
+#: src/documentation.md:41 src/docs-hub-aggregation.md:49
+#: src/source-of-truth.md:78
+msgid "_Last updated: 2026-07-11 by AI Agent Assembly Team_"
+msgstr ""
+
+#: src/docs-hub-aggregation.md:1
+msgid "How this documentation hub is assembled"
+msgstr ""
+
+#: src/docs-hub-aggregation.md:3
+msgid ""
+"This site is a **central hub** that aggregates the documentation of every AI "
+"Agent Assembly module into one place, under stable subpaths, with one "
+"unified search. Each module keeps its own documentation toolchain — the hub "
+"**pulls** and **assembles** them rather than forcing a single generator."
+msgstr ""
+
+#: src/docs-hub-aggregation.md:10 src/cloud-deployment.md:31
+msgid "Path"
+msgstr ""
+
+#: src/docs-hub-aggregation.md:10
+msgid "Module"
+msgstr ""
+
+#: src/docs-hub-aggregation.md:10
+msgid "Generator"
+msgstr ""
+
+#: src/docs-hub-aggregation.md:12
+msgid "`/`"
+msgstr ""
+
+#: src/docs-hub-aggregation.md:12
+msgid "This hub"
+msgstr ""
+
+#: src/docs-hub-aggregation.md:12 src/docs-hub-aggregation.md:13
+msgid "mdBook"
+msgstr ""
+
+#: src/docs-hub-aggregation.md:13
+msgid "[`/core/`](/core/)"
+msgstr ""
+
+#: src/docs-hub-aggregation.md:13
+msgid "`agent-assembly` (core monorepo)"
+msgstr ""
+
+#: src/docs-hub-aggregation.md:14
+msgid "[`/python-sdk/`](/python-sdk/)"
+msgstr ""
+
+#: src/docs-hub-aggregation.md:14
+msgid "`python-sdk`"
+msgstr ""
+
+#: src/docs-hub-aggregation.md:14 src/docs-hub-aggregation.md:17
+msgid "mkdocs-material"
+msgstr ""
+
+#: src/docs-hub-aggregation.md:15
+msgid "[`/node-sdk/`](/node-sdk/)"
+msgstr ""
+
+#: src/docs-hub-aggregation.md:15
+msgid "`node-sdk`"
+msgstr ""
+
+#: src/docs-hub-aggregation.md:15
+msgid "Docusaurus"
+msgstr ""
+
+#: src/docs-hub-aggregation.md:16
+msgid "[`/go-sdk/`](/go-sdk/)"
+msgstr ""
+
+#: src/docs-hub-aggregation.md:16
+msgid "`go-sdk`"
+msgstr ""
+
+#: src/docs-hub-aggregation.md:16
+msgid "Hugo + Hextra"
+msgstr ""
+
+#: src/docs-hub-aggregation.md:17
+msgid "[`/arena/`](/arena/)"
+msgstr ""
+
+#: src/docs-hub-aggregation.md:17
+msgid "`arena`"
+msgstr ""
+
+#: src/docs-hub-aggregation.md:25
+msgid "What gets aggregated"
+msgstr ""
+
+#: src/docs-hub-aggregation.md:27
+msgid ""
+"For the hub's canonical view, each module's **default channel** (its "
+"_latest_ line, built from `master`/`main` HEAD) is mounted at `/<module>/`. "
+"The per-module **standalone** sites keep their full per-version channel "
+"browsing — the [component table on the home "
+"page](README.md#sdks--components) links out to them."
+msgstr ""
+
+#: src/docs-hub-aggregation.md:32
+msgid "Unified search"
+msgstr ""
+
+#: src/docs-hub-aggregation.md:34
+msgid ""
+"A single **Pagefind** index is built over the final assembled site, so the "
+"search box on this hub finds pages across the hub _and_ every module in one "
+"query — even though each module was built by a different generator."
+msgstr ""
+
+#: src/docs-hub-aggregation.md:38
+msgid "The contract"
+msgstr ""
+
+#: src/docs-hub-aggregation.md:40
+msgid ""
+"The machine-readable module registry, the build/copy contract, the "
+"per-generator base-URL strategy, and the versioning decision are documented "
+"in "
+"[`AGGREGATION.md`](https://github.com/ai-agent-assembly/docs/blob/main/AGGREGATION.md) "
+"at the repository root, and implemented by `docs/scripts/aggregate.sh` + "
+"`.github/workflows/aggregate.yml`."
+msgstr ""
+
+#: src/compatibility.md:1
+msgid "Compatibility Matrix"
+msgstr ""
+
+#: src/compatibility.md:3
+msgid ""
+"AI Agent Assembly ships as several independently released programs — the "
+"**core** monorepo (gateway, policy engine, sensors, runtime client) and the "
+"**Python**, **Node**, and **Go** SDKs. _Compatibility_ here means a "
+"cross-component contract: a core release and the SDK release that speaks its "
+"**wire protocol**. An SDK is compatible with a core release when it is built "
+"against — and serializes against — that core's protocol contract "
+"(`aa-proto`)."
+msgstr ""
+
+#: src/compatibility.md:10
+msgid ""
+"The pairings below are usually **1:1 per release** — each row maps one core "
+"release to the SDK release verified to speak its protocol — but a cell may "
+"also hold a **version range** (e.g. `>=0.1.0,<0.2.0` or `0.1.x`) when a core "
+"release is compatible with a band of SDK versions rather than one exact tag. "
+"Compatibility is not guaranteed across **breaking changes**: those are "
+"tracked through the **Protocol** column. A bump in a row's protocol value "
+"(`protocol/v1` → `protocol/v2`) marks a breaking boundary, and the affected "
+"rows carry a numbered footnote explaining the break and which SDK range is "
+"required. Long provenance and caveat text lives in the **Notes** footnote "
+"list below the table, so the table itself stays compact — each cell is just "
+"a version, a range, or `—`. Each **Core release** cell carries a small "
+"superscript footnote (e.g. `v0.0.1-alpha.5`²) hanging off the release "
+"identifier; clicking it jumps to that row's provenance note at the bottom of "
+"the page."
+msgstr ""
+
+#: src/compatibility.md:24
+msgid "Latest published versions"
+msgstr ""
+
+#: src/compatibility.md:26
+msgid ""
+"[![core](https://img.shields.io/github/v/release/ai-agent-assembly/agent-assembly?include_prereleases&sort=semver&label=core&logo=github&color=3b82f6)](https://github.com/ai-agent-assembly/agent-assembly/releases) "
+"[![PyPI](https://img.shields.io/pypi/v/agent-assembly?label=python-sdk&logo=pypi)](https://pypi.org/project/agent-assembly/) "
+"[![npm](https://img.shields.io/npm/v/@agent-assembly/sdk/rc?label=node-sdk&logo=npm)](https://www.npmjs.com/package/@agent-assembly/sdk) "
+"[![Go](https://img.shields.io/github/v/tag/ai-agent-assembly/go-sdk?sort=semver&label=go-sdk&logo=go&color=3b82f6)](https://github.com/ai-agent-assembly/go-sdk/tags)"
+msgstr ""
+
+#: src/compatibility.md:31
+msgid ""
+"All four badges read the **live** latest published version, so they stay "
+"current without maintenance. **Python** reads PyPI and **Node** reads npm's "
+"`rc` dist-tag. **Core** uses shields.io's `github/v/release` endpoint "
+"(`include_prereleases&sort=semver`): the monorepo carries a non-release "
+"`spec/*` tag that pollutes plain `github/v/tag` semver sorting, and core "
+"cuts GitHub Releases, so the release endpoint is the authoritative dynamic "
+"source. **Go** uses `github/v/tag` (`sort=semver`) because go-sdk publishes "
+"version tags but no GitHub Releases. Each badge links to the relevant "
+"registry or release/tag list for the authoritative current version."
+msgstr ""
+
+#: src/compatibility.md:41
+msgid "Core ↔ SDK matrix"
+msgstr ""
+
+#: src/compatibility.md:45
+msgid "Core release"
+msgstr ""
+
+#: src/compatibility.md:45 src/security-model.md:118
+msgid "Status"
+msgstr ""
+
+#: src/compatibility.md:45
+msgid "Protocol"
+msgstr ""
+
+#: src/compatibility.md:47
+msgid "v0.0.1-rc.5[^cn1]"
+msgstr ""
+
+#: src/compatibility.md:47
+msgid "current"
+msgstr ""
+
+#: src/compatibility.md:47 src/compatibility.md:48 src/compatibility.md:49
+#: src/compatibility.md:50 src/compatibility.md:51 src/compatibility.md:52
+#: src/compatibility.md:53 src/compatibility.md:54 src/compatibility.md:55
+#: src/compatibility.md:56 src/compatibility.md:57 src/compatibility.md:58
+#: src/compatibility.md:59 src/compatibility.md:60 src/compatibility.md:61
+msgid "protocol/v1"
+msgstr ""
+
+#: src/compatibility.md:47
+msgid "0.0.1-rc.5 (PyPI 0.0.1rc5)"
+msgstr ""
+
+#: src/compatibility.md:47
+msgid "npm @rc 0.0.1-rc.5"
+msgstr ""
+
+#: src/compatibility.md:47
+msgid "v0.0.1-rc.5"
+msgstr ""
+
+#: src/compatibility.md:48
+msgid "v0.0.1-rc.4[^cn2]"
+msgstr ""
+
+#: src/compatibility.md:48 src/compatibility.md:49 src/compatibility.md:50
+#: src/compatibility.md:51 src/compatibility.md:52 src/compatibility.md:53
+#: src/compatibility.md:54 src/compatibility.md:55 src/compatibility.md:56
+#: src/compatibility.md:57 src/compatibility.md:58 src/compatibility.md:59
+msgid "supported"
+msgstr ""
+
+#: src/compatibility.md:48
+msgid "0.0.1-rc.4 (PyPI 0.0.1rc4)"
+msgstr ""
+
+#: src/compatibility.md:48
+msgid "npm @rc 0.0.1-rc.4"
+msgstr ""
+
+#: src/compatibility.md:48
+msgid "v0.0.1-rc.4"
+msgstr ""
+
+#: src/compatibility.md:49
+msgid "v0.0.1-rc.3[^cn3]"
+msgstr ""
+
+#: src/compatibility.md:49
+msgid "0.0.1-rc.3 (PyPI 0.0.1rc3)"
+msgstr ""
+
+#: src/compatibility.md:49
+msgid "npm @rc 0.0.1-rc.3"
+msgstr ""
+
+#: src/compatibility.md:49
+msgid "v0.0.1-rc.3"
+msgstr ""
+
+#: src/compatibility.md:50
+msgid "v0.0.1-rc.2[^cn4]"
+msgstr ""
+
+#: src/compatibility.md:50
+msgid "0.0.1-rc.2 (PyPI 0.0.1rc2)"
+msgstr ""
+
+#: src/compatibility.md:50
+msgid "npm @rc 0.0.1-rc.2"
+msgstr ""
+
+#: src/compatibility.md:50
+msgid "v0.0.1-rc.2"
+msgstr ""
+
+#: src/compatibility.md:51
+msgid "v0.0.1-rc.1[^cn5]"
+msgstr ""
+
+#: src/compatibility.md:51
+msgid "0.0.1-rc.1 (PyPI 0.0.1rc1)"
+msgstr ""
+
+#: src/compatibility.md:51
+msgid "npm @rc 0.0.1-rc.1"
+msgstr ""
+
+#: src/compatibility.md:51
+msgid "v0.0.1-rc.1"
+msgstr ""
+
+#: src/compatibility.md:52
+msgid "v0.0.1-beta.4[^cn6]"
+msgstr ""
+
+#: src/compatibility.md:52
+msgid "0.0.1-beta.4 (PyPI 0.0.1b4)"
+msgstr ""
+
+#: src/compatibility.md:52
+msgid "npm @beta 0.0.1-beta.4"
+msgstr ""
+
+#: src/compatibility.md:52
+msgid "v0.0.1-beta.4"
+msgstr ""
+
+#: src/compatibility.md:53
+msgid "v0.0.1-beta.3[^cn7]"
+msgstr ""
+
+#: src/compatibility.md:53
+msgid "0.0.1-beta.3 (PyPI 0.0.1b3)"
+msgstr ""
+
+#: src/compatibility.md:53
+msgid "npm @beta 0.0.1-beta.3"
+msgstr ""
+
+#: src/compatibility.md:53
+msgid "v0.0.1-beta.3"
+msgstr ""
+
+#: src/compatibility.md:54
+msgid "v0.0.1-beta.2[^cn8]"
+msgstr ""
+
+#: src/compatibility.md:54
+msgid "0.0.1-beta.2 (PyPI 0.0.1b2)"
+msgstr ""
+
+#: src/compatibility.md:54
+msgid "npm @beta 0.0.1-beta.2"
+msgstr ""
+
+#: src/compatibility.md:54
+msgid "v0.0.1-beta.2"
+msgstr ""
+
+#: src/compatibility.md:55
+msgid "v0.0.1-beta.1[^cn9]"
+msgstr ""
+
+#: src/compatibility.md:55
+msgid "0.0.1-beta.1 (PyPI 0.0.1b1)"
+msgstr ""
+
+#: src/compatibility.md:55
+msgid "npm @beta 0.0.1-beta.1"
+msgstr ""
+
+#: src/compatibility.md:55
+msgid "v0.0.1-beta.1"
+msgstr ""
+
+#: src/compatibility.md:56
+msgid "tested @ 9cf8a033 (post-v0.0.1-alpha.5, unreleased)[^cn10]"
+msgstr ""
+
+#: src/compatibility.md:56
+msgid "PyPI 0.0.1a5 / git v0.0.2"
+msgstr ""
+
+#: src/compatibility.md:56
+msgid "npm @alpha 0.0.1-alpha.5"
+msgstr ""
+
+#: src/compatibility.md:56
+msgid "v0.0.1-alpha.4"
+msgstr ""
+
+#: src/compatibility.md:57
+msgid "v0.0.1-alpha.5[^cn11]"
+msgstr ""
+
+#: src/compatibility.md:57 src/compatibility.md:58 src/compatibility.md:59
+#: src/compatibility.md:60 src/compatibility.md:61 src/open-core-boundary.md:69
+#: src/policy-reference.md:51 src/policy-reference.md:53
+#: src/policy-reference.md:54 src/policy-reference.md:55
+#: src/policy-reference.md:56 src/policy-reference.md:58
+#: src/policy-reference.md:60 src/policy-reference.md:173
+msgid "—"
+msgstr ""
+
+#: src/compatibility.md:58
+msgid "v0.0.1-alpha.4[^cn12]"
+msgstr ""
+
+#: src/compatibility.md:59
+msgid "v0.0.1-alpha.3[^cn13]"
+msgstr ""
+
+#: src/compatibility.md:60
+msgid "v0.0.1-alpha.2[^cn13]"
+msgstr ""
+
+#: src/compatibility.md:60 src/compatibility.md:61
+msgid "previous"
+msgstr ""
+
+#: src/compatibility.md:61
+msgid "v0.0.1-alpha.1[^cn13]"
+msgstr ""
+
+#: src/compatibility.md:65
+msgid ""
+"A cell of `—` means an exact, authoritative core↔SDK pairing could **not** "
+"be determined from a published tag or a committed pin, so none is asserted. "
+"The superscript on each **Core release** cell links that row to its "
+"provenance footnote in the **Notes** list below."
+msgstr ""
+
+#: src/compatibility.md:70 src/open-core-boundary.md:86
+#: src/cloud-deployment.md:196
+msgid "Notes"
+msgstr ""
+
+#: src/compatibility.md:74
+msgid ""
+"Latest published core tag and the current product line. Fifth "
+"release-candidate in the v0.0.1 series, cut as a coordinated release across "
+"agent-assembly + python-sdk + node-sdk + go-sdk: all four repos carry a "
+"v0.0.1-rc.5 tag, PyPI publishes 0.0.1rc5, and npm publishes "
+"@agent-assembly/sdk@0.0.1-rc.5 under the rc dist-tag. Each SDK at this tag "
+"is built against the matching rc.5 core revision, so the tag\\<\\->tag "
+"pairing is authoritative."
+msgstr ""
+
+#: src/compatibility.md:76
+msgid ""
+"Published core tag. Fourth release-candidate in the v0.0.1 series, cut as a "
+"coordinated release across agent-assembly + python-sdk + node-sdk + go-sdk: "
+"all four repos carry a v0.0.1-rc.4 tag, PyPI publishes 0.0.1rc4, and npm "
+"publishes @agent-assembly/sdk@0.0.1-rc.4 under the rc dist-tag. A "
+"release-pipeline completeness cut with no wire-protocol change: it ships the "
+"previously-omitted aa-api-server binary and publishes the aa-gateway "
+"container image, adds a release-artifact completeness gate, builds every "
+"supported Python interpreter (cp312/cp313/cp314), bundles the Node native "
+".node binding, and serves local-mode gRPC agent registration on loopback "
+"127.0.0.1:50051. Each SDK at this tag is built against the matching rc.4 "
+"core revision, so the tag\\<\\->tag pairing is authoritative."
+msgstr ""
+
+#: src/compatibility.md:78
+msgid ""
+"Published core tag. Third release-candidate in the v0.0.1 series, cut as a "
+"coordinated release across agent-assembly + python-sdk + node-sdk + go-sdk: "
+"all four repos carry a v0.0.1-rc.3 tag, PyPI publishes 0.0.1rc3, and npm "
+"publishes @agent-assembly/sdk@0.0.1-rc.3 under the rc dist-tag. Each SDK at "
+"this tag is built against the matching rc.3 core revision, so the "
+"tag\\<\\->tag pairing is authoritative."
+msgstr ""
+
+#: src/compatibility.md:80
+msgid ""
+"Published core tag. Second release-candidate in the v0.0.1 series, cut as a "
+"coordinated release across agent-assembly + python-sdk + node-sdk + go-sdk: "
+"all four repos carry a v0.0.1-rc.2 tag, PyPI publishes 0.0.1rc2, and npm "
+"publishes @agent-assembly/sdk@0.0.1-rc.2 under the rc dist-tag. Each SDK at "
+"this tag is built against the matching rc.2 core revision, so the "
+"tag\\<\\->tag pairing is authoritative."
+msgstr ""
+
+#: src/compatibility.md:82
+msgid ""
+"Published core tag. First release-candidate in the v0.0.1 series, promoting "
+"the channel up from beta. Coordinated across all four repos: agent-assembly "
+"+ python-sdk + node-sdk + go-sdk each carry a v0.0.1-rc.1 tag (PyPI "
+"0.0.1rc1, npm @agent-assembly/sdk@0.0.1-rc.1 under the rc dist-tag)."
+msgstr ""
+
+#: src/compatibility.md:84
+msgid ""
+"Published core tag. Cut as a coordinated release across all four repos: "
+"agent-assembly + python-sdk + node-sdk + go-sdk each carry a v0.0.1-beta.4 "
+"tag (PyPI 0.0.1b4, npm @agent-assembly/sdk@0.0.1-beta.4 under the beta "
+"dist-tag)."
+msgstr ""
+
+#: src/compatibility.md:86
+msgid ""
+"Published core tag. Cut as a coordinated release across all four repos: "
+"agent-assembly + python-sdk + node-sdk + go-sdk each carry a v0.0.1-beta.3 "
+"tag (PyPI 0.0.1b3, npm @agent-assembly/sdk@0.0.1-beta.3 under the beta "
+"dist-tag)."
+msgstr ""
+
+#: src/compatibility.md:88
+msgid ""
+"Published core tag. Cut as a coordinated release across agent-assembly + "
+"python-sdk + node-sdk + go-sdk (monorepo AAASM-3004): all four repos carry a "
+"v0.0.1-beta.2 tag, PyPI publishes 0.0.1b2, and npm publishes "
+"@agent-assembly/sdk@0.0.1-beta.2 under the beta dist-tag. Each SDK at this "
+"tag is built against the matching beta.2 core revision, so the tag\\<\\->tag "
+"pairing is authoritative."
+msgstr ""
+
+#: src/compatibility.md:90
+msgid ""
+"Published core tag. First beta-channel pre-release in the v0.0.1 series "
+"(monorepo AAASM-2951), promoting the channel up from alpha. Coordinated "
+"across all four repos: agent-assembly + python-sdk + node-sdk + go-sdk each "
+"carry a v0.0.1-beta.1 tag (PyPI 0.0.1b1, npm "
+"@agent-assembly/sdk@0.0.1-beta.1)."
+msgstr ""
+
+#: src/compatibility.md:92
+msgid ""
+"All three SDKs pin aa-core/aa-proto/aa-sdk-client at git SHA 9cf8a033 (PR "
+"#958, 2026-06-05; 587 commits ahead of v0.0.1-alpha.5). This was the "
+"authoritatively-verified core\\<\\->SDK pairing before the beta line was "
+"cut. It is not a published core tag."
+msgstr ""
+
+#: src/compatibility.md:94
+msgid ""
+"Latest published core tag. No SDK tag pins exactly this commit; current SDKs "
+"pin a later SHA (see the pinned-commit row). SDK cells left as — to avoid "
+"asserting an unverified tag\\<\\->tag pairing."
+msgstr ""
+
+#: src/compatibility.md:96
+msgid "Published core tag. No SDK tag authoritatively pins this exact commit."
+msgstr ""
+
+#: src/compatibility.md:98
+msgid ""
+"Published core tag. SDK tags carrying the same version string "
+"(python/node/go of the matching alpha) exist, but at their tag time the SDK "
+"FFI crates did not yet pin a resolvable aa-core rev, so an exact "
+"commit\\<\\->commit pairing is NOT verifiable. Left as — per the accuracy "
+"contract."
+msgstr ""
+
+#: src/compatibility.md:102
+msgid "Runtime requirements"
+msgstr ""
+
+#: src/compatibility.md:106
+msgid "SDK"
+msgstr ""
+
+#: src/compatibility.md:106
+msgid "Runtime requirement"
+msgstr ""
+
+#: src/compatibility.md:106
+msgid "Install"
+msgstr ""
+
+#: src/compatibility.md:106
+msgid "Source"
+msgstr ""
+
+#: src/compatibility.md:108
+msgid "Python >=3.12,\\<4.0"
+msgstr ""
+
+#: src/compatibility.md:108
+msgid "[Install guide](https://docs.agent-assembly.com/python-sdk/)"
+msgstr ""
+
+#: src/compatibility.md:108
+msgid "python-sdk pyproject.toml \\[project\\].requires-python"
+msgstr ""
+
+#: src/compatibility.md:109
+msgid "Node.js >=18.18.0 (pnpm >=10 to build from source)"
+msgstr ""
+
+#: src/compatibility.md:109
+msgid "[Install guide](https://docs.agent-assembly.com/node-sdk/)"
+msgstr ""
+
+#: src/compatibility.md:109
+msgid "node-sdk package.json \\[engines\\]"
+msgstr ""
+
+#: src/compatibility.md:110
+msgid "Go >=1.26.0"
+msgstr ""
+
+#: src/compatibility.md:110
+msgid "[Install guide](https://docs.agent-assembly.com/go-sdk/)"
+msgstr ""
+
+#: src/compatibility.md:110
+msgid "go-sdk go.mod (go directive)"
+msgstr ""
+
+#: src/compatibility.md:114
+msgid "How this is maintained"
+msgstr ""
+
+#: src/compatibility.md:116
+msgid ""
+"This page is **manifest-driven**. The source of truth is "
+"[`compatibility.toml`](https://github.com/ai-agent-assembly/docs/blob/main/compatibility.toml) "
+"at the repository root. The matrix and requirements tables above are "
+"rendered from it by `docs/scripts/generate_compatibility.py`; the content "
+"between the `BEGIN GENERATED` / `END GENERATED` markers is generated — **do "
+"not hand-edit it**. Edit the manifest and regenerate:"
+msgstr ""
+
+#: src/compatibility.md:127
+msgid ""
+"A CI step runs the same script with `--check`, so any drift between the "
+"manifest and this page fails the build. The manifest is updated at each "
+"coordinated release; every cell traces to a published tag, a registry "
+"release, or a committed git pin (recorded in the **Notes** footnotes and the "
+"manifest comments). SDK cells may be a single version or a **range**, and "
+"breaking changes are recorded by bumping a row's protocol value and adding a "
+"footnote — see the manifest comments for the range and breaking-change "
+"conventions, including a commented example."
+msgstr ""
+
+#: src/compatibility.md:135
+msgid "_Last verified: 2026-06-27._"
+msgstr ""
+
+#: src/compatibility.md:140
+msgid "_Last updated: 2026-07-14 by AI Agent Assembly Team_"
+msgstr ""
+
+#: src/source-of-truth.md:1
+msgid "Source of truth & status"
+msgstr ""
+
+#: src/source-of-truth.md:3
+msgid ""
+"This hub routes across many independently shipped programs and repositories. "
+"Not all of them are public, and not all of them are generally available yet. "
+"This page is the **canonical status map**: for every documented area it "
+"records which repository owns the content, whether that source is public or "
+"private/internal, and whether the area is shipping today, in release "
+"candidate, or still planned."
+msgstr ""
+
+#: src/source-of-truth.md:9
+msgid ""
+"When a page elsewhere in this hub describes a capability, look here first to "
+"know how much weight to put on it."
+msgstr ""
+
+#: src/source-of-truth.md:12
+msgid "Status labels"
+msgstr ""
+
+#: src/source-of-truth.md:14
+msgid ""
+"Every area below is tagged with one visibility label and one maturity label."
+msgstr ""
+
+#: src/source-of-truth.md:16
+msgid "**Visibility — where the source lives and who can read it:**"
+msgstr ""
+
+#: src/source-of-truth.md:18 src/source-of-truth.md:25
+msgid "Label"
+msgstr ""
+
+#: src/source-of-truth.md:18 src/source-of-truth.md:25
+msgid "Meaning"
+msgstr ""
+
+#: src/source-of-truth.md:20
+msgid "🟢 **Public**"
+msgstr ""
+
+#: src/source-of-truth.md:20
+msgid ""
+"Source repository is public on "
+"[github.com/ai-agent-assembly](https://github.com/orgs/ai-agent-assembly/repositories); "
+"anyone can read it."
+msgstr ""
+
+#: src/source-of-truth.md:21
+msgid "🔒 **Private / internal**"
+msgstr ""
+
+#: src/source-of-truth.md:21
+msgid ""
+"Source repository is private; only the AI Agent Assembly team can read it. "
+"Documentation here describes intent, not a browsable codebase."
+msgstr ""
+
+#: src/source-of-truth.md:23
+msgid "**Maturity — how much to trust the described behaviour:**"
+msgstr ""
+
+#: src/source-of-truth.md:27
+msgid "🧪 **Release candidate**"
+msgstr ""
+
+#: src/source-of-truth.md:27
+msgid ""
+"Ships today as a release candidate; the API and behaviour are stabilizing "
+"but may still change before GA. The whole product is currently `v0.0.1-rc`."
+msgstr ""
+
+#: src/source-of-truth.md:28
+msgid "🗺️ **Planned**"
+msgstr ""
+
+#: src/source-of-truth.md:28
+msgid ""
+"Designed and documented as intent, but **not yet generally available**. "
+"Treat as a roadmap, not a contract."
+msgstr ""
+
+#: src/source-of-truth.md:30
+msgid "Area status map"
+msgstr ""
+
+#: src/source-of-truth.md:34
+msgid "Area"
+msgstr ""
+
+#: src/source-of-truth.md:34
+msgid "Owning repository"
+msgstr ""
+
+#: src/source-of-truth.md:34
+msgid "Visibility"
+msgstr ""
+
+#: src/source-of-truth.md:34
+msgid "Maturity"
+msgstr ""
+
+#: src/source-of-truth.md:34
+msgid "Where to read"
+msgstr ""
+
+#: src/source-of-truth.md:36
+msgid "**Core** (gateway, policy engine, eBPF, proxy, FFI, WASM, CLI, API)"
+msgstr ""
+
+#: src/source-of-truth.md:36
+msgid "[`agent-assembly`](https://github.com/ai-agent-assembly/agent-assembly)"
+msgstr ""
+
+#: src/source-of-truth.md:36 src/source-of-truth.md:37
+#: src/source-of-truth.md:38 src/source-of-truth.md:39
+#: src/source-of-truth.md:40 src/source-of-truth.md:41
+#: src/source-of-truth.md:42 src/source-of-truth.md:43
+#: src/source-of-truth.md:44 src/source-of-truth.md:47
+msgid "🟢 Public"
+msgstr ""
+
+#: src/source-of-truth.md:36 src/source-of-truth.md:37
+#: src/source-of-truth.md:38 src/source-of-truth.md:39
+#: src/source-of-truth.md:40 src/source-of-truth.md:41
+#: src/source-of-truth.md:42 src/source-of-truth.md:43
+#: src/source-of-truth.md:44
+msgid "🧪 Release candidate"
+msgstr ""
+
+#: src/source-of-truth.md:37
+msgid "**Python SDK**"
+msgstr ""
+
+#: src/source-of-truth.md:37
+msgid "[`python-sdk`](https://github.com/ai-agent-assembly/python-sdk)"
+msgstr ""
+
+#: src/source-of-truth.md:37
+msgid "[python-sdk docs](https://docs.agent-assembly.com/python-sdk/)"
+msgstr ""
+
+#: src/source-of-truth.md:38
+msgid "**Node / TypeScript SDK**"
+msgstr ""
+
+#: src/source-of-truth.md:38
+msgid "[`node-sdk`](https://github.com/ai-agent-assembly/node-sdk)"
+msgstr ""
+
+#: src/source-of-truth.md:38
+msgid "[node-sdk docs](https://docs.agent-assembly.com/node-sdk/)"
+msgstr ""
+
+#: src/source-of-truth.md:39
+msgid "**Go SDK**"
+msgstr ""
+
+#: src/source-of-truth.md:39
+msgid "[`go-sdk`](https://github.com/ai-agent-assembly/go-sdk)"
+msgstr ""
+
+#: src/source-of-truth.md:39
+msgid "[go-sdk docs](https://docs.agent-assembly.com/go-sdk/)"
+msgstr ""
+
+#: src/source-of-truth.md:40
+msgid "**Arena** (cross-framework governance trials)"
+msgstr ""
+
+#: src/source-of-truth.md:40
+msgid "[`arena`](https://github.com/ai-agent-assembly/arena)"
+msgstr ""
+
+#: src/source-of-truth.md:40
+msgid "[arena docs](https://docs.agent-assembly.com/arena/)"
+msgstr ""
+
+#: src/source-of-truth.md:41
+msgid "**Runnable examples**"
+msgstr ""
+
+#: src/source-of-truth.md:41
+msgid "[`examples`](https://github.com/ai-agent-assembly/examples)"
+msgstr ""
+
+#: src/source-of-truth.md:41 src/source-of-truth.md:42
+msgid "repo `README`"
+msgstr ""
+
+#: src/source-of-truth.md:42
+msgid "**Homebrew / install channel**"
+msgstr ""
+
+#: src/source-of-truth.md:42
+msgid "[`homebrew-tap`](https://github.com/ai-agent-assembly/homebrew-tap)"
+msgstr ""
+
+#: src/source-of-truth.md:43
+msgid "**Specs** (protocol & policy spec)"
+msgstr ""
+
+#: src/source-of-truth.md:43
+msgid ""
+"[`agent-assembly`](https://github.com/ai-agent-assembly/agent-assembly) "
+"monorepo"
+msgstr ""
+
+#: src/source-of-truth.md:43
+msgid "[Policy reference](policy-reference.md) · core docs"
+msgstr ""
+
+#: src/source-of-truth.md:44
+msgid "**Releases** (versions & compatibility)"
+msgstr ""
+
+#: src/source-of-truth.md:44
+msgid "this hub + each component's tags"
+msgstr ""
+
+#: src/source-of-truth.md:44 src/troubleshooting.md:34
+msgid "[Compatibility matrix](compatibility.md)"
+msgstr ""
+
+#: src/source-of-truth.md:45
+msgid "**Cloud** (SaaS control plane)"
+msgstr ""
+
+#: src/source-of-truth.md:45
+msgid "`cloud`"
+msgstr ""
+
+#: src/source-of-truth.md:45 src/source-of-truth.md:46
+msgid "🔒 Private / internal"
+msgstr ""
+
+#: src/source-of-truth.md:45 src/source-of-truth.md:46
+#: src/source-of-truth.md:47
+msgid "🗺️ Planned"
+msgstr ""
+
+#: src/source-of-truth.md:46
+msgid "**Enterprise** (SSO, SCIM, advanced audit)"
+msgstr ""
+
+#: src/source-of-truth.md:46
+msgid "`agent-assembly-enterprise`"
+msgstr ""
+
+#: src/source-of-truth.md:47
+msgid "**Operations** (running & onboarding)"
+msgstr ""
+
+#: src/source-of-truth.md:47
+msgid "this hub"
+msgstr ""
+
+#: src/source-of-truth.md:57
+msgid ""
+"The **protocol specification stays in the `agent-assembly` monorepo** by "
+"project policy. The reserved `agent-assembly-spec` repository is "
+"intentionally not used as the spec source."
+msgstr ""
+
+#: src/source-of-truth.md:61
+msgid "Why some areas are private or planned"
+msgstr ""
+
+#: src/source-of-truth.md:63
+msgid ""
+"AI Agent Assembly is **open core, SaaS-only**. The enforcement path — every "
+"interception layer, the policy engine, the SDK shims, and the CLI — is open "
+"source and public. The commercial control plane (Cloud) and the enterprise "
+"operations features (Enterprise) are delivered as a managed SaaS and live in "
+"private repositories; their documentation here describes intended behaviour, "
+"not a browsable codebase. See the [Open core "
+"boundary](open-core-boundary.md) for the full split."
+msgstr ""
+
+#: src/source-of-truth.md:73
+msgid "_Last reviewed: 2026-07-11 — AI Agent Assembly Team_"
+msgstr ""
+
+#: src/faq.md:1
+msgid "FAQ"
+msgstr ""
+
+#: src/faq.md:3
+msgid ""
+"Answers to the questions first-time visitors ask before reading any of the "
+"detailed pages. Each answer links to where the topic is covered in full."
+msgstr ""
+
+#: src/faq.md:6
+msgid "What is AI Agent Assembly, in one sentence?"
+msgstr ""
+
+#: src/faq.md:8
+msgid ""
+"It is a **governance layer for AI agents**: it sits between your agents and "
+"the outside world and enforces policy, tracks cost, and intercepts unsafe "
+"actions _before_ they run. See the [Introduction](README.md) and [Why AI "
+"Agent Assembly?](comparison.md)."
+msgstr ""
+
+#: src/faq.md:13
+msgid "Do I have to change my agent's code?"
+msgstr ""
+
+#: src/faq.md:15
+msgid ""
+"Not necessarily. There are three interception layers and you can pick how "
+"invasive to be:"
+msgstr ""
+
+#: src/faq.md:18
+msgid ""
+"The **SDK layer** needs a small amount of instrumentation in your code and "
+"is the fastest path."
+msgstr ""
+
+#: src/faq.md:20
+msgid ""
+"The **sidecar proxy** (`aa-proxy`) governs an agent's network traffic with "
+"**no code change**."
+msgstr ""
+
+#: src/faq.md:22
+msgid ""
+"The **eBPF sensor** (`aa-ebpf`, Linux only) catches actions at the kernel "
+"level, including bypass attempts."
+msgstr ""
+
+#: src/faq.md:25
+msgid "See the three-layer interception model in the [Introduction](README.md)."
+msgstr ""
+
+#: src/faq.md:27
+msgid "Does it work with my LLM / framework?"
+msgstr ""
+
+#: src/faq.md:29
+msgid ""
+"Yes — it is provider-agnostic. It governs agents regardless of which model "
+"provider you use, and ships SDKs for **Python, TypeScript/Node, and Go**, "
+"with framework examples (LangChain, LlamaIndex, bare OpenAI, and more) in "
+"the [examples repository](https://github.com/ai-agent-assembly/examples)."
+msgstr ""
+
+#: src/faq.md:34
+msgid "Is it free? What is open source vs. paid?"
+msgstr ""
+
+#: src/faq.md:36
+msgid ""
+"The enforcement core — the interception layers, policy engine, SDKs, and CLI "
+"— is **open source under Apache-2.0**. Enterprise operations (SSO, SCIM, "
+"tamper-evident audit, dedicated regions, SLAs) are commercial and delivered "
+"on paid SaaS tiers. See the [Open core boundary](open-core-boundary.md)."
+msgstr ""
+
+#: src/faq.md:41
+msgid "Can I self-host it?"
+msgstr ""
+
+#: src/faq.md:43
+msgid ""
+"You can self-host a **limited-function** stack from the open-source crates "
+"(using the published Docker Compose example) for local evaluation and "
+"development. The **complete** feature set is delivered through the AI Agent "
+"Assembly cloud (SaaS). See the [Open core boundary](open-core-boundary.md)."
+msgstr ""
+
+#: src/faq.md:48
+msgid "How does it actually block an unsafe action?"
+msgstr ""
+
+#: src/faq.md:50
+msgid ""
+"Before an agent action runs, the gateway evaluates your policy and returns "
+"an allow or deny decision; a deny stops the action. Budgets are enforced the "
+"same way — once a team is over budget, further calls are denied. See the "
+"[Policy reference](policy-reference.md)."
+msgstr ""
+
+#: src/faq.md:55
+msgid "How is it different from an observability / tracing tool?"
+msgstr ""
+
+#: src/faq.md:57
+msgid ""
+"Observability tools record what an agent _did_, after the fact. AI Agent "
+"Assembly makes a binding **allow/deny decision before the action executes**. "
+"The [comparison page](comparison.md) maps this against other tools."
+msgstr ""
+
+#: src/faq.md:61
+msgid "Where do I get started right now?"
+msgstr ""
+
+#: src/faq.md:63
+msgid ""
+"Clone the [examples "
+"repository](https://github.com/ai-agent-assembly/examples) and run a "
+"governed agent end to end — that is the path you can run today. The managed "
+"[Quick start (SaaS)](quickstart-saas.md) is coming soon."
+msgstr ""
+
+#: src/faq.md:67
+msgid "What do the acronyms mean (eBPF, SCIM, mTLS, STRIDE…)?"
+msgstr ""
+
+#: src/faq.md:69
+msgid ""
+"See the [Glossary](glossary.md), which defines every recurring term and "
+"acronym in plain language."
+msgstr ""
+
+#: src/security-model.md:1
+msgid "Security model"
+msgstr ""
+
+#: src/security-model.md:3
+msgid ""
+"AI Agent Assembly is a **governance layer for AI agents** — it enforces "
+"policy, tracks cost, and intercepts unsafe actions before they run. This "
+"page documents the security posture behind that enforcement, for enterprise "
+"security and compliance teams. It covers the layered defense model, a STRIDE "
+"threat analysis, the cryptography in use, and the audit and compliance "
+"posture."
+msgstr ""
+
+#: src/security-model.md:7
+msgid "IronClaw five-layer defense"
+msgstr ""
+
+#: src/security-model.md:9
+msgid ""
+"AI Agent Assembly groups its security controls into five named layers. Each "
+"layer is independently deployable and adds defense-in-depth — if one layer "
+"is bypassed, the next still applies."
+msgstr ""
+
+#: src/security-model.md:11
+msgid "Layer"
+msgstr ""
+
+#: src/security-model.md:11
+msgid "Name"
+msgstr ""
+
+#: src/security-model.md:11
+msgid "What it does"
+msgstr ""
+
+#: src/security-model.md:13
+msgid "1"
+msgstr ""
+
+#: src/security-model.md:13
+msgid "**Boundary**"
+msgstr ""
+
+#: src/security-model.md:13
+msgid ""
+"Network perimeter: sidecar proxy (`aa-proxy`) enforces egress policy; eBPF "
+"sensor (`aa-ebpf`) catches kernel-level bypass attempts"
+msgstr ""
+
+#: src/security-model.md:14
+msgid "2"
+msgstr ""
+
+#: src/security-model.md:14
+msgid "**Identity**"
+msgstr ""
+
+#: src/security-model.md:14
+msgid ""
+"Agent and user authentication: JWT-based agent identity issued by the "
+"gateway; operator authentication via SAML 2.0 / OIDC SSO"
+msgstr ""
+
+#: src/security-model.md:15 src/cloud-deployment.md:44
+msgid "3"
+msgstr ""
+
+#: src/security-model.md:15
+msgid "**Policy**"
+msgstr ""
+
+#: src/security-model.md:15
+msgid ""
+"Runtime governance: YAML/JSON policy rules evaluated by the gateway policy "
+"engine before every agent action"
+msgstr ""
+
+#: src/security-model.md:16
+msgid "4"
+msgstr ""
+
+#: src/security-model.md:16
+msgid "**Vault**"
+msgstr ""
+
+#: src/security-model.md:16
+msgid ""
+"Secret and credential management: AES-256-GCM encryption at rest for stored "
+"secrets; Ed25519-signed tokens for inter-component trust"
+msgstr ""
+
+#: src/security-model.md:17 src/cloud-deployment.md:44
+msgid "5"
+msgstr ""
+
+#: src/security-model.md:17
+msgid "**Telemetry**"
+msgstr ""
+
+#: src/security-model.md:17
+msgid ""
+"Audit and observability: append-only event log for every agent action; "
+"Slack/webhook connectors for real-time alerting on policy violations"
+msgstr ""
+
+#: src/security-model.md:19
+msgid ""
+"**How the five layers relate to the three interception points.** The five "
+"_defense-in-depth layers_ above (Boundary, Identity, Policy, Vault, "
+"Telemetry) describe _what_ is protected. The three _interception points_ "
+"named on the landing page and marketing site — the SDK layer, the sidecar "
+"proxy (`aa-proxy`), and the eBPF sensor (`aa-ebpf`) — describe _where_ "
+"enforcement is applied, and all three sit inside the **Boundary** layer. "
+"They are two views of one system, not two competing models."
+msgstr ""
+
+#: src/security-model.md:23
+msgid "STRIDE threat model"
+msgstr ""
+
+#: src/security-model.md:25
+msgid ""
+"The table below maps each STRIDE category to the five primary components of "
+"AI Agent Assembly and the control that mitigates it."
+msgstr ""
+
+#: src/security-model.md:27
+msgid "**S**poofing"
+msgstr ""
+
+#: src/security-model.md:27
+msgid "**T**ampering"
+msgstr ""
+
+#: src/security-model.md:27
+msgid "**R**epudiation"
+msgstr ""
+
+#: src/security-model.md:27
+msgid "**I**nfo Disclosure"
+msgstr ""
+
+#: src/security-model.md:27
+msgid "**D**enial of Service"
+msgstr ""
+
+#: src/security-model.md:27
+msgid "**E**levation of Privilege"
+msgstr ""
+
+#: src/security-model.md:29
+msgid "**Language SDK**"
+msgstr ""
+
+#: src/security-model.md:29
+msgid "Ed25519-signed agent tokens prevent impersonation"
+msgstr ""
+
+#: src/security-model.md:29
+msgid "SDK integrity verified by Cargo/npm/PyPI package hash"
+msgstr ""
+
+#: src/security-model.md:29
+msgid "Every call logged with agent ID and timestamp"
+msgstr ""
+
+#: src/security-model.md:29
+msgid "SDK communicates over mTLS; secrets never logged"
+msgstr ""
+
+#: src/security-model.md:29
+msgid "Rate limiting enforced by gateway budget tracker"
+msgstr ""
+
+#: src/security-model.md:29
+msgid "Policy engine enforces agent scope; no ambient privilege"
+msgstr ""
+
+#: src/security-model.md:30
+msgid "**Gateway (aa-gateway)**"
+msgstr ""
+
+#: src/security-model.md:30
+msgid "JWT validation on all gRPC connections"
+msgstr ""
+
+#: src/security-model.md:30
+msgid "Input validation on all RPCs; schema-enforced policy rules"
+msgstr ""
+
+#: src/security-model.md:30
+msgid "Append-only audit log with tamper-evident signatures"
+msgstr ""
+
+#: src/security-model.md:30
+msgid "Internal-only gRPC endpoint; never exposed directly"
+msgstr ""
+
+#: src/security-model.md:30
+msgid "Per-team budget caps block runaway agent spending"
+msgstr ""
+
+#: src/security-model.md:30
+msgid "RBAC on all administrative API endpoints"
+msgstr ""
+
+#: src/security-model.md:31
+msgid "**Sidecar Proxy (aa-proxy)**"
+msgstr ""
+
+#: src/security-model.md:31
+msgid "Per-host CA pinning prevents MitM spoofing by agents"
+msgstr ""
+
+#: src/security-model.md:31
+msgid "TLS termination with certificate validation on every upstream"
+msgstr ""
+
+#: src/security-model.md:31
+msgid "All intercepted requests logged by proxy before forwarding"
+msgstr ""
+
+#: src/security-model.md:31
+msgid "Proxy does not log request/response bodies by default"
+msgstr ""
+
+#: src/security-model.md:31
+msgid "Connection pool limits per agent; circuit breaker on upstream failure"
+msgstr ""
+
+#: src/security-model.md:31
+msgid "Proxy runs as unprivileged user; no write access to host filesystem"
+msgstr ""
+
+#: src/security-model.md:32
+msgid "**eBPF Sensor (aa-ebpf)**"
+msgstr ""
+
+#: src/security-model.md:32
+msgid "eBPF program loaded only by privileged system service"
+msgstr ""
+
+#: src/security-model.md:32
+msgid "BPF verifier rejects unsafe programs at load time"
+msgstr ""
+
+#: src/security-model.md:32
+msgid "Kernel event timestamps are monotonic; cannot be retroactively altered"
+msgstr ""
+
+#: src/security-model.md:32
+msgid "eBPF only reads SSL buffers; no access to unrelated memory regions"
+msgstr ""
+
+#: src/security-model.md:32
+msgid "eBPF programs have bounded execution; verifier enforces loop limits"
+msgstr ""
+
+#: src/security-model.md:32
+msgid "Loaded via CAP_BPF only; capability is dropped after program load"
+msgstr ""
+
+#: src/security-model.md:33
+msgid "**REST API (aa-api)**"
+msgstr ""
+
+#: src/security-model.md:33
+msgid "SAML/OIDC token validation on every request"
+msgstr ""
+
+#: src/security-model.md:33
+msgid "OpenAPI schema validation rejects malformed inputs"
+msgstr ""
+
+#: src/security-model.md:33
+msgid "All mutating API calls logged with actor identity"
+msgstr ""
+
+#: src/security-model.md:33
+msgid "HTTPS-only; HSTS enforced; no sensitive data in query strings"
+msgstr ""
+
+#: src/security-model.md:33
+msgid ""
+"Rate limiting per IP and per tenant; DDoS mitigation via upstream load "
+"balancer"
+msgstr ""
+
+#: src/security-model.md:33
+msgid "Tenant isolation enforced at API layer; cross-tenant access rejected"
+msgstr ""
+
+#: src/security-model.md:35
+msgid ""
+"**Traceability**: Each STRIDE row maps to a specific IronClaw layer control. "
+"For configuration paths and runbook references, consult the security runbook "
+"in the `agent-assembly` repository."
+msgstr ""
+
+#: src/security-model.md:39
+msgid "Cryptographic primitives"
+msgstr ""
+
+#: src/security-model.md:41
+msgid "Primitive"
+msgstr ""
+
+#: src/security-model.md:41
+msgid "Algorithm"
+msgstr ""
+
+#: src/security-model.md:41
+msgid "Key length"
+msgstr ""
+
+#: src/security-model.md:41
+msgid "Usage"
+msgstr ""
+
+#: src/security-model.md:41
+msgid "Rotation cadence (NIST SP 800-57)"
+msgstr ""
+
+#: src/security-model.md:43
+msgid "Agent signing key"
+msgstr ""
+
+#: src/security-model.md:43
+msgid "Ed25519"
+msgstr ""
+
+#: src/security-model.md:43 src/security-model.md:44 src/security-model.md:45
+msgid "256-bit"
+msgstr ""
+
+#: src/security-model.md:43
+msgid "Signs agent identity tokens issued by the gateway"
+msgstr ""
+
+#: src/security-model.md:43
+msgid "Every 90 days or on compromise"
+msgstr ""
+
+#: src/security-model.md:44
+msgid "Vault encryption"
+msgstr ""
+
+#: src/security-model.md:44
+msgid "AES-256-GCM"
+msgstr ""
+
+#: src/security-model.md:44
+msgid "Encrypts secrets and credentials at rest"
+msgstr ""
+
+#: src/security-model.md:44
+msgid "Every 1 year or on compromise"
+msgstr ""
+
+#: src/security-model.md:45
+msgid "Callback / webhook signature"
+msgstr ""
+
+#: src/security-model.md:45
+msgid "HMAC-SHA256"
+msgstr ""
+
+#: src/security-model.md:45
+msgid "Signs outbound webhook payloads so receivers can verify authenticity"
+msgstr ""
+
+#: src/security-model.md:45
+msgid "Every 90 days or on rotation of webhook secret"
+msgstr ""
+
+#: src/security-model.md:46
+msgid "TLS (transport)"
+msgstr ""
+
+#: src/security-model.md:46
+msgid "TLS 1.3"
+msgstr ""
+
+#: src/security-model.md:46
+msgid "ECDHE-256"
+msgstr ""
+
+#: src/security-model.md:46
+msgid "All inter-component and external communication"
+msgstr ""
+
+#: src/security-model.md:46
+msgid "Certificate: every 90 days (auto-renewed)"
+msgstr ""
+
+#: src/security-model.md:48
+msgid ""
+"All keys are generated using a CSPRNG. No MD5, SHA-1, or DES primitives are "
+"used anywhere in the stack."
+msgstr ""
+
+#: src/security-model.md:52
+msgid "Authentication flow"
+msgstr ""
+
+#: src/security-model.md:54
+msgid "SDK to gateway (gRPC)"
+msgstr ""
+
+#: src/security-model.md:71
+msgid "Operator to console (SAML/OIDC)"
+msgstr ""
+
+#: src/security-model.md:73
+msgid ""
+"Operators sign in through the SaaS console (control plane) — SSO is a hosted "
+"control-plane flow, not an `aasm` CLI command."
+msgstr ""
+
+#: src/security-model.md:96
+msgid "Secrets management"
+msgstr ""
+
+#: src/security-model.md:98
+msgid ""
+"Secrets (LLM API keys, webhook tokens) are stored encrypted with AES-256-GCM."
+msgstr ""
+
+#: src/security-model.md:99
+msgid ""
+"The encryption key is derived from a master secret held in the SaaS control "
+"plane's hardware security module (HSM)."
+msgstr ""
+
+#: src/security-model.md:100
+msgid "Secrets are never written to disk in plaintext."
+msgstr ""
+
+#: src/security-model.md:101
+msgid "Secrets are never logged, even at `DEBUG` level."
+msgstr ""
+
+#: src/security-model.md:102
+msgid ""
+"Secret rotation is performed from the SaaS console (control plane), which "
+"re-encrypts in place without a service restart."
+msgstr ""
+
+#: src/security-model.md:106
+msgid "Audit log"
+msgstr ""
+
+#: src/security-model.md:108
+msgid ""
+"Every agent action (policy check, event record, budget debit) produces an "
+"immutable log entry."
+msgstr ""
+
+#: src/security-model.md:109
+msgid "Log entries are signed with HMAC-SHA256 using a log-signing key."
+msgstr ""
+
+#: src/security-model.md:110
+msgid "Logs are append-only; no delete or update API exists."
+msgstr ""
+
+#: src/security-model.md:111
+msgid "Log retention: configurable per tenant (default: 90 days)."
+msgstr ""
+
+#: src/security-model.md:112
+msgid "Logs are exportable in JSON or CEF format for SIEM integration."
+msgstr ""
+
+#: src/security-model.md:116
+msgid "Compliance posture"
+msgstr ""
+
+#: src/security-model.md:118
+msgid "Standard"
+msgstr ""
+
+#: src/security-model.md:120
+msgid "SOC 2 Type II"
+msgstr ""
+
+#: src/security-model.md:120
+msgid "In preparation (target: Q3 2026)"
+msgstr ""
+
+#: src/security-model.md:121
+msgid "ISO 27001"
+msgstr ""
+
+#: src/security-model.md:121
+msgid "Roadmap (post-SOC 2)"
+msgstr ""
+
+#: src/security-model.md:122
+msgid "GDPR"
+msgstr ""
+
+#: src/security-model.md:122
+msgid "Architecture is GDPR-compatible; DPA available on request"
+msgstr ""
+
+#: src/security-model.md:123
+msgid "CCPA"
+msgstr ""
+
+#: src/security-model.md:123
+msgid "Covered under SaaS Data Processing Agreement"
+msgstr ""
+
+#: src/security-model.md:127 src/comparison.md:97 src/open-core-boundary.md:124
+#: src/cloud-deployment.md:230 src/self-host-observability.md:130
+#: src/policy-reference.md:422
+msgid "Related documentation"
+msgstr ""
+
+#: src/security-model.md:129
+msgid ""
+"[Why AI Agent Assembly?](comparison.md) — competitive positioning and "
+"governance differentiation"
+msgstr ""
+
+#: src/security-model.md:130
+msgid ""
+"[Cloud deployment](cloud-deployment.md) — SSO configuration, SCIM "
+"provisioning"
+msgstr ""
+
+#: src/security-model.md:131
+msgid ""
+"[Open core boundary](open-core-boundary.md) — which security features are "
+"OSS vs. enterprise"
+msgstr ""
+
+#: src/security-model.md:142 src/comparison.md:105
+msgid "_Last reviewed: 2026-06-11 — AI Agent Assembly Team_"
+msgstr ""
+
+#: src/comparison.md:3
+msgid ""
+"**AI Agent Assembly is a governance layer for AI agents** — a control that "
+"sits in the agent's action path and _enforces_ policy, tracks cost, and "
+"intercepts unsafe actions (unsafe tool calls, network egress, and budget "
+"overruns) _before_ they execute. Think of it as a security checkpoint in "
+"front of every agent action, not a dashboard that reports on actions after "
+"they happen. That category distinction is what this comparison is about."
+msgstr ""
+
+#: src/comparison.md:5
+msgid ""
+"This page helps readers see where AI Agent Assembly fits next to other tools "
+"in the AI governance and observability space. All competitor data is taken "
+"from each vendor's public documentation as of 2026-05-05."
+msgstr ""
+
+#: src/comparison.md:7
+msgid ""
+"In short: most tools in this space **observe** what an agent did after the "
+"fact. AI Agent Assembly is built to **enforce** policy before an action "
+"runs. The sections below show where that difference matters, and where "
+"competitors are ahead."
+msgstr ""
+
+#: src/comparison.md:11 src/open-core-boundary.md:43
+msgid "Feature matrix"
+msgstr ""
+
+#: src/comparison.md:13
+msgid ""
+"Because AI Agent Assembly is an **enforcement** control rather than a pure "
+"observability or monitoring tool, the rows below span both categories: the "
+"observability rows show that it still gives you the visibility those tools "
+"provide, while the policy-enforcement, access-control, and "
+"budget-enforcement rows show the security-checkpoint capabilities that "
+"monitoring-only tools do not have. Read the matrix with that framing — equal "
+"coverage on observability, decisive coverage on enforcement."
+msgstr ""
+
+#: src/comparison.md:15
+msgid ""
+"Each row is a capability. The columns are AI Agent Assembly (AAASM), "
+"Langfuse, Helicone, Opik, and Pillar Security."
+msgstr ""
+
+#: src/comparison.md:17
+msgid ""
+"Legend: ✓ = full support · partial = limited or gated behind a paid tier · ✗ "
+"= not available · n/a = not applicable to the product category."
+msgstr ""
+
+#: src/comparison.md:19
+msgid "Capability"
+msgstr ""
+
+#: src/comparison.md:19
+msgid "AAASM"
+msgstr ""
+
+#: src/comparison.md:19 src/comparison.md:90
+msgid "Langfuse"
+msgstr ""
+
+#: src/comparison.md:19 src/comparison.md:91
+msgid "Helicone"
+msgstr ""
+
+#: src/comparison.md:19 src/comparison.md:92
+msgid "Opik"
+msgstr ""
+
+#: src/comparison.md:19 src/comparison.md:93
+msgid "Pillar Security"
+msgstr ""
+
+#: src/comparison.md:21
+msgid "**Observability**"
+msgstr ""
+
+#: src/comparison.md:22
+msgid "LLM call tracing (latency, tokens, cost)"
+msgstr ""
+
+#: src/comparison.md:22 src/comparison.md:23 src/comparison.md:24
+#: src/comparison.md:25 src/comparison.md:27 src/comparison.md:28
+#: src/comparison.md:30 src/comparison.md:31 src/comparison.md:33
+#: src/comparison.md:34 src/comparison.md:36 src/comparison.md:37
+#: src/comparison.md:38 src/comparison.md:40 src/comparison.md:41
+#: src/comparison.md:43 src/comparison.md:44 src/comparison.md:45
+#: src/comparison.md:47 src/comparison.md:48 src/comparison.md:50
+#: src/comparison.md:51 src/comparison.md:54 src/comparison.md:56
+msgid "✓"
+msgstr ""
+
+#: src/comparison.md:22 src/comparison.md:23 src/comparison.md:24
+#: src/comparison.md:25 src/comparison.md:27 src/comparison.md:37
+#: src/comparison.md:43 src/comparison.md:45 src/comparison.md:53
+#: src/comparison.md:54
+msgid "partial"
+msgstr ""
+
+#: src/comparison.md:23
+msgid "Multi-turn conversation tracing"
+msgstr ""
+
+#: src/comparison.md:23 src/comparison.md:24 src/comparison.md:25
+#: src/comparison.md:27 src/comparison.md:28 src/comparison.md:29
+#: src/comparison.md:30 src/comparison.md:31 src/comparison.md:33
+#: src/comparison.md:34 src/comparison.md:38 src/comparison.md:41
+#: src/comparison.md:45 src/comparison.md:47 src/comparison.md:48
+#: src/comparison.md:50 src/comparison.md:51 src/comparison.md:53
+msgid "✗"
+msgstr ""
+
+#: src/comparison.md:24
+msgid "Agent lineage / parent-child spans"
+msgstr ""
+
+#: src/comparison.md:25 src/open-core-boundary.md:67
+msgid "SIEM export (JSON / CEF)"
+msgstr ""
+
+#: src/comparison.md:26
+msgid "**Policy enforcement**"
+msgstr ""
+
+#: src/comparison.md:27
+msgid "Pre-execution allow / deny (runtime block)"
+msgstr ""
+
+#: src/comparison.md:28
+msgid "Policy-as-code (YAML / JSON versioned rules)"
+msgstr ""
+
+#: src/comparison.md:29
+msgid "Network-level interception (no code change)"
+msgstr ""
+
+#: src/comparison.md:29
+msgid "✓ (aa-proxy)"
+msgstr ""
+
+#: src/comparison.md:30
+msgid "Kernel-level bypass detection (eBPF)"
+msgstr ""
+
+#: src/comparison.md:31
+msgid "PII / secret detection at gateway"
+msgstr ""
+
+#: src/comparison.md:31
+msgid "✓ (regex rules)"
+msgstr ""
+
+#: src/comparison.md:31
+msgid "partial (post-hoc)"
+msgstr ""
+
+#: src/comparison.md:31
+msgid "partial (evaluators)"
+msgstr ""
+
+#: src/comparison.md:32
+msgid "**Vault-backed secrets management**"
+msgstr ""
+
+#: src/comparison.md:33
+msgid "Secrets vault integration"
+msgstr ""
+
+#: src/comparison.md:34
+msgid "Secret scanning in prompts / outputs"
+msgstr ""
+
+#: src/comparison.md:34
+msgid "partial (regex policy)"
+msgstr ""
+
+#: src/comparison.md:35
+msgid "**Multi-language SDK**"
+msgstr ""
+
+#: src/comparison.md:37
+msgid "TypeScript SDK"
+msgstr ""
+
+#: src/comparison.md:39
+msgid "**BYO-LLM (provider agnostic)**"
+msgstr ""
+
+#: src/comparison.md:40
+msgid "Works with any LLM provider"
+msgstr ""
+
+#: src/comparison.md:41
+msgid "Open-source SDK core (Apache-2.0)"
+msgstr ""
+
+#: src/comparison.md:41
+msgid "✓ (MIT)"
+msgstr ""
+
+#: src/comparison.md:41
+msgid "✓ (Apache-2.0)"
+msgstr ""
+
+#: src/comparison.md:42
+msgid "**Access control (RBAC)**"
+msgstr ""
+
+#: src/comparison.md:43 src/cloud-deployment.md:140
+msgid "Role-based access control"
+msgstr ""
+
+#: src/comparison.md:43
+msgid "✓ (Owner/Admin/Developer/Viewer)"
+msgstr ""
+
+#: src/comparison.md:44 src/open-core-boundary.md:60
+msgid "SAML 2.0 / OIDC SSO"
+msgstr ""
+
+#: src/comparison.md:44
+msgid "partial (Enterprise)"
+msgstr ""
+
+#: src/comparison.md:45 src/open-core-boundary.md:61
+msgid "SCIM user provisioning"
+msgstr ""
+
+#: src/comparison.md:46
+msgid "**Approval workflows**"
+msgstr ""
+
+#: src/comparison.md:47
+msgid "Human-in-the-loop approval gates"
+msgstr ""
+
+#: src/comparison.md:47
+msgid "partial (policy deny + alerting)"
+msgstr ""
+
+#: src/comparison.md:48
+msgid "Automated approval routing"
+msgstr ""
+
+#: src/comparison.md:49
+msgid "**Cost analytics**"
+msgstr ""
+
+#: src/comparison.md:50
+msgid "Per-team token / cost budgets (enforced)"
+msgstr ""
+
+#: src/comparison.md:50
+msgid "partial (tracking only)"
+msgstr ""
+
+#: src/comparison.md:50
+msgid "✓ (tracking + alerts)"
+msgstr ""
+
+#: src/comparison.md:51
+msgid "Budget enforcement (hard deny on exceed)"
+msgstr ""
+
+#: src/comparison.md:52
+msgid "**Audit log immutability**"
+msgstr ""
+
+#: src/comparison.md:53
+msgid "Immutable audit log with tamper-evident signatures"
+msgstr ""
+
+#: src/comparison.md:53
+msgid "✓ (HMAC-SHA256)"
+msgstr ""
+
+#: src/comparison.md:54 src/open-core-boundary.md:66
+msgid "Audit log retention > 30 days"
+msgstr ""
+
+#: src/comparison.md:54
+msgid "✓ (up to 1 year, Enterprise)"
+msgstr ""
+
+#: src/comparison.md:54
+msgid "partial (30 days free)"
+msgstr ""
+
+#: src/comparison.md:55
+msgid "**On-premises / self-hosted option**"
+msgstr ""
+
+#: src/comparison.md:56
+msgid "Self-hosted deployment"
+msgstr ""
+
+#: src/comparison.md:56
+msgid "partial (limited-function OSS)"
+msgstr ""
+
+#: src/comparison.md:56
+msgid "✗ (SaaS only)"
+msgstr ""
+
+#: src/comparison.md:60
+msgid "Where we currently lag"
+msgstr ""
+
+#: src/comparison.md:62
+msgid ""
+"These are capabilities competitors offer that AI Agent Assembly does not yet "
+"fully deliver."
+msgstr ""
+
+#: src/comparison.md:64
+msgid ""
+"**Vault-backed secrets management** — Pillar Security provides first-class "
+"secrets vault integration with automatic secret rotation and injection. "
+"AAASM currently supports secret-pattern detection via regex policies but "
+"does not integrate with HashiCorp Vault or AWS Secrets Manager."
+msgstr ""
+
+#: src/comparison.md:65
+msgid ""
+"**Automated human-in-the-loop approval workflows** — Pillar Security "
+"provides structured approval routing with escalation chains. AAASM can deny "
+"and alert but does not yet route decisions to a named approver queue."
+msgstr ""
+
+#: src/comparison.md:66
+msgid ""
+"**Full-function self-hosted deployment** — Langfuse, Opik, and Pillar "
+"Security offer a fully self-hostable product. AAASM self-hosting is "
+"limited-function today: a limited stack runs locally from the Apache-2.0 "
+"crates (Docker Compose) for evaluation and development, while the complete "
+"feature set is delivered via SaaS (see [Open Core "
+"Boundary](open-core-boundary.md))."
+msgstr ""
+
+#: src/comparison.md:67
+msgid ""
+"**Evaluation frameworks and LLM-as-judge scoring** — Langfuse and Opik "
+"provide built-in evaluation pipelines, dataset management, and automated "
+"LLM-as-judge scoring for output quality. AAASM's policy engine operates on "
+"patterns and metadata, not semantic quality."
+msgstr ""
+
+#: src/comparison.md:68
+msgid ""
+"**Prompt management and versioning** — Langfuse provides a managed prompt "
+"registry with version history and A/B comparison. AAASM does not include a "
+"prompt registry."
+msgstr ""
+
+#: src/comparison.md:72
+msgid "Where we lead"
+msgstr ""
+
+#: src/comparison.md:74
+msgid ""
+"These are capabilities where AI Agent Assembly is uniquely strong or "
+"differentiated."
+msgstr ""
+
+#: src/comparison.md:76
+msgid ""
+"**Pre-execution runtime enforcement** — AAASM is the only product in this "
+"comparison that makes binding allow/deny decisions _before_ an agent action "
+"executes. All others are observability tools that record what happened after "
+"the fact."
+msgstr ""
+
+#: src/comparison.md:77
+msgid ""
+"**Kernel-level bypass detection via eBPF** — `aa-ebpf` intercepts TLS calls "
+"at the SSL library level using Linux uprobes, catching bypass attempts that "
+"SDK-only solutions cannot see. No competitor in this matrix offers "
+"kernel-level enforcement."
+msgstr ""
+
+#: src/comparison.md:78
+msgid ""
+"**Network-layer interception without code changes** — `aa-proxy` performs "
+"MitM HTTPS interception via a per-host CA. Governance can be applied to "
+"agents that do not use the SDK. No competitor supports sidecar-proxy-level "
+"enforcement."
+msgstr ""
+
+#: src/comparison.md:79
+msgid ""
+"**Policy-as-code with GitOps workflow** — AAASM policies are YAML/JSON "
+"documents that can be versioned, reviewed, and deployed via standard Git "
+"workflows. No competitor in this matrix offers a structured policy language; "
+"guardrails in other tools are typically configured through UI forms or "
+"proprietary DSLs."
+msgstr ""
+
+#: src/comparison.md:80
+msgid ""
+"**Immutable tamper-evident audit log** — AAASM's audit log entries are "
+"signed with HMAC-SHA256, making post-hoc alteration detectable. This is a "
+"compliance requirement in regulated industries (PCI-DSS, SOC 2 Type II) that "
+"no competitor in this matrix fully addresses."
+msgstr ""
+
+#: src/comparison.md:84
+msgid "Competitor documentation references"
+msgstr ""
+
+#: src/comparison.md:86
+msgid ""
+"Last validated 2026-05-05 against each vendor's documentation as of that "
+"date."
+msgstr ""
+
+#: src/comparison.md:88
+msgid "Competitor"
+msgstr ""
+
+#: src/comparison.md:88
+msgid "Documentation URL"
+msgstr ""
+
+#: src/comparison.md:90
+msgid "https://langfuse.com/docs"
+msgstr ""
+
+#: src/comparison.md:91
+msgid "https://docs.helicone.ai"
+msgstr ""
+
+#: src/comparison.md:92
+msgid "https://www.comet.com/docs/opik"
+msgstr ""
+
+#: src/comparison.md:93
+msgid "https://docs.pillar.security"
+msgstr ""
+
+#: src/comparison.md:99
+msgid ""
+"[Security model](security-model.md) — STRIDE threat model, IronClaw defense"
+msgstr ""
+
+#: src/comparison.md:100
+msgid "[Open core boundary](open-core-boundary.md) — what is OSS vs. enterprise"
+msgstr ""
+
+#: src/comparison.md:101
+msgid "[Quick start (SaaS)](quickstart-saas.md) — get started in minutes"
+msgstr ""
+
+#: src/open-core-boundary.md:1
+msgid "Open core boundary"
+msgstr ""
+
+#: src/open-core-boundary.md:3
+msgid "AI Agent Assembly follows an **open-core** model. The line is simple:"
+msgstr ""
+
+#: src/open-core-boundary.md:5
+msgid ""
+"**Enforcement is open source.** The interception layers, policy engine, SDK "
+"shims, and CLI are Apache-2.0. Anyone can read, audit, and contribute to "
+"them."
+msgstr ""
+
+#: src/open-core-boundary.md:6
+msgid ""
+"**Enterprise operations are commercial.** Features like SSO, SCIM, advanced "
+"audit, and multi-region data residency are covered by the AAA-Commercial "
+"license and available on paid SaaS tiers."
+msgstr ""
+
+#: src/open-core-boundary.md:8
+msgid ""
+"**A limited-function OSS stack is self-hostable; full functionality is "
+"SaaS.** You can self-host a limited-function stack from the Apache-2.0 "
+"crates — using the published Docker Compose example — for local evaluation "
+"and development. The complete feature set (enterprise operations, "
+"multi-tenant SLA, and the managed compliance posture) is delivered only "
+"through the AI Agent Assembly cloud. See [Cloud "
+"Deployment](cloud-deployment.md) and [Quick Start "
+"(SaaS)](quickstart-saas.md) for the managed onboarding paths."
+msgstr ""
+
+#: src/open-core-boundary.md:12
+msgid "Why open core?"
+msgstr ""
+
+#: src/open-core-boundary.md:14
+msgid "The enforcement path must be inspectable"
+msgstr ""
+
+#: src/open-core-boundary.md:16
+msgid ""
+"The infrastructure that sits between AI agents and the outside world has to "
+"be trustworthy and independently auditable. Keeping the core open source is "
+"not a marketing choice — it follows directly from the security posture."
+msgstr ""
+
+#: src/open-core-boundary.md:18
+msgid ""
+"An enterprise cannot take our word for how the policy engine evaluates "
+"rules, how eBPF probes intercept system calls, or how the sidecar proxy "
+"terminates TLS. Open source means a third party can read, review, and verify "
+"the enforcement path without involving us."
+msgstr ""
+
+#: src/open-core-boundary.md:20
+msgid "A single boundary rule"
+msgstr ""
+
+#: src/open-core-boundary.md:22
+msgid ""
+"The split between open and commercial follows one principle: **enforcement "
+"is open; enterprise operations are commercial.**"
+msgstr ""
+
+#: src/open-core-boundary.md:24
+msgid ""
+"If a feature controls _what agents can do_, it belongs in the Apache-2.0 "
+"core."
+msgstr ""
+
+#: src/open-core-boundary.md:25
+msgid ""
+"If a feature controls _how operators manage, scale, or audit the system at "
+"enterprise grade_ — SSO federation, SCIM user lifecycle, long-retention "
+"tamper-evident audit logs, multi-region data residency — it belongs in the "
+"commercial tier."
+msgstr ""
+
+#: src/open-core-boundary.md:27
+msgid ""
+"A motivated team can fork, read, or contribute to every security control in "
+"the stack, regardless of subscription status."
+msgstr ""
+
+#: src/open-core-boundary.md:29
+msgid "Open source strengthens the core"
+msgstr ""
+
+#: src/open-core-boundary.md:31
+msgid ""
+"Open-sourcing the enforcement logic creates a community feedback loop. "
+"Security researchers who find a gap in the policy engine, proxy TLS "
+"handling, or an eBPF program can open an issue or send a pull request."
+msgstr ""
+
+#: src/open-core-boundary.md:33
+msgid ""
+"We chose Apache-2.0 specifically because it permits commercial integration "
+"without a copyleft obligation — SDK users can embed the shims in proprietary "
+"products without the license spreading to their own code."
+msgstr ""
+
+#: src/open-core-boundary.md:35
+msgid "Limited-function self-host, full-function SaaS"
+msgstr ""
+
+#: src/open-core-boundary.md:37
+msgid ""
+"Shipping the crates as open source lets teams read, audit, and contribute — "
+"and self-host a **limited-function** stack (via the published Docker Compose "
+"example) for local evaluation and development."
+msgstr ""
+
+#: src/open-core-boundary.md:39
+msgid ""
+"The **complete** feature set stays SaaS. Operating a multi-tenant platform "
+"with the security and reliability commitments in the [Security "
+"model](security-model.md) takes infrastructure, on-call, and operational "
+"expertise that a self-managed install cannot match — so enterprise "
+"operations, the uptime SLA, and the managed compliance posture are delivered "
+"only through the AI Agent Assembly cloud."
+msgstr ""
+
+#: src/open-core-boundary.md:45
+msgid ""
+"🚧 **Coming soon.** The AAA-Commercial (Enterprise) tier described below — "
+"and the paid SaaS platform that delivers it — is planned and not yet "
+"generally available. The Apache-2.0 (OSS) column reflects what ships today; "
+"the commercial column reflects the intended design."
+msgstr ""
+
+#: src/open-core-boundary.md:47
+msgid "Feature"
+msgstr ""
+
+#: src/open-core-boundary.md:47
+msgid "Apache-2.0 (OSS)"
+msgstr ""
+
+#: src/open-core-boundary.md:47
+msgid "AAA-Commercial (Enterprise)"
+msgstr ""
+
+#: src/open-core-boundary.md:49
+msgid "**Core interception layers**"
+msgstr ""
+
+#: src/open-core-boundary.md:50
+msgid "Language SDK (Python, TypeScript, Go)"
+msgstr ""
+
+#: src/open-core-boundary.md:50 src/open-core-boundary.md:51
+#: src/open-core-boundary.md:52 src/open-core-boundary.md:54
+#: src/open-core-boundary.md:55 src/open-core-boundary.md:56
+#: src/open-core-boundary.md:57 src/open-core-boundary.md:59
+#: src/open-core-boundary.md:60 src/open-core-boundary.md:61
+#: src/open-core-boundary.md:64 src/open-core-boundary.md:65
+#: src/open-core-boundary.md:67 src/open-core-boundary.md:70
+#: src/open-core-boundary.md:72 src/open-core-boundary.md:76
+#: src/cloud-deployment.md:119 src/cloud-deployment.md:120
+#: src/cloud-deployment.md:121 src/cloud-deployment.md:123
+#: src/cloud-deployment.md:124 src/cloud-deployment.md:125
+msgid "✅"
+msgstr ""
+
+#: src/open-core-boundary.md:51
+msgid "Sidecar proxy (`aa-proxy`)"
+msgstr ""
+
+#: src/open-core-boundary.md:52
+msgid "eBPF sensor (`aa-ebpf`)"
+msgstr ""
+
+#: src/open-core-boundary.md:53
+msgid "**Gateway and policy**"
+msgstr ""
+
+#: src/open-core-boundary.md:54
+msgid "Agent registry"
+msgstr ""
+
+#: src/open-core-boundary.md:55
+msgid "Policy engine (allow/deny/audit)"
+msgstr ""
+
+#: src/open-core-boundary.md:56
+msgid "Per-team budget enforcement"
+msgstr ""
+
+#: src/open-core-boundary.md:57
+msgid "Policy-as-code (YAML/JSON)"
+msgstr ""
+
+#: src/open-core-boundary.md:58
+msgid "**Authentication and access**"
+msgstr ""
+
+#: src/open-core-boundary.md:59
+msgid "API key authentication"
+msgstr ""
+
+#: src/open-core-boundary.md:60 src/open-core-boundary.md:61
+#: src/open-core-boundary.md:65 src/open-core-boundary.md:66
+#: src/open-core-boundary.md:67 src/open-core-boundary.md:71
+#: src/open-core-boundary.md:72 src/open-core-boundary.md:73
+#: src/open-core-boundary.md:74 src/open-core-boundary.md:77
+#: src/open-core-boundary.md:78
+msgid "❌"
+msgstr ""
+
+#: src/open-core-boundary.md:62
+msgid "Role-based access control (RBAC)"
+msgstr ""
+
+#: src/open-core-boundary.md:62
+msgid "Basic"
+msgstr ""
+
+#: src/open-core-boundary.md:62
+msgid "Full (Owner/Admin/Developer/Viewer)"
+msgstr ""
+
+#: src/open-core-boundary.md:63
+msgid "**Audit and compliance**"
+msgstr ""
+
+#: src/open-core-boundary.md:64
+msgid "Basic audit log"
+msgstr ""
+
+#: src/open-core-boundary.md:65
+msgid "Tamper-evident signed audit log"
+msgstr ""
+
+#: src/open-core-boundary.md:66
+msgid "✅ (configurable, up to 1 year)"
+msgstr ""
+
+#: src/open-core-boundary.md:68
+msgid "**Deployment and SLA**"
+msgstr ""
+
+#: src/open-core-boundary.md:69
+msgid "Limited-function self-host (Docker Compose)"
+msgstr ""
+
+#: src/open-core-boundary.md:69
+msgid "✅ (local eval/dev)"
+msgstr ""
+
+#: src/open-core-boundary.md:70
+msgid "SaaS — shared region"
+msgstr ""
+
+#: src/open-core-boundary.md:70
+msgid "✅ (Free/Team tier)"
+msgstr ""
+
+#: src/open-core-boundary.md:71
+msgid "SaaS — dedicated region"
+msgstr ""
+
+#: src/open-core-boundary.md:71 src/open-core-boundary.md:73
+#: src/open-core-boundary.md:74 src/open-core-boundary.md:78
+msgid "✅ (Enterprise tier)"
+msgstr ""
+
+#: src/open-core-boundary.md:72
+msgid "Multi-region data residency"
+msgstr ""
+
+#: src/open-core-boundary.md:73
+msgid "99.9% uptime SLA"
+msgstr ""
+
+#: src/open-core-boundary.md:74
+msgid "Dedicated SRE contact"
+msgstr ""
+
+#: src/open-core-boundary.md:75
+msgid "**Support**"
+msgstr ""
+
+#: src/open-core-boundary.md:76 src/cloud-deployment.md:198
+msgid "Community forum"
+msgstr ""
+
+#: src/open-core-boundary.md:77
+msgid "Business-hours support"
+msgstr ""
+
+#: src/open-core-boundary.md:77
+msgid "✅ (Team tier)"
+msgstr ""
+
+#: src/open-core-boundary.md:78
+msgid "24/7 support"
+msgstr ""
+
+#: src/open-core-boundary.md:82
+msgid "Crate licensing"
+msgstr ""
+
+#: src/open-core-boundary.md:84
+msgid "All Cargo crates in the `agent-assembly` workspace are Apache-2.0:"
+msgstr ""
+
+#: src/open-core-boundary.md:86
+msgid "Crate"
+msgstr ""
+
+#: src/open-core-boundary.md:86
+msgid "License"
+msgstr ""
+
+#: src/open-core-boundary.md:88
+msgid "`aa-core`"
+msgstr ""
+
+#: src/open-core-boundary.md:88 src/open-core-boundary.md:89
+#: src/open-core-boundary.md:90 src/open-core-boundary.md:91
+#: src/open-core-boundary.md:92 src/open-core-boundary.md:93
+#: src/open-core-boundary.md:94 src/open-core-boundary.md:95
+#: src/open-core-boundary.md:96 src/open-core-boundary.md:97
+#: src/open-core-boundary.md:98 src/open-core-boundary.md:99
+#: src/open-core-boundary.md:100 src/open-core-boundary.md:101
+msgid "Apache-2.0"
+msgstr ""
+
+#: src/open-core-boundary.md:88
+msgid "Core domain types — always OSS"
+msgstr ""
+
+#: src/open-core-boundary.md:89
+msgid "`aa-proto`"
+msgstr ""
+
+#: src/open-core-boundary.md:89
+msgid "Protobuf definitions — always OSS"
+msgstr ""
+
+#: src/open-core-boundary.md:90
+msgid "`aa-runtime`"
+msgstr ""
+
+#: src/open-core-boundary.md:90
+msgid "Async runtime utilities — always OSS"
+msgstr ""
+
+#: src/open-core-boundary.md:91
+msgid "`aa-gateway`"
+msgstr ""
+
+#: src/open-core-boundary.md:91
+msgid ""
+"Gateway with policy engine — OSS core; enterprise features gated behind SaaS "
+"config"
+msgstr ""
+
+#: src/open-core-boundary.md:92
+msgid "`aa-api`"
+msgstr ""
+
+#: src/open-core-boundary.md:92
+msgid "REST API surface — OSS"
+msgstr ""
+
+#: src/open-core-boundary.md:93
+msgid "`aa-proxy`"
+msgstr ""
+
+#: src/open-core-boundary.md:93
+msgid "Sidecar proxy — always OSS"
+msgstr ""
+
+#: src/open-core-boundary.md:94
+msgid "`aa-ebpf`"
+msgstr ""
+
+#: src/open-core-boundary.md:94
+msgid "eBPF user-space loader — always OSS"
+msgstr ""
+
+#: src/open-core-boundary.md:95
+msgid "`aa-ebpf-common`"
+msgstr ""
+
+#: src/open-core-boundary.md:95
+msgid "eBPF shared types — always OSS"
+msgstr ""
+
+#: src/open-core-boundary.md:96
+msgid "`aa-ffi-python`"
+msgstr ""
+
+#: src/open-core-boundary.md:96
+msgid "Python SDK native shim — always OSS"
+msgstr ""
+
+#: src/open-core-boundary.md:97
+msgid "`aa-ffi-node`"
+msgstr ""
+
+#: src/open-core-boundary.md:97
+msgid "TypeScript SDK native binding — always OSS"
+msgstr ""
+
+#: src/open-core-boundary.md:98
+msgid "`aa-ffi-go`"
+msgstr ""
+
+#: src/open-core-boundary.md:98
+msgid "Go SDK CGo shim — always OSS"
+msgstr ""
+
+#: src/open-core-boundary.md:99
+msgid "`aa-wasm`"
+msgstr ""
+
+#: src/open-core-boundary.md:99
+msgid "WebAssembly build — always OSS"
+msgstr ""
+
+#: src/open-core-boundary.md:100
+msgid "`aa-cli`"
+msgstr ""
+
+#: src/open-core-boundary.md:100
+msgid "`aasm` operator CLI — always OSS"
+msgstr ""
+
+#: src/open-core-boundary.md:101
+msgid "`conformance`"
+msgstr ""
+
+#: src/open-core-boundary.md:101
+msgid "Conformance test suite — always OSS"
+msgstr ""
+
+#: src/open-core-boundary.md:103
+msgid "Apache 2.0 key terms"
+msgstr ""
+
+#: src/open-core-boundary.md:105
+msgid ""
+"The Apache License 2.0 grants users the right to use, reproduce, prepare "
+"derivative works, distribute, and sublicense the software with or without "
+"modification. It does not grant trademark rights, and it requires "
+"preservation of copyright notices and attribution in distributed works. See "
+"the full license text at https://www.apache.org/licenses/LICENSE-2.0."
+msgstr ""
+
+#: src/open-core-boundary.md:107
+msgid ""
+"Enterprise features (SSO, SCIM, tamper-evident audit, dedicated regions) are "
+"delivered via SaaS-side configuration — not via separate closed-source "
+"crates. The OSS codebase contains all interception and enforcement logic."
+msgstr ""
+
+#: src/open-core-boundary.md:111
+msgid "Contributing to the OSS core"
+msgstr ""
+
+#: src/open-core-boundary.md:113
+msgid ""
+"The Apache-2.0 crates welcome community contributions. See `CONTRIBUTING.md` "
+"in the `agent-assembly` repository for:"
+msgstr ""
+
+#: src/open-core-boundary.md:115
+msgid "Branching and commit conventions"
+msgstr ""
+
+#: src/open-core-boundary.md:116
+msgid "How to run the test suite (`cargo nextest run --workspace`)"
+msgstr ""
+
+#: src/open-core-boundary.md:117
+msgid "The CLA requirement for non-trivial contributions"
+msgstr ""
+
+#: src/open-core-boundary.md:118
+msgid "How to file issues and feature requests"
+msgstr ""
+
+#: src/open-core-boundary.md:120
+msgid ""
+"Enterprise feature requests (SSO, SCIM, audit extensions) are tracked as "
+"AAASM JIRA tickets in the Enterprise component and delivered by the AI Agent "
+"Assembly team."
+msgstr ""
+
+#: src/open-core-boundary.md:126
+msgid ""
+"[Security model](security-model.md) — cryptographic primitives and audit log "
+"details"
+msgstr ""
+
+#: src/open-core-boundary.md:127
+msgid "[Cloud deployment](cloud-deployment.md) — SSO, SCIM, SLA tier comparison"
+msgstr ""
+
+#: src/open-core-boundary.md:128
+msgid ""
+"[Why AI Agent Assembly?](comparison.md) — open-source posture vs. competitors"
+msgstr ""
+
+#: src/open-core-boundary.md:132
+msgid "_Last reviewed: 2026-06-11 · Legal approver: @legal-team_"
+msgstr ""
+
+#: src/quickstart-saas.md:1
+msgid "Quick start (SaaS)"
+msgstr ""
+
+#: src/quickstart-saas.md:3 src/cloud-deployment.md:3
+msgid ""
+"🚧 **Coming soon.** The AI Agent Assembly SaaS / commercial platform "
+"described here is planned and not yet generally available. The content below "
+"reflects the intended design."
+msgstr ""
+
+#: src/quickstart-saas.md:5
+msgid ""
+"This page takes you from zero to a governed AI agent. The fastest path is "
+"the LangChain walkthrough below, which works on any tier. If you want to "
+"pick a tier first, jump to [Pro](#pro-tier), [Business](#business-tier), or "
+"[Enterprise](#enterprise-tier)."
+msgstr ""
+
+#: src/quickstart-saas.md:7
+msgid ""
+"This page covers the managed SaaS onboarding. Choose the tier that matches "
+"your team size and compliance needs, then connect your first agent. (A "
+"limited-function stack is also self-hostable from the Apache-2.0 crates for "
+"local evaluation and development — see [Open core "
+"boundary](open-core-boundary.md).)"
+msgstr ""
+
+#: src/quickstart-saas.md:9
+msgid ""
+"**Full functionality is SaaS.** A limited-function stack is self-hostable "
+"from the Apache-2.0 crates for local evaluation and development; complete "
+"governance, policy evaluation, and audit logging at production grade run in "
+"the AI Agent Assembly cloud. See [Open core boundary](open-core-boundary.md) "
+"for the licensing model."
+msgstr ""
+
+#: src/quickstart-saas.md:13
+msgid "Govern a LangChain agent in under 5 minutes"
+msgstr ""
+
+#: src/quickstart-saas.md:15
+msgid ""
+"This end-to-end example takes a LangChain agent from zero to fully governed "
+"in under 5 minutes, on any tier."
+msgstr ""
+
+#: src/quickstart-saas.md:17
+msgid ""
+"**Prerequisites:** Python 3.12+, an OpenAI API key, and a Pro (or higher) "
+"workspace."
+msgstr ""
+
+#: src/quickstart-saas.md:19
+msgid "Step 1 — Install packages"
+msgstr ""
+
+#: src/quickstart-saas.md:21
+msgid ""
+"Install the Python SDK — see the [Python SDK quick "
+"start](https://docs.agent-assembly.com/python-sdk/) for the current install "
+"command — plus the LangChain packages this walkthrough uses: `langchain`, "
+"`langchain-classic`, `langchain-openai`, `langchain-core`."
+msgstr ""
+
+#: src/quickstart-saas.md:23
+msgid "Step 2 — Set credentials"
+msgstr ""
+
+#: src/quickstart-saas.md:26
+msgid "\"<your-workspace-id>\"   # from Settings → Workspace\n"
+msgstr ""
+
+#: src/quickstart-saas.md:27
+msgid "\"<your-api-key>\"             # from Settings → API Keys\n"
+msgstr ""
+
+#: src/quickstart-saas.md:28
+msgid "\"<your-openai-key>\""
+msgstr ""
+
+#: src/quickstart-saas.md:31
+msgid "Step 3 — Instrument your LangChain agent"
+msgstr ""
+
+#: src/quickstart-saas.md:45
+msgid "\"\"\"Return a one-sentence summary of the provided text.\"\"\""
+msgstr ""
+
+#: src/quickstart-saas.md:46
+msgid "\"...\""
+msgstr ""
+
+#: src/quickstart-saas.md:50
+msgid ""
+"# init_assembly registers the agent with the gateway and installs the\n"
+"    # governance interceptor. get_active_callback_handler() returns the\n"
+"    # AssemblyCallbackHandler it wired to that interceptor; passing it to\n"
+"    # LangChain via callbacks=[...] policy-checks and audits every tool/LLM "
+"call.\n"
+msgstr ""
+
+#: src/quickstart-saas.md:55 src/quickstart-saas.md:150
+msgid "\"AAA_GATEWAY_URL\""
+msgstr ""
+
+#: src/quickstart-saas.md:55 src/quickstart-saas.md:150
+msgid "\"https://api.agent-assembly.com\""
+msgstr ""
+
+#: src/quickstart-saas.md:56 src/quickstart-saas.md:151
+msgid "\"AAA_API_KEY\""
+msgstr ""
+
+#: src/quickstart-saas.md:57
+msgid "\"langchain-research-agent\""
+msgstr ""
+
+#: src/quickstart-saas.md:58 src/quickstart-saas.md:153
+msgid "\"sdk-only\""
+msgstr ""
+
+#: src/quickstart-saas.md:62 src/quickstart-saas.md:157
+msgid "\"gpt-4o\""
+msgstr ""
+
+#: src/quickstart-saas.md:66
+msgid "\"system\""
+msgstr ""
+
+#: src/quickstart-saas.md:66
+msgid "\"You are a helpful research assistant.\""
+msgstr ""
+
+#: src/quickstart-saas.md:67
+msgid "\"human\""
+msgstr ""
+
+#: src/quickstart-saas.md:67
+msgid "\"{input}\""
+msgstr ""
+
+#: src/quickstart-saas.md:68
+msgid "\"agent_scratchpad\""
+msgstr ""
+
+#: src/quickstart-saas.md:75
+msgid "\"input\""
+msgstr ""
+
+#: src/quickstart-saas.md:76
+msgid "\"output\""
+msgstr ""
+
+#: src/quickstart-saas.md:79
+msgid "\"__main__\""
+msgstr ""
+
+#: src/quickstart-saas.md:81
+msgid ""
+"\"What is AI Agent Assembly and why does it matter for enterprise "
+"governance?\""
+msgstr ""
+
+#: src/quickstart-saas.md:86
+msgid ""
+"The `init_assembly` session plus the wired callback handler do three things, "
+"without touching LangChain internals:"
+msgstr ""
+
+#: src/quickstart-saas.md:88
+msgid "Register `langchain-research-agent` with the gateway."
+msgstr ""
+
+#: src/quickstart-saas.md:89
+msgid ""
+"Run a policy check before each tool/LLM call, blocking it if policy denies."
+msgstr ""
+
+#: src/quickstart-saas.md:90
+msgid "Emit an audit event for every call."
+msgstr ""
+
+#: src/quickstart-saas.md:92
+msgid ""
+"**Deny is enforced — a blocked call raises.** With the idiomatic "
+"`callbacks=[handler]` wiring shown above, a policy **deny** stops the "
+"tool/LLM call by **raising an exception** that propagates out of "
+"`executor.invoke(...)`; the denied action does not run. (The deny is no "
+"longer swallowed — wrap the `invoke` call in `try`/`except` if you want to "
+"handle a blocked action gracefully instead of letting it surface.)"
+msgstr ""
+
+#: src/quickstart-saas.md:99
+msgid "Step 4 — Activate a starter policy"
+msgstr ""
+
+#: src/quickstart-saas.md:101
+msgid ""
+"In the console, open **Policies → New Policy** and apply the starter "
+"template (allow all, audit all). This takes under 30 seconds. From now on, "
+"every call from `langchain-research-agent` is governed, audited, and visible "
+"in the **Audit Log** panel."
+msgstr ""
+
+#: src/quickstart-saas.md:103
+msgid "What governance looks like at runtime"
+msgstr ""
+
+#: src/quickstart-saas.md:113
+msgid "Pro Tier"
+msgstr ""
+
+#: src/quickstart-saas.md:115
+msgid ""
+"**Signup**: planned self-serve at `https://app.agent-assembly.com/signup` — "
+"**not yet live** while Cloud is in early access. [Request Cloud early "
+"access](https://agent-assembly.com/early-access) to be notified when "
+"Pro-tier signup opens."
+msgstr ""
+
+#: src/quickstart-saas.md:117
+msgid ""
+"**Included features**: up to 10 agents, basic policy engine "
+"(allow/deny/audit), 30-day audit log retention, community forum support."
+msgstr ""
+
+#: src/quickstart-saas.md:119
+msgid ""
+"**Expected onboarding time**: ~10 minutes from signup to first governed "
+"agent call."
+msgstr ""
+
+#: src/quickstart-saas.md:121
+msgid ""
+"**Primary contact channel**: self-serve; community forum at "
+"`https://community.agent-assembly.com`."
+msgstr ""
+
+#: src/quickstart-saas.md:123
+msgid "Pro signup steps"
+msgstr ""
+
+#: src/quickstart-saas.md:125
+msgid ""
+"**Coming soon** — once Cloud is generally available, you'll navigate to "
+"`https://app.agent-assembly.com/signup` and create an account with your work "
+"email. The signup endpoint is not live yet; [request early "
+"access](https://agent-assembly.com/early-access) in the meantime."
+msgstr ""
+
+#: src/quickstart-saas.md:126
+msgid "Verify your email address."
+msgstr ""
+
+#: src/quickstart-saas.md:127
+msgid ""
+"On the **Workspace Setup** page, enter a workspace name (e.g., "
+"`acme-ai-ops`) and select your primary region."
+msgstr ""
+
+#: src/quickstart-saas.md:128
+msgid ""
+"Copy your **Workspace ID** and generate an **API Key** under **Settings → "
+"API Keys**."
+msgstr ""
+
+#: src/quickstart-saas.md:129
+msgid ""
+"Install the SDK for your language — see the [Python SDK quick "
+"start](https://docs.agent-assembly.com/python-sdk/), [Node SDK quick "
+"start](https://docs.agent-assembly.com/node-sdk/), or [Go SDK quick "
+"start](https://docs.agent-assembly.com/go-sdk/)."
+msgstr ""
+
+#: src/quickstart-saas.md:131
+msgid "Set credentials:"
+msgstr ""
+
+#: src/quickstart-saas.md:134
+msgid "\"<your-workspace-id>\""
+msgstr ""
+
+#: src/quickstart-saas.md:135
+msgid "\"<your-api-key>\""
+msgstr ""
+
+#: src/quickstart-saas.md:138
+msgid "Instrument your agent entry point:"
+msgstr ""
+
+#: src/quickstart-saas.md:147
+msgid ""
+"# Open a governed session for this agent; every call inside the context is\n"
+"    # registered, policy-checked, and audited by the gateway.\n"
+msgstr ""
+
+#: src/quickstart-saas.md:152
+msgid "\"my-first-agent\""
+msgstr ""
+
+#: src/quickstart-saas.md:158
+msgid "\"role\""
+msgstr ""
+
+#: src/quickstart-saas.md:158
+msgid "\"user\""
+msgstr ""
+
+#: src/quickstart-saas.md:158
+msgid "\"content\""
+msgstr ""
+
+#: src/quickstart-saas.md:163
+msgid ""
+"Open **Policies → New Policy** in the console and activate a starter policy. "
+"Your agent is now governed."
+msgstr ""
+
+#: src/quickstart-saas.md:167
+msgid "Business Tier"
+msgstr ""
+
+#: src/quickstart-saas.md:169
+msgid ""
+"**Signup**: planned self-serve at `https://app.agent-assembly.com/signup` "
+"(select **Business** during workspace setup) — **not yet live** while Cloud "
+"is in early access. [Request Cloud early "
+"access](https://agent-assembly.com/early-access) to be notified when "
+"Business-tier signup opens."
+msgstr ""
+
+#: src/quickstart-saas.md:171
+msgid ""
+"**Included features**: up to 50 agents, full policy engine, SSO (SAML 2.0 / "
+"OIDC), 90-day audit log retention, SIEM export, business-hours support (24h "
+"response)."
+msgstr ""
+
+#: src/quickstart-saas.md:173
+msgid "**Expected onboarding time**: ~30 minutes, including SSO connect."
+msgstr ""
+
+#: src/quickstart-saas.md:175
+msgid ""
+"**Primary contact channel**: support ticket via "
+"`https://app.agent-assembly.com/support`."
+msgstr ""
+
+#: src/quickstart-saas.md:177
+msgid "Business signup steps"
+msgstr ""
+
+#: src/quickstart-saas.md:179
+msgid ""
+"**Coming soon** — once Cloud is generally available, you'll sign up at "
+"`https://app.agent-assembly.com/signup` and select the **Business** tier. "
+"The signup endpoint is not live yet; [request early "
+"access](https://agent-assembly.com/early-access) in the meantime."
+msgstr ""
+
+#: src/quickstart-saas.md:180
+msgid ""
+"On the **Billing** page, enter your credit card details (processed via "
+"Stripe)."
+msgstr ""
+
+#: src/quickstart-saas.md:181
+msgid "Complete workspace setup (name, region) as in the Pro flow above."
+msgstr ""
+
+#: src/quickstart-saas.md:182
+msgid ""
+"Connect SSO: navigate to **Settings → Authentication → SSO** and follow the "
+"[SAML 2.0 or OIDC setup steps](cloud-deployment.md#sso-configuration). SSO "
+"is optional at the Business tier but recommended for teams."
+msgstr ""
+
+#: src/quickstart-saas.md:183
+msgid ""
+"Invite your team under **Settings → Users** — assign roles (Admin, "
+"Developer, Viewer)."
+msgstr ""
+
+#: src/quickstart-saas.md:184 src/quickstart-saas.md:214
+msgid "Instrument agents and create policies as in the Pro flow."
+msgstr ""
+
+#: src/quickstart-saas.md:188
+msgid "Enterprise Tier"
+msgstr ""
+
+#: src/quickstart-saas.md:190
+msgid ""
+"**Signup**: form-driven via `https://app.agent-assembly.com/contact-sales`."
+msgstr ""
+
+#: src/quickstart-saas.md:192
+msgid ""
+"**Included features**: unlimited agents, dedicated region (data residency), "
+"SCIM provisioning, tamper-evident audit log, audit log retention up to 1 "
+"year, 99.9% SLA, 24/7 support (4h response), dedicated SRE contact."
+msgstr ""
+
+#: src/quickstart-saas.md:194
+msgid ""
+"**Expected onboarding time**: 1–3 weeks, driven by procurement and security "
+"review."
+msgstr ""
+
+#: src/quickstart-saas.md:196
+msgid "**Primary contact channel**: your assigned Sales Engineer (SE)."
+msgstr ""
+
+#: src/quickstart-saas.md:198
+msgid "Enterprise procurement timeline"
+msgstr ""
+
+#: src/quickstart-saas.md:200
+msgid "Week"
+msgstr ""
+
+#: src/quickstart-saas.md:200
+msgid "Activity"
+msgstr ""
+
+#: src/quickstart-saas.md:202
+msgid "**Week 1**"
+msgstr ""
+
+#: src/quickstart-saas.md:202
+msgid ""
+"Submit the `/contact-sales` form → initial SE call (30 min) → receive the "
+"Enterprise Order Form and DPA/BAA templates"
+msgstr ""
+
+#: src/quickstart-saas.md:203
+msgid "**Week 2**"
+msgstr ""
+
+#: src/quickstart-saas.md:203
+msgid "Legal review of DPA / BAA → IT security review → contract signature"
+msgstr ""
+
+#: src/quickstart-saas.md:204
+msgid "**Week 3**"
+msgstr ""
+
+#: src/quickstart-saas.md:204
+msgid ""
+"SE-led workspace provisioning → SSO + SCIM setup with your IdP team → pilot "
+"agent onboarding"
+msgstr ""
+
+#: src/quickstart-saas.md:206
+msgid "Enterprise-specific steps"
+msgstr ""
+
+#: src/quickstart-saas.md:208
+msgid ""
+"Submit the contact form at `https://app.agent-assembly.com/contact-sales`. "
+"Include estimated agent count, primary region preference, and compliance "
+"requirements (SOC 2, HIPAA, GDPR)."
+msgstr ""
+
+#: src/quickstart-saas.md:209
+msgid ""
+"During the SE call, confirm your IdP (Okta, Azure AD, PingFederate, etc.) "
+"and data residency requirement."
+msgstr ""
+
+#: src/quickstart-saas.md:210
+msgid ""
+"After contract signature, the SE provisions your workspace in the selected "
+"dedicated region and sends your Workspace ID and initial API key."
+msgstr ""
+
+#: src/quickstart-saas.md:211
+msgid ""
+"Configure **SSO** (SAML or OIDC) per [Cloud Deployment → SSO "
+"Configuration](cloud-deployment.md#sso-configuration)."
+msgstr ""
+
+#: src/quickstart-saas.md:212
+msgid ""
+"Configure **SCIM** provisioning per [Cloud Deployment → SCIM User "
+"Provisioning](cloud-deployment.md#scim-user-provisioning) for automated user "
+"lifecycle management."
+msgstr ""
+
+#: src/quickstart-saas.md:213
+msgid ""
+"Configure **budgets** per [Cloud Deployment → Budget "
+"Configuration](cloud-deployment.md#budget-configuration) for per-team LLM "
+"spend caps."
+msgstr ""
+
+#: src/quickstart-saas.md:218
+msgid "Next steps"
+msgstr ""
+
+#: src/quickstart-saas.md:220
+msgid ""
+"[Cloud deployment](cloud-deployment.md) — SSO/SCIM deep-dive, region "
+"selection, billing, SLA tiers"
+msgstr ""
+
+#: src/quickstart-saas.md:221
+msgid "[Policy reference](policy-reference.md) — full policy rule schema"
+msgstr ""
+
+#: src/quickstart-saas.md:222
+msgid ""
+"[Open core boundary](open-core-boundary.md) — what's in the OSS core vs. the "
+"enterprise tier"
+msgstr ""
+
+#: src/quickstart-saas.md:240 src/self-host-observability.md:139
+msgid "_Last reviewed: 2026-07-15 · AI Agent Assembly Team_"
+msgstr ""
+
+#: src/cloud-deployment.md:1
+msgid "Cloud Deployment"
+msgstr ""
+
+#: src/cloud-deployment.md:5
+msgid ""
+"This page covers how to configure an enterprise workspace on the AI Agent "
+"Assembly SaaS platform: identity federation (SSO), user provisioning (SCIM), "
+"regional data residency, budgets, SLAs, and billing."
+msgstr ""
+
+#: src/cloud-deployment.md:7
+msgid ""
+"**This page covers the managed SaaS platform.** A limited-function stack is "
+"self-hostable from the Apache-2.0 crates (see the Docker Compose example) "
+"for local evaluation and development, but the enterprise operations "
+"described here — SSO, SCIM, regional data residency, SLAs, and billing — run "
+"only in the AI Agent Assembly cloud. See [Open core "
+"boundary](open-core-boundary.md) for the split."
+msgstr ""
+
+#: src/cloud-deployment.md:11
+msgid "SaaS regions"
+msgstr ""
+
+#: src/cloud-deployment.md:13
+msgid ""
+"AI Agent Assembly is available in the following regions. Data at rest and in "
+"transit stays within the selected region."
+msgstr ""
+
+#: src/cloud-deployment.md:15
+msgid "Region"
+msgstr ""
+
+#: src/cloud-deployment.md:15
+msgid "Location"
+msgstr ""
+
+#: src/cloud-deployment.md:15
+msgid "Data residency"
+msgstr ""
+
+#: src/cloud-deployment.md:17
+msgid "`us-east-1`"
+msgstr ""
+
+#: src/cloud-deployment.md:17
+msgid "Northern Virginia, USA"
+msgstr ""
+
+#: src/cloud-deployment.md:17
+msgid "United States"
+msgstr ""
+
+#: src/cloud-deployment.md:18
+msgid "`eu-west-1`"
+msgstr ""
+
+#: src/cloud-deployment.md:18
+msgid "Dublin, Ireland"
+msgstr ""
+
+#: src/cloud-deployment.md:18
+msgid "European Union"
+msgstr ""
+
+#: src/cloud-deployment.md:19
+msgid "`ap-northeast-1`"
+msgstr ""
+
+#: src/cloud-deployment.md:19
+msgid "Tokyo, Japan"
+msgstr ""
+
+#: src/cloud-deployment.md:19
+msgid "Asia-Pacific"
+msgstr ""
+
+#: src/cloud-deployment.md:21
+msgid ""
+"Select your primary region when creating a workspace (see [Quick Start "
+"(SaaS)](quickstart-saas.md)). Region selection is permanent — contact "
+"support to migrate."
+msgstr ""
+
+#: src/cloud-deployment.md:25
+msgid "Tenant provisioning"
+msgstr ""
+
+#: src/cloud-deployment.md:27
+msgid ""
+"A workspace is the top-level isolation boundary. All agents, policies, "
+"budgets, and users belong to a single workspace (tenant)."
+msgstr ""
+
+#: src/cloud-deployment.md:29
+msgid "Tenant creation"
+msgstr ""
+
+#: src/cloud-deployment.md:31
+msgid "Who"
+msgstr ""
+
+#: src/cloud-deployment.md:31
+msgid "How"
+msgstr ""
+
+#: src/cloud-deployment.md:33
+msgid "Self-serve"
+msgstr ""
+
+#: src/cloud-deployment.md:33
+msgid "Pro and Business"
+msgstr ""
+
+#: src/cloud-deployment.md:33
+msgid ""
+"Sign up at `https://app.agent-assembly.com/signup`; workspace created "
+"immediately after email verification"
+msgstr ""
+
+#: src/cloud-deployment.md:34
+msgid "SE-provisioned"
+msgstr ""
+
+#: src/cloud-deployment.md:34
+msgid "Enterprise"
+msgstr ""
+
+#: src/cloud-deployment.md:34
+msgid ""
+"Sales Engineer creates the workspace in the contracted dedicated region "
+"after contract signature"
+msgstr ""
+
+#: src/cloud-deployment.md:36
+msgid "Tenant ID format"
+msgstr ""
+
+#: src/cloud-deployment.md:38
+msgid ""
+"Tenant IDs (workspace IDs) follow the format `ws-<uuid4>` — for example, "
+"`ws-a1b2c3d4-e5f6-7890-abcd-ef1234567890`. The workspace ID is shown in "
+"**Settings → Workspace** and is required in all SDK configuration."
+msgstr ""
+
+#: src/cloud-deployment.md:40
+msgid "Default quotas per tier"
+msgstr ""
+
+#: src/cloud-deployment.md:42 src/cloud-deployment.md:196
+msgid "Tier"
+msgstr ""
+
+#: src/cloud-deployment.md:42
+msgid "Max agents"
+msgstr ""
+
+#: src/cloud-deployment.md:42
+msgid "Max policies"
+msgstr ""
+
+#: src/cloud-deployment.md:42
+msgid "Audit log retention"
+msgstr ""
+
+#: src/cloud-deployment.md:44 src/cloud-deployment.md:198
+msgid "**Free**"
+msgstr ""
+
+#: src/cloud-deployment.md:44
+msgid "7 days"
+msgstr ""
+
+#: src/cloud-deployment.md:45
+msgid "**Pro**"
+msgstr ""
+
+#: src/cloud-deployment.md:45
+msgid "10"
+msgstr ""
+
+#: src/cloud-deployment.md:45
+msgid "20"
+msgstr ""
+
+#: src/cloud-deployment.md:45
+msgid "30 days"
+msgstr ""
+
+#: src/cloud-deployment.md:46
+msgid "**Business**"
+msgstr ""
+
+#: src/cloud-deployment.md:46
+msgid "50"
+msgstr ""
+
+#: src/cloud-deployment.md:46
+msgid "100"
+msgstr ""
+
+#: src/cloud-deployment.md:46
+msgid "90 days"
+msgstr ""
+
+#: src/cloud-deployment.md:47 src/cloud-deployment.md:200
+msgid "**Enterprise**"
+msgstr ""
+
+#: src/cloud-deployment.md:47
+msgid "Unlimited"
+msgstr ""
+
+#: src/cloud-deployment.md:47
+msgid "Up to 1 year (configurable)"
+msgstr ""
+
+#: src/cloud-deployment.md:49
+msgid "Contact support to request a quota increase."
+msgstr ""
+
+#: src/cloud-deployment.md:53
+msgid "SSO Configuration"
+msgstr ""
+
+#: src/cloud-deployment.md:55
+msgid ""
+"The following diagram shows the SSO authentication flow for a user's first "
+"login after SSO is configured."
+msgstr ""
+
+#: src/cloud-deployment.md:75
+msgid "SAML 2.0"
+msgstr ""
+
+#: src/cloud-deployment.md:77 src/cloud-deployment.md:98
+msgid ""
+"In the AI Agent Assembly console, navigate to **Settings → Authentication → "
+"SSO**."
+msgstr ""
+
+#: src/cloud-deployment.md:78
+msgid "Select **SAML 2.0**."
+msgstr ""
+
+#: src/cloud-deployment.md:79
+msgid ""
+"Copy the **Assertion Consumer Service (ACS) URL** and **Entity ID** shown in "
+"the console."
+msgstr ""
+
+#: src/cloud-deployment.md:80
+msgid ""
+"In your IdP (Okta, Azure AD, PingFederate, etc.), create a new SAML "
+"application:"
+msgstr ""
+
+#: src/cloud-deployment.md:81
+msgid "Set the **Single Sign-On URL** to the ACS URL."
+msgstr ""
+
+#: src/cloud-deployment.md:82
+msgid "Set the **Audience URI / SP Entity ID** to the Entity ID."
+msgstr ""
+
+#: src/cloud-deployment.md:83
+msgid "Map the following attributes:"
+msgstr ""
+
+#: src/cloud-deployment.md:85
+msgid "SAML Attribute"
+msgstr ""
+
+#: src/cloud-deployment.md:85 src/cloud-deployment.md:175
+#: src/policy-reference.md:49 src/policy-reference.md:86
+#: src/policy-reference.md:108 src/policy-reference.md:130
+#: src/policy-reference.md:151 src/policy-reference.md:169
+#: src/policy-reference.md:196 src/policy-reference.md:203
+#: src/policy-reference.md:234
+msgid "Description"
+msgstr ""
+
+#: src/cloud-deployment.md:87
+msgid "`email`"
+msgstr ""
+
+#: src/cloud-deployment.md:87
+msgid "User's email address (required)"
+msgstr ""
+
+#: src/cloud-deployment.md:88
+msgid "`firstName`"
+msgstr ""
+
+#: src/cloud-deployment.md:88
+msgid "User's given name"
+msgstr ""
+
+#: src/cloud-deployment.md:89
+msgid "`lastName`"
+msgstr ""
+
+#: src/cloud-deployment.md:89
+msgid "User's family name"
+msgstr ""
+
+#: src/cloud-deployment.md:90
+msgid "`groups`"
+msgstr ""
+
+#: src/cloud-deployment.md:90
+msgid "Group memberships for role mapping (optional)"
+msgstr ""
+
+#: src/cloud-deployment.md:92
+msgid ""
+"Download the **IdP metadata XML** from your IdP and upload it to the AI "
+"Agent Assembly console."
+msgstr ""
+
+#: src/cloud-deployment.md:93
+msgid "Click **Test SSO** to verify the configuration before enabling."
+msgstr ""
+
+#: src/cloud-deployment.md:94
+msgid "Enable **Enforce SSO** to prevent password-based login for your domain."
+msgstr ""
+
+#: src/cloud-deployment.md:96
+msgid "OIDC"
+msgstr ""
+
+#: src/cloud-deployment.md:99
+msgid "Select **OpenID Connect (OIDC)**."
+msgstr ""
+
+#: src/cloud-deployment.md:100
+msgid "Register AI Agent Assembly as an OIDC client in your IdP:"
+msgstr ""
+
+#: src/cloud-deployment.md:101
+msgid "Set the **Redirect URI** to the value shown in the console."
+msgstr ""
+
+#: src/cloud-deployment.md:102
+msgid "Request scopes: `openid email profile groups`."
+msgstr ""
+
+#: src/cloud-deployment.md:103
+msgid "Enter the following values from your IdP registration:"
+msgstr ""
+
+#: src/cloud-deployment.md:104
+msgid "**Issuer URL** (e.g., `https://your-idp.example.com`)"
+msgstr ""
+
+#: src/cloud-deployment.md:105
+msgid "**Client ID**"
+msgstr ""
+
+#: src/cloud-deployment.md:106
+msgid "**Client Secret**"
+msgstr ""
+
+#: src/cloud-deployment.md:107
+msgid "Save the configuration and click **Test OIDC Login**."
+msgstr ""
+
+#: src/cloud-deployment.md:111
+msgid "SCIM User Provisioning"
+msgstr ""
+
+#: src/cloud-deployment.md:113
+msgid ""
+"SCIM 2.0 enables automatic user and group provisioning from your IdP. When "
+"SCIM is configured, users are created, updated, and deprovisioned "
+"automatically as they are added to or removed from groups in your IdP."
+msgstr ""
+
+#: src/cloud-deployment.md:115
+msgid "Supported operations"
+msgstr ""
+
+#: src/cloud-deployment.md:117
+msgid "SCIM operation"
+msgstr ""
+
+#: src/cloud-deployment.md:117
+msgid "Supported"
+msgstr ""
+
+#: src/cloud-deployment.md:119
+msgid "Create user"
+msgstr ""
+
+#: src/cloud-deployment.md:120
+msgid "Update user attributes"
+msgstr ""
+
+#: src/cloud-deployment.md:121
+msgid "Deactivate user"
+msgstr ""
+
+#: src/cloud-deployment.md:122
+msgid "Delete user"
+msgstr ""
+
+#: src/cloud-deployment.md:122
+msgid "✅ (deactivates; audit log records are retained)"
+msgstr ""
+
+#: src/cloud-deployment.md:123
+msgid "Create group"
+msgstr ""
+
+#: src/cloud-deployment.md:124
+msgid "Update group membership"
+msgstr ""
+
+#: src/cloud-deployment.md:125
+msgid "Delete group"
+msgstr ""
+
+#: src/cloud-deployment.md:127
+msgid "Configuration steps"
+msgstr ""
+
+#: src/cloud-deployment.md:129
+msgid "In the console, navigate to **Settings → Authentication → SCIM**."
+msgstr ""
+
+#: src/cloud-deployment.md:130
+msgid "Click **Generate SCIM Token**. Copy the token — it is shown only once."
+msgstr ""
+
+#: src/cloud-deployment.md:131
+msgid "In your IdP, configure the SCIM provisioning connector:"
+msgstr ""
+
+#: src/cloud-deployment.md:132
+msgid ""
+"**SCIM Endpoint URL**: shown in the console (e.g., "
+"`https://api.agent-assembly.com/scim/v2`)"
+msgstr ""
+
+#: src/cloud-deployment.md:133
+msgid "**Authentication Method**: Bearer Token"
+msgstr ""
+
+#: src/cloud-deployment.md:134
+msgid "**Bearer Token**: the token generated in step 2"
+msgstr ""
+
+#: src/cloud-deployment.md:135
+msgid "Enable provisioning in your IdP and run a test synchronization."
+msgstr ""
+
+#: src/cloud-deployment.md:136
+msgid "Verify users appear under **Settings → Users** in the console."
+msgstr ""
+
+#: src/cloud-deployment.md:142
+msgid "Workspace members are assigned one of the following roles:"
+msgstr ""
+
+#: src/cloud-deployment.md:144
+msgid "Role"
+msgstr ""
+
+#: src/cloud-deployment.md:144
+msgid "Permissions"
+msgstr ""
+
+#: src/cloud-deployment.md:146
+msgid "**Owner**"
+msgstr ""
+
+#: src/cloud-deployment.md:146
+msgid ""
+"Full workspace administration: billing, SSO config, API keys, user "
+"management, all policy operations"
+msgstr ""
+
+#: src/cloud-deployment.md:147
+msgid "**Admin**"
+msgstr ""
+
+#: src/cloud-deployment.md:147
+msgid ""
+"Policy management, agent management, audit log access; cannot modify billing "
+"or SSO"
+msgstr ""
+
+#: src/cloud-deployment.md:148
+msgid "**Developer**"
+msgstr ""
+
+#: src/cloud-deployment.md:148
+msgid ""
+"Read agent topology and audit logs; manage own API keys; cannot create or "
+"modify policies"
+msgstr ""
+
+#: src/cloud-deployment.md:149
+msgid "**Viewer**"
+msgstr ""
+
+#: src/cloud-deployment.md:149
+msgid "Read-only access to agent topology, audit logs, and policy list"
+msgstr ""
+
+#: src/cloud-deployment.md:151
+msgid ""
+"Roles are assigned in the console under **Settings → Users**, or "
+"automatically via SCIM group-to-role mapping."
+msgstr ""
+
+#: src/cloud-deployment.md:153
+msgid "SCIM group-to-role mapping"
+msgstr ""
+
+#: src/cloud-deployment.md:155
+msgid ""
+"Configure group-to-role mappings in **Settings → Authentication → SCIM → "
+"Role Mapping**:"
+msgstr ""
+
+#: src/cloud-deployment.md:157
+msgid "IdP Group (example)"
+msgstr ""
+
+#: src/cloud-deployment.md:157
+msgid "Mapped Role"
+msgstr ""
+
+#: src/cloud-deployment.md:159
+msgid "`aaa-owners`"
+msgstr ""
+
+#: src/cloud-deployment.md:159
+msgid "Owner"
+msgstr ""
+
+#: src/cloud-deployment.md:160
+msgid "`aaa-admins`"
+msgstr ""
+
+#: src/cloud-deployment.md:160
+msgid "Admin"
+msgstr ""
+
+#: src/cloud-deployment.md:161
+msgid "`aaa-developers`"
+msgstr ""
+
+#: src/cloud-deployment.md:161
+msgid "Developer"
+msgstr ""
+
+#: src/cloud-deployment.md:162
+msgid "`aaa-viewers`"
+msgstr ""
+
+#: src/cloud-deployment.md:162
+msgid "Viewer"
+msgstr ""
+
+#: src/cloud-deployment.md:166
+msgid "Budget Configuration"
+msgstr ""
+
+#: src/cloud-deployment.md:168
+msgid ""
+"Budgets cap per-team LLM spending. The gateway enforces the budget before "
+"allowing agent actions."
+msgstr ""
+
+#: src/cloud-deployment.md:170
+msgid "Configuring a budget"
+msgstr ""
+
+#: src/cloud-deployment.md:172
+msgid "Navigate to **Budgets → New Budget**."
+msgstr ""
+
+#: src/cloud-deployment.md:173
+msgid "Set the following fields:"
+msgstr ""
+
+#: src/cloud-deployment.md:175 src/policy-reference.md:49
+#: src/policy-reference.md:86 src/policy-reference.md:108
+#: src/policy-reference.md:130 src/policy-reference.md:151
+#: src/policy-reference.md:169 src/policy-reference.md:196
+#: src/policy-reference.md:234 src/policy-reference.md:253
+msgid "Field"
+msgstr ""
+
+#: src/cloud-deployment.md:177
+msgid "**Team name**"
+msgstr ""
+
+#: src/cloud-deployment.md:177
+msgid "Name of the team (matches the `team` label on registered agents)"
+msgstr ""
+
+#: src/cloud-deployment.md:178
+msgid "**Token limit**"
+msgstr ""
+
+#: src/cloud-deployment.md:178
+msgid "Maximum tokens (input + output combined) per window"
+msgstr ""
+
+#: src/cloud-deployment.md:179
+msgid "**Cost limit**"
+msgstr ""
+
+#: src/cloud-deployment.md:179
+msgid "Maximum USD spend per window"
+msgstr ""
+
+#: src/cloud-deployment.md:180
+msgid "**Window**"
+msgstr ""
+
+#: src/cloud-deployment.md:180
+msgid "`hourly`, `daily`, `weekly`, or `monthly`"
+msgstr ""
+
+#: src/cloud-deployment.md:181
+msgid "**Action on exceeded**"
+msgstr ""
+
+#: src/cloud-deployment.md:181
+msgid "`deny` (block further calls) or `alert` (notify only)"
+msgstr ""
+
+#: src/cloud-deployment.md:183
+msgid "Click **Save Budget**."
+msgstr ""
+
+#: src/cloud-deployment.md:185
+msgid "Budget enforcement behaviour"
+msgstr ""
+
+#: src/cloud-deployment.md:187
+msgid ""
+"Budgets are evaluated **after** policy rules. A `deny` policy overrides a "
+"budget `allow`."
+msgstr ""
+
+#: src/cloud-deployment.md:188
+msgid ""
+"When a budget is exceeded and action is `deny`, agents receive a "
+"`BudgetExceededError`."
+msgstr ""
+
+#: src/cloud-deployment.md:189
+msgid ""
+"Budget state resets at the start of each window (midnight UTC for "
+"daily/weekly/monthly)."
+msgstr ""
+
+#: src/cloud-deployment.md:190
+msgid ""
+"Budget alerts are delivered to the configured notification channel (Slack, "
+"webhook)."
+msgstr ""
+
+#: src/cloud-deployment.md:194
+msgid "SLA tiers"
+msgstr ""
+
+#: src/cloud-deployment.md:196
+msgid "Availability SLA"
+msgstr ""
+
+#: src/cloud-deployment.md:196
+msgid "Support response time"
+msgstr ""
+
+#: src/cloud-deployment.md:198
+msgid "Best effort"
+msgstr ""
+
+#: src/cloud-deployment.md:198
+msgid "For evaluation only"
+msgstr ""
+
+#: src/cloud-deployment.md:199
+msgid "**Team**"
+msgstr ""
+
+#: src/cloud-deployment.md:199
+msgid "99.5% monthly uptime"
+msgstr ""
+
+#: src/cloud-deployment.md:199
+msgid "24h business hours"
+msgstr ""
+
+#: src/cloud-deployment.md:199
+msgid "Up to 50 agents"
+msgstr ""
+
+#: src/cloud-deployment.md:200
+msgid "99.9% monthly uptime"
+msgstr ""
+
+#: src/cloud-deployment.md:200
+msgid "4h any time"
+msgstr ""
+
+#: src/cloud-deployment.md:200
+msgid "Unlimited agents, dedicated SRE contact"
+msgstr ""
+
+#: src/cloud-deployment.md:202
+msgid ""
+"SLA credits apply for downtime exceeding the SLA threshold. See the Terms of "
+"Service for the full credit schedule."
+msgstr ""
+
+#: src/cloud-deployment.md:206
+msgid "Billing setup"
+msgstr ""
+
+#: src/cloud-deployment.md:208
+msgid "Card-based billing (Pro and Business)"
+msgstr ""
+
+#: src/cloud-deployment.md:210
+msgid "Pro and Business tiers are billed monthly via Stripe."
+msgstr ""
+
+#: src/cloud-deployment.md:212
+msgid ""
+"During workspace creation, enter your credit card on the **Billing** page."
+msgstr ""
+
+#: src/cloud-deployment.md:213
+msgid ""
+"Invoices are emailed to the workspace Owner's address on the first of each "
+"month."
+msgstr ""
+
+#: src/cloud-deployment.md:214
+msgid ""
+"Update your payment method any time under **Settings → Billing → Payment "
+"Method**."
+msgstr ""
+
+#: src/cloud-deployment.md:216
+msgid "Invoice-based billing (Enterprise)"
+msgstr ""
+
+#: src/cloud-deployment.md:218
+msgid "Enterprise customers are billed via net-30 invoice."
+msgstr ""
+
+#: src/cloud-deployment.md:220
+msgid ""
+"The Sales Engineer adds your purchase order number to the workspace at "
+"contract signature."
+msgstr ""
+
+#: src/cloud-deployment.md:221
+msgid ""
+"Invoices are issued monthly to the billing contact specified in the Order "
+"Form."
+msgstr ""
+
+#: src/cloud-deployment.md:222
+msgid "Wire transfer and ACH are accepted; credit card is not required."
+msgstr ""
+
+#: src/cloud-deployment.md:224
+msgid "BAA and DPA (Enterprise)"
+msgstr ""
+
+#: src/cloud-deployment.md:226
+msgid ""
+"**HIPAA and GDPR compliance documents:** Enterprise customers requiring a "
+"**Business Associate Agreement (BAA)** for HIPAA compliance or a **Data "
+"Processing Agreement (DPA)** for GDPR compliance should request these "
+"documents during the SE call. Both are countersigned by the AI Agent "
+"Assembly legal team before workspace provisioning."
+msgstr ""
+
+#: src/cloud-deployment.md:232
+msgid ""
+"[Security model](security-model.md) — authentication flow diagrams, "
+"cryptographic primitives"
+msgstr ""
+
+#: src/cloud-deployment.md:233
+msgid "[Quick start (SaaS)](quickstart-saas.md) — initial workspace setup"
+msgstr ""
+
+#: src/cloud-deployment.md:234
+msgid ""
+"[Open core boundary](open-core-boundary.md) — which features are on which "
+"tier"
+msgstr ""
+
+#: src/cloud-deployment.md:238 src/policy-reference.md:430
+msgid "_Last reviewed: 2026-06-11 · AI Agent Assembly Team_"
+msgstr ""
+
+#: src/self-host-observability.md:1
+msgid "Self-host observability"
+msgstr ""
+
+#: src/self-host-observability.md:3
+msgid ""
+"This page is for **operators and SREs running the limited-function OSS "
+"stack** — the [self-hostable Apache-2.0 crates](open-core-boundary.md) you "
+"can bring up locally (via the published Docker Compose example) for "
+"evaluation and development. It answers the operator's first question — "
+"_\"can I monitor what I run?\"_ — by showing where the shipped binaries "
+"expose their liveness/readiness probes and their Prometheus metrics, so you "
+"can wire up a health check and a scrape target **without reading the Rust "
+"source**."
+msgstr ""
+
+#: src/self-host-observability.md:5
+msgid ""
+"**Scope: this is the limited-function self-host stack, not the managed "
+"SaaS.** The uptime SLAs (99.5% / 99.9%), on-call rotation, and managed "
+"compliance posture described in [Cloud Deployment](cloud-deployment.md) "
+"apply to the **AI Agent Assembly cloud only** — not to a stack you "
+"self-host. Self-hosting is intended for local evaluation and development; "
+"you are responsible for operating and monitoring it. This page documents the "
+"observability surface the OSS binaries already expose; it is **not** a "
+"production deployment or orchestration guide (no Helm / Terraform / "
+"Kubernetes)."
+msgstr ""
+
+#: src/self-host-observability.md:9
+msgid "What the stack exposes"
+msgstr ""
+
+#: src/self-host-observability.md:11
+msgid ""
+"Three separate binaries each expose their own HTTP surface for health and "
+"metrics. They are distinct servers on distinct paths — do not assume one "
+"path works everywhere."
+msgstr ""
+
+#: src/self-host-observability.md:13
+msgid "Surface"
+msgstr ""
+
+#: src/self-host-observability.md:13
+msgid "Default endpoint(s)"
+msgstr ""
+
+#: src/self-host-observability.md:13
+msgid "Purpose"
+msgstr ""
+
+#: src/self-host-observability.md:15
+msgid "**`aa-runtime`**"
+msgstr ""
+
+#: src/self-host-observability.md:15
+msgid "Health + metrics HTTP server"
+msgstr ""
+
+#: src/self-host-observability.md:15
+msgid ""
+"`/health`, `/ready`, `/metrics` on `AA_METRICS_ADDR` (default `0.0.0.0:8080`)"
+msgstr ""
+
+#: src/self-host-observability.md:15
+msgid "Liveness, readiness, and the Prometheus scrape target"
+msgstr ""
+
+#: src/self-host-observability.md:16
+msgid "**`aa-gateway`**"
+msgstr ""
+
+#: src/self-host-observability.md:16
+msgid "Liveness probe"
+msgstr ""
+
+#: src/self-host-observability.md:16
+msgid "`/healthz`"
+msgstr ""
+
+#: src/self-host-observability.md:16
+msgid "Process-liveness for the gateway (local and remote modes)"
+msgstr ""
+
+#: src/self-host-observability.md:17
+msgid "**`aa-api`**"
+msgstr ""
+
+#: src/self-host-observability.md:17
+msgid "Health check"
+msgstr ""
+
+#: src/self-host-observability.md:17
+msgid "`/api/v1/health`"
+msgstr ""
+
+#: src/self-host-observability.md:17
+msgid "REST API health, including per-subsystem checks"
+msgstr ""
+
+#: src/self-host-observability.md:19
+msgid ""
+"The rest of this page covers each surface and gives copy-paste probe and "
+"scrape examples."
+msgstr ""
+
+#: src/self-host-observability.md:23
+msgid "Health and readiness probes"
+msgstr ""
+
+#: src/self-host-observability.md:25
+msgid "`aa-runtime` — `/health` and `/ready`"
+msgstr ""
+
+#: src/self-host-observability.md:27
+msgid ""
+"The runtime runs a combined health/metrics HTTP server bound to "
+"`AA_METRICS_ADDR` (see [Metrics endpoint](#prometheus-metrics-endpoint) "
+"below for the env var and its default). It serves two probe routes:"
+msgstr ""
+
+#: src/self-host-observability.md:29
+msgid ""
+"**`GET /health`** — liveness. Returns `200 OK` with a JSON body reporting "
+"`status`, process uptime, events processed, and which enforcement layers are "
+"active or degraded. Use this as a liveness probe."
+msgstr ""
+
+#: src/self-host-observability.md:30
+msgid ""
+"**`GET /ready`** — readiness. Returns `200 OK` (body `ready`) once the "
+"runtime is ready to accept work, or `503 Service Unavailable` (body `not "
+"ready`) before then. Use this as a readiness/startup gate."
+msgstr ""
+
+#: src/self-host-observability.md:32
+msgid ""
+"```console\n"
+"$ curl -fsS http://localhost:8080/health\n"
+"{\"status\":\"healthy\",\"uptime_secs\":42, ...}\n"
+"\n"
+"$ curl -fsS http://localhost:8080/ready\n"
+"ready\n"
+"```"
+msgstr ""
+
+#: src/self-host-observability.md:40
+msgid "`aa-gateway` — `/healthz`"
+msgstr ""
+
+#: src/self-host-observability.md:42
+msgid ""
+"The gateway exposes a process-liveness probe at **`GET /healthz`** in both "
+"of its run modes. It returns `200 OK` with a small JSON body as long as the "
+"gateway is responding to HTTP:"
+msgstr ""
+
+#: src/self-host-observability.md:44
+msgid ""
+"**local mode** reports `mode: \"local\"` with SQLite-backed storage (local "
+"mode also mounts `/api/v1/health`)."
+msgstr ""
+
+#: src/self-host-observability.md:45
+msgid ""
+"**remote mode** reports `mode: \"remote\"` with `postgres` or in-memory "
+"storage depending on how it is configured."
+msgstr ""
+
+#: src/self-host-observability.md:47
+msgid ""
+"```console\n"
+"$ curl -fsS http://localhost:<gateway-port>/healthz\n"
+"{\"mode\":\"local\",\"version\":\"...\",\"storage\":\"sqlite\",\"uptime_secs\":...}\n"
+"```"
+msgstr ""
+
+#: src/self-host-observability.md:52
+msgid ""
+"The gateway's HTTP port depends on how you launch it in the Docker Compose "
+"example — check your compose file's port mapping rather than assuming a "
+"fixed value."
+msgstr ""
+
+#: src/self-host-observability.md:54
+msgid "`aa-api` — `/api/v1/health`"
+msgstr ""
+
+#: src/self-host-observability.md:56
+msgid ""
+"The REST API exposes a health check at **`GET /api/v1/health`** (all API "
+"routes are nested under `/api/v1/`). It returns `200 OK` when every "
+"subsystem check passes, or `503 Service Unavailable` when any is degraded. "
+"The JSON body includes the build `version`, `api_version`, uptime, and a "
+"`checks` map with per-subsystem status for the policy engine, registry, "
+"audit, and alerts."
+msgstr ""
+
+#: src/self-host-observability.md:58
+msgid ""
+"```console\n"
+"$ curl -fsS http://localhost:<api-port>/api/v1/health\n"
+"{\"status\":\"ok\",\"version\":\"...\",\"api_version\":\"v1\",\"checks\":{\"policy_engine\":\"ok\", "
+"...}}\n"
+"```"
+msgstr ""
+
+#: src/self-host-observability.md:65
+msgid "Prometheus metrics endpoint"
+msgstr ""
+
+#: src/self-host-observability.md:67
+msgid ""
+"The `aa-runtime` health/metrics server exposes a Prometheus text-format "
+"scrape endpoint."
+msgstr ""
+
+#: src/self-host-observability.md:69
+msgid "Setting"
+msgstr ""
+
+#: src/self-host-observability.md:69 src/policy-reference.md:68
+msgid "Value"
+msgstr ""
+
+#: src/self-host-observability.md:71
+msgid "Env var"
+msgstr ""
+
+#: src/self-host-observability.md:71
+msgid "`AA_METRICS_ADDR`"
+msgstr ""
+
+#: src/self-host-observability.md:72
+msgid "Default bind address"
+msgstr ""
+
+#: src/self-host-observability.md:72
+msgid "`0.0.0.0:8080`"
+msgstr ""
+
+#: src/self-host-observability.md:73
+msgid "Metrics path"
+msgstr ""
+
+#: src/self-host-observability.md:73
+msgid "`/metrics`"
+msgstr ""
+
+#: src/self-host-observability.md:74
+msgid "Scrape target"
+msgstr ""
+
+#: src/self-host-observability.md:74
+msgid "`http://<runtime-host>:8080/metrics` (with the default bind address)"
+msgstr ""
+
+#: src/self-host-observability.md:76
+msgid ""
+"`AA_METRICS_ADDR` is the single environment variable that controls this "
+"server's bind address; the same server serves `/health`, `/ready`, and "
+"`/metrics`. Set it to change the interface or port, e.g. "
+"`AA_METRICS_ADDR=127.0.0.1:9090` to bind loopback only. (`0.0.0.0` is a "
+"_bind_ address — point your scraper at a routable host/IP for the runtime, "
+"not at `0.0.0.0`.)"
+msgstr ""
+
+#: src/self-host-observability.md:78
+msgid ""
+"```console\n"
+"$ curl -fsS http://localhost:8080/metrics\n"
+"# Prometheus text exposition format\n"
+"aa_events_received_total 0\n"
+"aa_events_emitted_total 0\n"
+"...\n"
+"```"
+msgstr ""
+
+#: src/self-host-observability.md:86
+msgid "Baseline metrics"
+msgstr ""
+
+#: src/self-host-observability.md:88
+msgid ""
+"The runtime pre-registers six baseline metrics at `0` on startup, so the "
+"`/metrics` surface is **stable from the very first scrape** (a metric never "
+"\"appears late\" the first time it is incremented). The names and types "
+"below are taken directly from the runtime source; the \"What it represents\" "
+"column is explanatory (the source registers names and types only, without "
+"HELP text). Additional metrics may appear as the runtime does work."
+msgstr ""
+
+#: src/self-host-observability.md:90
+msgid "Metric"
+msgstr ""
+
+#: src/self-host-observability.md:90 src/policy-reference.md:49
+#: src/policy-reference.md:86 src/policy-reference.md:108
+#: src/policy-reference.md:130 src/policy-reference.md:151
+#: src/policy-reference.md:169 src/policy-reference.md:196
+#: src/policy-reference.md:234
+msgid "Type"
+msgstr ""
+
+#: src/self-host-observability.md:90
+msgid "What it represents"
+msgstr ""
+
+#: src/self-host-observability.md:92
+msgid "`aa_events_received_total`"
+msgstr ""
+
+#: src/self-host-observability.md:92 src/self-host-observability.md:93
+#: src/self-host-observability.md:94 src/self-host-observability.md:95
+msgid "counter"
+msgstr ""
+
+#: src/self-host-observability.md:92
+msgid "Governance events the runtime has received"
+msgstr ""
+
+#: src/self-host-observability.md:93
+msgid "`aa_events_emitted_total`"
+msgstr ""
+
+#: src/self-host-observability.md:93
+msgid "Events the runtime has emitted downstream"
+msgstr ""
+
+#: src/self-host-observability.md:94
+msgid "`aa_policy_violations_total`"
+msgstr ""
+
+#: src/self-host-observability.md:94
+msgid "Policy violations observed"
+msgstr ""
+
+#: src/self-host-observability.md:95
+msgid "`aa_policy_evaluations_total`"
+msgstr ""
+
+#: src/self-host-observability.md:95
+msgid ""
+"Policy evaluations performed (currently reports `0`; reserved for a "
+"forthcoming release)"
+msgstr ""
+
+#: src/self-host-observability.md:96
+msgid "`aa_active_connections`"
+msgstr ""
+
+#: src/self-host-observability.md:96 src/self-host-observability.md:97
+msgid "gauge"
+msgstr ""
+
+#: src/self-host-observability.md:96
+msgid "Currently active connections"
+msgstr ""
+
+#: src/self-host-observability.md:97
+msgid "`aa_channel_utilization_ratio`"
+msgstr ""
+
+#: src/self-host-observability.md:97
+msgid "Internal channel utilization ratio"
+msgstr ""
+
+#: src/self-host-observability.md:99
+msgid ""
+"**Note:** these six are the _baseline_ surface. Only `aa_active_connections` "
+"and `aa_channel_utilization_ratio` are gauges; the other four are counters. "
+"None are histograms. Because they start at `0`, an all-zero scrape shortly "
+"after startup is expected, not a sign of a broken exporter."
+msgstr ""
+
+#: src/self-host-observability.md:101
+msgid "Minimal scrape configuration"
+msgstr ""
+
+#: src/self-host-observability.md:103
+msgid ""
+"Point a Prometheus server at the runtime's metrics endpoint. A minimal "
+"`prometheus.yml` scrape job:"
+msgstr ""
+
+#: src/self-host-observability.md:106
+msgid "scrape_configs"
+msgstr ""
+
+#: src/self-host-observability.md:107
+msgid "job_name"
+msgstr ""
+
+#: src/self-host-observability.md:107
+msgid "aa-runtime"
+msgstr ""
+
+#: src/self-host-observability.md:108
+msgid "metrics_path"
+msgstr ""
+
+#: src/self-host-observability.md:108
+msgid "/metrics"
+msgstr ""
+
+#: src/self-host-observability.md:109
+msgid "static_configs"
+msgstr ""
+
+#: src/self-host-observability.md:110
+msgid "targets"
+msgstr ""
+
+#: src/self-host-observability.md:110
+msgid "\"<runtime-host>:8080\""
+msgstr ""
+
+#: src/self-host-observability.md:110
+msgid "# matches AA_METRICS_ADDR's port\n"
+msgstr ""
+
+#: src/self-host-observability.md:113
+msgid ""
+"Replace `<runtime-host>` with the address where the runtime is reachable "
+"(for the Docker Compose example, the runtime service's name/port on the "
+"compose network). If you override `AA_METRICS_ADDR`, update the target port "
+"to match."
+msgstr ""
+
+#: src/self-host-observability.md:115
+msgid ""
+"For a liveness/health check outside Prometheus, probe `/health` (runtime), "
+"`/healthz` (gateway), or `/api/v1/health` (API) as shown above — each "
+"returns a non-`200` status when unhealthy, so `curl -f` is enough to gate a "
+"health check."
+msgstr ""
+
+#: src/self-host-observability.md:119
+msgid "Where to confirm these details"
+msgstr ""
+
+#: src/self-host-observability.md:121
+msgid ""
+"These endpoints live in the Apache-2.0 crates in the "
+"[`agent-assembly`](https://github.com/ai-agent-assembly/agent-assembly) "
+"repository, so you can verify them against the source you run:"
+msgstr ""
+
+#: src/self-host-observability.md:123
+msgid "`aa-runtime/src/config.rs` — `AA_METRICS_ADDR` and its default."
+msgstr ""
+
+#: src/self-host-observability.md:124
+msgid ""
+"`aa-runtime/src/runtime.rs` and `aa-runtime/src/health/` — the "
+"health/metrics server and the baseline metrics."
+msgstr ""
+
+#: src/self-host-observability.md:125
+msgid ""
+"`aa-gateway/src/routes/healthz.rs` — the `/healthz` liveness probe (local "
+"and remote modes)."
+msgstr ""
+
+#: src/self-host-observability.md:126
+msgid "`aa-api/src/routes/health.rs` — the `/api/v1/health` check."
+msgstr ""
+
+#: src/self-host-observability.md:132
+msgid ""
+"[Open core boundary](open-core-boundary.md) — what the limited-function OSS "
+"stack includes vs. the SaaS feature set."
+msgstr ""
+
+#: src/self-host-observability.md:133
+msgid ""
+"[Cloud Deployment](cloud-deployment.md) — the managed SaaS platform, its SLA "
+"tiers, and on-call (SaaS only)."
+msgstr ""
+
+#: src/self-host-observability.md:134
+msgid ""
+"[Security model](security-model.md) — the Telemetry layer and the broader "
+"defense-in-depth posture."
+msgstr ""
+
+#: src/self-host-observability.md:135
+msgid ""
+"[Troubleshooting](troubleshooting.md) — common issues when running the stack."
+msgstr ""
+
+#: src/self-host-observability.md:144 src/troubleshooting.md:71
+msgid "_Last updated: 2026-07-16 by AI Agent Assembly Team_"
+msgstr ""
+
+#: src/policy-reference.md:3
+msgid ""
+"Policies are YAML documents that control what an AI agent may do — which "
+"domains it can reach, which tools it can call, how much it can spend, and "
+"more. The gateway evaluates the applicable policies before each agent action "
+"and allows, denies, or rate-limits it."
+msgstr ""
+
+#: src/policy-reference.md:5
+msgid ""
+"This page is a field-by-field reference. Each section lists a policy block "
+"with its fields, types, defaults, and validation rules, followed by [worked "
+"examples](#examples) at the end."
+msgstr ""
+
+#: src/policy-reference.md:9
+msgid "Document formats"
+msgstr ""
+
+#: src/policy-reference.md:11
+msgid "The gateway accepts two formats."
+msgstr ""
+
+#: src/policy-reference.md:13
+msgid "Envelope format (recommended)"
+msgstr ""
+
+#: src/policy-reference.md:15
+msgid ""
+"Uses `apiVersion` / `kind` / `metadata` / `spec` wrapping — "
+"version-controlled and GitOps-friendly:"
+msgstr ""
+
+#: src/policy-reference.md:18 src/policy-reference.md:278
+#: src/policy-reference.md:292 src/policy-reference.md:308
+#: src/policy-reference.md:329 src/policy-reference.md:347
+#: src/policy-reference.md:364 src/policy-reference.md:379
+msgid "apiVersion"
+msgstr ""
+
+#: src/policy-reference.md:18 src/policy-reference.md:278
+#: src/policy-reference.md:292 src/policy-reference.md:308
+#: src/policy-reference.md:329 src/policy-reference.md:347
+#: src/policy-reference.md:364 src/policy-reference.md:379
+msgid "agent-assembly/v1"
+msgstr ""
+
+#: src/policy-reference.md:18 src/policy-reference.md:278
+#: src/policy-reference.md:292 src/policy-reference.md:308
+#: src/policy-reference.md:329 src/policy-reference.md:347
+#: src/policy-reference.md:364 src/policy-reference.md:379
+msgid "kind"
+msgstr ""
+
+#: src/policy-reference.md:19 src/policy-reference.md:279
+#: src/policy-reference.md:293 src/policy-reference.md:309
+#: src/policy-reference.md:330 src/policy-reference.md:348
+#: src/policy-reference.md:365 src/policy-reference.md:380
+msgid "Policy"
+msgstr ""
+
+#: src/policy-reference.md:19 src/policy-reference.md:279
+#: src/policy-reference.md:293 src/policy-reference.md:309
+#: src/policy-reference.md:330 src/policy-reference.md:348
+#: src/policy-reference.md:365 src/policy-reference.md:380
+msgid "metadata"
+msgstr ""
+
+#: src/policy-reference.md:21 src/policy-reference.md:281
+#: src/policy-reference.md:295 src/policy-reference.md:311
+#: src/policy-reference.md:332 src/policy-reference.md:350
+#: src/policy-reference.md:367 src/policy-reference.md:382
+msgid "name"
+msgstr ""
+
+#: src/policy-reference.md:21
+msgid "my-policy         # shown in console and audit log\n  version"
+msgstr ""
+
+#: src/policy-reference.md:22
+msgid "\"1.0.0\"        # your policy revision\n  description"
+msgstr ""
+
+#: src/policy-reference.md:23
+msgid "# optional\nspec"
+msgstr ""
+
+#: src/policy-reference.md:25 src/policy-reference.md:38
+#: src/policy-reference.md:298 src/policy-reference.md:314
+#: src/policy-reference.md:353 src/policy-reference.md:386
+msgid "scope"
+msgstr ""
+
+#: src/policy-reference.md:25 src/policy-reference.md:298
+#: src/policy-reference.md:386
+msgid "team:platform"
+msgstr ""
+
+#: src/policy-reference.md:26 src/policy-reference.md:39
+#: src/policy-reference.md:93 src/policy-reference.md:299
+#: src/policy-reference.md:387
+msgid "network"
+msgstr ""
+
+#: src/policy-reference.md:27 src/policy-reference.md:41
+#: src/policy-reference.md:94 src/policy-reference.md:300
+#: src/policy-reference.md:388
+msgid "allowlist"
+msgstr ""
+
+#: src/policy-reference.md:28 src/policy-reference.md:42
+msgid "api.openai.com"
+msgstr ""
+
+#: src/policy-reference.md:29 src/policy-reference.md:138
+#: src/policy-reference.md:284 src/policy-reference.md:396
+msgid "budget"
+msgstr ""
+
+#: src/policy-reference.md:30 src/policy-reference.md:139
+#: src/policy-reference.md:285 src/policy-reference.md:397
+msgid "daily_limit_usd"
+msgstr ""
+
+#: src/policy-reference.md:33
+msgid "Flat format"
+msgstr ""
+
+#: src/policy-reference.md:35
+msgid "Minimal format without the envelope wrapper — useful for quick testing:"
+msgstr ""
+
+#: src/policy-reference.md:38 src/policy-reference.md:282
+#: src/policy-reference.md:296 src/policy-reference.md:312
+#: src/policy-reference.md:333 src/policy-reference.md:351
+#: src/policy-reference.md:368 src/policy-reference.md:383
+msgid "version"
+msgstr ""
+
+#: src/policy-reference.md:38
+msgid "\"1.0\""
+msgstr ""
+
+#: src/policy-reference.md:39 src/policy-reference.md:314
+msgid "global"
+msgstr ""
+
+#: src/policy-reference.md:47
+msgid "Top-level fields"
+msgstr ""
+
+#: src/policy-reference.md:49 src/policy-reference.md:86
+#: src/policy-reference.md:108 src/policy-reference.md:130
+#: src/policy-reference.md:151 src/policy-reference.md:169
+#: src/policy-reference.md:196 src/policy-reference.md:234
+msgid "Required"
+msgstr ""
+
+#: src/policy-reference.md:49 src/policy-reference.md:169
+msgid "Default"
+msgstr ""
+
+#: src/policy-reference.md:51
+msgid "`version`"
+msgstr ""
+
+#: src/policy-reference.md:51 src/policy-reference.md:52
+#: src/policy-reference.md:110 src/policy-reference.md:111
+#: src/policy-reference.md:112 src/policy-reference.md:134
+#: src/policy-reference.md:173 src/policy-reference.md:237
+msgid "string"
+msgstr ""
+
+#: src/policy-reference.md:51 src/policy-reference.md:52
+#: src/policy-reference.md:53 src/policy-reference.md:54
+#: src/policy-reference.md:55 src/policy-reference.md:56
+#: src/policy-reference.md:57 src/policy-reference.md:58
+#: src/policy-reference.md:59 src/policy-reference.md:60
+#: src/policy-reference.md:88 src/policy-reference.md:132
+#: src/policy-reference.md:133 src/policy-reference.md:134
+#: src/policy-reference.md:135 src/policy-reference.md:153
+#: src/policy-reference.md:171 src/policy-reference.md:172
+#: src/policy-reference.md:173 src/policy-reference.md:198
+#: src/policy-reference.md:199 src/policy-reference.md:236
+#: src/policy-reference.md:237
+msgid "No"
+msgstr ""
+
+#: src/policy-reference.md:51
+msgid "Schema version tag (e.g., `\"1.0\"`). Informational; not validated."
+msgstr ""
+
+#: src/policy-reference.md:52 src/policy-reference.md:267
+msgid "`scope`"
+msgstr ""
+
+#: src/policy-reference.md:52 src/policy-reference.md:70
+msgid "`global`"
+msgstr ""
+
+#: src/policy-reference.md:52
+msgid "Hierarchical scope this policy applies to. See [Scope](#scope)."
+msgstr ""
+
+#: src/policy-reference.md:53 src/policy-reference.md:82
+msgid "`network`"
+msgstr ""
+
+#: src/policy-reference.md:53 src/policy-reference.md:54
+#: src/policy-reference.md:55 src/policy-reference.md:56
+#: src/policy-reference.md:58 src/policy-reference.md:60
+msgid "object"
+msgstr ""
+
+#: src/policy-reference.md:53
+msgid "Network egress policy. See [network](#network)."
+msgstr ""
+
+#: src/policy-reference.md:54 src/policy-reference.md:102
+msgid "`schedule`"
+msgstr ""
+
+#: src/policy-reference.md:54
+msgid "Active-hours restriction. See [schedule](#schedule)."
+msgstr ""
+
+#: src/policy-reference.md:55 src/policy-reference.md:126
+msgid "`budget`"
+msgstr ""
+
+#: src/policy-reference.md:55
+msgid "Per-day / per-month spend cap. See [budget](#budget)."
+msgstr ""
+
+#: src/policy-reference.md:56 src/policy-reference.md:147
+msgid "`data`"
+msgstr ""
+
+#: src/policy-reference.md:56
+msgid "PII / credential pattern detection. See [data](#data)."
+msgstr ""
+
+#: src/policy-reference.md:57 src/policy-reference.md:165
+msgid "`tools`"
+msgstr ""
+
+#: src/policy-reference.md:57
+msgid "map"
+msgstr ""
+
+#: src/policy-reference.md:57
+msgid "`{}`"
+msgstr ""
+
+#: src/policy-reference.md:57
+msgid "Per-tool allow/deny/rate configuration. See [tools](#tools)."
+msgstr ""
+
+#: src/policy-reference.md:58 src/policy-reference.md:192
+msgid "`capabilities`"
+msgstr ""
+
+#: src/policy-reference.md:58
+msgid "Capability allow/deny lists. See [capabilities](#capabilities)."
+msgstr ""
+
+#: src/policy-reference.md:59 src/policy-reference.md:266
+msgid "`approval_timeout_secs`"
+msgstr ""
+
+#: src/policy-reference.md:59 src/policy-reference.md:172
+#: src/policy-reference.md:236
+msgid "integer"
+msgstr ""
+
+#: src/policy-reference.md:59
+msgid "`300`"
+msgstr ""
+
+#: src/policy-reference.md:59
+msgid "Default seconds before an approval request expires. Must be > 0."
+msgstr ""
+
+#: src/policy-reference.md:60 src/policy-reference.md:230
+msgid "`approval`"
+msgstr ""
+
+#: src/policy-reference.md:60
+msgid "Per-policy approval escalation overrides. See [approval](#approval)."
+msgstr ""
+
+#: src/policy-reference.md:64
+msgid "Scope"
+msgstr ""
+
+#: src/policy-reference.md:66
+msgid ""
+"The `scope` field determines which agents a policy applies to. Policies "
+"cascade from broadest to narrowest — `Global → Org → Team → Agent → Tool` — "
+"with **most-restrictive-wins** merging."
+msgstr ""
+
+#: src/policy-reference.md:68
+msgid "Example"
+msgstr ""
+
+#: src/policy-reference.md:68
+msgid "Applies to"
+msgstr ""
+
+#: src/policy-reference.md:70
+msgid "`scope: global`"
+msgstr ""
+
+#: src/policy-reference.md:70
+msgid "Every agent in the workspace (default when absent)"
+msgstr ""
+
+#: src/policy-reference.md:71
+msgid "`org:<id>`"
+msgstr ""
+
+#: src/policy-reference.md:71
+msgid "`scope: org:acme`"
+msgstr ""
+
+#: src/policy-reference.md:71
+msgid "Every agent inside the named organisation"
+msgstr ""
+
+#: src/policy-reference.md:72
+msgid "`team:<id>`"
+msgstr ""
+
+#: src/policy-reference.md:72
+msgid "`scope: team:platform`"
+msgstr ""
+
+#: src/policy-reference.md:72
+msgid "Every agent that belongs to the named team"
+msgstr ""
+
+#: src/policy-reference.md:73
+msgid "`agent:<uuid>`"
+msgstr ""
+
+#: src/policy-reference.md:73
+msgid "`scope: agent:01234567-89ab-cdef-0123-456789abcdef`"
+msgstr ""
+
+#: src/policy-reference.md:73
+msgid "A single specific agent (UUID format)"
+msgstr ""
+
+#: src/policy-reference.md:74
+msgid "`tool:<name>`"
+msgstr ""
+
+#: src/policy-reference.md:74
+msgid "`scope: tool:slack-mcp`"
+msgstr ""
+
+#: src/policy-reference.md:74
+msgid ""
+"A specific MCP tool, across all agents otherwise admitted by higher scopes"
+msgstr ""
+
+#: src/policy-reference.md:76
+msgid ""
+"`tool:<name>` sits at the most-restrictive end of the cascade. A tool-scoped "
+"policy can deny `slack-mcp` for every agent in `team:platform` even when "
+"team- and agent-level policies would otherwise allow it."
+msgstr ""
+
+#: src/policy-reference.md:78
+msgid ""
+"**Validation:** The `agent:` variant requires a valid hyphenated UUID. The "
+"identifier after `:` must not be empty. Unknown scope kinds (e.g., "
+"`project:foo`) are rejected with a validation error."
+msgstr ""
+
+#: src/policy-reference.md:84
+msgid "Controls outbound network connections the agent may initiate."
+msgstr ""
+
+#: src/policy-reference.md:88
+msgid "`network.allowlist`"
+msgstr ""
+
+#: src/policy-reference.md:88
+msgid "list of strings"
+msgstr ""
+
+#: src/policy-reference.md:88
+msgid ""
+"Domain glob patterns the agent may connect to. Empty string entries are "
+"rejected."
+msgstr ""
+
+#: src/policy-reference.md:90
+msgid ""
+"When `network` is present but `allowlist` is absent or empty, no outbound "
+"connections are permitted."
+msgstr ""
+
+#: src/policy-reference.md:95 src/policy-reference.md:301
+#: src/policy-reference.md:389
+msgid "\"api.openai.com\""
+msgstr ""
+
+#: src/policy-reference.md:96 src/policy-reference.md:302
+msgid "\"*.slack.com\""
+msgstr ""
+
+#: src/policy-reference.md:97
+msgid "\"internal-api.corp.example\""
+msgstr ""
+
+#: src/policy-reference.md:104
+msgid "Restricts the time window during which the agent is permitted to run."
+msgstr ""
+
+#: src/policy-reference.md:106
+msgid "`schedule.active_hours`"
+msgstr ""
+
+#: src/policy-reference.md:108
+msgid "Format"
+msgstr ""
+
+#: src/policy-reference.md:110 src/policy-reference.md:256
+msgid "`schedule.active_hours.start`"
+msgstr ""
+
+#: src/policy-reference.md:110 src/policy-reference.md:111
+#: src/policy-reference.md:112
+msgid "Yes (if active_hours present)"
+msgstr ""
+
+#: src/policy-reference.md:110 src/policy-reference.md:111
+msgid "`HH:MM` 24-hour"
+msgstr ""
+
+#: src/policy-reference.md:110
+msgid "Window start time"
+msgstr ""
+
+#: src/policy-reference.md:111 src/policy-reference.md:257
+msgid "`schedule.active_hours.end`"
+msgstr ""
+
+#: src/policy-reference.md:111
+msgid "Window end time; must be later than `start`"
+msgstr ""
+
+#: src/policy-reference.md:112 src/policy-reference.md:258
+msgid "`schedule.active_hours.timezone`"
+msgstr ""
+
+#: src/policy-reference.md:112
+msgid "IANA name"
+msgstr ""
+
+#: src/policy-reference.md:112
+msgid "Timezone for window boundary (e.g., `\"Asia/Taipei\"`, `\"UTC\"`)"
+msgstr ""
+
+#: src/policy-reference.md:114
+msgid ""
+"All three sub-fields are required when `active_hours` is present. `start` "
+"must be earlier than `end`."
+msgstr ""
+
+#: src/policy-reference.md:117 src/policy-reference.md:354
+#: src/policy-reference.md:391
+msgid "schedule"
+msgstr ""
+
+#: src/policy-reference.md:118 src/policy-reference.md:355
+#: src/policy-reference.md:392
+msgid "active_hours"
+msgstr ""
+
+#: src/policy-reference.md:119 src/policy-reference.md:356
+#: src/policy-reference.md:393
+msgid "start"
+msgstr ""
+
+#: src/policy-reference.md:119 src/policy-reference.md:356
+#: src/policy-reference.md:393
+msgid "\"09:00\""
+msgstr ""
+
+#: src/policy-reference.md:120 src/policy-reference.md:357
+#: src/policy-reference.md:394
+msgid "end"
+msgstr ""
+
+#: src/policy-reference.md:120 src/policy-reference.md:357
+#: src/policy-reference.md:394
+msgid "\"18:00\""
+msgstr ""
+
+#: src/policy-reference.md:121 src/policy-reference.md:141
+#: src/policy-reference.md:358 src/policy-reference.md:395
+msgid "timezone"
+msgstr ""
+
+#: src/policy-reference.md:121 src/policy-reference.md:358
+msgid "\"America/New_York\""
+msgstr ""
+
+#: src/policy-reference.md:128
+msgid ""
+"Caps per-agent LLM spend. The gateway enforces the budget before allowing "
+"the agent action."
+msgstr ""
+
+#: src/policy-reference.md:132 src/policy-reference.md:259
+msgid "`budget.daily_limit_usd`"
+msgstr ""
+
+#: src/policy-reference.md:132 src/policy-reference.md:133
+msgid "float"
+msgstr ""
+
+#: src/policy-reference.md:132
+msgid "Maximum USD spend per calendar day. Must be > 0."
+msgstr ""
+
+#: src/policy-reference.md:133 src/policy-reference.md:260
+msgid "`budget.monthly_limit_usd`"
+msgstr ""
+
+#: src/policy-reference.md:133
+msgid ""
+"Maximum USD spend per calendar month. Must be > 0 and ≥ `daily_limit_usd`."
+msgstr ""
+
+#: src/policy-reference.md:134 src/policy-reference.md:261
+msgid "`budget.timezone`"
+msgstr ""
+
+#: src/policy-reference.md:134
+msgid ""
+"IANA timezone for the daily/monthly reset boundary. Defaults to UTC when "
+"absent."
+msgstr ""
+
+#: src/policy-reference.md:135 src/policy-reference.md:262
+msgid "`budget.action_on_exceed`"
+msgstr ""
+
+#: src/policy-reference.md:135
+msgid "`\"deny\"` \\| `\"suspend\"`"
+msgstr ""
+
+#: src/policy-reference.md:135
+msgid ""
+"Action when budget is exceeded. `deny` (default): blocks individual requests "
+"but keeps the agent active. `suspend`: suspends the agent entirely until the "
+"budget resets."
+msgstr ""
+
+#: src/policy-reference.md:140 src/policy-reference.md:398
+msgid "monthly_limit_usd"
+msgstr ""
+
+#: src/policy-reference.md:141
+msgid "\"America/Los_Angeles\""
+msgstr ""
+
+#: src/policy-reference.md:142 src/policy-reference.md:286
+#: src/policy-reference.md:399
+msgid "action_on_exceed"
+msgstr ""
+
+#: src/policy-reference.md:142 src/policy-reference.md:223
+#: src/policy-reference.md:286 src/policy-reference.md:321
+#: src/policy-reference.md:399 src/policy-reference.md:413
+msgid "deny"
+msgstr ""
+
+#: src/policy-reference.md:149
+msgid ""
+"Scans agent inputs and outputs for PII or credential patterns using regex."
+msgstr ""
+
+#: src/policy-reference.md:153
+msgid "`data.sensitive_patterns`"
+msgstr ""
+
+#: src/policy-reference.md:153
+msgid "list of regex strings"
+msgstr ""
+
+#: src/policy-reference.md:153
+msgid ""
+"RE2-compatible regex patterns. A match causes the agent action to be "
+"blocked. Invalid regex is rejected at validation time."
+msgstr ""
+
+#: src/policy-reference.md:156 src/policy-reference.md:370
+#: src/policy-reference.md:400
+msgid "data"
+msgstr ""
+
+#: src/policy-reference.md:157 src/policy-reference.md:371
+#: src/policy-reference.md:401
+msgid "sensitive_patterns"
+msgstr ""
+
+#: src/policy-reference.md:158
+msgid "\"sk-[a-zA-Z0-9]{48}\"               # OpenAI API key\n"
+msgstr ""
+
+#: src/policy-reference.md:159
+msgid "\"\\\\b\\\\d{3}-\\\\d{2}-\\\\d{4}\\\\b\"       # US SSN\n"
+msgstr ""
+
+#: src/policy-reference.md:160
+msgid "\"(?i)password\\\\s*[:=]\\\\s*\\\\S+\"     # password assignment\n"
+msgstr ""
+
+#: src/policy-reference.md:167
+msgid ""
+"Per-tool configuration keyed by tool name. Each key in the `tools` map is a "
+"tool name string; the value is a tool policy object."
+msgstr ""
+
+#: src/policy-reference.md:171
+msgid "`tools.<name>.allow`"
+msgstr ""
+
+#: src/policy-reference.md:171
+msgid "boolean"
+msgstr ""
+
+#: src/policy-reference.md:171
+msgid "`true`"
+msgstr ""
+
+#: src/policy-reference.md:171
+msgid ""
+"Whether this tool is permitted. Set to `false` to block the tool entirely."
+msgstr ""
+
+#: src/policy-reference.md:172
+msgid "`tools.<name>.limit_per_hour`"
+msgstr ""
+
+#: src/policy-reference.md:172
+msgid "unlimited"
+msgstr ""
+
+#: src/policy-reference.md:172
+msgid "Maximum calls to this tool per hour."
+msgstr ""
+
+#: src/policy-reference.md:173 src/policy-reference.md:264
+msgid "`tools.<name>.requires_approval_if`"
+msgstr ""
+
+#: src/policy-reference.md:173
+msgid ""
+"CEL expression that triggers human-in-the-loop approval when true. Valid "
+"governance level values: `L0`, `L1`, `L2`, `L3`."
+msgstr ""
+
+#: src/policy-reference.md:176 src/policy-reference.md:335
+#: src/policy-reference.md:403
+msgid "tools"
+msgstr ""
+
+#: src/policy-reference.md:177 src/policy-reference.md:336
+#: src/policy-reference.md:404
+msgid "bash"
+msgstr ""
+
+#: src/policy-reference.md:178 src/policy-reference.md:182
+#: src/policy-reference.md:184 src/policy-reference.md:218
+#: src/policy-reference.md:316 src/policy-reference.md:337
+#: src/policy-reference.md:341 src/policy-reference.md:405
+#: src/policy-reference.md:408 src/policy-reference.md:410
+msgid "allow"
+msgstr ""
+
+#: src/policy-reference.md:179 src/policy-reference.md:185
+#: src/policy-reference.md:338 src/policy-reference.md:406
+msgid "limit_per_hour"
+msgstr ""
+
+#: src/policy-reference.md:180 src/policy-reference.md:339
+msgid "requires_approval_if"
+msgstr ""
+
+#: src/policy-reference.md:180 src/policy-reference.md:339
+msgid "\"governance_level >= L2\""
+msgstr ""
+
+#: src/policy-reference.md:181 src/policy-reference.md:340
+msgid "execute_shell"
+msgstr ""
+
+#: src/policy-reference.md:183 src/policy-reference.md:225
+#: src/policy-reference.md:323 src/policy-reference.md:407
+msgid "file_write"
+msgstr ""
+
+#: src/policy-reference.md:188
+msgid ""
+"**`requires_approval_if` CEL expressions:** The expression is evaluated "
+"against the tool call context. The identifier `governance_level` exposes the "
+"current agent's governance tier (`L0`–`L3`). Referencing an unknown level "
+"(e.g., `L4`) is a validation error."
+msgstr ""
+
+#: src/policy-reference.md:194
+msgid ""
+"Broad capability allow/deny lists that apply across all tools and actions."
+msgstr ""
+
+#: src/policy-reference.md:198
+msgid "`capabilities.allow`"
+msgstr ""
+
+#: src/policy-reference.md:198 src/policy-reference.md:199
+msgid "list of capability strings"
+msgstr ""
+
+#: src/policy-reference.md:198
+msgid "Capabilities explicitly permitted."
+msgstr ""
+
+#: src/policy-reference.md:199
+msgid "`capabilities.deny`"
+msgstr ""
+
+#: src/policy-reference.md:199
+msgid "Capabilities explicitly denied. Deny takes precedence over allow."
+msgstr ""
+
+#: src/policy-reference.md:201
+msgid "Valid capability strings"
+msgstr ""
+
+#: src/policy-reference.md:203
+msgid "String"
+msgstr ""
+
+#: src/policy-reference.md:205
+msgid "`file_read`"
+msgstr ""
+
+#: src/policy-reference.md:205
+msgid "Read access to the filesystem"
+msgstr ""
+
+#: src/policy-reference.md:206
+msgid "`file_write`"
+msgstr ""
+
+#: src/policy-reference.md:206
+msgid "Write access to the filesystem"
+msgstr ""
+
+#: src/policy-reference.md:207
+msgid "`network_outbound`"
+msgstr ""
+
+#: src/policy-reference.md:207
+msgid "Outbound network connections"
+msgstr ""
+
+#: src/policy-reference.md:208
+msgid "`network_inbound`"
+msgstr ""
+
+#: src/policy-reference.md:208
+msgid "Inbound network connections"
+msgstr ""
+
+#: src/policy-reference.md:209
+msgid "`terminal_exec`"
+msgstr ""
+
+#: src/policy-reference.md:209
+msgid "Execute commands in a terminal/shell"
+msgstr ""
+
+#: src/policy-reference.md:210
+msgid "`agent_spawn`"
+msgstr ""
+
+#: src/policy-reference.md:210
+msgid "Spawn child agents"
+msgstr ""
+
+#: src/policy-reference.md:211
+msgid "`mcp_tool:<name>`"
+msgstr ""
+
+#: src/policy-reference.md:211
+msgid "Use a specific named MCP tool (e.g., `mcp_tool:bash`, `mcp_tool:git`)"
+msgstr ""
+
+#: src/policy-reference.md:212
+msgid "`model:<name>`"
+msgstr ""
+
+#: src/policy-reference.md:212
+msgid "Use a specific named AI model (e.g., `model:gpt-4o`)"
+msgstr ""
+
+#: src/policy-reference.md:214
+msgid ""
+"Unknown capability strings are rejected with a validation error. The "
+"`mcp_tool:` and `model:` prefixes require a non-empty name after the colon."
+msgstr ""
+
+#: src/policy-reference.md:217 src/policy-reference.md:315
+#: src/policy-reference.md:409
+msgid "capabilities"
+msgstr ""
+
+#: src/policy-reference.md:219 src/policy-reference.md:317
+#: src/policy-reference.md:411
+msgid "file_read"
+msgstr ""
+
+#: src/policy-reference.md:220 src/policy-reference.md:318
+#: src/policy-reference.md:412
+msgid "network_outbound"
+msgstr ""
+
+#: src/policy-reference.md:221 src/policy-reference.md:319
+msgid "mcp_tool:git"
+msgstr ""
+
+#: src/policy-reference.md:222 src/policy-reference.md:320
+msgid "mcp_tool:bash"
+msgstr ""
+
+#: src/policy-reference.md:224 src/policy-reference.md:322
+#: src/policy-reference.md:414
+msgid "terminal_exec"
+msgstr ""
+
+#: src/policy-reference.md:232
+msgid ""
+"Per-policy escalation overrides. When absent, team-level routing defaults "
+"are used."
+msgstr ""
+
+#: src/policy-reference.md:236
+msgid "`approval.timeout_seconds`"
+msgstr ""
+
+#: src/policy-reference.md:236
+msgid ""
+"Override the escalation timeout (seconds) for approvals triggered by this "
+"policy's rules."
+msgstr ""
+
+#: src/policy-reference.md:237
+msgid "`approval.escalation_role`"
+msgstr ""
+
+#: src/policy-reference.md:237
+msgid ""
+"Override the approver group or role name for this policy (e.g., "
+"`\"org-admin\"`, `\"security-team\"`)."
+msgstr ""
+
+#: src/policy-reference.md:240 src/policy-reference.md:416
+msgid "approval"
+msgstr ""
+
+#: src/policy-reference.md:241
+msgid "timeout_seconds"
+msgstr ""
+
+#: src/policy-reference.md:242 src/policy-reference.md:417
+msgid "escalation_role"
+msgstr ""
+
+#: src/policy-reference.md:242 src/policy-reference.md:417
+msgid "org-admin"
+msgstr ""
+
+#: src/policy-reference.md:245
+msgid ""
+"The top-level `approval_timeout_secs` sets the default for the whole policy "
+"document; `approval.timeout_seconds` overrides it at the per-policy "
+"escalation level."
+msgstr ""
+
+#: src/policy-reference.md:249
+msgid "Validation rules"
+msgstr ""
+
+#: src/policy-reference.md:251
+msgid ""
+"The gateway validates every policy on upload. All errors are collected and "
+"returned together; the upload is rejected if any error is present."
+msgstr ""
+
+#: src/policy-reference.md:253
+msgid "Rule"
+msgstr ""
+
+#: src/policy-reference.md:255
+msgid "`network.allowlist[n]`"
+msgstr ""
+
+#: src/policy-reference.md:255
+msgid "Entry must not be empty"
+msgstr ""
+
+#: src/policy-reference.md:256
+msgid "Required when `active_hours` is present; must be `HH:MM` 24-hour format"
+msgstr ""
+
+#: src/policy-reference.md:257
+msgid ""
+"Required when `active_hours` is present; must be `HH:MM` and later than "
+"`start`"
+msgstr ""
+
+#: src/policy-reference.md:258
+msgid ""
+"Required when `active_hours` is present; must be a valid IANA timezone name"
+msgstr ""
+
+#: src/policy-reference.md:259 src/policy-reference.md:266
+msgid "Must be > 0 when present"
+msgstr ""
+
+#: src/policy-reference.md:260
+msgid "Must be > 0; must be ≥ `daily_limit_usd` when both are set"
+msgstr ""
+
+#: src/policy-reference.md:261
+msgid "Must be a valid IANA timezone name when present"
+msgstr ""
+
+#: src/policy-reference.md:262
+msgid "Must be `\"deny\"` or `\"suspend\"` when present"
+msgstr ""
+
+#: src/policy-reference.md:263
+msgid "`data.sensitive_patterns[n]`"
+msgstr ""
+
+#: src/policy-reference.md:263
+msgid "Must be a valid RE2 regex"
+msgstr ""
+
+#: src/policy-reference.md:264
+msgid "Must not be empty; must reference only `L0`–`L3` governance levels"
+msgstr ""
+
+#: src/policy-reference.md:265
+msgid "`capabilities.allow[n]` / `capabilities.deny[n]`"
+msgstr ""
+
+#: src/policy-reference.md:265
+msgid "Must be a known capability string"
+msgstr ""
+
+#: src/policy-reference.md:267
+msgid ""
+"Must be `global`, `org:<id>`, `team:<id>`, `agent:<uuid>`, or `tool:<name>`; "
+"identifier after `:` must not be empty; `agent:` value must be a valid UUID"
+msgstr ""
+
+#: src/policy-reference.md:269
+msgid ""
+"Unknown keys at any level produce a **warning** (not an error) — the policy "
+"is accepted and the unknown key is ignored. This allows forward-compatible "
+"policy files."
+msgstr ""
+
+#: src/policy-reference.md:273
+msgid "Examples"
+msgstr ""
+
+#: src/policy-reference.md:275
+msgid "Minimal — budget cap only"
+msgstr ""
+
+#: src/policy-reference.md:281
+msgid "budget-only"
+msgstr ""
+
+#: src/policy-reference.md:282 src/policy-reference.md:296
+#: src/policy-reference.md:312 src/policy-reference.md:333
+#: src/policy-reference.md:351 src/policy-reference.md:368
+#: src/policy-reference.md:383
+msgid "\"1.0.0\""
+msgstr ""
+
+#: src/policy-reference.md:282 src/policy-reference.md:296
+#: src/policy-reference.md:312 src/policy-reference.md:333
+#: src/policy-reference.md:351 src/policy-reference.md:368
+#: src/policy-reference.md:384
+msgid "spec"
+msgstr ""
+
+#: src/policy-reference.md:289
+msgid "Network egress allowlist"
+msgstr ""
+
+#: src/policy-reference.md:295
+msgid "allowlist-openai-slack"
+msgstr ""
+
+#: src/policy-reference.md:305
+msgid "Capability control"
+msgstr ""
+
+#: src/policy-reference.md:311
+msgid "capability-example"
+msgstr ""
+
+#: src/policy-reference.md:326
+msgid "Tool rate-limiting with approval gate"
+msgstr ""
+
+#: src/policy-reference.md:332
+msgid "guarded-tools"
+msgstr ""
+
+#: src/policy-reference.md:344
+msgid "Business-hours schedule"
+msgstr ""
+
+#: src/policy-reference.md:350
+msgid "business-hours-only"
+msgstr ""
+
+#: src/policy-reference.md:353
+msgid "team:ops"
+msgstr ""
+
+#: src/policy-reference.md:361
+msgid "PII detection"
+msgstr ""
+
+#: src/policy-reference.md:367
+msgid "no-pii-in-output"
+msgstr ""
+
+#: src/policy-reference.md:372 src/policy-reference.md:402
+msgid "\"sk-[a-zA-Z0-9]{48}\""
+msgstr ""
+
+#: src/policy-reference.md:373
+msgid "\"\\\\b\\\\d{3}-\\\\d{2}-\\\\d{4}\\\\b\""
+msgstr ""
+
+#: src/policy-reference.md:376
+msgid "Full policy — all sections"
+msgstr ""
+
+#: src/policy-reference.md:382
+msgid "production-full"
+msgstr ""
+
+#: src/policy-reference.md:384
+msgid "description"
+msgstr ""
+
+#: src/policy-reference.md:384
+msgid "Full example combining all policy sections."
+msgstr ""
+
+#: src/policy-reference.md:390
+msgid "\"slack.com\""
+msgstr ""
+
+#: src/policy-reference.md:395
+msgid "\"Asia/Taipei\""
+msgstr ""
+
+#: src/policy-reference.md:415
+msgid "approval_timeout_secs"
+msgstr ""
+
+#: src/policy-reference.md:424
+msgid ""
+"[Security model](security-model.md) — IronClaw layers and policy engine "
+"position in the stack"
+msgstr ""
+
+#: src/policy-reference.md:425
+msgid ""
+"[Cloud deployment](cloud-deployment.md) — uploading and activating policies "
+"in the console"
+msgstr ""
+
+#: src/policy-reference.md:426
+msgid ""
+"[Quick start (SaaS)](quickstart-saas.md) — create and activate your first "
+"policy"
+msgstr ""
+
+#: src/policy-reference.md:435
+msgid "_Last updated: 2026-06-11 by AI Agent Assembly Team_"
+msgstr ""
+
+#: src/glossary.md:3
+msgid ""
+"Plain-language definitions of the terms and acronyms used across this "
+"documentation. It exists so a first-time or non-specialist reader can decode "
+"the security and architecture jargon without leaving the page they are on."
+msgstr ""
+
+#: src/glossary.md:7
+msgid "Product concepts"
+msgstr ""
+
+#: src/glossary.md:9
+msgid ""
+"**AI Agent Assembly (AAASM)** : The product this hub documents: a governance "
+"layer that sits between your AI agents and the outside world and enforces "
+"policy, tracks cost, and intercepts unsafe actions before they run."
+msgstr ""
+
+#: src/glossary.md:14
+msgid ""
+"**Governance layer** : The one-line description of what AI Agent Assembly "
+"_is_ — a control that evaluates and enforces what an agent is allowed to do, "
+"rather than only observing what it did after the fact."
+msgstr ""
+
+#: src/glossary.md:19
+msgid ""
+"**Gateway (`aa-gateway`)** : The central service that holds the agent "
+"registry, evaluates policy, and tracks per-team budgets. Every interception "
+"layer reports to it."
+msgstr ""
+
+#: src/glossary.md:23
+msgid ""
+"**Agent** : An autonomous or semi-autonomous program that calls tools, "
+"models, or network services on your behalf — the thing AI Agent Assembly "
+"governs."
+msgstr ""
+
+#: src/glossary.md:27
+msgid ""
+"**Policy** : A set of allow / deny / audit rules that decide whether an "
+"agent action is permitted. See the [Policy reference](policy-reference.md)."
+msgstr ""
+
+#: src/glossary.md:31
+msgid ""
+"**Policy-as-code** : Expressing those rules as versioned YAML/JSON documents "
+"that can be reviewed and deployed through normal Git workflows, instead of "
+"clicking through a UI."
+msgstr ""
+
+#: src/glossary.md:35
+msgid ""
+"**Budget** : A per-team cap on token or dollar spend. When exceeded, the "
+"gateway can deny further agent calls."
+msgstr ""
+
+#: src/glossary.md:39
+msgid "Interception layers"
+msgstr ""
+
+#: src/glossary.md:41
+msgid ""
+"**SDK layer** : In-process governance: the language SDK wraps your agent's "
+"calls and applies allow/deny decisions before any request leaves the process."
+msgstr ""
+
+#: src/glossary.md:45
+msgid ""
+"**Sidecar proxy (`aa-proxy`)** : A companion process that intercepts an "
+"agent's outbound HTTPS traffic to enforce policy without changing the "
+"agent's code."
+msgstr ""
+
+#: src/glossary.md:49
+msgid ""
+"**eBPF sensor (`aa-ebpf`)** : A kernel-level sensor (Linux only) that "
+"watches TLS libraries and process syscalls to catch actions — and bypass "
+"attempts — that the layers above miss."
+msgstr ""
+
+#: src/glossary.md:53
+msgid "Security & identity terms"
+msgstr ""
+
+#: src/glossary.md:55
+msgid ""
+"**eBPF** (extended Berkeley Packet Filter) : A Linux kernel technology for "
+"safely running small sandboxed programs inside the kernel to observe or "
+"filter events, without modifying kernel source."
+msgstr ""
+
+#: src/glossary.md:59
+msgid ""
+"**uprobe** (user-space probe) : An eBPF hook attached to a function in a "
+"user-space library (for example, an SSL library) so the sensor can observe "
+"calls at that point."
+msgstr ""
+
+#: src/glossary.md:63
+msgid ""
+"**Sidecar** : A deployment pattern where a helper process runs alongside "
+"your application and handles a cross-cutting concern (here, traffic "
+"interception)."
+msgstr ""
+
+#: src/glossary.md:67
+msgid ""
+"**MitM** (man-in-the-middle) : Sitting in the path of a connection to "
+"inspect or control it. The proxy performs _authorized_ MitM of an agent's "
+"HTTPS using a per-host certificate authority so it can apply egress policy."
+msgstr ""
+
+#: src/glossary.md:72
+msgid ""
+"**mTLS** (mutual TLS) : TLS where **both** the client and the server present "
+"certificates, so each side cryptographically verifies the other's identity."
+msgstr ""
+
+#: src/glossary.md:76
+msgid ""
+"**STRIDE** : A threat-modeling framework categorizing risks as Spoofing, "
+"Tampering, Repudiation, Information disclosure, Denial of service, and "
+"Elevation of privilege. Used in the [Security model](security-model.md)."
+msgstr ""
+
+#: src/glossary.md:81
+msgid ""
+"**SCIM** (System for Cross-domain Identity Management) : A standard protocol "
+"for automatically provisioning and de-provisioning users and groups from "
+"your identity provider into an application."
+msgstr ""
+
+#: src/glossary.md:85
+msgid ""
+"**SSO / SAML 2.0 / OIDC** : Single sign-on and the two federation protocols "
+"(SAML 2.0 and OpenID Connect) used to let operators log in with an "
+"enterprise identity provider."
+msgstr ""
+
+#: src/glossary.md:89
+msgid ""
+"**Ed25519** : A modern public-key signature algorithm, used here to sign "
+"agent identity tokens."
+msgstr ""
+
+#: src/glossary.md:93
+msgid ""
+"**AES-256-GCM** : A symmetric authenticated-encryption algorithm, used here "
+"to encrypt stored secrets at rest."
+msgstr ""
+
+#: src/glossary.md:97
+msgid ""
+"**HMAC-SHA256** : A keyed hash used to sign audit-log entries and webhook "
+"payloads so tampering is detectable."
+msgstr ""
+
+#: src/glossary.md:101
+msgid ""
+"**IronClaw five-layer defense** : The name for AI Agent Assembly's "
+"defense-in-depth model — five security _layers_ (Boundary, Identity, Policy, "
+"Vault, Telemetry). These are distinct from the three _interception points_ "
+"(SDK, proxy, eBPF), which all live inside the Boundary layer. See the "
+"[Security model](security-model.md)."
+msgstr ""
+
+#: src/glossary.md:107
+msgid ""
+"**Audit log** : The append-only, tamper-evident record of every agent action "
+"(policy checks, events, budget debits)."
+msgstr ""
+
+#: src/troubleshooting.md:3
+msgid ""
+"This page is a starting point when something is not working the way the docs "
+"describe. It is for **operators and developers** who have already read the "
+"[Quick start](quickstart-saas.md) or an SDK page and hit a specific problem."
+msgstr ""
+
+#: src/troubleshooting.md:7
+msgid ""
+"Because AI Agent Assembly is composed of four independently versioned "
+"programs (core plus three SDKs), most concrete runtime symptoms are covered "
+"in the owning component's own troubleshooting section. This page routes you "
+"to the right one and lists cross-cutting issues that don't belong to a "
+"single component."
+msgstr ""
+
+#: src/troubleshooting.md:13
+msgid "Common first-run failures"
+msgstr ""
+
+#: src/troubleshooting.md:15
+msgid ""
+"If you are evaluating AI Agent Assembly for the first time, these are the "
+"symptoms newcomers hit most often — each with the exact fix. If your symptom "
+"isn't here, use the component routing table further down."
+msgstr ""
+
+#: src/troubleshooting.md:19
+msgid "Symptom you see"
+msgstr ""
+
+#: src/troubleshooting.md:19
+msgid "Cause"
+msgstr ""
+
+#: src/troubleshooting.md:19
+msgid "Fix"
+msgstr ""
+
+#: src/troubleshooting.md:21
+msgid ""
+"`pip install agent-assembly` → `ERROR: Could not find a version that "
+"satisfies the requirement agent-assembly` / `No matching distribution found`"
+msgstr ""
+
+#: src/troubleshooting.md:21
+msgid ""
+"Only **pre-release** versions are published on PyPI right now; `pip` skips "
+"pre-releases by default."
+msgstr ""
+
+#: src/troubleshooting.md:21
+msgid "Install with the `--pre` flag: `pip install --pre agent-assembly`."
+msgstr ""
+
+#: src/troubleshooting.md:22
+msgid ""
+"On Python 3.13 / 3.14, agent registration appears to do nothing — no events "
+"reach the gateway"
+msgstr ""
+
+#: src/troubleshooting.md:22
+msgid ""
+"Older SDK builds had no wheels for CPython 3.13/3.14, so the native "
+"extension silently fell back to a no-op."
+msgstr ""
+
+#: src/troubleshooting.md:22
+msgid ""
+"Upgrade to **rc.5 or later**, which ships `cp313` and `cp314` wheels: `pip "
+"install --pre --upgrade agent-assembly`. Confirm your interpreter with "
+"`python --version`."
+msgstr ""
+
+#: src/troubleshooting.md:23
+msgid "SDK cannot reach the gateway even though a gateway is running"
+msgstr ""
+
+#: src/troubleshooting.md:23
+msgid ""
+"Connecting to the wrong port/protocol — the SDKs speak **gRPC on `50051`**, "
+"while the REST/OpenAPI surface (used by the dashboard and `curl` health "
+"checks) is **HTTP on `8080`**."
+msgstr ""
+
+#: src/troubleshooting.md:23
+msgid ""
+"Point the SDK at the gRPC endpoint (`50051`), not the REST port. For a fully "
+"local loop with no external gateway, run one yourself: `aasm start` brings "
+"up a local gateway the SDK can register against."
+msgstr ""
+
+#: src/troubleshooting.md:24
+msgid ""
+"`ImportError` / `ModuleNotFoundError` for `AgentExecutor` or "
+"`create_react_agent` when running a LangChain example"
+msgstr ""
+
+#: src/troubleshooting.md:24
+msgid ""
+"Recent LangChain moved these legacy agent constructors out of the top-level "
+"`langchain` package into the `langchain_classic` package."
+msgstr ""
+
+#: src/troubleshooting.md:24
+msgid ""
+"Import from the new location: `from langchain_classic.agents import "
+"AgentExecutor, create_react_agent` (and `pip install langchain-classic` if "
+"it isn't already present)."
+msgstr ""
+
+#: src/troubleshooting.md:26
+msgid "Where component-specific troubleshooting lives"
+msgstr ""
+
+#: src/troubleshooting.md:28
+msgid "Symptom"
+msgstr ""
+
+#: src/troubleshooting.md:28
+msgid "Look here"
+msgstr ""
+
+#: src/troubleshooting.md:30
+msgid "SDK cannot register the agent / handshake fails"
+msgstr ""
+
+#: src/troubleshooting.md:30
+msgid ""
+"[Python SDK docs](https://docs.agent-assembly.com/python-sdk/), [Node SDK "
+"docs](https://docs.agent-assembly.com/node-sdk/), [Go SDK "
+"docs](https://docs.agent-assembly.com/go-sdk/)"
+msgstr ""
+
+#: src/troubleshooting.md:31
+msgid "Sidecar proxy (`aa-proxy`) drops connections"
+msgstr ""
+
+#: src/troubleshooting.md:31
+msgid "[Core docs](https://docs.agent-assembly.com/core/) — Proxy section"
+msgstr ""
+
+#: src/troubleshooting.md:32
+msgid "eBPF sensor (`aa-ebpf`) fails to load"
+msgstr ""
+
+#: src/troubleshooting.md:32
+msgid "[Core docs](https://docs.agent-assembly.com/core/) — eBPF section"
+msgstr ""
+
+#: src/troubleshooting.md:33
+msgid "Policy YAML rejected at gateway"
+msgstr ""
+
+#: src/troubleshooting.md:34
+msgid "Compatibility mismatch between core and an SDK"
+msgstr ""
+
+#: src/troubleshooting.md:36
+msgid "Cross-cutting checks"
+msgstr ""
+
+#: src/troubleshooting.md:38
+msgid "Before opening an issue, verify:"
+msgstr ""
+
+#: src/troubleshooting.md:40
+msgid ""
+"The SDK version matches a supported core version — see the [Compatibility "
+"matrix](compatibility.md)."
+msgstr ""
+
+#: src/troubleshooting.md:42
+msgid ""
+"The workspace ID and API key are set in the environment (`AAA_WORKSPACE_ID`, "
+"`AAA_API_KEY`) — an unset credential is the most common cause of \"agent "
+"registration failed\"."
+msgstr ""
+
+#: src/troubleshooting.md:45
+msgid ""
+"The gateway URL is reachable from the host running the agent "
+"(`https://api.agent-assembly.com` by default)."
+msgstr ""
+
+#: src/troubleshooting.md:47
+msgid ""
+"The clock on the agent host is not skewed by more than a few minutes — "
+"Ed25519-signed agent tokens have a bounded TTL and reject skewed timestamps."
+msgstr ""
+
+#: src/troubleshooting.md:51
+msgid "Still stuck? Open an issue"
+msgstr ""
+
+#: src/troubleshooting.md:53
+msgid ""
+"If none of the routes above resolve the problem, open a GitHub issue on the "
+"owning repository — the core team monitors each repo's issue tracker and "
+"routes docs bugs back here."
+msgstr ""
+
+#: src/troubleshooting.md:66
+msgid "_Last reviewed: 2026-07-09 — AI Agent Assembly Team_"
+msgstr ""
+
+#: src/accessibility.md:1
+msgid "Accessibility statement"
+msgstr ""
+
+#: src/accessibility.md:3
+msgid ""
+"This page states the accessibility posture of the AI Agent Assembly "
+"documentation hub for readers — and for procurement or compliance reviewers "
+"— who need a public statement of intent before adopting the product."
+msgstr ""
+
+#: src/accessibility.md:7
+msgid "Conformance target"
+msgstr ""
+
+#: src/accessibility.md:9
+msgid ""
+"We are **working toward [WCAG 2.1](https://www.w3.org/TR/WCAG21/) Level AA** "
+"for this documentation site. This is a target we are actively pursuing, not "
+"a certified conformance claim. As gaps are found they are tracked and fixed "
+"rather than waived."
+msgstr ""
+
+#: src/accessibility.md:14
+msgid "What we do today"
+msgstr ""
+
+#: src/accessibility.md:16
+msgid ""
+"**Semantic, keyboard-navigable content.** The site is built with "
+"[mdBook](https://rust-lang.github.io/mdBook/), which renders plain semantic "
+"HTML with a keyboard-operable sidebar, search, and theme controls."
+msgstr ""
+
+#: src/accessibility.md:19
+msgid ""
+"**Readable contrast in light and dark.** The default light theme and the "
+"dark themes aim to meet the WCAG AA contrast ratio for body text."
+msgstr ""
+
+#: src/accessibility.md:21
+msgid ""
+"**Text alternatives.** Informative images carry alternative text, and "
+"architecture diagrams are accompanied by a prose or tabular description so "
+"the same information is available without seeing the diagram."
+msgstr ""
+
+#: src/accessibility.md:24
+msgid ""
+"**Resizable, reflowable text.** Content reflows without loss of information "
+"when zoomed or viewed on a narrow screen."
+msgstr ""
+
+#: src/accessibility.md:27
+msgid "Known limitations"
+msgstr ""
+
+#: src/accessibility.md:29
+msgid ""
+"Some **Mermaid** diagrams are rendered as SVG; where a diagram is essential "
+"we provide an adjacent text description, but not every diagram has full "
+"alternative markup yet."
+msgstr ""
+
+#: src/accessibility.md:32
+msgid ""
+"The site depends on the upstream mdBook theme; a small number of its "
+"controls may not yet fully meet AA, and we track those upstream."
+msgstr ""
+
+#: src/accessibility.md:35
+msgid "Feedback"
+msgstr ""
+
+#: src/accessibility.md:37
+msgid ""
+"If you hit an accessibility barrier on this site, please [open an issue on "
+"the docs "
+"repository](https://github.com/ai-agent-assembly/docs/issues/new/choose). "
+"Tell us the page, what you were trying to do, and the assistive technology "
+"or browser you were using — we treat accessibility barriers as bugs."
+msgstr ""
+
+#: src/localization.md:3
+msgid ""
+"**This documentation is authored in English, and Traditional Chinese (繁體中文, "
+"`zh-Hant`) is available as a first-pass translation of the priority pages.** "
+"This page states that policy for readers evaluating the product worldwide "
+"and records how translations are produced and contributed. Additional "
+"languages are welcome — see the contributor workflow below."
+msgstr ""
+
+#: src/localization.md:9
+msgid "Current status"
+msgstr ""
+
+#: src/localization.md:11
+msgid "The English source (`en`) is the single source of truth for every page."
+msgstr ""
+
+#: src/localization.md:12
+msgid ""
+"**繁體中文 (`zh-Hant`)** ships a **draft, machine first-pass** translation of "
+"the priority pages — the landing/introduction, the FAQ, the Glossary, and "
+"the Quick start (SaaS). Those pages carry a banner noting they are pending "
+"native review. Every other page falls back to English until it is translated."
+msgstr ""
+
+#: src/localization.md:16
+msgid ""
+"A **language switcher** in the page header (English ↔ 繁體中文) lets readers "
+"move between the two, page for page."
+msgstr ""
+
+#: src/localization.md:19
+msgid "How localization works"
+msgstr ""
+
+#: src/localization.md:21
+msgid ""
+"This hub uses mdBook's gettext-based localization via the "
+"[`mdbook-i18n-helpers`](https://github.com/google/mdbook-i18n-helpers) "
+"toolchain — the standard approach for multilingual mdBook sites. The English "
+"source stays authoritative; each translation is layered on top as a PO "
+"catalog, so English content cannot drift silently from its translations."
+msgstr ""
+
+#: src/localization.md:27
+msgid "**Extract** the English source into a `po/messages.pot` template:"
+msgstr ""
+
+#: src/localization.md:31
+msgid "messages.pot"
+msgstr ""
+
+#: src/localization.md:34
+msgid ""
+"**Translate** per-language `po/<lang>.po` catalogs (for example "
+"`po/zh-Hant.po`). Untranslated strings are left empty and fall back to the "
+"English source at build time."
+msgstr ""
+
+#: src/localization.md:38
+msgid ""
+"**Build** one localized site per language by overriding the book language, "
+"which activates the `gettext` preprocessor (configured in `book.toml`):"
+msgstr ""
+
+#: src/localization.md:42
+msgid "zh-Hant"
+msgstr ""
+
+#: src/localization.md:45
+msgid ""
+"The [aggregation pipeline](docs-hub-aggregation.md) "
+"(`docs/scripts/aggregate.sh`) builds English at the site root and each "
+"translated language under `/<lang>/` (e.g. `/zh-Hant/`), and the theme's "
+"language switcher links between them."
+msgstr ""
+
+#: src/localization.md:50
+msgid ""
+"**Toolchain note.** The default English build treats the `gettext` "
+"preprocessor as a no-op (there is no `po/en.po`), so contributors who only "
+"touch English content still just run `mdbook build`. Producing or previewing "
+"a translated build additionally requires the `mdbook-gettext` binary (`cargo "
+"install mdbook-i18n-helpers`)."
+msgstr ""
+
+#: src/localization.md:56
+msgid "Contributing a translation"
+msgstr ""
+
+#: src/localization.md:58
+msgid ""
+"Translations are community-contributed. To improve the zh-Hant draft or add "
+"a new language:"
+msgstr ""
+
+#: src/localization.md:61
+msgid ""
+"Re-sync the template if you changed English content (step 1 above), then "
+"merge it into the catalog you are editing:"
+msgstr ""
+
+#: src/localization.md:65
+msgid "# or msginit for a new language\n"
+msgstr ""
+
+#: src/localization.md:68
+msgid ""
+"Fill in the `msgstr` entries in `po/<lang>.po`. Use the "
+"[Glossary](glossary.md) to keep technical-term choices consistent, and keep "
+"product, crate, and API names (e.g. `aa-gateway`, `aa-proxy`, `aa-ebpf`, SDK "
+"and CLI identifiers) in English."
+msgstr ""
+
+#: src/localization.md:72
+msgid ""
+"Validate with `msgfmt -c po/<lang>.po` and preview the localized build with "
+"the command in step 3 above before opening a PR."
+msgstr ""
+
+#: src/localization.md:75
+msgid ""
+"If you would like to coordinate before starting, please [open an issue on "
+"the docs "
+"repository](https://github.com/ai-agent-assembly/docs/issues/new/choose) "
+"naming the language you want to work on."
+msgstr ""
+
+#: src/localization.md:79
+msgid ""
+"**Marketing site.** The marketing site (`agent-assembly.com`) is built with "
+"Docusaurus, which has its own [built-in "
+"i18n](https://docusaurus.io/docs/i18n/introduction). Enabling localization "
+"there is tracked separately from this docs hub; this workflow covers the "
+"mdBook documentation hub only."
+msgstr ""
+
