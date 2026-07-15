@@ -5,6 +5,20 @@ authors = ["AI Agent Assembly Team"]
 language = "en"
 src = "src"
 
+# i18n / localization scaffold (AAASM-4637). Docs are English-only for now;
+# see src/localization.md for the plan. When translations are prioritized,
+# enable the mdbook-i18n-helpers PO-catalog workflow and declare the
+# per-language configuration here, e.g.:
+#
+# [language.en]
+# name = "English"
+# [language.zh-TW]
+# name = "繁體中文"
+#
+# Do NOT uncomment until the PO catalogs and mdbook-i18n-helpers toolchain are
+# wired up — the CI-pinned mdBook build treats an empty [language] table as an
+# error.
+
 [output.html]
 default-theme = "light"
 preferred-dark-theme = "navy"

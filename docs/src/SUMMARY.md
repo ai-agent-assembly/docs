@@ -32,3 +32,4 @@
 # About
 
 - [Accessibility](accessibility.md)
+- [Localization](localization.md)
