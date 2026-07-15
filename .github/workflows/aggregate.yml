@@ -91,7 +91,7 @@ jobs:
       - name: Set up Go + Hugo extended (go-sdk / Hugo + Hextra)
         uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6.5.0
         with:
-          go-version: "1.24"
+          go-version: "1.26"
       - uses: peaceiris/actions-hugo@2752ce1d29631191ea3f27c23495fa06139a5b78 # v3
         with:
           hugo-version: "0.163.0"
