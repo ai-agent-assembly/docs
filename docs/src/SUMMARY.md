@@ -26,3 +26,7 @@
 # Support
 
 - [Troubleshooting](troubleshooting.md)
+
+# About
+
+- [Accessibility](accessibility.md)
