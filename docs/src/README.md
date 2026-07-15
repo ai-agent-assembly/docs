@@ -37,7 +37,8 @@ Pick the page that matches what you are trying to do.
 
 | I want to… | Go to |
 |---|---|
-| Govern my first agent in a few minutes | [Quick start (SaaS)](quickstart-saas.md) |
+| Govern an agent right now (runnable today) | [Runnable examples](#runnable-examples) |
+| Preview the managed SaaS onboarding (coming soon) | [Quick start (SaaS)](quickstart-saas.md) |
 | Understand the security posture and threat model | [Security model](security-model.md) |
 | Compare AI Agent Assembly to other tools | [Why AI Agent Assembly?](comparison.md) |
 | Know what is open source vs. paid | [Open core boundary](open-core-boundary.md) |
@@ -87,8 +88,10 @@ All three layers report to the **gateway**, which evaluates policy and tracks pe
 
 <div class="aa-cta-next">
   <span class="aa-cta-next__label">Next step</span>
-  <a href="quickstart-saas.md" data-track-event="docs_quickstart_click" data-cta-location="body">Continue to the Quick start →</a>
-  <p>Instrument a LangChain agent in under five minutes.</p>
+  <a href="https://github.com/ai-agent-assembly/examples?utm_source=docs&amp;utm_medium=docs_link&amp;utm_campaign=oss_install&amp;utm_content=landing_next_step" data-cta-location="body" rel="noopener">Run a governed example →</a>
+  <p>Clone the <code>agent-assembly-examples</code> repo and run a governed LangChain
+     agent end to end — the path you can run today. The managed
+     <a href="quickstart-saas.md">Quick start (SaaS)</a> is coming soon.</p>
 </div>
 
 ---
