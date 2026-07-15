@@ -105,9 +105,12 @@ and no lefthook in this repo; the only local gate is `mdbook build` + the matrix
 - **JIRA:** project AAASM; set **Component** (`customfield_10041`) to the repo
   (`ai-agent-assembly/docs`); Team (`customfield_10001`) = Pioneer.
   Epic → Story → Subtask (one Subtask ≈ one commit) + a `Verify …` subtask per Story.
-- **Self-hosted deployment is out of scope** product-wide — the docs are **SaaS-only**.
-  Don't add Helm/Terraform/air-gapped/migration instructions even if the spec mentions
-  them (the PR template enforces this checkbox).
+- **Self-host is limited-function only** (revised policy). Sample infra configs and
+  **Docker Compose** examples — plus their reflecting docs — may be provided so users
+  can self-host a *limited-function* stack locally for eval/dev. **Complete/full
+  functionality remains SaaS-only.** Production orchestration
+  (**Helm/Terraform/Kubernetes**) is a research-spike/ADR question only, not
+  ready-to-build work; don't add air-gapped/migration instructions.
 - **The Protocol Specification stays in the `agent-assembly` monorepo** — do not author
   spec content here or in a separate `agent-assembly-spec` repo (that repo is archived
   by design). This hub links out; it does not own component or protocol docs.
