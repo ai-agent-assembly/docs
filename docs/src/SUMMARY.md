@@ -20,6 +20,10 @@
 - [Quick Start (SaaS) (Coming soon)](quickstart-saas.md)
 - [Cloud Deployment (Coming soon)](cloud-deployment.md)
 
+# Operations
+
+- [Self-Host Observability](self-host-observability.md)
+
 # Reference
 
 - [Policy Reference](policy-reference.md)
