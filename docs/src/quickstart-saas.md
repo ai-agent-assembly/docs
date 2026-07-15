@@ -89,6 +89,13 @@ The `init_assembly` session plus the wired callback handler do three things, wit
 - Run a policy check before each tool/LLM call, blocking it if policy denies.
 - Emit an audit event for every call.
 
+> **Deny is enforced — a blocked call raises.** With the idiomatic
+> `callbacks=[handler]` wiring shown above, a policy **deny** stops the tool/LLM
+> call by **raising an exception** that propagates out of `executor.invoke(...)`;
+> the denied action does not run. (The deny is no longer swallowed — wrap the
+> `invoke` call in `try`/`except` if you want to handle a blocked action
+> gracefully instead of letting it surface.)
+
 ### Step 4 — Activate a starter policy
 
 In the console, open **Policies → New Policy** and apply the starter template (allow all, audit all). This takes under 30 seconds. From now on, every call from `langchain-research-agent` is governed, audited, and visible in the **Audit Log** panel.
