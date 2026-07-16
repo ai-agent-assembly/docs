@@ -131,8 +131,11 @@ Caps per-agent LLM spend. The gateway enforces the budget before allowing the ag
 |---|---|---|---|
 | `budget.daily_limit_usd` | float | No | Maximum USD spend per calendar day. Must be > 0. |
 | `budget.monthly_limit_usd` | float | No | Maximum USD spend per calendar month. Must be > 0 and ≥ `daily_limit_usd`. |
+| `budget.org_daily_limit_usd` | float | No | Maximum USD spend per calendar day, aggregated across the whole organisation. Must be > 0. |
+| `budget.org_monthly_limit_usd` | float | No | Maximum USD spend per calendar month, aggregated across the whole organisation. Must be > 0 and ≥ `org_daily_limit_usd`. |
 | `budget.timezone` | string | No | IANA timezone for the daily/monthly reset boundary. Defaults to UTC when absent. |
 | `budget.action_on_exceed` | `"deny"` \| `"suspend"` | No | Action when budget is exceeded. `deny` (default): blocks individual requests but keeps the agent active. `suspend`: suspends the agent entirely until the budget resets. |
+| `budget.window` | string | No | Sub-day rollover window as a humantime duration (e.g. `"5s"`, `"30m"`, `"1h30m"`). When absent, the daily/monthly counters roll over at the calendar-day boundary. Must be a positive duration. |
 
 ```yaml
 budget:
@@ -258,8 +261,11 @@ The gateway validates every policy on upload. All errors are collected and retur
 | `schedule.active_hours.timezone` | Required when `active_hours` is present; must be a valid IANA timezone name |
 | `budget.daily_limit_usd` | Must be > 0 when present |
 | `budget.monthly_limit_usd` | Must be > 0; must be ≥ `daily_limit_usd` when both are set |
+| `budget.org_daily_limit_usd` | Must be > 0 when present |
+| `budget.org_monthly_limit_usd` | Must be > 0; must be ≥ `org_daily_limit_usd` when both are set |
 | `budget.timezone` | Must be a valid IANA timezone name when present |
 | `budget.action_on_exceed` | Must be `"deny"` or `"suspend"` when present |
+| `budget.window` | Must be a positive humantime duration (e.g. `5s`, `30m`, `1h30m`) when present |
 | `data.sensitive_patterns[n]` | Must be a valid RE2 regex |
 | `tools.<name>.requires_approval_if` | Must not be empty; must reference only `L0`–`L3` governance levels |
 | `capabilities.allow[n]` / `capabilities.deny[n]` | Must be a known capability string |
