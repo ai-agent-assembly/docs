@@ -4,8 +4,8 @@ This page is a starting point when something is not working the way the docs
 describe. It is for **operators and developers** who have already read the
 [Quick start](quickstart-saas.md) or an SDK page and hit a specific problem.
 
-Because AI Agent Assembly is composed of four independently versioned
-programs (core plus three SDKs), most concrete runtime symptoms are covered
+Because AI Agent Assembly is composed of five independently versioned
+programs (core, three SDKs, and Arena), most concrete runtime symptoms are covered
 in the owning component's own troubleshooting section. This page routes you
 to the right one and lists cross-cutting issues that don't belong to a
 single component.
@@ -19,7 +19,7 @@ isn't here, use the component routing table further down.
 | Symptom you see | Cause | Fix |
 |---|---|---|
 | `pip install agent-assembly` → `ERROR: Could not find a version that satisfies the requirement agent-assembly` / `No matching distribution found` | Only **pre-release** versions are published on PyPI right now; `pip` skips pre-releases by default. | Install with the `--pre` flag: `pip install --pre agent-assembly`. |
-| On Python 3.13 / 3.14, agent registration appears to do nothing — no events reach the gateway | Older SDK builds had no wheels for CPython 3.13/3.14, so the native extension silently fell back to a no-op. | Upgrade to **rc.5 or later**, which ships `cp313` and `cp314` wheels: `pip install --pre --upgrade agent-assembly`. Confirm your interpreter with `python --version`. |
+| On Python 3.13 / 3.14, agent registration appears to do nothing — no events reach the gateway | Older SDK builds had no wheels for CPython 3.13/3.14, so the native extension silently fell back to a no-op. | Upgrade to **rc.4 or later**, which ships `cp313` and `cp314` wheels: `pip install --pre --upgrade agent-assembly`. Confirm your interpreter with `python --version`. |
 | SDK cannot reach the gateway even though a gateway is running | Connecting to the wrong port/protocol — the SDKs speak **gRPC on `50051`**, while the REST/OpenAPI surface (used by the dashboard and `curl` health checks) is **HTTP on `8080`**. | Point the SDK at the gRPC endpoint (`50051`), not the REST port. For a fully local loop with no external gateway, run one yourself: `aasm start` brings up a local gateway the SDK can register against. |
 | `ImportError` / `ModuleNotFoundError` for `AgentExecutor` or `create_react_agent` when running a LangChain example | Recent LangChain moved these legacy agent constructors out of the top-level `langchain` package into the `langchain_classic` package. | Import from the new location: `from langchain_classic.agents import AgentExecutor, create_react_agent` (and `pip install langchain-classic` if it isn't already present). |
 
@@ -63,4 +63,4 @@ routes docs bugs back here.
 
 ---
 
-*Last reviewed: 2026-07-09 — AI Agent Assembly Team*
+*Last reviewed: 2026-07-16 — AI Agent Assembly Team*
