@@ -153,7 +153,8 @@ Scans agent inputs and outputs for PII or credential patterns using regex.
 
 | Field | Type | Required | Description |
 |---|---|---|---|
-| `data.sensitive_patterns` | list of regex strings | No | RE2-compatible regex patterns. A match causes the agent action to be blocked. Invalid regex is rejected at validation time. |
+| `data.sensitive_patterns` | list of regex strings | No | RE2-compatible regex patterns. A match triggers `credential_action`. Invalid regex is rejected at validation time. |
+| `data.credential_action` | `"block"` \| `"redact_only"` \| `"alert_only"` \| `"alert_and_redact"` | No | Action taken when a `sensitive_patterns` match is found. `redact_only` (default): redact the match and forward the request. `block`: block the agent action entirely. `alert_only`: alert without redacting. `alert_and_redact`: alert and redact. |
 
 ```yaml
 data:
@@ -267,6 +268,7 @@ The gateway validates every policy on upload. All errors are collected and retur
 | `budget.action_on_exceed` | Must be `"deny"` or `"suspend"` when present |
 | `budget.window` | Must be a positive humantime duration (e.g. `5s`, `30m`, `1h30m`) when present |
 | `data.sensitive_patterns[n]` | Must be a valid RE2 regex |
+| `data.credential_action` | Must be `"block"`, `"redact_only"`, `"alert_only"`, or `"alert_and_redact"` when present |
 | `tools.<name>.requires_approval_if` | Must not be empty; must reference only `L0`–`L3` governance levels |
 | `capabilities.allow[n]` / `capabilities.deny[n]` | Must be a known capability string |
 | `approval_timeout_secs` | Must be > 0 when present |
