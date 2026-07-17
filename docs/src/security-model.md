@@ -40,10 +40,12 @@ The table below maps each STRIDE category to the five primary components of AI A
 
 | Primitive | Algorithm | Key length | Usage | Rotation cadence (NIST SP 800-57) |
 |---|---|---|---|---|
-| Agent signing key | Ed25519 | 256-bit | Signs agent identity tokens issued by the gateway | Every 90 days or on compromise |
+| Agent registration proof | Ed25519 | 256-bit | One-time possession-proof signature over a server-issued nonce, verified at `RegisterAgent`; not a reusable bearer credential | Agent-supplied keypair; not gateway-managed |
+| Agent credential token | UUID v4 (CSPRNG) | 122-bit random | Bearer credential presented on every agent-plane gRPC call after registration; validated with a constant-time compare | No expiry — replaced only on re-registration |
+| REST/admin session token | JWT (HMAC-SHA256) | 256-bit | Authenticates REST/admin API callers; only issued when gateway auth is explicitly enabled (off by default) | 24h token TTL |
 | Vault encryption | AES-256-GCM | 256-bit | Encrypts secrets and credentials at rest | Every 1 year or on compromise |
 | Callback / webhook signature | HMAC-SHA256 | 256-bit | Signs outbound webhook payloads so receivers can verify authenticity | Every 90 days or on rotation of webhook secret |
-| TLS (transport) | TLS 1.3 | ECDHE-256 | All inter-component and external communication | Certificate: every 90 days (auto-renewed) |
+| TLS (transport) | TLS 1.3 | ECDHE-256 | Operator/external HTTPS traffic; the gRPC agent-plane transport is plaintext by default (see the callout below) | Certificate: every 90 days (auto-renewed) |
 
 All keys are generated using a CSPRNG. No MD5, SHA-1, or DES primitives are used anywhere in the stack.
 
@@ -59,12 +61,15 @@ sequenceDiagram
   participant SDK as Language SDK
   participant GW as aa-gateway
 
-  SDK->>GW: RegisterAgent(agent_id, public_key, metadata)
-  GW-->>SDK: AgentToken (Ed25519-signed JWT, TTL=1h)
-  Note over SDK,GW: All subsequent calls carry the AgentToken in gRPC metadata
+  SDK->>GW: RequestChallenge(agent_id, public_key)
+  GW-->>SDK: nonce (single-use, server-random)
+  SDK->>GW: Register(agent_id, public_key, possession_proof = sign(nonce))
+  GW->>GW: Verify Ed25519 signature over nonce (one-time possession proof)
+  GW-->>SDK: credential_token (random UUID, no expiry)
+  Note over SDK,GW: All subsequent calls carry credential_token in gRPC metadata (x-aa-credential-token or Authorization: Bearer)
 
-  SDK->>GW: CheckPolicy(event) [+ AgentToken]
-  GW->>GW: Verify Ed25519 signature, check TTL
+  SDK->>GW: CheckPolicy(event) [+ credential_token]
+  GW->>GW: Constant-time compare against stored token (no TTL — tokens do not expire)
   GW-->>SDK: PolicyDecision
 ```
 
