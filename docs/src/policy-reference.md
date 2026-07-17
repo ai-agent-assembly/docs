@@ -208,6 +208,7 @@ Broad capability allow/deny lists that apply across all tools and actions.
 |---|---|
 | `file_read` | Read access to the filesystem |
 | `file_write` | Write access to the filesystem |
+| `file_delete` | Delete access to the filesystem — a distinct verb from `file_write` |
 | `network_outbound` | Outbound network connections |
 | `network_inbound` | Inbound network connections |
 | `terminal_exec` | Execute commands in a terminal/shell |
@@ -216,6 +217,12 @@ Broad capability allow/deny lists that apply across all tools and actions.
 | `model:<name>` | Use a specific named AI model (e.g., `model:gpt-4o`) |
 
 Unknown capability strings are rejected with a validation error. The `mcp_tool:` and `model:` prefixes require a non-empty name after the colon.
+
+`file_write` and `file_delete` are asymmetric: a `file_write` **deny** also blocks
+`file_delete` (fail-closed — a policy authored before `file_delete` existed and
+expressed "no mutation" as a single `file_write` deny must keep blocking delete),
+but a `file_write` **allow** does *not* grant `file_delete` — delete requires its
+own explicit `file_delete` allow.
 
 ```yaml
 capabilities:
