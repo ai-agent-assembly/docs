@@ -178,7 +178,7 @@ Budgets cap per-team LLM spending. The gateway enforces the budget before allowi
 | **Token limit** | Maximum tokens (input + output combined) per window |
 | **Cost limit** | Maximum USD spend per window |
 | **Window** | `hourly`, `daily`, `weekly`, or `monthly` |
-| **Action on exceeded** | `deny` (block further calls) or `alert` (notify only) |
+| **Action on exceeded** | `deny` (block further calls, agent stays active) or `suspend` (suspend the agent entirely until the budget resets) |
 
 3. Click **Save Budget**.
 
