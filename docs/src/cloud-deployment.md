@@ -196,7 +196,7 @@ Budgets cap per-team LLM spending. The gateway enforces the budget before allowi
 | Tier | Availability SLA | Support response time | Notes |
 |---|---|---|---|
 | **Free** | Best effort | Community forum | For evaluation only |
-| **Team** | 99.5% monthly uptime | 24h business hours | Up to 50 agents |
+| **Pro and Business** | 99.5% monthly uptime | 24h business hours | Up to 50 agents |
 | **Enterprise** | 99.9% monthly uptime | 4h any time | Unlimited agents, dedicated SRE contact |
 
 SLA credits apply for downtime exceeding the SLA threshold. See the Terms of Service for the full credit schedule.
