@@ -1,4 +1,4 @@
-# Contributing to agent-assembly-docs
+# Contributing to docs
 
 Thanks for helping improve the **AI Agent Assembly documentation hub**. This repo
 is an [mdBook](https://rust-lang.github.io/mdBook/) site, built and deployed to

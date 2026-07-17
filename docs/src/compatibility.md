@@ -54,12 +54,16 @@ authoritative current version.
 | v0.0.1-beta.3[^cn8] | supported | protocol/v1 | 0.0.1-beta.3 (PyPI 0.0.1b3) | npm @beta 0.0.1-beta.3 | v0.0.1-beta.3 |
 | v0.0.1-beta.2[^cn9] | supported | protocol/v1 | 0.0.1-beta.2 (PyPI 0.0.1b2) | npm @beta 0.0.1-beta.2 | v0.0.1-beta.2 |
 | v0.0.1-beta.1[^cn10] | supported | protocol/v1 | 0.0.1-beta.1 (PyPI 0.0.1b1) | npm @beta 0.0.1-beta.1 | v0.0.1-beta.1 |
-| tested @ 9cf8a033 (post-v0.0.1-alpha.5, unreleased)[^cn11] | supported | protocol/v1 | PyPI 0.0.1a5 / git v0.0.2 | npm @alpha 0.0.1-alpha.5 | v0.0.1-alpha.4 |
-| v0.0.1-alpha.5[^cn12] | supported | protocol/v1 | — | — | — |
-| v0.0.1-alpha.4[^cn13] | supported | protocol/v1 | — | — | — |
-| v0.0.1-alpha.3[^cn14] | supported | protocol/v1 | — | — | — |
-| v0.0.1-alpha.2[^cn14] | previous | protocol/v1 | — | — | — |
-| v0.0.1-alpha.1[^cn14] | previous | protocol/v1 | — | — | — |
+| v0.0.1-alpha.9[^cn11] | supported | protocol/v1 | — | — | — |
+| v0.0.1-alpha.8[^cn11] | supported | protocol/v1 | — | — | — |
+| v0.0.1-alpha.7[^cn11] | supported | protocol/v1 | — | — | — |
+| v0.0.1-alpha.6[^cn11] | supported | protocol/v1 | — | — | — |
+| tested @ 9cf8a033 (post-v0.0.1-alpha.5, unreleased)[^cn12] | supported | protocol/v1 | PyPI 0.0.1a5 / git v0.0.2 | npm @alpha 0.0.1-alpha.5 | v0.0.1-alpha.4 |
+| v0.0.1-alpha.5[^cn13] | supported | protocol/v1 | — | — | — |
+| v0.0.1-alpha.4[^cn14] | supported | protocol/v1 | — | — | — |
+| v0.0.1-alpha.3[^cn15] | supported | protocol/v1 | — | — | — |
+| v0.0.1-alpha.2[^cn15] | previous | protocol/v1 | — | — | — |
+| v0.0.1-alpha.1[^cn15] | previous | protocol/v1 | — | — | — |
 
 <!-- END GENERATED:matrix -->
 
@@ -92,13 +96,15 @@ footnote in the **Notes** list below.
 
 [^cn10]: Published core tag. First beta-channel pre-release in the v0.0.1 series (monorepo AAASM-2951), promoting the channel up from alpha. Coordinated across all four repos: agent-assembly + python-sdk + node-sdk + go-sdk each carry a v0.0.1-beta.1 tag (PyPI 0.0.1b1, npm @agent-assembly/sdk@0.0.1-beta.1).
 
-[^cn11]: All three SDKs pin aa-core/aa-proto/aa-sdk-client at git SHA 9cf8a033 (PR #958, 2026-06-05; 587 commits ahead of v0.0.1-alpha.5). This was the authoritatively-verified core<->SDK pairing before the beta line was cut. It is not a published core tag.
+[^cn11]: Published core tag (2026-06-12 to 2026-06-14), between v0.0.1-alpha.5 and the beta.1 coordinated release. No SDK repository published a matching tag at this point in the alpha line: python-sdk's alpha tags stop at v0.0.1-alpha.3, node-sdk's at v0.0.1-alpha.4, and go-sdk's at v0.0.1-alpha.5. SDK cells left as — per the accuracy contract.
 
-[^cn12]: Latest published core tag. No SDK tag pins exactly this commit; current SDKs pin a later SHA (see the pinned-commit row). SDK cells left as — to avoid asserting an unverified tag<->tag pairing.
+[^cn12]: All three SDKs pin aa-core/aa-proto/aa-sdk-client at git SHA 9cf8a033 (PR #958, 2026-06-05; 587 commits ahead of v0.0.1-alpha.5). This was the authoritatively-verified core<->SDK pairing before the beta line was cut. It is not a published core tag.
 
-[^cn13]: Published core tag. No SDK tag authoritatively pins this exact commit.
+[^cn13]: Latest published core tag. No SDK tag pins exactly this commit; current SDKs pin a later SHA (see the pinned-commit row). SDK cells left as — to avoid asserting an unverified tag<->tag pairing.
 
-[^cn14]: Published core tag. SDK tags carrying the same version string (python/node/go of the matching alpha) exist, but at their tag time the SDK FFI crates did not yet pin a resolvable aa-core rev, so an exact commit<->commit pairing is NOT verifiable. Left as — per the accuracy contract.
+[^cn14]: Published core tag. No SDK tag authoritatively pins this exact commit.
+
+[^cn15]: Published core tag. SDK tags carrying the same version string (python/node/go of the matching alpha) exist, but at their tag time the SDK FFI crates did not yet pin a resolvable aa-core rev, so an exact commit<->commit pairing is NOT verifiable. Left as — per the accuracy contract.
 
 <!-- END GENERATED:notes -->
 

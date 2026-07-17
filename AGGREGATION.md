@@ -1,6 +1,6 @@
 # Docs Hub Aggregation Contract (AAASM-3659)
 
-This repository (`agent-assembly-docs`) is the **central documentation hub**. It
+This repository (`docs`) is the **central documentation hub**. It
 aggregates the documentation of every module into one static site, mounted under
 stable subpaths, and deploys it to **`docs.agent-assembly.com`**:
 

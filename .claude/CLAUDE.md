@@ -1,4 +1,4 @@
-# CLAUDE.md — agent-assembly-docs
+# CLAUDE.md — docs
 
 Guidance for Claude Code (and humans) working in this repository. This file holds
 **repo-specific** context only; universal engineering policy lives in the global
@@ -17,7 +17,7 @@ site, built and deployed to GitHub Pages on every push to `main`, and published 
 **<https://docs.agent-assembly.com/>**.
 
 This hub **aggregates** the docs of every module into one unified, searchable
-site. Each of the product's four independently-versioned components (core + the
+site. Each of the product's five independently-versioned components (core + the
 three SDKs) ships its **own** docs, built with its native toolchain (mdBook,
 mkdocs-material, Docusaurus, Hugo+Hextra); the aggregation pipeline pulls each
 one, builds it, and mounts its output under a stable subpath — `/core/`,

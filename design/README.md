@@ -9,9 +9,9 @@ Assembly doc surface (the central hub + each SDK/component doc site).
 - **[`snippets/`](./snippets)** — copy-verbatim style files, one per generator:
   | Generator | Repos | Files |
   |---|---|---|
-  | mdBook | agent-assembly-docs, agent-assembly | `mdbook-additional.css` |
+  | mdBook | docs, agent-assembly | `mdbook-additional.css` |
   | MkDocs Material | python-sdk | `mkdocs-extra.css` + `mkdocs-palette.yml` |
-  | Docusaurus | node-sdk, inner-document | `docusaurus-custom.css` |
+  | Docusaurus | node-sdk, internal-docs | `docusaurus-custom.css` |
   | Hugo / Hextra | go-sdk | `hextra-custom.css` |
 
 **Path A:** each repo keeps its native generator and copies its snippet. The tokens are

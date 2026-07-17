@@ -80,9 +80,9 @@ named themes — set `default-theme` to the branded light and `preferred-dark-th
 
 | Repo | Generator | Snippet to copy |
 |---|---|---|
-| agent-assembly-docs (hub), agent-assembly (core) | mdBook | [`snippets/mdbook-additional.css`](./snippets/mdbook-additional.css) |
+| docs (hub), agent-assembly (core) | mdBook | [`snippets/mdbook-additional.css`](./snippets/mdbook-additional.css) |
 | python-sdk | MkDocs Material | [`snippets/mkdocs-extra.css`](./snippets/mkdocs-extra.css) + [`snippets/mkdocs-palette.yml`](./snippets/mkdocs-palette.yml) |
-| node-sdk, inner-document | Docusaurus | [`snippets/docusaurus-custom.css`](./snippets/docusaurus-custom.css) |
+| node-sdk, internal-docs | Docusaurus | [`snippets/docusaurus-custom.css`](./snippets/docusaurus-custom.css) |
 | go-sdk | Hugo / Hextra | [`snippets/hextra-custom.css`](./snippets/hextra-custom.css) |
 
 ## Brand assets

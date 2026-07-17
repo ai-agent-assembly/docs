@@ -59,7 +59,7 @@ status map for every area below.
 | Homebrew / install | [homebrew-tap](https://github.com/ai-agent-assembly/homebrew-tap) | repo `README` |
 | Specs (protocol & policy) | in the `agent-assembly` monorepo | [Policy reference](docs/src/policy-reference.md) |
 | Releases & compatibility | this hub + component tags | [Compatibility matrix](docs/src/compatibility.md) |
-| Cloud (SaaS) | `agent-assembly-cloud` *(private, planned)* | [Cloud deployment](docs/src/cloud-deployment.md) |
+| Cloud (SaaS) | `cloud` *(private, planned)* | [Cloud deployment](docs/src/cloud-deployment.md) |
 | Enterprise | `agent-assembly-enterprise` *(private, planned)* | [Open core boundary](docs/src/open-core-boundary.md) |
 
 ## Source-of-truth labels

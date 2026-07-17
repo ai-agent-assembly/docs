@@ -175,6 +175,46 @@ node = "npm @beta 0.0.1-beta.1"
 go = "v0.0.1-beta.1"
 
 [[release]]
+core = "v0.0.1-alpha.9"
+status = "supported"
+proto = "protocol/v1"
+ref = "alpha6-9"
+[release.sdks]
+python = "—"
+node = "—"
+go = "—"
+
+[[release]]
+core = "v0.0.1-alpha.8"
+status = "supported"
+proto = "protocol/v1"
+ref = "alpha6-9"
+[release.sdks]
+python = "—"
+node = "—"
+go = "—"
+
+[[release]]
+core = "v0.0.1-alpha.7"
+status = "supported"
+proto = "protocol/v1"
+ref = "alpha6-9"
+[release.sdks]
+python = "—"
+node = "—"
+go = "—"
+
+[[release]]
+core = "v0.0.1-alpha.6"
+status = "supported"
+proto = "protocol/v1"
+ref = "alpha6-9"
+[release.sdks]
+python = "—"
+node = "—"
+go = "—"
+
+[[release]]
 core = "tested @ 9cf8a033 (post-v0.0.1-alpha.5, unreleased)"
 status = "supported"
 proto = "protocol/v1"
@@ -284,6 +324,10 @@ text = "Published core tag. Cut as a coordinated release across agent-assembly +
 [[note]]
 key = "beta1"
 text = "Published core tag. First beta-channel pre-release in the v0.0.1 series (monorepo AAASM-2951), promoting the channel up from alpha. Coordinated across all four repos: agent-assembly + python-sdk + node-sdk + go-sdk each carry a v0.0.1-beta.1 tag (PyPI 0.0.1b1, npm @agent-assembly/sdk@0.0.1-beta.1)."
+
+[[note]]
+key = "alpha6-9"
+text = "Published core tag (2026-06-12 to 2026-06-14), between v0.0.1-alpha.5 and the beta.1 coordinated release. No SDK repository published a matching tag at this point in the alpha line: python-sdk's alpha tags stop at v0.0.1-alpha.3, node-sdk's at v0.0.1-alpha.4, and go-sdk's at v0.0.1-alpha.5. SDK cells left as — per the accuracy contract."
 
 [[note]]
 key = "pinned-sha"
