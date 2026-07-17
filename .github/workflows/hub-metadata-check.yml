@@ -8,8 +8,14 @@ name: Hub metadata drift check
 # updating the manifest and regenerating. Runs the same command a contributor
 # runs locally: `python3 docs/scripts/generate_hub_components.py --check`.
 #
-# See docs/scripts/generate_hub_components.py for the generator, and
-# hub-components.toml for the manifest schema.
+# It also runs the stale-repo-name audit (AAASM-4742): the same manifest is the
+# source of canonical component names, and the audit fails on any retired
+# pre-rename repo name (Epic AAASM-4341) left in tracked prose/config, and on a
+# program-count that disagrees with the manifest's aggregated-component count.
+#
+# See docs/scripts/generate_hub_components.py for the generator,
+# docs/scripts/check_repo_names.py for the audit, and hub-components.toml for the
+# manifest schema.
 
 on:
   push:
@@ -41,3 +47,6 @@ jobs:
 
       - name: Verify hub-components.toml drives docs/src/
         run: python3 docs/scripts/generate_hub_components.py --check
+
+      - name: Audit tracked docs for stale pre-rename repo names
+        run: python3 docs/scripts/check_repo_names.py --check
