@@ -220,13 +220,22 @@ Broad capability allow/deny lists that apply across all tools and actions.
 | `file_write` | Write access to the filesystem |
 | `file_delete` | Delete access to the filesystem — a distinct verb from `file_write` |
 | `network_outbound` | Outbound network connections |
-| `network_inbound` | Inbound network connections |
+| `network_inbound` | Inbound network connections **(inert — see below)** |
 | `terminal_exec` | Execute commands in a terminal/shell |
-| `agent_spawn` | Spawn child agents |
+| `agent_spawn` | Spawn child agents **(inert — see below)** |
 | `mcp_tool:<name>` | Use a specific named MCP tool (e.g., `mcp_tool:bash`, `mcp_tool:git`) |
-| `model:<name>` | Use a specific named AI model (e.g., `model:gpt-4o`) |
+| `model:<name>` | Use a specific named AI model (e.g., `model:gpt-4o`) **(inert — see below)** |
 
 Unknown capability strings are rejected with a validation error. The `mcp_tool:` and `model:` prefixes require a non-empty name after the colon.
+
+> **Currently inert (planned, no enforcement today):** `network_inbound`,
+> `agent_spawn`, and `model:<name>` are accepted and validated, but **no governance
+> action maps to them yet**, so an `allow`/`deny` on any of them is **currently inert
+> and provides no protection** — it blocks nothing. The gateway loads the policy but
+> emits a validation warning at load time (declared but NOT enforced) so operators are
+> not misled into believing the control is active. Do not rely on `deny: [agent_spawn]`,
+> `deny: [network_inbound]`, or `deny: [model:<name>]` as an enforced control until
+> enforcement lands. All other capabilities in the table above are enforced.
 
 `file_write` and `file_delete` are asymmetric: a `file_write` **deny** also blocks
 `file_delete` (fail-closed — a policy authored before `file_delete` existed and
