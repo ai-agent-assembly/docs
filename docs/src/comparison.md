@@ -79,7 +79,7 @@ These are capabilities where AI Agent Assembly is uniquely strong or differentia
 2. **Kernel-level bypass detection via eBPF** — `aa-ebpf` intercepts TLS calls at the SSL library level using Linux uprobes, catching bypass attempts that SDK-only solutions cannot see. No competitor in this matrix offers kernel-level enforcement.
 3. **Network-layer interception without code changes** — `aa-proxy` performs MitM HTTPS interception via a per-host CA. Governance can be applied to agents that do not use the SDK. No competitor supports sidecar-proxy-level enforcement.
 4. **Policy-as-code with GitOps workflow** — AAASM policies are YAML/JSON documents that can be versioned, reviewed, and deployed via standard Git workflows. No competitor in this matrix offers a structured policy language; guardrails in other tools are typically configured through UI forms or proprietary DSLs.
-5. **Immutable tamper-evident audit log** — AAASM's audit log entries are signed with HMAC-SHA256, making post-hoc alteration detectable. This is a compliance requirement in regulated industries (PCI-DSS, SOC 2 Type II) that no competitor in this matrix fully addresses.
+5. **Immutable tamper-evident audit log** (🚧 Enterprise) — AAASM's audit log entries are signed with HMAC-SHA256, making post-hoc alteration detectable (the open-source build ships a basic audit log; the signed, tamper-evident variant is an Enterprise capability — see the 🚧 marker on the matrix row above and the [Open Core Boundary](open-core-boundary.md)). This is a compliance requirement in regulated industries (PCI-DSS, SOC 2 Type II) that no competitor in this matrix fully addresses.
 
 ---
 
@@ -104,4 +104,4 @@ Last validated 2026-05-05 against each vendor's documentation as of that date.
 
 ---
 
-*Last reviewed: 2026-07-16 — AI Agent Assembly Team*
+*Last reviewed: 2026-07-18 — AI Agent Assembly Team*
