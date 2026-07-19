@@ -17,4 +17,4 @@
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
-  Content-Security-Policy-Report-Only: default-src 'self' *.agent-assembly.com; script-src 'self' 'unsafe-inline' www.googletagmanager.com cdn.jsdelivr.net unpkg.com; style-src 'self' 'unsafe-inline' fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data: fonts.gstatic.com; connect-src 'self' *.agent-assembly.com www.google-analytics.com api.github.com pypi.org registry.npmjs.org raw.githubusercontent.com; frame-ancestors 'none'; base-uri 'self'
+  Content-Security-Policy-Report-Only: default-src 'self' *.agent-assembly.com; script-src 'self' 'unsafe-inline' www.googletagmanager.com; style-src 'self' 'unsafe-inline' fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data: fonts.gstatic.com; connect-src 'self' *.agent-assembly.com www.google-analytics.com api.github.com pypi.org registry.npmjs.org raw.githubusercontent.com; frame-ancestors 'none'; base-uri 'self'
