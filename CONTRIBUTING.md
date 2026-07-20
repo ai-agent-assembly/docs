@@ -15,7 +15,7 @@ The site builds with mdBook and two small helpers — no Node.js or npm is invol
 
 | Tool | Why | Install |
 |---|---|---|
-| [mdBook](https://rust-lang.github.io/mdBook/) (CI pins `v0.4.40`) | builds and serves the book | `cargo install mdbook` or a [release binary](https://github.com/rust-lang/mdBook/releases) |
+| [mdBook](https://rust-lang.github.io/mdBook/) (CI pins `v0.5.2`) | builds and serves the book | `cargo install mdbook` or a [release binary](https://github.com/rust-lang/mdBook/releases) |
 | [`mdbook-mermaid`](https://github.com/badboy/mdbook-mermaid) | Mermaid diagram preprocessor | `cargo install mdbook-mermaid` |
 | `python3` (standard library only) | compatibility-matrix generator + "Last updated" footer preprocessor | Python ≥ 3.11 (3.12 to match CI) |
 

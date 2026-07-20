@@ -71,7 +71,7 @@ python3 docs/scripts/generate_hub_components.py --check   # fail on hub-componen
 python3 docs/scripts/check_repo_names.py                 # fail on stale pre-rename repo names (CI runs this)
 ```
 
-**Prerequisites:** mdBook (CI pins **`v0.4.40`**), `mdbook-mermaid` (the Mermaid
+**Prerequisites:** mdBook (CI pins **`v0.5.2`**), `mdbook-mermaid` (the Mermaid
 preprocessor), and `python3` (stdlib only — the compatibility generator and the
 "Last updated" preprocessor have no third-party deps). There is **no Node toolchain**
 and no lefthook in this repo; the only local gate is `mdbook build` + the matrix check.
