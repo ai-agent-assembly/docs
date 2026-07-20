@@ -13,9 +13,16 @@ name: Hub metadata drift check
 # pre-rename repo name (Epic AAASM-4341) left in tracked prose/config, and on a
 # program-count that disagrees with the manifest's aggregated-component count.
 #
-# See docs/scripts/generate_hub_components.py for the generator,
-# docs/scripts/check_repo_names.py for the audit, and hub-components.toml for the
-# manifest schema.
+# And it runs the compatibility-matrix drift gate (AAASM-4917 / ADR 0013): the
+# core<->SDK matrix in docs/src/compatibility.md is generated from
+# compatibility.toml, and this fails the build if the committed page has drifted
+# from the manifest (`generate_compatibility.py --check`). This is the version-drift
+# `--check` gate ADR 0013 Appendix B item 2 flagged as documented-but-unwired.
+#
+# See docs/scripts/generate_hub_components.py for the hub-component generator,
+# docs/scripts/check_repo_names.py for the stale-name audit,
+# docs/scripts/generate_compatibility.py for the compatibility-matrix generator,
+# and hub-components.toml / compatibility.toml for the manifest schemas.
 
 on:
   push:
@@ -50,3 +57,6 @@ jobs:
 
       - name: Audit tracked docs for stale pre-rename repo names
         run: python3 docs/scripts/check_repo_names.py --check
+
+      - name: Verify compatibility.toml drives docs/src/compatibility.md
+        run: python3 docs/scripts/generate_compatibility.py --check
