@@ -171,8 +171,10 @@ build_node() {       # docusaurus (website/, baseUrl already /node-sdk/) -> publ
   # against those types. The website-only `--ignore-workspace` install below never
   # pulls them, so typedoc fails to resolve node builtins / @langchain imports.
   # --ignore-scripts skips node-sdk's native napi postinstall the docs build never needs.
+  # The website install has no postinstall/lifecycle scripts of its own (verified:
+  # build output is identical with/without --ignore-scripts), so it gets the same flag.
   ( cd "$src" && pnpm install --frozen-lockfile --ignore-scripts )
-  ( cd "$src/website" && pnpm install --ignore-workspace --frozen-lockfile && pnpm build )
+  ( cd "$src/website" && pnpm install --ignore-workspace --frozen-lockfile --ignore-scripts && pnpm build )
   rm -rf "$out"; mkdir -p "$(dirname "$out")"
   cp -R "$src/website/build" "$out"
 }
