@@ -180,8 +180,8 @@ volumes:
 ```
 
 A complete, runnable version — plus the optional `aa-proxy` egress profile — is
-maintained in the `agent-assembly` repository at
-[`examples/docker-compose/`](https://github.com/ai-agent-assembly/agent-assembly/tree/main/examples/docker-compose).
+maintained in the `examples` repository at
+[`scenarios/live-core-enforcement/`](https://github.com/ai-agent-assembly/examples/tree/main/scenarios/live-core-enforcement).
 
 ---
 

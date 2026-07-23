@@ -20,7 +20,7 @@
     {
       "name": "python-sdk",
       "repo": "ai-agent-assembly/python-sdk",
-      "ref": "master",
+      "ref": "main",
       "generator": "mkdocs-material",
       "subpath": "python-sdk",
       "doc_dir": ".",
@@ -32,7 +32,7 @@
     {
       "name": "node-sdk",
       "repo": "ai-agent-assembly/node-sdk",
-      "ref": "master",
+      "ref": "main",
       "generator": "docusaurus",
       "subpath": "node-sdk",
       "doc_dir": "website",
@@ -44,7 +44,7 @@
     {
       "name": "go-sdk",
       "repo": "ai-agent-assembly/go-sdk",
-      "ref": "master",
+      "ref": "main",
       "generator": "hugo-hextra",
       "subpath": "go-sdk",
       "doc_dir": "website",
