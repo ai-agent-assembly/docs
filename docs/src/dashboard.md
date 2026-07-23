@@ -62,6 +62,28 @@ you just registered actually showed up, and spot the ones in `error` or running 
 
 ---
 
+## Topology — how agents cluster by team
+
+The **Topology** view (`/topology`) lays the fleet out as a graph, grouping agents into
+per-team clusters and drawing the delegation and call edges between them. Each cluster
+carries its own budget bar, so you can see at a glance which team an agent belongs to
+and how close that team is to its spend limit — the same fleet as the table above, read
+as a map instead of a list.
+
+<figure>
+  <img src="images/dashboard/topology-light.png"
+       alt="Dashboard Topology page in light mode: agent cards grouped into two dashed team clusters labelled SUPPORT and ANALYTICS, each with a per-team budget bar; cards show agent name, framework and spend, and one card is outlined red for an errored agent." />
+  <figcaption>Operator dashboard — Topology, light mode. Agents are grouped into per-team clusters, each with a budget bar.</figcaption>
+</figure>
+
+<figure>
+  <img src="images/dashboard/topology-dark.png"
+       alt="The same Dashboard Topology page in dark mode, showing the identical team-clustered agent graph re-themed to the dark palette." />
+  <figcaption>Operator dashboard — Topology, dark mode.</figcaption>
+</figure>
+
+---
+
 ## Audit Log — see a denial
 
 The **Audit Log** (`/audit`) is the immutable governance trail: LLM calls, tool
