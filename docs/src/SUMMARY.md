@@ -23,6 +23,7 @@
 # Operations
 
 - [Docker & Containers](docker-containers.md)
+- [Observe your agents in the Dashboard](dashboard.md)
 - [Self-Host Observability](self-host-observability.md)
 
 # Reference
