@@ -18,6 +18,28 @@ saved preference (and your OS setting on first load).
 
 ---
 
+## Overview — your agent, the moment it registers
+
+The **Overview** (`/overview`) is the Dashboard's landing screen and the fastest way to
+confirm a newly wired agent is live: the moment it registers, the **fleet snapshot** count
+ticks up and the three-layer **posture rings** — identity, capability, scrub, and an overall
+score — reflect it. It answers *"did my agent show up, and is the fleet healthy?"* at a
+glance before you drill into Fleet or the Audit Log.
+
+<figure>
+  <img src="images/dashboard/overview-light.png"
+       alt="Dashboard Overview page in light mode: three-layer posture rings (L1 identity, L2 capability, L3 scrub, and an overall score) above a 'no critical issues' panel, a pending-approvals count, three per-layer detail cards, and a fleet snapshot reading six total agents — four enforcing, two in shadow mode, none flagged." />
+  <figcaption>Operator dashboard — Overview, light mode. The fleet snapshot and posture rings update the moment an agent registers.</figcaption>
+</figure>
+
+<figure>
+  <img src="images/dashboard/overview-dark.png"
+       alt="The same Dashboard Overview page in dark mode, showing the identical posture rings and six-agent fleet snapshot re-themed to the dark palette." />
+  <figcaption>Operator dashboard — Overview, dark mode.</figcaption>
+</figure>
+
+---
+
 ## Fleet — see every agent at a glance
 
 The **Fleet** view (`/agents`) is the observe step's home base: every registered agent
