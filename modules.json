@@ -8,11 +8,11 @@
     {
       "name": "core",
       "repo": "ai-agent-assembly/agent-assembly",
-      "ref": "master",
+      "ref": "main",
       "generator": "mdbook",
       "subpath": "core",
       "doc_dir": "docs",
-      "channel": "FULL version set: master HEAD under /core/latest/ PLUS every release git tag rebuilt into /core/<tag>/, with the channels+archived manifest at /core/versions.json (AAASM-3753)",
+      "channel": "FULL version set: main HEAD under /core/latest/ PLUS every release git tag rebuilt into /core/<tag>/, with the channels+archived manifest at /core/versions.json (AAASM-3753)",
       "base_url_strategy": "mdBook emits root-relative asset paths, so it is subpath-safe with no flag. The in-theme #aaasm-version-selector derives the site root from path_to_root at runtime and fetches /core/versions.json, so each book lives under /core/latest/ and /core/<tag>/ with the manifest + a site-root redirect at /core/.",
       "build": "cd docs && mdbook build -d <out>/latest; then for each 'v*.*.*' git tag: git worktree add + mdbook build -d <out>/<tag> (logging extra-archived.txt); then python3 docs/ci/build_versions.py latest latest <out>/versions.json (archived[] seeded from the rebuilt tags = git source of truth; moving pre-release/stable channels seeded from the live deployed manifest); cp docs/site-root-index.html <out>/index.html",
       "out_glob": ["index.html", "latest/index.html", "<tag>/index.html", "versions.json"]
