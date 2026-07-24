@@ -1,0 +1,98 @@
+name: modules.json ref drift check
+
+# Guards modules.json against the failure class that broke it three times in one
+# week (node-sdk, go-sdk, and core / AAASM-5047): a referenced repo renames its
+# default branch (e.g. master->main) but the module's pinned `ref` is left stale,
+# so `git clone -b <ref>` in aggregate.yml fails with "pathspec did not match"
+# and the Aggregate job breaks on every docs PR and scheduled main run — with no
+# aggregated Pages deploy shipping until someone notices.
+#
+# Nothing else validates the `ref` values against reality. This gate resolves
+# each referenced repo's LIVE default branch with `git ls-remote --symref <url>
+# HEAD` at check time and fails loudly if a pinned `ref` no longer matches — so
+# a default-branch rename is caught here instead of in the aggregation job.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - modules.json
+      - .github/workflows/modules-ref-check.yml
+  pull_request:
+    branches: [main]
+    paths:
+      - modules.json
+      - .github/workflows/modules-ref-check.yml
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  modules-ref-check:
+    name: Verify modules.json refs match live default branches
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout hub
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Check each module ref against its repo's default branch
+        run: |
+          python3 - <<'PY'
+          import json
+          import subprocess
+          import sys
+
+          with open("modules.json", encoding="utf-8") as fh:
+              registry = json.load(fh)
+
+          failures = []
+          for module in registry.get("modules", []):
+              name = module.get("name", "<unnamed>")
+              repo = module.get("repo")
+              ref = module.get("ref")
+              if not repo or not ref:
+                  failures.append(f"{name}: entry is missing 'repo' or 'ref'")
+                  continue
+
+              url = f"https://github.com/{repo}.git"
+              # --symref makes HEAD resolve to the symbolic default branch, e.g.
+              #   ref: refs/heads/main\tHEAD
+              result = subprocess.run(
+                  ["git", "ls-remote", "--symref", url, "HEAD"],
+                  capture_output=True,
+                  text=True,
+              )
+              if result.returncode != 0:
+                  failures.append(
+                      f"{name}: could not query {url}: {result.stderr.strip()}"
+                  )
+                  continue
+
+              default_branch = None
+              for line in result.stdout.splitlines():
+                  if line.startswith("ref:") and line.rstrip().endswith("HEAD"):
+                      default_branch = line.split()[1].removeprefix("refs/heads/")
+                      break
+
+              if default_branch is None:
+                  failures.append(f"{name}: could not resolve default branch for {repo}")
+              elif ref != default_branch:
+                  failures.append(
+                      f"{name}: modules.json pins ref '{ref}' but {repo}'s live "
+                      f"default branch is '{default_branch}'"
+                  )
+              else:
+                  print(f"OK  {name}: '{ref}' matches {repo} default branch")
+
+          if failures:
+              print("\nmodules.json ref drift detected:", file=sys.stderr)
+              for failure in failures:
+                  print(f"  - {failure}", file=sys.stderr)
+              sys.exit(1)
+
+          print("\nAll module refs match their repo's live default branch.")
+          PY
