@@ -20,6 +20,11 @@ html { font-size: 16px; }
 .content h2 { font-size: 1.5rem;  font-weight: 700; }
 .content h3 { font-size: 1.25rem; font-weight: 600; }
 
+/* The article title remains authoritative on compact reading surfaces. */
+@media (max-width: 768px) {
+  .menu-title { display: none; }
+}
+
 /* ---- Light themes (light, rust) ---- */
 .light, .rust {
   --bg: #f5f4f0;
@@ -98,3 +103,5 @@ html { font-size: 16px; }
 .aa-cta-next p {
   margin: .25rem 0 0;
 }
+.aa-missing-document .aa-feedback,
+.aa-missing-document:not(.aa-recovery-context-ready) .aa-modswitch { display: none; }

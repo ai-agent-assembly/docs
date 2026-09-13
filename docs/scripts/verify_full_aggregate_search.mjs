@@ -1,0 +1,84 @@
+import assert from 'node:assert/strict';
+import { readFile, readdir } from 'node:fs/promises';
+import { pathToFileURL } from 'node:url';
+import { aggregateRoot, existingAggregatePath } from './aggregate_local_paths.mjs';
+
+// Run with the isolated, already-built local aggregate public/ as cwd. Taking
+// its root from cwd avoids accepting a second, untrusted filesystem path from
+// CLI arguments; every child still has a realpath containment check.
+if (process.argv.length !== 2) {
+  throw new Error('run from the aggregate public directory without path arguments');
+}
+const publicDir = await aggregateRoot(process.cwd());
+const index = await existingAggregatePath(publicDir, 'pagefind', 'pagefind.js');
+
+// Pagefind 1.4.0 fetches relative index fragments even when imported in Node.
+// Resolve only those generated files from the supplied local aggregate.
+globalThis.fetch = async (input) => {
+  const url = new URL(String(input), 'http://local.test');
+  assert.equal(url.origin, 'http://local.test');
+  assert.ok(url.pathname.startsWith('/pagefind/'), `unexpected Pagefind request: ${url.pathname}`);
+  try {
+    const segments = url.pathname.split('/').filter(Boolean).map(decodeURIComponent);
+    const file = await existingAggregatePath(publicDir, ...segments);
+    return new Response(await readFile(file), { status: 200 });
+  } catch { return new Response('missing local fragment', { status: 404 }); }
+};
+
+const pagefind = await import(pathToFileURL(index).href);
+const search = async (query) => {
+  const response = await pagefind.search(query);
+  const data = await Promise.all(response.results.map((ref) => ref.data()));
+  return { count: response.results.length, data };
+};
+
+for (const route of [
+  'core/latest/policy-reference.html',
+  'node-sdk/next/examples/mastra/', 'node-sdk/examples/mastra/',
+  'python-sdk/latest/', 'go-sdk/latest/', 'arena/latest/',
+]) {
+  await existingAggregatePath(publicDir, ...route.split('/').filter(Boolean));
+}
+const coreManifest = JSON.parse(await readFile(
+  await existingAggregatePath(publicDir, 'core', 'versions.json')));
+assert.ok(coreManifest.archived.length > 0, 'Core archive manifest empty');
+for (const version of coreManifest.archived) {
+  await existingAggregatePath(publicDir, 'core', version.id);
+}
+const goArchives = (await readdir(await existingAggregatePath(publicDir, 'go-sdk')))
+  .filter((name) => /^v\d/.test(name));
+assert.ok(goArchives.length > 0, 'Go archived tag directories missing');
+
+const mastra = await search('Mastra');
+assert.ok(mastra.data.some((hit) => hit.url === '/node-sdk/examples/mastra/'),
+  'Node default-channel Mastra must remain searchable');
+assert.ok(mastra.data.every((hit) => !hit.url.startsWith('/node-sdk/next/')),
+  'Node current/main channel must remain served but not duplicate default-channel search hits');
+
+const identifier = await search('network.allowlist');
+const exact = identifier.data.filter((hit) =>
+  `${hit.content} ${hit.meta?.title || ''}`.toLowerCase().includes('network.allowlist'));
+assert.ok(exact.some((hit) => hit.url === '/core/latest/policy-reference.html'),
+  'the literal dotted policy key must survive Pagefind retrieval');
+
+const multiword = await search('policy gateway');
+assert.ok(multiword.data.some((hit) => {
+  const text = `${hit.content} ${hit.meta?.title || ''}`.toLowerCase();
+  return text.includes('policy') && text.includes('gateway');
+}), 'ordinary multiword query must retrieve at least one all-term page');
+
+const nonsense = await search('zzzauditnomatchqzx');
+assert.ok(nonsense.data.every((hit) =>
+  !`${hit.content} ${hit.meta?.title || ''}`.toLowerCase().includes('zzzauditnomatchqzx')),
+'Pagefind fuzzy suggestions must not be called literal matches');
+
+console.log(JSON.stringify({
+  kind: 'isolated-full-aggregate-pagefind-1.4.0',
+  publicDir,
+  queries: {
+    Mastra: { count: mastra.count, defaultNodeHit: true, nextNodeHits: 0 },
+    'network.allowlist': { count: identifier.count, literalHits: exact.length },
+    'policy gateway': { count: multiword.count },
+    zzzauditnomatchqzx: { count: nonsense.count, literalHits: 0 },
+  },
+}, null, 2));

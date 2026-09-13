@@ -142,23 +142,27 @@ the workflow — never in the module repo.
 
 **Pagefind** runs over the **final aggregated `public/`**, indexing the built
 HTML of every generator. This yields one **truly unified** index across the hub
-and all four modules — we do not try to merge the four generators' native search
+and all five modules — we do not try to merge the generators' native search
 indexes. The hub injects a Pagefind UI search box (see `docs/theme/head.hbs`);
-it searches the hub + core + python-sdk + node-sdk + go-sdk together. The Pagefind
+it searches the English hub + core + python-sdk + node-sdk + go-sdk + Arena together. The Pagefind
 assets live at `/pagefind/` (root-relative; the hub is at the site root). When the
 hub is built standalone (the legacy `deploy.yml`, no aggregation), `/pagefind/` is
 absent and the widget silently no-ops while the mdBook native search still works.
 
-**Default-channel scoping (AAASM-3753):** now that core, go-sdk, and python-sdk
-each publish their **full** archived version set, indexing every version dir would
+**Default-channel scoping (AAASM-3753):** the modules publish archived versions,
+and indexing every version dir would
 return N near-duplicate hits per page (one per archived version). Pagefind exposes
 only a single inclusion `--glob` (no path negation/union), so `aggregate.sh`
 temporarily **moves the non-default version dirs aside** (core: `archived[]` from
-its manifest; go-sdk: every `v*` tag dir + `stable`/`pre-release`; python-sdk:
-every version + alias dir from its mike manifest — all keeping `latest`), runs
-Pagefind, then **restores** them (via an `EXIT` trap so they return even if
-indexing fails). Search therefore covers each module's current docs only; the
-archived snapshots remain fully served and reachable through the switcher.
+its manifest; go-sdk: every `v*` tag dir + `stable`/`pre-release`; node-sdk:
+every Docusaurus archived version from its source manifest **and** the live
+`current.path` (currently `/next/`) when a cut snapshot owns the default module
+root; python-sdk and Arena: every version + alias dir from their mike manifests,
+keeping `latest`). It also holds localized hub trees to avoid indexing English
+fallback pages twice. It runs Pagefind, then **restores** all held trees (via an
+`EXIT` trap so they return even if indexing fails). Search therefore covers the
+English hub and each module's current/default docs; localized hub pages and
+archived snapshots remain served and reachable through normal navigation.
 
 ## Versioning (AAASM-3752 / AAASM-3753 — per-module version switcher in the hub)
 
