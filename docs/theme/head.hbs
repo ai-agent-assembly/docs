@@ -372,10 +372,8 @@
       }
       function render() {
         if (!state) { return; }
-        matches.replaceChildren();
-        state.close.forEach(function (item) { matches.appendChild(makeGroup(item)); });
-        relatedList.replaceChildren();
-        state.fuzzy.slice(0, 5).forEach(function (item) { relatedList.appendChild(makeGroup(item)); });
+        // Results are inserted as individual fragments resolve. Only status
+        // changes here; replacing prior anchors would discard keyboard focus.
         related.hidden = state.fuzzy.length === 0;
         more.hidden = state.scanning || state.next >= state.refs.length || state.close.length === 0 || !!state.error;
         retry.hidden = !state.error;
@@ -383,8 +381,10 @@
         if (state.error) {
           status.textContent = 'Search could not load all results. Retry this query.';
         } else if (state.close.length) {
-          status.textContent = 'Matches all search terms: ' + state.close.length
-            + (state.next >= state.refs.length ? '.' : ' shown. More results remain to check.');
+          status.textContent = state.next >= state.refs.length && !state.scanning
+            ? 'Matches all search terms: ' + state.close.length + '.'
+            : state.close.length + (state.close.length === 1 ? ' match' : ' matches') + ' found so far. '
+              + (state.scanning ? 'Still checking…' : 'More results remain to check.');
         } else if (state.next >= state.refs.length && !state.scanning) {
           status.textContent = 'No results match all search terms.';
         } else { status.textContent = 'Searching for matches to all terms…'; }
@@ -393,18 +393,36 @@
         if (!state || state.scanning) { return; }
         state.scanning = true;
         try {
-          while (state.next < state.refs.length && state.close.length < targetCount) {
+          while (state.next < state.refs.length && state.close.length < targetCount && !state.error) {
             var batch = state.refs.slice(state.next, state.next + 12);
+            var batchStart = state.next;
             state.next += batch.length;
-            var data = await Promise.all(batch.map(function (ref) { return ref.data(); }));
+            await Promise.all(batch.map(async function (ref, offset) {
+              try {
+                var result = await ref.data();
+                if (id !== generation) { return; }
+                var url = canonical(result.url);
+                if (!url || state.seen.has(url.href)) { return; }
+                state.seen.add(url.href);
+                var item = { url: url, result: result, rank: batchStart + offset };
+                if (matchesAll(state.queryTerms, result)) {
+                  // Insert by Pagefind rank, but never replace or detach an
+                  // already rendered link when a slower fragment arrives.
+                  var position = state.close.findIndex(function (other) { return other.rank > item.rank; });
+                  if (position < 0) { position = state.close.length; }
+                  item.node = makeGroup(item);
+                  matches.insertBefore(item.node, state.close[position] ? state.close[position].node : null);
+                  state.close.splice(position, 0, item);
+                } else {
+                  state.fuzzy.push(item);
+                  if (state.fuzzy.length <= 5) { relatedList.appendChild(makeGroup(item)); }
+                }
+                render();
+              } catch (e) {
+                if (id === generation) { state.error = true; render(); }
+              }
+            }));
             if (id !== generation) { return; }
-            data.forEach(function (result) {
-              var url = canonical(result.url);
-              if (!url || state.seen.has(url.href)) { return; }
-              state.seen.add(url.href);
-              var item = { url: url, result: result };
-              (matchesAll(state.queryTerms, result) ? state.close : state.fuzzy).push(item);
-            });
           }
         } catch (e) {
           if (id === generation) { state.error = true; }
