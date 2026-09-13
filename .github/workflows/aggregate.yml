@@ -103,7 +103,9 @@ jobs:
           version: 10
 
       - name: Verify literal search terms and canonical result scopes
-        run: node docs/scripts/test_global_search.mjs
+        run: |
+          node docs/scripts/test_global_search.mjs
+          node docs/scripts/test_module_root.mjs
 
       - name: Set up Go + Hugo extended (go-sdk / Hugo + Hextra)
         uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0

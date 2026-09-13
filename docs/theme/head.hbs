@@ -558,7 +558,9 @@
     // base-path-aware root (works under github.io/docs/ AND the root domain).
     var ROOT = '{{ path_to_root }}';
     // Module publishing is shared by both locales, not nested under zh-Hant.
-    ROOT = new URL(ROOT, document.baseURI);
+    // An empty mdBook path_to_root on /index.html or another root-level file
+    // must resolve to its containing directory, not retain the filename.
+    ROOT = new URL(ROOT || './', document.baseURI);
     if ('{{ language }}' === 'zh-Hant') { ROOT = new URL('../', ROOT); }
     ROOT = ROOT.href;
 
@@ -643,7 +645,7 @@
             if (request !== versionRequest) { return; }
             // No (or unreadable) versions.json — still navigable; fall back to the module root.
             verSel.innerHTML = '';
-            verSel.appendChild(option('', 'latest'));
+            verSel.appendChild(option('', 'Module home (version unavailable)'));
             verSel.disabled = false;
           });
       }
