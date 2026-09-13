@@ -14,10 +14,13 @@ HUB_LANGUAGES=(zh-Hant)
 
 mkdir -p "$PUBLIC_DIR/zh-Hant" "$MODULES_DIR"
 mkdir -p "$MODULES_DIR/node-sdk/website" "$PUBLIC_DIR/node-sdk/examples/mastra" \
+  "$PUBLIC_DIR/node-sdk/next/examples/mastra" \
   "$PUBLIC_DIR/node-sdk/0.0.1-rc.4/examples/mastra" \
   "$PUBLIC_DIR/node-sdk/0.0.1-beta.1/examples/mastra"
 printf '%s\n' '["0.0.1-rc.4","0.0.1-beta.1"]' > "$MODULES_DIR/node-sdk/website/versions.json"
-for channel in root 0.0.1-rc.4 0.0.1-beta.1; do
+printf '%s\n' '{"lastVersion":"0.0.1-rc.4","versions":{"current":{"path":"/next/"}}}' \
+  > "$MODULES_DIR/node-sdk/website/versionChannels.json"
+for channel in root next 0.0.1-rc.4 0.0.1-beta.1; do
   target="$PUBLIC_DIR/node-sdk/$channel/examples/mastra/index.html"
   if [[ "$channel" == root ]]; then target="$PUBLIC_DIR/node-sdk/examples/mastra/index.html"; fi
   printf '%s\n' "node-sdk/$channel Mastra" > "$target"
@@ -37,7 +40,7 @@ declare -F scope_pagefind restore_pagefind >/dev/null
 
 scope_pagefind
 test -f "$PUBLIC_DIR/node-sdk/examples/mastra/index.html"
-for channel in 0.0.1-rc.4 0.0.1-beta.1; do
+for channel in next 0.0.1-rc.4 0.0.1-beta.1; do
   test ! -e "$PUBLIC_DIR/node-sdk/$channel"
   test -f "$PF_HOLD/node-sdk__$channel/examples/mastra/index.html"
 done
@@ -54,7 +57,7 @@ test -d "$PF_HOLD_LANG/zh-Hant"
 restore_pagefind
 restore_pagefind # idempotent, as required by the aggregate EXIT trap
 test -f "$PUBLIC_DIR/node-sdk/examples/mastra/index.html"
-for channel in 0.0.1-rc.4 0.0.1-beta.1; do
+for channel in next 0.0.1-rc.4 0.0.1-beta.1; do
   test -f "$PUBLIC_DIR/node-sdk/$channel/examples/mastra/index.html"
 done
 for module in python-sdk arena; do
