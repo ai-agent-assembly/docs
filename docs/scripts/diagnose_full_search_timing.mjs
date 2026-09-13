@@ -13,7 +13,7 @@ const requests = [];
 let origin;
 for (const name of ['request', 'response', 'requestfinished']) {
   page.on(name, (event) => {
-    const url = name === 'response' ? event.url() : event.url();
+    const url = event.url();
     if (origin && url.includes('/pagefind/')) {
       requests.push({ ms: Math.round(performance.now() - origin), event: name,
         asset: url.replace(/^.*\/pagefind\//, '') });

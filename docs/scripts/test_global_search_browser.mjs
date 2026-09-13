@@ -1,19 +1,13 @@
 import assert from 'node:assert/strict';
-import { mkdir, rename, writeFile } from 'node:fs/promises';
+import { rename, writeFile } from 'node:fs/promises';
+import { openSearchVariant, startSearchRun } from './search_browser_setup.mjs';
 
 // Run against a locally served, aggregated-style mdBook + Pagefind fixture.
 // Example: PLAYWRIGHT_MODULE=/path/to/@playwright/test/index.mjs \
 //   SEARCH_FIXTURE_URL=http://127.0.0.1:3072/ \
 //   SEARCH_EVIDENCE_DIR=/path/to/evidence node docs/scripts/test_global_search_browser.mjs
 // The fixture is representative; it is not proof about the entire aggregate.
-const modulePath = process.env.PLAYWRIGHT_MODULE;
-const fixtureUrl = process.env.SEARCH_FIXTURE_URL;
-const evidenceDir = process.env.SEARCH_EVIDENCE_DIR;
-if (!modulePath || !fixtureUrl || !evidenceDir) {
-  throw new Error('Set PLAYWRIGHT_MODULE, SEARCH_FIXTURE_URL and SEARCH_EVIDENCE_DIR');
-}
-const { chromium } = await import(modulePath);
-await mkdir(evidenceDir, { recursive: true });
+const { chromium, url: fixtureUrl, evidenceDir } = await startSearchRun('SEARCH_FIXTURE_URL');
 const browser = await chromium.launch({ headless: true });
 const results = [];
 
@@ -22,15 +16,7 @@ try {
     { name: 'desktop-light-normal', width: 1280, height: 800, theme: 'light', motion: 'no-preference' },
     { name: 'mobile-navy-reduced', width: 390, height: 844, theme: 'navy', motion: 'reduce' },
   ]) {
-    const context = await browser.newContext({
-      viewport: { width: variant.width, height: variant.height },
-      colorScheme: variant.theme === 'light' ? 'light' : 'dark',
-      reducedMotion: variant.motion,
-      recordVideo: { dir: evidenceDir, size: { width: variant.width, height: variant.height } },
-    });
-    await context.addInitScript(theme => localStorage.setItem('mdbook-theme', theme), variant.theme);
-    const page = await context.newPage();
-    await page.goto(fixtureUrl);
+    const { context, page } = await openSearchVariant(browser, fixtureUrl, evidenceDir, variant);
     const trigger = page.getByRole('button', { name: 'Search all docs…' });
     await trigger.waitFor();
     await trigger.click();

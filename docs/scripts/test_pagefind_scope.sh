@@ -42,37 +42,37 @@ eval "$(sed -n '/^scope_pagefind() {/,/^}/p; /^restore_pagefind() {/,/^}/p' "$sc
 declare -F scope_pagefind restore_pagefind >/dev/null
 
 scope_pagefind
-test -f "$PUBLIC_DIR/print.html"
-test -f "$PUBLIC_DIR/core/latest/print.html"
-test -f "$PUBLIC_DIR/node-sdk/examples/mastra/index.html"
+[[ -f "$PUBLIC_DIR/print.html" ]]
+[[ -f "$PUBLIC_DIR/core/latest/print.html" ]]
+[[ -f "$PUBLIC_DIR/node-sdk/examples/mastra/index.html" ]]
 for channel in next 0.0.1-rc.4 0.0.1-beta.1; do
-  test ! -e "$PUBLIC_DIR/node-sdk/$channel"
-  test -f "$PF_HOLD/node-sdk__$channel/examples/mastra/index.html"
+  [[ ! -e "$PUBLIC_DIR/node-sdk/$channel" ]]
+  [[ -f "$PF_HOLD/node-sdk__$channel/examples/mastra/index.html" ]]
 done
 for module in python-sdk arena; do
-  test -f "$PUBLIC_DIR/$module/latest/index.html"
-  test ! -e "$PUBLIC_DIR/$module/v0.0.1"
-  test ! -e "$PUBLIC_DIR/$module/pre-release"
-  test -f "$PF_HOLD/${module}__v0.0.1/index.html"
-  test -f "$PF_HOLD/${module}__pre-release/index.html"
+  [[ -f "$PUBLIC_DIR/$module/latest/index.html" ]]
+  [[ ! -e "$PUBLIC_DIR/$module/v0.0.1" ]]
+  [[ ! -e "$PUBLIC_DIR/$module/pre-release" ]]
+  [[ -f "$PF_HOLD/${module}__v0.0.1/index.html" ]]
+  [[ -f "$PF_HOLD/${module}__pre-release/index.html" ]]
 done
-test ! -e "$PUBLIC_DIR/zh-Hant"
-test -d "$PF_HOLD_LANG/zh-Hant"
+[[ ! -e "$PUBLIC_DIR/zh-Hant" ]]
+[[ -d "$PF_HOLD_LANG/zh-Hant" ]]
 
 restore_pagefind
 restore_pagefind # idempotent, as required by the aggregate EXIT trap
-test -f "$PUBLIC_DIR/print.html"
-test -f "$PUBLIC_DIR/core/latest/print.html"
-test -f "$PUBLIC_DIR/node-sdk/examples/mastra/index.html"
+[[ -f "$PUBLIC_DIR/print.html" ]]
+[[ -f "$PUBLIC_DIR/core/latest/print.html" ]]
+[[ -f "$PUBLIC_DIR/node-sdk/examples/mastra/index.html" ]]
 for channel in next 0.0.1-rc.4 0.0.1-beta.1; do
-  test -f "$PUBLIC_DIR/node-sdk/$channel/examples/mastra/index.html"
+  [[ -f "$PUBLIC_DIR/node-sdk/$channel/examples/mastra/index.html" ]]
 done
 for module in python-sdk arena; do
   for channel in latest v0.0.1 pre-release; do
-    test -f "$PUBLIC_DIR/$module/$channel/index.html"
+    [[ -f "$PUBLIC_DIR/$module/$channel/index.html" ]]
   done
 done
-test -d "$PUBLIC_DIR/zh-Hant"
-test ! -e "$PF_HOLD"
-test ! -e "$PF_HOLD_LANG"
+[[ -d "$PUBLIC_DIR/zh-Hant" ]]
+[[ ! -e "$PF_HOLD" ]]
+[[ ! -e "$PF_HOLD_LANG" ]]
 printf '%s\n' 'PASS: default-channel search scope and full archive restoration (node-sdk, python-sdk, arena, localized hub)'

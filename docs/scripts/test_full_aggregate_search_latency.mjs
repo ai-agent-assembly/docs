@@ -1,12 +1,9 @@
 import assert from 'node:assert/strict';
-import { mkdir, rename, writeFile } from 'node:fs/promises';
+import { rename, writeFile } from 'node:fs/promises';
+import { openSearchVariant, startSearchRun } from './search_browser_setup.mjs';
 
-const { PLAYWRIGHT_MODULE, SEARCH_AGGREGATE_URL, SEARCH_EVIDENCE_DIR } = process.env;
-if (!PLAYWRIGHT_MODULE || !SEARCH_AGGREGATE_URL || !SEARCH_EVIDENCE_DIR) {
-  throw new Error('Set PLAYWRIGHT_MODULE, SEARCH_AGGREGATE_URL, SEARCH_EVIDENCE_DIR');
-}
-const { chromium } = await import(PLAYWRIGHT_MODULE);
-await mkdir(SEARCH_EVIDENCE_DIR, { recursive: true });
+const { chromium, url: SEARCH_AGGREGATE_URL, evidenceDir: SEARCH_EVIDENCE_DIR } =
+  await startSearchRun('SEARCH_AGGREGATE_URL');
 const browser = await chromium.launch({ headless: true });
 const results = [];
 try {
@@ -14,15 +11,8 @@ try {
     { name: 'desktop-light-normal', width: 1280, height: 800, theme: 'light', motion: 'no-preference' },
     { name: 'mobile-navy-reduced', width: 390, height: 844, theme: 'navy', motion: 'reduce' },
   ]) {
-    const context = await browser.newContext({
-      viewport: { width: variant.width, height: variant.height },
-      colorScheme: variant.theme === 'light' ? 'light' : 'dark',
-      reducedMotion: variant.motion,
-      recordVideo: { dir: SEARCH_EVIDENCE_DIR, size: { width: variant.width, height: variant.height } },
-    });
-    await context.addInitScript((theme) => localStorage.setItem('mdbook-theme', theme), variant.theme);
-    const page = await context.newPage();
-    await page.goto(SEARCH_AGGREGATE_URL);
+    const { context, page } = await openSearchVariant(
+      browser, SEARCH_AGGREGATE_URL, SEARCH_EVIDENCE_DIR, variant);
     await page.getByRole('button', { name: 'Search all docs…' }).click();
     const modal = page.locator('dialog.aa-search__modal');
     const input = modal.getByRole('searchbox', { name: 'Search all docs' });
