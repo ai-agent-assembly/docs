@@ -6,7 +6,7 @@ import { isAbsolute, relative, resolve, sep } from 'node:path';
 // particular, neither a crafted Pagefind URL nor an archive manifest may
 // traverse out of that tree, including through a symlink.
 export async function aggregateRoot(argument) {
-  assert.ok(argument, 'usage: node verify_full_aggregate_search.mjs <aggregate-public-dir>');
+  assert.ok(argument, 'run from the aggregate public directory');
   const root = await realpath(resolve(argument));
   assert.ok((await stat(root)).isDirectory(), 'aggregate public path must be a directory');
   return root;

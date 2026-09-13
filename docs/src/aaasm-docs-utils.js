@@ -9,7 +9,10 @@
       url.search = '';
       url.pathname = url.pathname.replace(/\/index\.html$/, '/');
       return url;
-    } catch (e) { return null; }
+    } catch (e) {
+      // Malformed Pagefind URLs are not navigable; omit the result.
+      return null;
+    }
   }
   function scope(url) {
     var parts = url.pathname.split('/').filter(Boolean);

@@ -3,9 +3,13 @@ import { readFile, readdir } from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
 import { aggregateRoot, existingAggregatePath } from './aggregate_local_paths.mjs';
 
-// Run only against an isolated, already-built local aggregate. No publisher
-// fetch, archive rebuild, or deployed write is needed for this read-only check.
-const publicDir = await aggregateRoot(process.argv[2]);
+// Run with the isolated, already-built local aggregate public/ as cwd. Taking
+// its root from cwd avoids accepting a second, untrusted filesystem path from
+// CLI arguments; every child still has a realpath containment check.
+if (process.argv.length !== 2) {
+  throw new Error('run from the aggregate public directory without path arguments');
+}
+const publicDir = await aggregateRoot(process.cwd());
 const index = await existingAggregatePath(publicDir, 'pagefind', 'pagefind.js');
 
 // Pagefind 1.4.0 fetches relative index fragments even when imported in Node.
