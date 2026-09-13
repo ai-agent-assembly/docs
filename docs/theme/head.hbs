@@ -404,22 +404,25 @@
             if (id !== generation || worker !== active) { return; }
             var data = event.data;
             if (data.type === 'found') { state.refs.length = data.total; render(); }
-            else if (data.type === 'item') { acceptResult(data.rank, data.result, data.literal); }
+            else if (data.type === 'item' && !state.error) {
+              acceptResult(data.rank, data.result, data.literal);
+            }
             else if (data.type === 'settled') {
               state.next = data.next;
               state.scanning = false;
               render();
             } else if (data.type === 'error') {
               state.error = data.phase || 'data'; state.scanning = false; render();
+              if (state.error === 'load') { loadAttempts++; }
             }
           };
           active.onerror = function () {
             if (id === generation && worker === active) {
               state.error = 'load'; state.scanning = false; render();
+              loadAttempts++;
             }
           };
           var moduleUrl = base + 'pagefind.js' + (loadAttempts ? '?retry=' + loadAttempts : '');
-          loadAttempts++;
           active.postMessage({ type: 'search', moduleUrl: moduleUrl, base: base, query: query });
         } catch (e) {
           if (id === generation) {
