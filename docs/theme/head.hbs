@@ -205,14 +205,6 @@
 <script>
   (function () {
     var base = new URL('{{ path_to_root }}pagefind/', location.href).href;
-    function terms(query) {
-      return query.trim().normalize('NFKC').toLocaleLowerCase('en').split(/\s+/).filter(Boolean);
-    }
-    function matchesAll(queryTerms, result) {
-      var haystack = ((result.content || '') + ' ' + (result.meta && result.meta.title || ''))
-        .normalize('NFKC').toLocaleLowerCase('en');
-      return queryTerms.every(function (term) { return haystack.includes(term); });
-    }
     function canonical(raw) {
       try {
         var url = new URL(raw, location.href);
@@ -319,23 +311,13 @@
       content.insertBefore(wrap, content.firstChild);
       document.body.appendChild(modal);
 
-      var pagefindPromise;
+      var worker;
       var loadAttempts = 0;
       var generation = 0;
       var timer;
       var state;
-      function loadPagefind() {
-        if (!pagefindPromise) {
-          var moduleUrl = base + 'pagefind.js' + (loadAttempts ? '?retry=' + loadAttempts : '');
-          loadAttempts++;
-          pagefindPromise = import(moduleUrl).then(function (api) {
-            return api.options({ basePath: base }).then(function () { return api; });
-          }).catch(function (error) {
-            pagefindPromise = null;
-            throw error;
-          });
-        }
-        return pagefindPromise;
+      function stopWorker() {
+        if (worker) { worker.terminate(); worker = null; }
       }
       function makeGroup(item) {
         var result = item.result;
@@ -379,7 +361,9 @@
         retry.hidden = !state.error;
         retry.disabled = !state.error;
         if (state.error) {
-          status.textContent = 'Search could not load all results. Retry this query.';
+          status.textContent = state.error === 'load'
+            ? 'Search is unavailable. Retry this query.'
+            : 'Search could not load all results. Retry this query.';
         } else if (state.close.length) {
           status.textContent = state.next >= state.refs.length && !state.scanning
             ? 'Matches all search terms: ' + state.close.length + '.'
@@ -389,57 +373,56 @@
           status.textContent = 'No results match all search terms.';
         } else { status.textContent = 'Searching for matches to all terms…'; }
       }
-      async function scan(id, targetCount) {
-        if (!state || state.scanning) { return; }
-        state.scanning = true;
-        try {
-          while (state.next < state.refs.length && state.close.length < targetCount && !state.error) {
-            var batch = state.refs.slice(state.next, state.next + 12);
-            var batchStart = state.next;
-            state.next += batch.length;
-            await Promise.all(batch.map(async function (ref, offset) {
-              try {
-                var result = await ref.data();
-                if (id !== generation) { return; }
-                var url = canonical(result.url);
-                if (!url || state.seen.has(url.href)) { return; }
-                state.seen.add(url.href);
-                var item = { url: url, result: result, rank: batchStart + offset };
-                if (matchesAll(state.queryTerms, result)) {
-                  // Insert by Pagefind rank, but never replace or detach an
-                  // already rendered link when a slower fragment arrives.
-                  var position = state.close.findIndex(function (other) { return other.rank > item.rank; });
-                  if (position < 0) { position = state.close.length; }
-                  item.node = makeGroup(item);
-                  matches.insertBefore(item.node, state.close[position] ? state.close[position].node : null);
-                  state.close.splice(position, 0, item);
-                } else {
-                  state.fuzzy.push(item);
-                  if (state.fuzzy.length <= 5) { relatedList.appendChild(makeGroup(item)); }
-                }
-                render();
-              } catch (e) {
-                if (id === generation) { state.error = true; render(); }
-              }
-            }));
-            if (id !== generation) { return; }
-          }
-        } catch (e) {
-          if (id === generation) { state.error = true; }
-        } finally { if (id === generation && state) { state.scanning = false; render(); } }
+      function acceptResult(rank, result, literal) {
+        var url = canonical(result.url);
+        if (!url || state.seen.has(url.href)) { return; }
+        state.seen.add(url.href);
+        var item = { url: url, result: result, rank: rank };
+        if (literal) {
+          // Insert by Pagefind rank without replacing an already focused link.
+          var position = state.close.findIndex(function (other) { return other.rank > item.rank; });
+          if (position < 0) { position = state.close.length; }
+          item.node = makeGroup(item);
+          matches.insertBefore(item.node, state.close[position] ? state.close[position].node : null);
+          state.close.splice(position, 0, item);
+        } else {
+          state.fuzzy.push(item);
+          if (state.fuzzy.length <= 5) { relatedList.appendChild(makeGroup(item)); }
+        }
+        render();
       }
-      async function search(id, query) {
+      function search(id, query) {
+        stopWorker();
+        state = { refs: [], next: 0, close: [], fuzzy: [],
+          seen: new Set(), scanning: true };
+        var active;
         try {
-          var api = await loadPagefind();
-          var found = await api.search(query);
-          if (id !== generation) { return; }
-          state = { refs: found.results, next: 0, queryTerms: terms(query), close: [], fuzzy: [],
-            seen: new Set(), scanning: false };
-          render();
-          await scan(id, 10);
+          active = new Worker(new URL('{{ path_to_root }}aaasm-search-worker.js', location.href),
+            { type: 'module' });
+          worker = active;
+          active.onmessage = function (event) {
+            if (id !== generation || worker !== active) { return; }
+            var data = event.data;
+            if (data.type === 'found') { state.refs.length = data.total; render(); }
+            else if (data.type === 'item') { acceptResult(data.rank, data.result, data.literal); }
+            else if (data.type === 'settled') {
+              state.next = data.next;
+              state.scanning = false;
+              render();
+            } else if (data.type === 'error') {
+              state.error = data.phase || 'data'; state.scanning = false; render();
+            }
+          };
+          active.onerror = function () {
+            if (id === generation && worker === active) {
+              state.error = 'load'; state.scanning = false; render();
+            }
+          };
+          var moduleUrl = base + 'pagefind.js' + (loadAttempts ? '?retry=' + loadAttempts : '');
+          loadAttempts++;
+          active.postMessage({ type: 'search', moduleUrl: moduleUrl, base: base, query: query });
         } catch (e) {
           if (id === generation) {
-            pagefindPromise = null;
             status.textContent = 'Search is unavailable. Retry this query.';
             retry.hidden = false;
             retry.disabled = false;
@@ -449,6 +432,7 @@
       function changed() {
         generation++;
         clearTimeout(timer);
+        stopWorker();
         state = null;
         matches.replaceChildren(); relatedList.replaceChildren();
         related.open = false;
@@ -464,8 +448,14 @@
         if (modal.open) { return; }
         modal.showModal();
         input.focus();
+        if (input.value.trim() && !worker) { changed(); }
       }
-      function close() { if (modal.open) { modal.close(); } }
+      function close() {
+        if (modal.open) { modal.close(); }
+        generation++;
+        clearTimeout(timer);
+        stopWorker();
+      }
       btn.addEventListener('click', open);
       input.addEventListener('input', changed);
       clear.addEventListener('click', function () { input.value = ''; changed(); input.focus(); });
@@ -473,6 +463,7 @@
         if (retry.hidden || retry.disabled || !input.value.trim()) { return; }
         generation++;
         clearTimeout(timer);
+        stopWorker();
         state = null;
         matches.replaceChildren(); relatedList.replaceChildren();
         related.open = false; related.hidden = true; more.hidden = true;
@@ -481,7 +472,12 @@
         search(generation, input.value.trim());
         input.focus();
       });
-      more.addEventListener('click', function () { if (state) { scan(generation, state.close.length + 10); } });
+      more.addEventListener('click', function () {
+        if (state && worker && !state.scanning) {
+          state.scanning = true; render();
+          worker.postMessage({ type: 'more', targetCount: state.close.length + 10 });
+        }
+      });
       closeButton.addEventListener('click', close);
       modal.addEventListener('close', function () { btn.focus({ preventScroll: true }); });
       // A search input may consume the first Escape for its native clear action.
