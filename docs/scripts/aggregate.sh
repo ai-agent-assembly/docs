@@ -490,13 +490,25 @@ scope_pagefind() {       # move non-default version dirs of each module out of p
   for d in "$PUBLIC_DIR"/go-sdk/v[0-9]* "$PUBLIC_DIR/go-sdk/stable" "$PUBLIC_DIR/go-sdk/pre-release"; do
     [[ -d "$d" ]] && mv "$d" "$PF_HOLD/go-sdk__$(basename "$d")"
   done
-  # python-sdk: every version + alias dir from the mike manifest (keep latest)
-  if [[ -f "$PUBLIC_DIR/python-sdk/versions.json" ]]; then
+  # Docusaurus serves Node's default docs at /node-sdk/ and every prior
+  # version at /node-sdk/<version>/. The source manifest supplies the exact
+  # archived names; the observed Mastra duplicates came from these paths.
+  if [[ -f "$MODULES_DIR/node-sdk/website/versions.json" ]]; then
     while IFS= read -r d; do
-      [[ -z "$d" || "$d" == "latest" ]] && continue
-      [[ -d "$PUBLIC_DIR/python-sdk/$d" ]] && mv "$PUBLIC_DIR/python-sdk/$d" "$PF_HOLD/python-sdk__$d"
-    done < <(jq -r '.[] | (.version, (.aliases[]?))' "$PUBLIC_DIR/python-sdk/versions.json" 2>/dev/null)
+      [[ -n "$d" && -d "$PUBLIC_DIR/node-sdk/$d" ]] && mv "$PUBLIC_DIR/node-sdk/$d" "$PF_HOLD/node-sdk__$d"
+    done < <(jq -r '.[]' "$MODULES_DIR/node-sdk/website/versions.json" 2>/dev/null)
   fi
+  # mike-published SDK and Arena trees: keep latest, hold every other
+  # version and alias. Both full archives remain served after indexing.
+  local module
+  for module in python-sdk arena; do
+    if [[ -f "$PUBLIC_DIR/$module/versions.json" ]]; then
+      while IFS= read -r d; do
+        [[ -z "$d" || "$d" == "latest" ]] && continue
+        [[ -d "$PUBLIC_DIR/$module/$d" ]] && mv "$PUBLIC_DIR/$module/$d" "$PF_HOLD/${module}__$d"
+      done < <(jq -r '.[] | (.version, (.aliases[]?))' "$PUBLIC_DIR/$module/versions.json" 2>/dev/null)
+    fi
+  done
 }
 restore_pagefind() {     # move every held dir back to public/ (idempotent)
   local p name mod sub lang
