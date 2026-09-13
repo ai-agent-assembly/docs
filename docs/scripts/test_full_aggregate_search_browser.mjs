@@ -96,7 +96,7 @@ try {
   const context = await browser.newContext({ viewport: { width: 390, height: 844 },
     recordVideo: { dir: SEARCH_EVIDENCE_DIR, size: { width: 390, height: 844 } } });
   const page = await context.newPage();
-  await page.route('**/pagefind/pagefind.js*', (route) => route.abort());
+  await context.route('**/pagefind/pagefind.js*', (route) => route.abort());
   await page.goto(SEARCH_AGGREGATE_URL);
   await page.getByRole('button', { name: 'Search all docs…' }).click();
   const modal = page.locator('dialog.aa-search__modal');
@@ -105,7 +105,7 @@ try {
   await modal.getByText('Search is unavailable. Retry this query.', { exact: true }).waitFor();
   await page.waitForTimeout(550);
   await page.screenshot({ path: `${SEARCH_EVIDENCE_DIR}/mobile-asset-error.png` });
-  await page.unroute('**/pagefind/pagefind.js*');
+  await context.unroute('**/pagefind/pagefind.js*');
   const retry = modal.getByRole('button', { name: 'Retry this query' });
   await retry.click();
   assert.equal(await input.inputValue(), 'network.allowlist', 'unchanged query survives retry');
