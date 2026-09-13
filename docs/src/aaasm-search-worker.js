@@ -6,10 +6,14 @@ let closeCount = 0;
 let queryTerms = [];
 let scanning = false;
 
-function matchesAll(result) {
+export function queryTermsFor(query) {
+  return query.trim().normalize('NFKC').toLocaleLowerCase('en').split(/\s+/).filter(Boolean);
+}
+
+export function matchesAll(result, terms) {
   const text = ((result.content || '') + ' ' + (result.meta?.title || ''))
     .normalize('NFKC').toLocaleLowerCase('en');
-  return queryTerms.every((term) => text.includes(term));
+  return terms.every((term) => text.includes(term));
 }
 
 async function scan(targetCount) {
@@ -23,7 +27,7 @@ async function scan(targetCount) {
       // Bounded concurrency avoids starting many expensive fragments together.
       await Promise.all(batch.map(async (ref, offset) => {
         const result = await ref.data();
-        const literal = matchesAll(result);
+        const literal = matchesAll(result, queryTerms);
         if (literal) closeCount++;
         // Full combined-book content is useful for classification, but the
         // dialog only needs these display fields. Do not clone megabytes of
@@ -41,7 +45,7 @@ async function scan(targetCount) {
   }
 }
 
-onmessage = async ({ data }) => {
+globalThis.onmessage = async ({ data }) => {
   try {
     if (data.type === 'search') {
       const api = await import(data.moduleUrl);
@@ -50,8 +54,7 @@ onmessage = async ({ data }) => {
       refs = found.results;
       next = 0;
       closeCount = 0;
-      queryTerms = data.query.trim().normalize('NFKC').toLocaleLowerCase('en')
-        .split(/\s+/).filter(Boolean);
+      queryTerms = queryTermsFor(data.query);
       postMessage({ type: 'found', total: refs.length });
       await scan(10);
     } else if (data.type === 'more') {

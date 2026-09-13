@@ -22,7 +22,10 @@
     (heading.nextElementSibling || heading).after(paragraph);
 
     fetch(new URL('modules.json', root), {cache: 'no-cache'})
-      .then(function (response) { if (!response.ok) throw new Error('No module manifest'); return response.json(); })
+      .then(function (response) {
+        if (!response.ok) { throw new Error('No module manifest'); }
+        return response.json();
+      })
       .then(function (data) {
         var relative = location.pathname.startsWith(root.pathname)
           ? location.pathname.slice(root.pathname.length) : '';

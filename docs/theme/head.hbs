@@ -203,34 +203,12 @@
   .aa-search__related { margin-top: .75rem; }
   .aa-search__related summary { cursor: pointer; }
 </style>
+<script src="{{ path_to_root }}aaasm-docs-utils.js"></script>
 <script>
   (function () {
     var base = new URL('{{ path_to_root }}pagefind/', location.href).href;
-    function canonical(raw) {
-      try {
-        var url = new URL(raw, location.href);
-        if (url.origin !== location.origin) { return null; }
-        url.search = '';
-        url.pathname = url.pathname.replace(/\/index\.html$/, '/');
-        return url;
-      } catch (e) { return null; }
-    }
-    function scope(url) {
-      var parts = url.pathname.split('/').filter(Boolean);
-      var names = { core: 'Core', 'python-sdk': 'Python SDK', 'node-sdk': 'Node SDK',
-        'go-sdk': 'Go SDK', arena: 'Arena' };
-      for (var i = 0; i < parts.length; i++) {
-        if (names[parts[i]]) {
-          var channel = parts[i + 1] || 'default';
-          if (parts[i] === 'node-sdk') {
-            if (channel === 'next') { channel = 'latest (main)'; }
-            else if (!/^v?\d/.test(channel)) { channel = 'default'; }
-          }
-          return names[parts[i]] + ' · ' + channel;
-        }
-      }
-      return 'Hub · English';
-    }
+    function canonical(raw) { return AADocsUtils.canonical(raw, location.href, location.origin); }
+    function scope(url) { return AADocsUtils.scope(url); }
     // Pagefind excerpts contain highlighted <mark> tags. Rebuild only text and
     // those marks so indexed article HTML is never inserted into this page.
     function snippet(markup) {
@@ -553,17 +531,12 @@
     font-size: 14px; font-weight: 600; background: #8ab4f8; color: #14161b; text-decoration: none; }
   .aa-modswitch__go:hover { filter: brightness(1.05); }
   .aa-modswitch__go:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
+  .aa-modswitch__status { flex-basis: 100%; font-size: 13px; }
 </style>
 <script>
   (function () {
     // base-path-aware root (works under github.io/docs/ AND the root domain).
-    var ROOT = '{{ path_to_root }}';
-    // Module publishing is shared by both locales, not nested under zh-Hant.
-    // An empty mdBook path_to_root on /index.html or another root-level file
-    // must resolve to its containing directory, not retain the filename.
-    ROOT = new URL(ROOT || './', document.baseURI);
-    if ('{{ language }}' === 'zh-Hant') { ROOT = new URL('../', ROOT); }
-    ROOT = ROOT.href;
+    var ROOT = AADocsUtils.moduleRoot(document.baseURI, '{{ path_to_root }}', '{{ language }}');
 
     function el(tag, attrs) {
       var n = document.createElement(tag);
@@ -613,6 +586,10 @@
       label.textContent = 'Browse module docs:';
       var modSel = el('select', { 'class': 'aa-modswitch__mod', 'aria-label': 'Module' });
       var verSel = el('select', { 'class': 'aa-modswitch__ver', 'aria-label': 'Version or channel' });
+      var versionStatus = el('span', { 'class': 'aa-modswitch__status',
+        'id': 'aa-modswitch-version-status', 'role': 'status' });
+      versionStatus.hidden = true;
+      verSel.setAttribute('aria-describedby', versionStatus.id);
       var go = el('a', { 'class': 'aa-modswitch__go', 'href': '#' });
       go.textContent = 'Go →';
 
@@ -631,6 +608,8 @@
         var sub = modSel.value;
         verSel.innerHTML = '';
         verSel.disabled = true;
+        versionStatus.textContent = '';
+        versionStatus.hidden = true;
         verSel.appendChild(option('', 'Loading…'));
         fetch(ROOT + sub + '/versions.json', { cache: 'no-cache' })
           .then(function (r) { if (!r.ok) { throw new Error('no manifest'); } return r.json(); })
@@ -641,13 +620,17 @@
             if (!opts.length) { throw new Error('empty manifest'); }
             opts.forEach(function (o) { verSel.appendChild(option(o.value, o.label)); });
             verSel.disabled = false;
+            versionStatus.textContent = '';
+            versionStatus.hidden = true;
           })
           .catch(function () {
             if (request !== versionRequest) { return; }
             // No (or unreadable) versions.json — still navigable; fall back to the module root.
             verSel.innerHTML = '';
-            verSel.appendChild(option('', 'Module home (version unavailable)'));
+            verSel.appendChild(option('', 'Module home'));
             verSel.disabled = false;
+            versionStatus.textContent = 'Version list unavailable.';
+            versionStatus.hidden = false;
           });
       }
 
@@ -659,6 +642,7 @@
       bar.appendChild(modSel);
       bar.appendChild(verSel);
       bar.appendChild(go);
+      bar.appendChild(versionStatus);
       content.insertBefore(bar, content.firstChild);
       loadVersions();
     }

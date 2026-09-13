@@ -1,49 +1,35 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { runInNewContext } from 'node:vm';
+import '../src/aaasm-docs-utils.js';
+import { matchesAll, queryTermsFor } from '../src/aaasm-search-worker.js';
 
-// Exercise the actual inline search helpers without a browser or full aggregate.
-// UI interaction is covered separately against the rendered Pagefind bundle.
-const source = readFileSync(new URL('../theme/head.hbs', import.meta.url), 'utf8');
-const workerSource = readFileSync(new URL('../src/aaasm-search-worker.js', import.meta.url), 'utf8');
-const script = source.match(/<!-- Unified Pagefind index[\s\S]*?<script>([\s\S]*?)<\/script>/)?.[1];
-assert.ok(script, 'global Pagefind adapter exists');
-const instrumented = script.replace(
-  'function init() {',
-  'globalThis.searchHelpers = { canonical, scope };\n    function init() {',
-);
-assert.notEqual(instrumented, script, 'helper boundary found');
+// Exercise the helpers actually loaded by the hub and module Worker; no
+// generated template text is dynamically executed in this source test.
+const template = readFileSync(new URL('../theme/head.hbs', import.meta.url), 'utf8');
+assert.match(template, /src="{{ path_to_root }}aaasm-docs-utils\.js"/);
+assert.match(template, /AADocsUtils\.canonical\(raw, location\.href, location\.origin\)/);
+assert.match(template, /AADocsUtils\.scope\(url\)/);
 const location = {
   href: 'https://docs.agent-assembly.com/docs/guides.html',
   origin: 'https://docs.agent-assembly.com',
 };
-const context = {
-  URL,
-  location,
-  document: { readyState: 'loading', addEventListener() {} },
-};
-runInNewContext(instrumented.replaceAll('{{ path_to_root }}', '../'), context);
-const { canonical, scope } = context.searchHelpers;
-const workerContext = { postMessage() {} };
-runInNewContext(`${workerSource}\n;globalThis.literalTerms = function (query, result) {
-  queryTerms = query.trim().normalize('NFKC').toLocaleLowerCase('en').split(/\\s+/).filter(Boolean);
-  return matchesAll(result);
-};`, workerContext);
-const matchesAll = (query, result) => workerContext.literalTerms(query, result);
+const canonical = (raw) => AADocsUtils.canonical(raw, location.href, location.origin);
+const scope = AADocsUtils.scope;
+const matches = (query, result) => matchesAll(result, queryTermsFor(query));
 
-assert.equal(matchesAll('network.allowlist', {
+assert.equal(matches('network.allowlist', {
   content: 'An empty network.allowlist is deny-all.', meta: { title: 'Policy YAML Reference' },
 }), true, 'technical dotted key remains literal');
-assert.equal(matchesAll('POLICY network.allowlist', {
+assert.equal(matches('POLICY network.allowlist', {
   content: 'An empty network.allowlist is deny-all.', meta: { title: 'Policy YAML Reference' },
 }), true, 'all literal terms may occur in title and page content');
-assert.equal(matchesAll('zzzauditnomatchqzx', {
+assert.equal(matches('zzzauditnomatchqzx', {
   content: 'import { z } from "zod"', meta: { title: 'Mastra' },
 }), false, 'a single highlighted z is not a full query match');
-assert.equal(matchesAll('policy gateway', {
+assert.equal(matches('policy gateway', {
   content: 'The gateway uses a policy.', meta: { title: 'Guide' },
 }), true, 'multiword label means all terms, not exact phrase');
-assert.equal(matchesAll('policy gateway', {
+assert.equal(matches('policy gateway', {
   content: 'The gateway uses a rule.', meta: { title: 'Guide' },
 }), false);
 

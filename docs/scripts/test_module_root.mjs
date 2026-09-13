@@ -1,25 +1,13 @@
-// Check the actual module-root expression embedded in the mdBook template.
-// No browser, network, or alternate module-switcher implementation is involved.
+// Check the exact helper used by the mdBook template without executing a
+// string of generated inline JavaScript in a separate VM.
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {test} from 'node:test';
-import {runInNewContext} from 'node:vm';
+import '../src/aaasm-docs-utils.js';
 
 const template = readFileSync(new URL('../theme/head.hbs', import.meta.url), 'utf8');
-const beginning = template.indexOf("var ROOT = '{{ path_to_root }}';", template.indexOf('<!-- Hub landing'));
-assert.notEqual(beginning, -1, 'module switcher root expression exists');
-const ending = template.indexOf('ROOT = ROOT.href;', beginning);
-assert.notEqual(ending, -1, 'module switcher root expression ends');
-const rootSource = template.slice(beginning, ending + 'ROOT = ROOT.href;'.length);
-
-function resolvedRoot(baseURI, pathToRoot, language) {
-  const context = {URL, document: {baseURI}};
-  runInNewContext(
-    rootSource.replaceAll('{{ path_to_root }}', pathToRoot).replaceAll('{{ language }}', language),
-    context,
-  );
-  return context.ROOT;
-}
+assert.match(template, /AADocsUtils\.moduleRoot\(document\.baseURI, '{{ path_to_root }}', '{{ language }}'\)/);
+const resolvedRoot = AADocsUtils.moduleRoot;
 
 test('module root is the containing book, not a root-level HTML filename', () => {
   for (const page of ['index.html', 'sitemaps.html', '404.html']) {
@@ -50,7 +38,9 @@ test('localized and nested pages resolve the shared module registry root', () =>
   );
 });
 
-test('missing version manifest offers module home without asserting latest', () => {
-  assert.match(template, /verSel\.appendChild\(option\('', 'Module home \(version unavailable\)'\)\)/);
+test('missing version manifest offers a short module-home option and separate status', () => {
+  assert.match(template, /verSel\.appendChild\(option\('', 'Module home'\)\)/);
+  assert.match(template, /versionStatus\.textContent = 'Version list unavailable\.'/);
+  assert.match(template, /verSel\.setAttribute\('aria-describedby', versionStatus\.id\)/);
   assert.match(template, /var ver = verSel\.value;\s*return ROOT \+ sub \+ '\/' \+ \(ver \? ver \+ '\/' : ''\);/);
 });
