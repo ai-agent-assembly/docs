@@ -53,11 +53,11 @@ try {
     await page.screenshot({ path: `${SEARCH_EVIDENCE_DIR}/${variant.name}-related.png` });
 
     await input.fill('policy gateway');
-    await modal.getByText('Matches all search terms:', { exact: false }).waitFor();
+    await modal.locator('.aa-search__group > a').first().waitFor();
+    assert.match(await modal.getByRole('status').innerText(), /found so far.*Still checking/);
     assert.ok(await modal.locator('.aa-search__group > a').count() > 0);
     await input.fill('Mastra');
-    await modal.getByText('Matches all search terms:', { exact: false }).waitFor();
-    assert.ok((await modal.locator('.aa-search__group > a[href*="/node-sdk/examples/mastra/"]').count()) > 0);
+    await modal.locator('.aa-search__group > a[href*="/node-sdk/examples/mastra/"]').first().waitFor();
     assert.equal(await modal.locator('.aa-search__group > a[href*="/node-sdk/next/"]').count(), 0);
     await page.waitForTimeout(450);
     await page.screenshot({ path: `${SEARCH_EVIDENCE_DIR}/${variant.name}-mastra.png` });

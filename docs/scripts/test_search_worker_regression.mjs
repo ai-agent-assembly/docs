@@ -73,7 +73,19 @@ try {
   await dialog.getByRole('button', { name: 'Load more matches' }).click();
   await page.waitForFunction((prior) => document.querySelectorAll('.aa-search__group > a').length > prior,
     beforeMore, { timeout: 60000 });
-  assert.equal(await firstLink.evaluate((element) => document.activeElement === element), true);
+  assert.equal(await firstLink.getAttribute('href'), firstHref,
+    'loading another page must not replace the initial ranked link');
+  assert.equal(await dialog.evaluate((element) => element.contains(document.activeElement)), true,
+    'Load more must keep focus inside its dialog while results arrive');
+  if (await dialog.getByRole('button', { name: 'Load more matches' }).isVisible()) {
+    assert.equal(await dialog.getByRole('button', { name: 'Load more matches' })
+      .evaluate((element) => document.activeElement === element), true,
+    'pending Load more retains its initiating button');
+  } else {
+    assert.equal(await dialog.locator('.aa-search__group > a').last()
+      .evaluate((element) => document.activeElement === element), true,
+    'an exhausted Load more returns focus to the last result before hiding');
+  }
   await page.screenshot({ path: `${SEARCH_EVIDENCE_DIR}/chromium-desktop-more.png` });
 
   // This is a new decode, not an already-settled response: interrupt as soon
@@ -86,7 +98,7 @@ try {
   await dialog.getByText('Matches all search terms: 3.', { exact: true }).waitFor({ timeout: 30000 });
   await page.waitForTimeout(500);
   assert.equal(await input.inputValue(), 'network.allowlist');
-  assert.equal(await dialog.locator('.aa-search__group > a').count(), 3);
+  assert.equal(await dialog.locator('.aa-search__matches > .aa-search__group > a').count(), 3);
   assert.equal(await input.evaluate((element) => document.activeElement === element), true);
   const thirdLarge = context.waitForEvent('response', { predicate: largeFragment, timeout: 30000 });
   await input.fill('policy gateway');

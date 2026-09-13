@@ -191,6 +191,7 @@
   .aa-search__clear, .aa-search__more, .aa-search__retry { cursor: pointer; margin-top: .5rem; padding: .35rem .65rem;
     border: 1px solid currentColor; border-radius: 6px; background: transparent; color: inherit; }
   .aa-search__retry:disabled { cursor: wait; opacity: .65; }
+  .aa-search__more[aria-disabled="true"] { cursor: wait; opacity: .65; }
   .aa-search__hint, .aa-search__status { font-size: 14px; margin: .6rem 0; }
   .aa-search__group { border-top: 1px solid rgba(127,127,127,.3); padding: .7rem 0; }
   .aa-search__scope { font-size: 13px; opacity: .85; margin: 0 0 .2rem; }
@@ -291,6 +292,7 @@
       retry.textContent = 'Retry this query';
       retry.hidden = true;
       var matches = document.createElement('div');
+      matches.className = 'aa-search__matches';
       var more = document.createElement('button');
       more.type = 'button';
       more.className = 'aa-search__more';
@@ -357,7 +359,8 @@
         // Results are inserted as individual fragments resolve. Only status
         // changes here; replacing prior anchors would discard keyboard focus.
         related.hidden = state.fuzzy.length === 0;
-        more.hidden = state.scanning || state.next >= state.refs.length || state.close.length === 0 || !!state.error;
+        more.hidden = state.next >= state.refs.length || state.close.length === 0 || !!state.error;
+        more.setAttribute('aria-disabled', state.scanning ? 'true' : 'false');
         retry.hidden = !state.error;
         retry.disabled = !state.error;
         if (state.error) {
@@ -408,11 +411,18 @@
               acceptResult(data.rank, data.result, data.literal);
             }
             else if (data.type === 'settled') {
+              var moreHadFocus = document.activeElement === more;
               state.next = data.next;
               state.scanning = false;
+              if (moreHadFocus && state.next >= state.refs.length) {
+                var lastLink = state.close.length && state.close[state.close.length - 1].node.querySelector('a');
+                (lastLink || input).focus();
+              }
               render();
             } else if (data.type === 'error') {
+              var retryFromMore = document.activeElement === more;
               state.error = data.phase || 'data'; state.scanning = false; render();
+              if (retryFromMore) { retry.focus(); }
               if (state.error === 'load') { loadAttempts++; }
             }
           };
