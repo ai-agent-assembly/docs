@@ -10,9 +10,15 @@ PUBLIC_DIR="$fixture_root/public"
 MODULES_DIR="$fixture_root/modules"
 PF_HOLD="$MODULES_DIR/.pagefind-hold"
 PF_HOLD_LANG="$MODULES_DIR/.pagefind-hold-lang"
+PF_HOLD_PRINT="$MODULES_DIR/.pagefind-hold-print"
 HUB_LANGUAGES=(zh-Hant)
 
 mkdir -p "$PUBLIC_DIR/zh-Hant" "$MODULES_DIR"
+mkdir -p "$PUBLIC_DIR/core/latest/reference"
+printf '%s\n' 'Hub combined print view' > "$PUBLIC_DIR/print.html"
+printf '%s\n' 'Core combined print view' > "$PUBLIC_DIR/core/latest/print.html"
+printf '%s\n' 'Core policy article' > "$PUBLIC_DIR/core/latest/policy-reference.html"
+printf '%s\n' 'Ordinary named print article' > "$PUBLIC_DIR/core/latest/reference/print.html"
 mkdir -p "$MODULES_DIR/node-sdk/website" "$PUBLIC_DIR/node-sdk/examples/mastra" \
   "$PUBLIC_DIR/node-sdk/next/examples/mastra" \
   "$PUBLIC_DIR/node-sdk/0.0.1-rc.4/examples/mastra" \
@@ -39,6 +45,12 @@ eval "$(sed -n '/^scope_pagefind() {/,/^}/p; /^restore_pagefind() {/,/^}/p' "$sc
 declare -F scope_pagefind restore_pagefind >/dev/null
 
 scope_pagefind
+test ! -e "$PUBLIC_DIR/print.html"
+test ! -e "$PUBLIC_DIR/core/latest/print.html"
+test -f "$PF_HOLD_PRINT/hub-print.html"
+test -f "$PF_HOLD_PRINT/core-latest-print.html"
+test -f "$PUBLIC_DIR/core/latest/policy-reference.html"
+test -f "$PUBLIC_DIR/core/latest/reference/print.html"
 test -f "$PUBLIC_DIR/node-sdk/examples/mastra/index.html"
 for channel in next 0.0.1-rc.4 0.0.1-beta.1; do
   test ! -e "$PUBLIC_DIR/node-sdk/$channel"
@@ -56,6 +68,10 @@ test -d "$PF_HOLD_LANG/zh-Hant"
 
 restore_pagefind
 restore_pagefind # idempotent, as required by the aggregate EXIT trap
+test "$(cat "$PUBLIC_DIR/print.html")" = 'Hub combined print view'
+test "$(cat "$PUBLIC_DIR/core/latest/print.html")" = 'Core combined print view'
+test -f "$PUBLIC_DIR/core/latest/policy-reference.html"
+test -f "$PUBLIC_DIR/core/latest/reference/print.html"
 test -f "$PUBLIC_DIR/node-sdk/examples/mastra/index.html"
 for channel in next 0.0.1-rc.4 0.0.1-beta.1; do
   test -f "$PUBLIC_DIR/node-sdk/$channel/examples/mastra/index.html"
@@ -68,4 +84,5 @@ done
 test -d "$PUBLIC_DIR/zh-Hant"
 test ! -e "$PF_HOLD"
 test ! -e "$PF_HOLD_LANG"
-printf '%s\n' 'PASS: default-channel search scope and full archive restoration (node-sdk, python-sdk, arena, localized hub)'
+test ! -e "$PF_HOLD_PRINT"
+printf '%s\n' 'PASS: default-channel search scope and full archive/print restoration (node-sdk, python-sdk, arena, localized hub)'
