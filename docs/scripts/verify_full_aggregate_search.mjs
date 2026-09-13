@@ -1,15 +1,12 @@
 import assert from 'node:assert/strict';
-import { existsSync } from 'node:fs';
 import { readFile, readdir } from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
-import { join, resolve } from 'node:path';
+import { aggregateRoot, existingAggregatePath } from './aggregate_local_paths.mjs';
 
 // Run only against an isolated, already-built local aggregate. No publisher
 // fetch, archive rebuild, or deployed write is needed for this read-only check.
-const publicDir = process.argv[2] && resolve(process.argv[2]);
-assert.ok(publicDir, 'usage: node verify_full_aggregate_search.mjs <aggregate-public-dir>');
-const index = join(publicDir, 'pagefind/pagefind.js');
-assert.ok(existsSync(index), `missing generated Pagefind index: ${index}`);
+const publicDir = await aggregateRoot(process.argv[2]);
+const index = await existingAggregatePath(publicDir, 'pagefind', 'pagefind.js');
 
 // Pagefind 1.4.0 fetches relative index fragments even when imported in Node.
 // Resolve only those generated files from the supplied local aggregate.
@@ -17,9 +14,11 @@ globalThis.fetch = async (input) => {
   const url = new URL(String(input), 'http://local.test');
   assert.equal(url.origin, 'http://local.test');
   assert.ok(url.pathname.startsWith('/pagefind/'), `unexpected Pagefind request: ${url.pathname}`);
-  const file = join(publicDir, url.pathname);
-  try { return new Response(await readFile(file), { status: 200 }); }
-  catch { return new Response('missing local fragment', { status: 404 }); }
+  try {
+    const segments = url.pathname.split('/').filter(Boolean).map(decodeURIComponent);
+    const file = await existingAggregatePath(publicDir, ...segments);
+    return new Response(await readFile(file), { status: 200 });
+  } catch { return new Response('missing local fragment', { status: 404 }); }
 };
 
 const pagefind = await import(pathToFileURL(index).href);
@@ -34,14 +33,16 @@ for (const route of [
   'node-sdk/next/examples/mastra/', 'node-sdk/examples/mastra/',
   'python-sdk/latest/', 'go-sdk/latest/', 'arena/latest/',
 ]) {
-  assert.ok(existsSync(join(publicDir, route)), `served route/ancestor missing: ${route}`);
+  await existingAggregatePath(publicDir, ...route.split('/').filter(Boolean));
 }
-const coreManifest = JSON.parse(await readFile(join(publicDir, 'core/versions.json')));
+const coreManifest = JSON.parse(await readFile(
+  await existingAggregatePath(publicDir, 'core', 'versions.json')));
 assert.ok(coreManifest.archived.length > 0, 'Core archive manifest empty');
 for (const version of coreManifest.archived) {
-  assert.ok(existsSync(join(publicDir, 'core', version.id)), `Core archive missing: ${version.id}`);
+  await existingAggregatePath(publicDir, 'core', version.id);
 }
-const goArchives = (await readdir(join(publicDir, 'go-sdk'))).filter((name) => /^v\d/.test(name));
+const goArchives = (await readdir(await existingAggregatePath(publicDir, 'go-sdk')))
+  .filter((name) => /^v\d/.test(name));
 assert.ok(goArchives.length > 0, 'Go archived tag directories missing');
 
 const mastra = await search('Mastra');

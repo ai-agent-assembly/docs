@@ -106,6 +106,7 @@ jobs:
         run: |
           node docs/scripts/test_global_search.mjs
           node docs/scripts/test_module_root.mjs
+          node --test docs/scripts/test_aggregate_local_paths.mjs
 
       - name: Set up Go + Hugo extended (go-sdk / Hugo + Hextra)
         uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
