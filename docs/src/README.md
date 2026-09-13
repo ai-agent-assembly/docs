@@ -1,35 +1,8 @@
 # AI Agent Assembly Documentation
 
-<!-- BEGIN GENERATED:hub-components:landing-badges -->
+AI Agent Assembly is a governance layer for AI agents. Use this hub to evaluate its boundaries, integrate a governed path, operate it, or verify a claim.
 
-[![core](https://img.shields.io/github/v/release/ai-agent-assembly/agent-assembly?include_prereleases&sort=semver&label=core&logo=github&color=3b82f6)](https://github.com/ai-agent-assembly/agent-assembly/releases)
-[![python-sdk](https://img.shields.io/pypi/v/agent-assembly?label=python-sdk&logo=pypi)](https://github.com/ai-agent-assembly/python-sdk)
-[![node-sdk](https://img.shields.io/npm/v/@agent-assembly/sdk/rc?label=node-sdk&logo=npm)](https://github.com/ai-agent-assembly/node-sdk)
-[![go-sdk](https://img.shields.io/github/v/tag/ai-agent-assembly/go-sdk?sort=semver&label=go-sdk&logo=go&color=3b82f6)](https://github.com/ai-agent-assembly/go-sdk/tags)
-[![license](https://img.shields.io/badge/license-Apache--2.0-green)](https://github.com/ai-agent-assembly/docs/blob/main/LICENSE)
-
-<!-- END GENERATED:hub-components:landing-badges -->
-
-<!-- The version badges above are generated from hub-components.toml by
-     docs/scripts/generate_hub_components.py — do not hand-edit between the
-     BEGIN/END GENERATED markers. The trailing license badge is a literal
-     inside the renderer. See AAASM-4313. -->
-
-Quick links to each component, its current version, and its license. Every version badge reads the latest published version live — core and Go from GitHub, Python from PyPI, Node from npm's `rc` dist-tag — so they stay current with no manual updates. The project is in release candidate (`v0.0.1-rc`).
-
-AI Agent Assembly is a governance layer for AI agents. It sits between your agents and the outside world and does three things:
-
-- **Enforces policy** — decides, before each *governed* action runs, whether an agent is allowed to call a tool, reach a domain, or spend more budget.
-- **Tracks cost** — meters token and dollar spend per team and blocks agents that exceed their budget.
-- **Intercepts unsafe actions** — the sidecar proxy denies a routed call before it leaves the machine, the SDK advises in-process, and the Linux eBPF sensor *detects* activity without returning a verdict. Each is deployed on its own and covers only what it is on the path of.
-
-Governance applies per agent, on the paths you wire up — you do not have to rewrite your agent's logic, but each agent has to be launched through a governed path (an SDK your code initializes, or the sidecar proxy). An agent started outside those paths is not governed. See [Known limitations](https://docs.agent-assembly.com/core/latest/devtools/limitations.html) for what is measured, unmeasured, and unsupported today.
-
-## Who this documentation is for
-
-This site is for **teams, security engineers, and operators** evaluating or running AI Agent Assembly for production adoption.
-
-If you are a developer who wants to contribute or integrate at the code level, see the [open-source documentation](https://docs.agent-assembly.com/core/) instead.
+**Release candidate** — see the [compatibility matrix](compatibility.md) for component versions.
 
 ## Find what you need
 
@@ -45,7 +18,31 @@ Pick the page that matches what you are trying to do.
 | See what the managed control plane is intended to add (planned, not available) | [Managed control plane](cloud-deployment.md) |
 | Look up a policy field or write a policy | [Policy reference](policy-reference.md) |
 
+## Who this documentation is for
+
+This site is for **teams, security engineers, and operators** evaluating or running AI Agent Assembly for production adoption.
+
+If you are a developer who wants to contribute or integrate at the code level, see the [open-source documentation](https://docs.agent-assembly.com/core/) instead.
+
+For scope and availability, read [What ships today](what-ships-today.md), [Choose your enforcement path](choose-your-enforcement-path.md), and [Capability status](capability-status.md).
+
+Governance applies per agent, on the paths you wire up — you do not have to rewrite your agent's logic, but each agent has to be launched through a governed path (an SDK your code initializes, or the sidecar proxy). An agent started outside those paths is not governed. See [Known limitations](https://docs.agent-assembly.com/core/latest/devtools/limitations.html) for what is measured, unmeasured, and unsupported today.
+
 ## SDKs & components
+
+<!-- BEGIN GENERATED:hub-components:landing-badges -->
+
+[![core](https://img.shields.io/github/v/release/ai-agent-assembly/agent-assembly?include_prereleases&sort=semver&label=core&logo=github&color=3b82f6)](https://github.com/ai-agent-assembly/agent-assembly/releases)
+[![python-sdk](https://img.shields.io/pypi/v/agent-assembly?label=python-sdk&logo=pypi)](https://github.com/ai-agent-assembly/python-sdk)
+[![node-sdk](https://img.shields.io/npm/v/@agent-assembly/sdk/rc?label=node-sdk&logo=npm)](https://github.com/ai-agent-assembly/node-sdk)
+[![go-sdk](https://img.shields.io/github/v/tag/ai-agent-assembly/go-sdk?sort=semver&label=go-sdk&logo=go&color=3b82f6)](https://github.com/ai-agent-assembly/go-sdk/tags)
+[![license](https://img.shields.io/badge/license-Apache--2.0-green)](https://github.com/ai-agent-assembly/docs/blob/main/LICENSE)
+
+<!-- END GENERATED:hub-components:landing-badges -->
+
+<!-- Generated badges remain owned by hub-components.toml and its renderer. -->
+
+Every version badge reads the latest published version live — core and Go from GitHub, Python from PyPI, Node from npm's `rc` dist-tag — so they stay current with no manual updates.
 
 This hub is the central entry point for AI Agent Assembly documentation. To instrument your agents, you install the SDK for your language — each one ships its own documentation site. Use the table below to go to the SDK that matches your codebase (Python, Node/TypeScript, or Go), or to Arena, the cross-framework governance trial ground.
 
