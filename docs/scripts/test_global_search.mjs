@@ -48,6 +48,7 @@ assert.equal(scope(canonical('/core/latest/policy-reference.html')), 'Core · la
 assert.equal(scope(canonical('/python-sdk/latest/')), 'Python SDK · latest');
 assert.equal(scope(canonical('/arena/latest/')), 'Arena · latest');
 assert.equal(scope(canonical('/node-sdk/examples/mastra/')), 'Node SDK · default');
+assert.equal(scope(canonical('/node-sdk/next/examples/mastra/')), 'Node SDK · latest (main)');
 assert.equal(scope(canonical('/node-sdk/0.0.1-rc.4/examples/mastra/')),
   'Node SDK · 0.0.1-rc.4');
 assert.equal(scope(canonical('/docs/guides.html')), 'Hub · English');
