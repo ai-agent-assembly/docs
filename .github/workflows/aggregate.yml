@@ -11,9 +11,9 @@ name: Aggregate and Deploy Docs Hub
 
 on:
   push:
-    branches: [main]
+    branches: [main, uiux/visual-experience-overhaul]
   pull_request:
-    branches: [main]
+    branches: [main, uiux/visual-experience-overhaul]
   workflow_dispatch:
   # Source repos (core, python-sdk, node-sdk, go-sdk, arena, ...) publish new
   # content straight to their own gh-pages branches on their own schedules,
@@ -49,6 +49,9 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           fetch-depth: 0
+
+      - name: Verify archive search scope and restoration
+        run: bash docs/scripts/test_pagefind_scope.sh
 
       # --- toolchains, one per generator ---
       - name: Install mdBook + mdbook-mermaid (hub + core)
