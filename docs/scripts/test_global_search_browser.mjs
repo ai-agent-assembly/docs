@@ -120,12 +120,15 @@ try {
   await errorPage.getByRole('button', { name: 'Search all docs…' }).click();
   const errorInput = errorPage.getByRole('searchbox', { name: 'Search all docs' });
   await errorInput.fill('network.allowlist');
-  await errorPage.getByText('Search is unavailable. Edit the query to retry.', { exact: true }).waitFor();
+  await errorPage.getByText('Search is unavailable. Retry this query.', { exact: true }).waitFor();
   await errorPage.waitForTimeout(550);
   await errorPage.screenshot({ path: `${evidenceDir}/mobile-search-error.png` });
   await errorPage.unroute('**/pagefind/pagefind.js*');
-  await errorInput.fill('policy');
-  await errorPage.getByText('Matches all search terms:', { exact: false }).waitFor();
+  await errorPage.getByRole('button', { name: 'Retry this query' }).click();
+  assert.equal(await errorInput.inputValue(), 'network.allowlist', 'retry preserves the exact query');
+  await errorPage.getByText('Matches all search terms: 1.', { exact: true }).waitFor();
+  assert.match(await errorPage.locator('.aa-search__group > a').first().getAttribute('href'),
+    /\/core\/latest\/policy-reference\.html$/);
   assert.equal(await errorInput.evaluate(el => document.activeElement === el), true,
     'recovery keeps focus in the search input');
   await errorPage.waitForTimeout(550);

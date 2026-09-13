@@ -155,7 +155,8 @@ return N near-duplicate hits per page (one per archived version). Pagefind expos
 only a single inclusion `--glob` (no path negation/union), so `aggregate.sh`
 temporarily **moves the non-default version dirs aside** (core: `archived[]` from
 its manifest; go-sdk: every `v*` tag dir + `stable`/`pre-release`; node-sdk:
-every Docusaurus archived version from its source manifest, keeping the module
+every Docusaurus archived version from its source manifest **and** the live
+`current.path` (currently `/next/`) when a cut snapshot owns the default module
 root; python-sdk and Arena: every version + alias dir from their mike manifests,
 keeping `latest`). It also holds localized hub trees to avoid indexing English
 fallback pages twice. It runs Pagefind, then **restores** all held trees (via an

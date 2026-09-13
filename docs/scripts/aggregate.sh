@@ -498,6 +498,16 @@ scope_pagefind() {       # move non-default version dirs of each module out of p
       [[ -n "$d" && -d "$PUBLIC_DIR/node-sdk/$d" ]] && mv "$PUBLIC_DIR/node-sdk/$d" "$PF_HOLD/node-sdk__$d"
     done < <(jq -r '.[]' "$MODULES_DIR/node-sdk/website/versions.json" 2>/dev/null)
   fi
+  # Docusaurus also serves live main at its configured `current.path` (today
+  # /next/) while the newest cut snapshot owns the default module root. Keep
+  # that non-default channel navigable, but avoid a second hit for each page.
+  if [[ -f "$MODULES_DIR/node-sdk/website/versionChannels.json" ]]; then
+    d="$(jq -r '.versions.current.path // empty | ltrimstr("/") | rtrimstr("/")' \
+      "$MODULES_DIR/node-sdk/website/versionChannels.json" 2>/dev/null)"
+    if [[ -n "$d" && "$d" != */* && "$d" != "." && "$d" != ".." && -d "$PUBLIC_DIR/node-sdk/$d" ]]; then
+      mv "$PUBLIC_DIR/node-sdk/$d" "$PF_HOLD/node-sdk__$d"
+    fi
+  fi
   # mike-published SDK and Arena trees: keep latest, hold every other
   # version and alias. Both full archives remain served after indexing.
   local module

@@ -188,8 +188,9 @@
   .aa-search__heading { margin: 0 0 .75rem; font-size: 1.2rem; }
   .aa-search__input { box-sizing: border-box; width: 100%; padding: .55rem; font: inherit;
     border: 1px solid currentColor; border-radius: 6px; background: var(--bg, #fff); color: inherit; }
-  .aa-search__clear, .aa-search__more { cursor: pointer; margin-top: .5rem; padding: .35rem .65rem;
+  .aa-search__clear, .aa-search__more, .aa-search__retry { cursor: pointer; margin-top: .5rem; padding: .35rem .65rem;
     border: 1px solid currentColor; border-radius: 6px; background: transparent; color: inherit; }
+  .aa-search__retry:disabled { cursor: wait; opacity: .65; }
   .aa-search__hint, .aa-search__status { font-size: 14px; margin: .6rem 0; }
   .aa-search__group { border-top: 1px solid rgba(127,127,127,.3); padding: .7rem 0; }
   .aa-search__scope { font-size: 13px; opacity: .85; margin: 0 0 .2rem; }
@@ -228,7 +229,10 @@
       for (var i = 0; i < parts.length; i++) {
         if (names[parts[i]]) {
           var channel = parts[i + 1] || 'default';
-          if (parts[i] === 'node-sdk' && !/^v?\d/.test(channel)) { channel = 'default'; }
+          if (parts[i] === 'node-sdk') {
+            if (channel === 'next') { channel = 'latest (main)'; }
+            else if (!/^v?\d/.test(channel)) { channel = 'default'; }
+          }
           return names[parts[i]] + ' · ' + channel;
         }
       }
@@ -289,6 +293,11 @@
       status.className = 'aa-search__status';
       status.setAttribute('role', 'status');
       status.textContent = 'Enter search terms.';
+      var retry = document.createElement('button');
+      retry.type = 'button';
+      retry.className = 'aa-search__retry';
+      retry.textContent = 'Retry this query';
+      retry.hidden = true;
       var matches = document.createElement('div');
       var more = document.createElement('button');
       more.type = 'button';
@@ -303,7 +312,7 @@
       related.appendChild(relatedSummary); related.appendChild(relatedList);
       related.hidden = true;
       panel.appendChild(closeButton); panel.appendChild(heading); panel.appendChild(input);
-      panel.appendChild(clear); panel.appendChild(hint); panel.appendChild(status);
+      panel.appendChild(clear); panel.appendChild(hint); panel.appendChild(status); panel.appendChild(retry);
       panel.appendChild(matches); panel.appendChild(more); panel.appendChild(related);
       modal.appendChild(panel);
       wrap.appendChild(btn);
@@ -369,8 +378,10 @@
         state.fuzzy.slice(0, 5).forEach(function (item) { relatedList.appendChild(makeGroup(item)); });
         related.hidden = state.fuzzy.length === 0;
         more.hidden = state.scanning || state.next >= state.refs.length || state.close.length === 0 || !!state.error;
+        retry.hidden = !state.error;
+        retry.disabled = !state.error;
         if (state.error) {
-          status.textContent = 'Search could not load all results. Edit the query to retry.';
+          status.textContent = 'Search could not load all results. Retry this query.';
         } else if (state.close.length) {
           status.textContent = 'Matches all search terms: ' + state.close.length
             + (state.next >= state.refs.length ? '.' : ' shown. More results remain to check.');
@@ -411,7 +422,9 @@
         } catch (e) {
           if (id === generation) {
             pagefindPromise = null;
-            status.textContent = 'Search is unavailable. Edit the query to retry.';
+            status.textContent = 'Search is unavailable. Retry this query.';
+            retry.hidden = false;
+            retry.disabled = false;
           }
         }
       }
@@ -422,6 +435,7 @@
         matches.replaceChildren(); relatedList.replaceChildren();
         related.open = false;
         related.hidden = true; more.hidden = true;
+        retry.hidden = true; retry.disabled = false;
         var query = input.value.trim();
         if (!query) { status.textContent = 'Enter search terms.'; return; }
         status.textContent = 'Searching…';
@@ -437,6 +451,18 @@
       btn.addEventListener('click', open);
       input.addEventListener('input', changed);
       clear.addEventListener('click', function () { input.value = ''; changed(); input.focus(); });
+      retry.addEventListener('click', function () {
+        if (retry.hidden || retry.disabled || !input.value.trim()) { return; }
+        generation++;
+        clearTimeout(timer);
+        state = null;
+        matches.replaceChildren(); relatedList.replaceChildren();
+        related.open = false; related.hidden = true; more.hidden = true;
+        retry.disabled = true;
+        status.textContent = 'Searching…';
+        search(generation, input.value.trim());
+        input.focus();
+      });
       more.addEventListener('click', function () { if (state) { scan(generation, state.close.length + 10); } });
       closeButton.addEventListener('click', close);
       modal.addEventListener('close', function () { btn.focus({ preventScroll: true }); });
