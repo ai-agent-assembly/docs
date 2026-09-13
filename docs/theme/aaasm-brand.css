@@ -103,3 +103,5 @@ html { font-size: 16px; }
 .aa-cta-next p {
   margin: .25rem 0 0;
 }
+.aa-missing-document .aa-feedback,
+.aa-missing-document:not(.aa-recovery-context-ready) .aa-modswitch { display: none; }
