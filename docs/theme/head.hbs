@@ -549,9 +549,10 @@
   html[data-theme="navy"] .aa-modswitch select option,
   html[data-theme="coal"] .aa-modswitch select option,
   html[data-theme="ayu"] .aa-modswitch select option { background: #1f2430; color: #e7eaf0; }
-  .aa-modswitch__go { cursor: pointer; border: 0; border-radius: 6px; padding: .4rem .85rem;
+  main .aa-modswitch a.aa-modswitch__go { cursor: pointer; border: 0; border-radius: 6px; padding: .4rem .85rem;
     font-size: 14px; font-weight: 600; background: #8ab4f8; color: #14161b; text-decoration: none; }
   .aa-modswitch__go:hover { filter: brightness(1.05); }
+  .aa-modswitch__go:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
 </style>
 <script>
   (function () {
