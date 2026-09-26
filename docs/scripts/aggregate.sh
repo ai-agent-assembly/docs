@@ -168,13 +168,25 @@ build_node() {       # docusaurus (website/, baseUrl already /node-sdk/) -> publ
   local src="$1" out="$2"
   # Install node-sdk's ROOT devDeps (@types/node, @langchain/core) FIRST: the
   # website runs docusaurus-plugin-typedoc, which typechecks node-sdk's ../src/*.ts
-  # against those types. The website-only `--ignore-workspace` install below never
-  # pulls them, so typedoc fails to resolve node builtins / @langchain imports.
+  # against those types. website/ is its own workspace root, so the website install
+  # below never pulls them, and typedoc would fail to resolve node builtins /
+  # @langchain imports.
   # --ignore-scripts skips node-sdk's native napi postinstall the docs build never needs.
   # The website install has no postinstall/lifecycle scripts of its own (verified:
   # build output is identical with/without --ignore-scripts), so it gets the same flag.
+  #
+  # The website install deliberately does NOT pass --ignore-workspace. That flag makes
+  # pnpm skip website/pnpm-workspace.yaml, which since node-sdk PR #451 (AAASM-6106)
+  # holds all 32 pnpm security floors -- so the config would carry 0 overrides while
+  # website/pnpm-lock.yaml still records 32, and --frozen-lockfile aborts with
+  # ERR_PNPM_LOCKFILE_CONFIG_MISMATCH. node-sdk dropped the flag from its own
+  # publish-docs.yml in that same PR; this is the cross-repo call site it missed.
+  # The flag originally worked around pnpm walking UP to node-sdk's root workspace
+  # and producing no website/node_modules (AAASM-1221 / PR #43); website's own
+  # pnpm-workspace.yaml now stops that walk at source, so the flag is obsolete here.
+  # See AAASM-6178.
   ( cd "$src" && pnpm install --frozen-lockfile --ignore-scripts )
-  ( cd "$src/website" && pnpm install --ignore-workspace --frozen-lockfile --ignore-scripts && pnpm build )
+  ( cd "$src/website" && pnpm install --frozen-lockfile --ignore-scripts && pnpm build )
   rm -rf "$out"; mkdir -p "$(dirname "$out")"
   cp -R "$src/website/build" "$out"
 }
