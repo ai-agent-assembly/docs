@@ -37,8 +37,8 @@
       "subpath": "node-sdk",
       "doc_dir": "website",
       "channel": "default (lastVersion served at root; baseUrl already /node-sdk/)",
-      "base_url_strategy": "docusaurus.config.ts already sets baseUrl=/node-sdk/, so absolute asset paths are emitted under /node-sdk/. pnpm install --ignore-workspace && pnpm build.",
-      "build": "cd website && pnpm install --ignore-workspace && pnpm build",
+      "base_url_strategy": "docusaurus.config.ts already sets baseUrl=/node-sdk/, so absolute asset paths are emitted under /node-sdk/. pnpm install && pnpm build.",
+      "build": "cd website && pnpm install && pnpm build",
       "out_glob": ["index.html"]
     },
     {
