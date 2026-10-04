@@ -118,6 +118,9 @@ jobs:
       - name: Validate every page's capability_ids against the capability manifest
         run: python3 docs/scripts/validate_capability_ids.py
 
+      - name: Run hosted analytics privacy VM checks
+        run: node docs/scripts/test_analytics_privacy.mjs
+
       - name: Run the claim-vocabulary self-test
         run: python3 docs/scripts/check_claim_vocabulary.py --selftest
 
