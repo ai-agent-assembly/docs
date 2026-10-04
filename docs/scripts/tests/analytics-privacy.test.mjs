@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const head = fs.readFileSync(path.join(root, 'theme/head.hbs'), 'utf8');
 const funnel = fs.readFileSync(path.join(root, 'theme/aa-funnel-events.js'), 'utf8');
 const scripts = [...head.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m => m[1]);
@@ -14,9 +14,9 @@ const context = { dataLayer: calls, window: null, localStorage: { getItem: () =>
 context.window = context;
 vm.createContext(context);
 // Sonar S1523: these are repository-owned constant scripts, never user or network input.
-vm.runInContext(bootstrap, context); // NOSONAR
+vm.runInContext(bootstrap, context);
 context.window.gtag = (...args) => calls.push(args);
-vm.runInContext(funnel, context); // NOSONAR
+vm.runInContext(funnel, context);
 const setIndex = calls.findIndex(x => x[0] === 'set');
 assert.ok(setIndex >= 0);
 const setPayload = calls[setIndex][1];
