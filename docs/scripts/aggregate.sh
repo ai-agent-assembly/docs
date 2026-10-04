@@ -149,21 +149,26 @@ PY
   # assembled, so older public snapshots receive the same fixed analytics
   # identity without changing their product content.
   local hardener="$src/docs/scripts/harden_published_analytics.mjs"
+  local temporary_hardener=""
   if [[ ! -f "$hardener" ]]; then
-    # The hardener is supplied by the reviewed Core change until that change
-    # reaches the default branch; pin the exact reviewed source revision so
-    # aggregation cannot silently use an unreviewed copy.
-    local hardener_ref="ef2998b6675e59028b2048a13c70e628a118ed1c"
+    # Pin the reviewed Core source until its hardener reaches the default branch.
+    local hardener_ref="5f37f5f1e97c089b1199ee170bba807dbca4583a"
     git -C "$src" fetch --quiet origin "$hardener_ref"
-    hardener="$(mktemp "${TMPDIR:-/tmp}/aa-core-hardener.XXXXXX.mjs")"
+    temporary_hardener="$(mktemp "${TMPDIR:-/tmp}/aa-core-hardener.XXXXXX.mjs")"
+    hardener="$temporary_hardener"
     git -C "$src" show "$hardener_ref:docs/scripts/harden_published_analytics.mjs" > "$hardener"
-    hardened_count="$(node "$hardener" "$out" --public-prefix /core/ | awk '/^Hardened analytics identity in [0-9]+ rendered HTML file\(s\)\.$/ {print $5}')"
-    [[ "${hardened_count:-0}" -gt 0 ]] || fail "Core analytics hardener changed no rendered pages"
-    rm -f "$hardener"
-  else
-    hardened_count="$(node "$hardener" "$out" --public-prefix /core/ | awk '/^Hardened analytics identity in [0-9]+ rendered HTML file\(s\)\.$/ {print $5}')"
-    [[ "${hardened_count:-0}" -gt 0 ]] || fail "Core analytics hardener changed no rendered pages"
   fi
+  local hardener_output hardener_status
+  set +e
+  hardener_output="$(node "$hardener" "$out" --public-prefix /core/ 2>&1)"
+  hardener_status=$?
+  set -e
+  [[ -z "$temporary_hardener" ]] || rm -f "$temporary_hardener"
+  printf '%s\n' "$hardener_output"
+  [[ "$hardener_status" -eq 0 ]] || fail "Core analytics hardener failed"
+  local hardened_count
+  hardened_count="$(printf '%s\n' "$hardener_output" | awk '/^Hardened analytics identity in [0-9]+ rendered HTML file\(s\)\.$/ {print $5}')"
+  [[ "${hardened_count:-0}" -gt 0 ]] || fail "Core analytics hardener changed no rendered pages"
 }
 
 build_python() {     # mike-published version tree (gh-pages) -> public/python-sdk (AAASM-3752)
