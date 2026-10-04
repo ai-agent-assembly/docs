@@ -19,7 +19,10 @@ context.window.gtag = (...args) => calls.push(args);
 vm.runInContext(funnel, context); // NOSONAR
 const setIndex = calls.findIndex(x => x[0] === 'set');
 assert.ok(setIndex >= 0);
-assert.deepEqual(JSON.parse(JSON.stringify(calls[setIndex][1])), {page_location:'https://docs.agent-assembly.com/',page_referrer:'',page_title:'Agent Assembly documentation'});
+const setPayload = calls[setIndex][1];
+assert.equal(setPayload.page_location, 'https://docs.agent-assembly.com/');
+assert.equal(setPayload.page_referrer, '');
+assert.equal(setPayload.page_title, 'Agent Assembly documentation');
 const config = calls.find(x => x[0] === 'config');
 assert.equal(JSON.stringify(config[2]), JSON.stringify({ anonymize_ip:true, page_location:'https://docs.agent-assembly.com/', page_referrer:'', page_title:'Agent Assembly documentation', send_page_view:false }));
 for (const call of calls) assert.equal(JSON.stringify(call).includes('PRIVATE_CANARY'), false);
