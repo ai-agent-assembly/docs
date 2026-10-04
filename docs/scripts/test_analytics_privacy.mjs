@@ -10,14 +10,14 @@ const scripts = [...head.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m => m[1
 const bootstrap = scripts.find(s => s.includes("G-EZTLJDFS6J"));
 assert.ok(bootstrap);
 const calls = [];
-const context = { dataLayer: calls, window: null, localStorage: { getItem: () => null }, location: { pathname:'/core/?prompt=PRIVATE_CANARY', href:'https://docs.agent-assembly.com/core/?prompt=PRIVATE_CANARY', hostname:'docs.agent-assembly.com' }, document:{ readyState:'complete', title:'PRIVATE_CANARY', addEventListener(){}, querySelector(){return null;} }, console };
+const context = { dataLayer: calls, window: null, localStorage: { getItem: () => null }, location: { pathname:'/security-model.html', href:'https://docs.agent-assembly.com/core/?prompt=PRIVATE_CANARY', hostname:'docs.agent-assembly.com' }, document:{ readyState:'complete', title:'PRIVATE_CANARY', addEventListener(){}, querySelector(){return null;} }, console };
 context.window = context;
 vm.createContext(context);
 vm.runInContext(bootstrap, context);
-context.window.gtag = context.gtag;
+context.window.gtag = (...args) => calls.push(args);
 vm.runInContext(funnel, context);
 const config = calls.find(x => x[0] === 'config');
 assert.equal(JSON.stringify(config[2]), JSON.stringify({ anonymize_ip:true, page_location:'https://docs.agent-assembly.com/', page_referrer:'', page_title:'Agent Assembly documentation', send_page_view:false }));
 for (const call of calls) assert.equal(JSON.stringify(call).includes('PRIVATE_CANARY'), false);
 assert.ok(calls.some(x => x[0] === 'js'));
-console.log('analytics privacy VM checks passed');
+assert.ok(calls.some(x => x[0] === 'event' && x[1] === 'docs_security_model_view')); console.log('analytics privacy VM checks passed');
