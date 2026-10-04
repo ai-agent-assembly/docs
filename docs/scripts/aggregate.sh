@@ -148,7 +148,20 @@ PY
   # Core-owned privacy hardener after every version and the root redirect are
   # assembled, so older public snapshots receive the same fixed analytics
   # identity without changing their product content.
-  node "$src/docs/scripts/harden_published_analytics.mjs" "$out" --public-prefix /core/
+  local hardener="$src/docs/scripts/harden_published_analytics.mjs"
+  if [[ ! -f "$hardener" ]]; then
+    # The hardener is supplied by the reviewed Core change until that change
+    # reaches the default branch; pin the exact reviewed source revision so
+    # aggregation cannot silently use an unreviewed copy.
+    local hardener_ref="892953782d0b89017750125e9e9e4b9955171891"
+    git -C "$src" fetch --quiet origin "$hardener_ref"
+    hardener="$(mktemp)"
+    git -C "$src" show "$hardener_ref:docs/scripts/harden_published_analytics.mjs" > "$hardener"
+    node "$hardener" "$out" --public-prefix /core/
+    rm -f "$hardener"
+  else
+    node "$hardener" "$out" --public-prefix /core/
+  fi
 }
 
 build_python() {     # mike-published version tree (gh-pages) -> public/python-sdk (AAASM-3752)
