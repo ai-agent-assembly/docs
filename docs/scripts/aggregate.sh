@@ -157,10 +157,12 @@ PY
     git -C "$src" fetch --quiet origin "$hardener_ref"
     hardener="$(mktemp "${TMPDIR:-/tmp}/aa-core-hardener.XXXXXX.mjs")"
     git -C "$src" show "$hardener_ref:docs/scripts/harden_published_analytics.mjs" > "$hardener"
-    node "$hardener" "$out" --public-prefix /core/
+    hardened_count="$(node "$hardener" "$out" --public-prefix /core/ | awk '/^Hardened analytics identity in [0-9]+ rendered HTML file\(s\)\.$/ {print $5}')"
+    [[ "${hardened_count:-0}" -gt 0 ]] || fail "Core analytics hardener changed no rendered pages"
     rm -f "$hardener"
   else
-    node "$hardener" "$out" --public-prefix /core/
+    hardened_count="$(node "$hardener" "$out" --public-prefix /core/ | awk '/^Hardened analytics identity in [0-9]+ rendered HTML file\(s\)\.$/ {print $5}')"
+    [[ "${hardened_count:-0}" -gt 0 ]] || fail "Core analytics hardener changed no rendered pages"
   fi
 }
 
