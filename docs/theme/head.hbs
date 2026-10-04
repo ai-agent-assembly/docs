@@ -20,6 +20,11 @@
     }
   } catch (e) {}
   gtag('js', new Date());
+  gtag('set', {
+    'page_location': 'https://docs.agent-assembly.com/',
+    'page_referrer': '',
+    'page_title': 'Agent Assembly documentation'
+  });
   // Suppress GA's automatic page_view and clear referrer attribution. Events
   // use only the closed vocabulary in aa-funnel-events.js.
   gtag('config', 'G-EZTLJDFS6J', {
