@@ -19,13 +19,7 @@
     }
   } catch (e) {}
   gtag('js', new Date());
-  // Suppress GA's automatic page_view and clear referrer attribution. Events
-  // use only the closed vocabulary in aa-funnel-events.js.
-  gtag('config', 'G-EZTLJDFS6J', {
-    'anonymize_ip': true,
-    'page_referrer': '',
-    'send_page_view': false
-  });
+  gtag('config', 'G-EZTLJDFS6J', { 'anonymize_ip': true });
 </script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-EZTLJDFS6J"></script>
 
@@ -113,12 +107,12 @@
     function sendFeedback(value) {
       // Consent Mode (AAASM-3554) governs whether this hit is stored; fire either way.
       if (typeof gtag === 'function') {
-        gtag('event', 'feedback', { 'value': value, 'page_id': 'docs' });
+        gtag('event', 'feedback', { 'value': value, 'page_path': location.pathname });
       }
     }
     function issueUrl() {
       var title = 'Docs feedback: ' + location.pathname;
-      var body = 'Page: documentation\n\nWhat could be improved?\n';
+      var body = 'Page: ' + location.href + '\n\nWhat could be improved?\n';
       return 'https://github.com/ai-agent-assembly/' + REPO + '/issues/new?labels=docs,feedback'
         + '&title=' + encodeURIComponent(title) + '&body=' + encodeURIComponent(body);
     }

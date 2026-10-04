@@ -17,21 +17,11 @@
   const GITHUB_EXAMPLES = 'github.com/ai-agent-assembly/examples';
   const GITHUB_ISSUE_ANY = /^https?:\/\/github\.com\/ai-agent-assembly\/[^/]+\/issues/;
 
-  // Closed vocabulary: never send raw URL, title, hostname, query, fragment,
-  // or referrer values, which may contain pasted prompts or repository names.
-  function pageId() {
-    const path = location.pathname;
-    if (/quickstart-saas|installation/.test(path)) { return 'installation'; }
-    if (/security-model/.test(path)) { return 'security_model'; }
-    if (/python-sdk/.test(path)) { return 'python_sdk'; }
-    if (/node-sdk/.test(path)) { return 'node_sdk'; }
-    if (/go-sdk/.test(path)) { return 'go_sdk'; }
-    return 'docs';
-  }
-
   function baseParams() {
     return {
-      page_id: pageId(),
+      hostname: location.hostname,
+      page_path: location.pathname,
+      page_title: document.title,
       surface: SURFACE
     };
   }
@@ -116,9 +106,8 @@
 
     const params = {
       cta_location: ctaLocationFor(a),
-      link_domain: /github\.com/.test(a.href) ? 'github'
-        : /agent-assembly\.com/.test(a.href) ? 'agent_assembly'
-          : /horonomy\.dev/.test(a.href) ? 'horonomy' : 'docs',
+      link_url: a.href,
+      link_domain: a.hostname || '',
       target_product: targetProductFor(a.href)
     };
 
