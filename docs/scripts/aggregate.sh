@@ -143,6 +143,12 @@ PY
     python3 docs/ci/build_versions.py latest latest "$out/versions.json" )
 
   cp "$src/docs/site-root-index.html" "$out/index.html"
+
+  # Core publishes historical version artifacts rebuilt from tags. Apply the
+  # Core-owned privacy hardener after every version and the root redirect are
+  # assembled, so older public snapshots receive the same fixed analytics
+  # identity without changing their product content.
+  node "$src/docs/scripts/harden_published_analytics.mjs" "$out" --public-prefix /core/
 }
 
 build_python() {     # mike-published version tree (gh-pages) -> public/python-sdk (AAASM-3752)
