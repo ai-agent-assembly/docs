@@ -13,9 +13,10 @@ const calls = [];
 const context = { dataLayer: calls, window: null, localStorage: { getItem: () => null }, location: { pathname:'/security-model.html', href:'https://docs.agent-assembly.com/core/?prompt=PRIVATE_CANARY', hostname:'docs.agent-assembly.com' }, document:{ readyState:'complete', title:'PRIVATE_CANARY', addEventListener(){}, querySelector(){return null;} }, console };
 context.window = context;
 vm.createContext(context);
-vm.runInContext(bootstrap, context);
+// Sonar S1523: these are repository-owned constant scripts, never user or network input.
+vm.runInContext(bootstrap, context); // NOSONAR
 context.window.gtag = (...args) => calls.push(args);
-vm.runInContext(funnel, context);
+vm.runInContext(funnel, context); // NOSONAR
 const setIndex = calls.findIndex(x => x[0] === 'set');
 assert.ok(setIndex >= 0);
 assert.deepEqual(JSON.parse(JSON.stringify(calls[setIndex][1])), {page_location:'https://docs.agent-assembly.com/',page_referrer:'',page_title:'Agent Assembly documentation'});

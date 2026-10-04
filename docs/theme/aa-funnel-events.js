@@ -114,11 +114,13 @@
     const href = a.getAttribute('href') || '';
     if (!href || href.charAt(0) === '#') { return; }
 
+    let linkDomain = 'docs';
+    if (/github\.com/.test(a.href)) { linkDomain = 'github'; }
+    else if (/agent-assembly\.com/.test(a.href)) { linkDomain = 'agent_assembly'; }
+    else if (/horonomy\.dev/.test(a.href)) { linkDomain = 'horonomy'; }
     const params = {
       cta_location: ctaLocationFor(a),
-      link_domain: /github\.com/.test(a.href) ? 'github'
-        : /agent-assembly\.com/.test(a.href) ? 'agent_assembly'
-          : /horonomy\.dev/.test(a.href) ? 'horonomy' : 'docs',
+      link_domain: linkDomain,
       target_product: targetProductFor(a.href)
     };
 
