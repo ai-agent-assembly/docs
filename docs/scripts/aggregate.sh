@@ -153,7 +153,7 @@ PY
     # The hardener is supplied by the reviewed Core change until that change
     # reaches the default branch; pin the exact reviewed source revision so
     # aggregation cannot silently use an unreviewed copy.
-    local hardener_ref="cc27d8421d76bb27f0dd2a90a9fe680dd9ee9b23"
+    local hardener_ref="ef2998b6675e59028b2048a13c70e628a118ed1c"
     git -C "$src" fetch --quiet origin "$hardener_ref"
     hardener="$(mktemp "${TMPDIR:-/tmp}/aa-core-hardener.XXXXXX.mjs")"
     git -C "$src" show "$hardener_ref:docs/scripts/harden_published_analytics.mjs" > "$hardener"
