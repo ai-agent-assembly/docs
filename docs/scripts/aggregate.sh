@@ -155,7 +155,7 @@ PY
     # aggregation cannot silently use an unreviewed copy.
     local hardener_ref="892953782d0b89017750125e9e9e4b9955171891"
     git -C "$src" fetch --quiet origin "$hardener_ref"
-    hardener="$(mktemp)"
+    hardener="$(mktemp "${TMPDIR:-/tmp}/aa-core-hardener.XXXXXX.mjs")"
     git -C "$src" show "$hardener_ref:docs/scripts/harden_published_analytics.mjs" > "$hardener"
     node "$hardener" "$out" --public-prefix /core/
     rm -f "$hardener"
